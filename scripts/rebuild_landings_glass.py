@@ -1,0 +1,573 @@
+#!/usr/bin/env python3
+"""Rebuild all career landing pages with glassmorphism design (based on Odontologia template)."""
+
+import json
+import os
+import html
+
+DATA_DIR = os.path.join(os.path.dirname(__file__), '..', 'data')
+OUT_DIR = os.path.join(os.path.dirname(__file__), '..', 'pages', 'carreras')
+
+# Hero image mapping per career slug
+HERO_IMAGES = {
+    'odontologia': 'odontologia.jpg',
+    'psicologia': 'psicologia.jpg',
+    'derecho': 'derecho.jpg',
+    'fisioterapia': 'fisioterapia.jpg',
+    'fonoaudiologia': 'fonoaudiologia.jpg',
+    'nutricion': 'nutricion.jpg',
+    'podologia': 'podologia.jpg',
+    'optica-y-contactologia': 'optica.jpg',
+    'ingenieria-en-informatica': 'informatica.jpg',
+    'ingenieria-en-tecnologia-de-alimentos': 'alimentos.jpg',
+    'ingenieria-comercial': 'administracion.jpg',
+    'ingenieria-en-comercio-internacional': 'comercio-internacional.jpg',
+    'ingenieria-en-marketing': 'marketing.jpg',
+    'marketing-y-publicidad': 'marketing.jpg',
+    'periodismo': 'periodismo.jpg',
+    'ciencias-de-la-educacion': 'educacion.jpg',
+    'educacion-parvularia': 'parvularia.jpg',
+    'trabajo-social': 'trabajo-social.jpg',
+    'administracion-publica': 'admin-publica.jpg',
+    'administracion-de-empresas': 'administracion.jpg',
+    'ciencias-contables': 'contabilidad.jpg',
+    'contabilidad-y-auditoria': 'contabilidad.jpg',
+    'contaduria-publica': 'contabilidad.jpg',
+}
+
+# Career name mapping (slug -> display name)
+CAREER_NAMES = {
+    'odontologia': 'Odontología',
+    'psicologia': 'Psicología',
+    'derecho': 'Derecho',
+    'fisioterapia': 'Fisioterapia',
+    'fonoaudiologia': 'Fonoaudiología',
+    'nutricion': 'Nutrición',
+    'podologia': 'Podología',
+    'optica-y-contactologia': 'Óptica y Contactología',
+    'ingenieria-en-informatica': 'Ingeniería en Informática',
+    'ingenieria-en-tecnologia-de-alimentos': 'Ingeniería en Tecnología de Alimentos',
+    'ingenieria-comercial': 'Ingeniería Comercial',
+    'ingenieria-en-comercio-internacional': 'Ingeniería en Comercio Internacional',
+    'ingenieria-en-marketing': 'Ingeniería en Marketing',
+    'marketing-y-publicidad': 'Marketing y Publicidad',
+    'periodismo': 'Periodismo',
+    'ciencias-de-la-educacion': 'Ciencias de la Educación',
+    'educacion-parvularia': 'Educación Parvularia',
+    'trabajo-social': 'Trabajo Social',
+    'administracion-publica': 'Administración Pública',
+    'administracion-de-empresas': 'Administración de Empresas',
+    'ciencias-contables': 'Ciencias Contables',
+    'contabilidad-y-auditoria': 'Contabilidad y Auditoría',
+    'contaduria-publica': 'Contaduría Pública',
+}
+
+def esc(text):
+    """HTML escape text."""
+    if not text:
+        return ''
+    return html.escape(str(text))
+
+def generate_malla_tabs(malla):
+    """Generate malla (curriculum) tabs and panels."""
+    if not malla:
+        return ''
+    semesters = sorted(malla.keys(), key=lambda x: int(x.replace('° semestre', '').replace('° Semestre', '').strip()))
+    
+    tabs_html = '<div class="malla-tabs" id="malla-tabs">\n'
+    panels_html = '<div id="malla-panels">\n'
+    
+    for i, sem in enumerate(semesters):
+        subjects = malla[sem]
+        active = ' active' if i == 0 else ''
+        display = '' if i == 0 else ' style="display:none"'
+        tab_label = sem.replace(' semestre', '° Semestre').replace(' Semestre', '° Semestre')
+        if '°' not in tab_label:
+            num = sem.split('°')[0].strip() if '°' in sem else str(i+1)
+            tab_label = f"{i+1}° Semestre"
+        
+        tabs_html += f'                    <button class="malla-tab{active}" onclick="showSemester({i}, this)">{tab_label}</button>\n'
+        
+        items = '\n'.join(f'<li>{esc(s)}</li>' for s in subjects)
+        panels_html += f'                <div class="malla-panel" data-semester="{i}"{display}><ul>{items}</ul></div>\n'
+    
+    tabs_html += '                </div>\n'
+    panels_html += '                </div>\n'
+    return tabs_html + panels_html
+
+def generate_landing(slug, data):
+    """Generate a complete landing page HTML for a career."""
+    name = CAREER_NAMES.get(slug, slug.replace('-', ' ').title())
+    hero_img = HERO_IMAGES.get(slug, 'general.jpg')
+    titulo = esc(data.get('titulo', name))
+    duracion = esc(data.get('duracion', ''))
+    sede = esc(data.get('sede', 'Central'))
+    descripcion = esc(data.get('descripcion', ''))
+    objetivo = data.get('objetivo', '')
+    campo_laboral = data.get('campo_laboral', '')
+    perfil_egresado = data.get('perfil_egresado', '')
+    mision = data.get('mision', '')
+    vision = data.get('vision', '')
+    a_quien = data.get('a_quien_va_dirigido', '')
+    obj_especificos = data.get('objetivos_especificos', [])
+    comp_disc = data.get('competencias_disciplinarias', [])
+    comp_prof = data.get('competencias_profesionales', [])
+    comp_gen = data.get('competencias_genericas', [])
+    valores = data.get('valores', [])
+    malla = data.get('malla', {})
+    brochure_url = data.get('brochure_url', '')
+    
+    # Hero subtitle: use descripcion, truncated
+    hero_subtitle = descripcion if descripcion else f'Formamos profesionales de excelencia en {name}, comprometidos con el desarrollo del país.'
+    if len(hero_subtitle) > 200:
+        hero_subtitle = hero_subtitle[:197] + '...'
+    
+    # Build sections conditionally
+    sections = ''
+    
+    # 1. Objetivo + Campo Laboral (if any exists)
+    if objetivo or campo_laboral:
+        sections += '\n    <!-- OBJETIVO + CAMPO LABORAL en grid -->\n'
+        sections += '    <section style="padding: 48px 0; background: linear-gradient(180deg, #f0f4f8, #fff);">\n'
+        sections += '        <div class="container">\n'
+        sections += '            <div class="two-col-grid">\n'
+        if objetivo:
+            sections += f'''                <div class="glass-card">
+                    <h2>
+                        <span class="section-icon"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                        Objetivo
+                    </h2>
+                    <p>{esc(objetivo)}</p>
+                </div>\n'''
+        if campo_laboral:
+            sections += f'''                <div class="glass-card">
+                    <h2>
+                        <span class="section-icon"><svg viewBox="0 0 24 24"><path d="M21 13.255A10.008 10.008 0 0112 22c-5.523 0-10-4.477-10-10S6.477 2 12 2a10 10 0 018.744 5.255M16 6l4 0m0 0l0 4m0-4l-4 4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                        Campo Laboral
+                    </h2>
+                    <p>{esc(campo_laboral)}</p>
+                </div>\n'''
+        sections += '            </div>\n        </div>\n    </section>\n'
+    
+    # 2. Perfil del Graduado
+    if perfil_egresado:
+        sections += f'''
+    <!-- PERFIL DEL GRADUADO -->
+    <section style="padding: 48px 0;">
+        <div class="container">
+            <div class="glass-card" style="max-width: 900px; margin: 0 auto;">
+                <h2>
+                    <span class="section-icon"><svg viewBox="0 0 24 24"><path d="M12 14l9-5-9-5-9 5 9 5zm0 7l-9-5 9-5 9 5-9 5zm0-7v7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                    Perfil del Graduado
+                </h2>
+                <p>{esc(perfil_egresado)}</p>
+            </div>
+        </div>
+    </section>\n'''
+    
+    # 3. Misión + Visión (dark section, only if either exists)
+    if mision or vision:
+        sections += '\n    <!-- MISIÓN + VISIÓN -->\n'
+        sections += '    <section class="section-dark" style="padding: 48px 0;">\n'
+        sections += '        <div class="container">\n'
+        sections += '            <div class="two-col-grid">\n'
+        if mision:
+            sections += f'''                <div class="glass-card">
+                    <h2 style="color: white;">
+                        <span class="section-icon" style="background: linear-gradient(135deg, #0066cc, #3399ff);"><svg viewBox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                        Misión
+                    </h2>
+                    <p style="color: rgba(255,255,255,0.9);">{esc(mision)}</p>
+                </div>\n'''
+        if vision:
+            sections += f'''                <div class="glass-card">
+                    <h2 style="color: white;">
+                        <span class="section-icon" style="background: linear-gradient(135deg, #0066cc, #3399ff);"><svg viewBox="0 0 24 24"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                        Visión
+                    </h2>
+                    <p style="color: rgba(255,255,255,0.9);">{esc(vision)}</p>
+                </div>\n'''
+        sections += '            </div>\n        </div>\n    </section>\n'
+    
+    # 4. A quién va dirigido
+    if a_quien:
+        sections += f'''
+    <!-- A QUIÉN VA DIRIGIDO -->
+    <section style="padding: 48px 0; background: #f8fafc;">
+        <div class="container">
+            <div class="glass-card" style="max-width: 800px; margin: 0 auto; border-left: 4px solid #0066cc;">
+                <h2>
+                    <span class="section-icon"><svg viewBox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                    A quién va dirigido
+                </h2>
+                <p>{esc(a_quien)}</p>
+            </div>
+        </div>
+    </section>\n'''
+    
+    # 5. Objetivos Específicos
+    if obj_especificos:
+        items = '\n'.join(f'                    <li>{esc(o)}</li>' for o in obj_especificos)
+        sections += f'''
+    <!-- OBJETIVOS ESPECÍFICOS -->
+    <section style="padding: 48px 0;">
+        <div class="container">
+            <div class="glass-card" style="max-width: 900px; margin: 0 auto;">
+                <h2>
+                    <span class="section-icon"><svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                    Objetivos Específicos
+                </h2>
+                <ul class="check-list">
+{items}
+                </ul>
+            </div>
+        </div>
+    </section>\n'''
+    
+    # 6. Competencias (only if any exist)
+    if comp_disc or comp_prof or comp_gen:
+        sections += '\n    <!-- COMPETENCIAS -->\n'
+        sections += '    <section style="padding: 48px 0; background: linear-gradient(180deg, #f0f4f8, #fff);">\n'
+        sections += '        <div class="container">\n'
+        sections += '            <h2 style="color: #003366; text-align: center; font-size: 1.6rem; margin-bottom: 32px;">Competencias</h2>\n'
+        sections += '            <div class="competencias-grid">\n'
+        if comp_disc:
+            items = '\n'.join(f'                        <li>{esc(c)}</li>' for c in comp_disc)
+            sections += f'''                <div class="competencia-card">
+                    <h3>Disciplinarias</h3>
+                    <ul>
+{items}
+                    </ul>
+                </div>\n'''
+        if comp_prof:
+            items = '\n'.join(f'                        <li>{esc(c)}</li>' for c in comp_prof)
+            sections += f'''                <div class="competencia-card">
+                    <h3>Profesionales</h3>
+                    <ul>
+{items}
+                    </ul>
+                </div>\n'''
+        if comp_gen:
+            items = '\n'.join(f'                        <li>{esc(c)}</li>' for c in comp_gen)
+            sections += f'''                <div class="competencia-card">
+                    <h3>Genéricas</h3>
+                    <ul>
+{items}
+                    </ul>
+                </div>\n'''
+        sections += '            </div>\n        </div>\n    </section>\n'
+    
+    # 7. Valores
+    if valores:
+        cards = '\n'.join(f'                <div class="valor-card"><strong>{esc(v.get("nombre","") if isinstance(v,dict) else v)}</strong><span>{esc(v.get("descripcion","") if isinstance(v,dict) else "")}</span></div>' for v in valores)
+        sections += f'''
+    <!-- VALORES -->
+    <section style="padding: 48px 0;">
+        <div class="container">
+            <h2 style="color: #003366; text-align: center; font-size: 1.6rem; margin-bottom: 32px;">Valores de la Carrera</h2>
+            <div class="valores-grid">
+{cards}
+            </div>
+        </div>
+    </section>\n'''
+    
+    # 8. Plan de Estudios (malla)
+    malla_html = generate_malla_tabs(malla)
+    malla_section = ''
+    if malla:
+        malla_section = f'''
+    <!-- PLAN DE ESTUDIOS -->
+    <section style="padding: 48px 0; background: #f8fafc;">
+        <div class="container">
+            <div class="malla-section">
+                <h2 style="color: #003366; text-align: center; font-size: 1.6rem; margin-bottom: 24px;">Plan de Estudios</h2>
+                {malla_html}
+            </div>
+        </div>
+    </section>\n'''
+    
+    # 9. CTA + Formulario
+    brochure_html = ''
+    if brochure_url:
+        brochure_html = f'\n                <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px;">\n                    <a href="{esc(brochure_url)}" class="brochure-btn-glass" target="_blank" rel="noopener" style="margin-top: 0;">Descargar Brochure</a>\n                </div>'
+    
+    form_placeholder = f'Tus dudas o consultas sobre {name}...'
+    
+    # Build full page
+    html_content = f'''<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{name} - Universidad Autónoma del Paraguay</title>
+    <link rel="stylesheet" href="../../css/uap-refined.css">
+    <style>
+        /* ===== GLASSMORPHISM LANDING STYLES ===== */
+        .career-hero-glass {{ position: relative; min-height: 420px; display: flex; align-items: center; background: linear-gradient(135deg, #003366 0%, #001a33 60%), url('../../images/heroes/{hero_img}') center/cover no-repeat; background-blend-mode: overlay; color: white; overflow: hidden; }}
+        .career-hero-glass::before {{ content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(135deg, rgba(0,51,102,0.92) 0%, rgba(0,102,204,0.78) 50%, rgba(0,51,102,0.88) 100%); z-index: 1; }}
+        .career-hero-glass .container {{ position: relative; z-index: 2; }}
+        .career-hero-glass h1 {{ font-size: 2.8rem; font-weight: 800; margin-bottom: 12px; letter-spacing: -0.5px; }}
+        .career-hero-glass .hero-subtitle {{ font-size: 1.1rem; line-height: 1.7; max-width: 700px; opacity: 0.92; }}
+        .glass-card {{ background: rgba(255,255,255,0.65); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.4); border-radius: 16px; padding: 28px; transition: transform 0.25s ease, box-shadow 0.25s ease; }}
+        .glass-card:hover {{ transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,51,102,0.12); }}
+        .glass-card h2 {{ font-size: 1.35rem; color: #003366; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }}
+        .glass-card h2 .section-icon {{ width: 32px; height: 32px; background: linear-gradient(135deg, #003366, #0066cc); border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }}
+        .glass-card h2 .section-icon svg {{ width: 18px; height: 18px; stroke: white; fill: none; stroke-width: 2; }}
+        .glass-card p, .glass-card ul {{ color: #374151; line-height: 1.75; font-size: 0.95rem; }}
+        .section-dark {{ background: linear-gradient(135deg, #003366 0%, #001a33 100%); color: white; }}
+        .section-dark .glass-card {{ background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; }}
+        .section-dark .glass-card h2 {{ color: white; }}
+        .section-dark .glass-card p, .section-dark .glass-card ul {{ color: rgba(255,255,255,0.9); }}
+        .info-pills {{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 32px; }}
+        .info-pill {{ background: rgba(255,255,255,0.12); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 16px 20px; text-align: center; }}
+        .info-pill .pill-label {{ font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; opacity: 0.7; margin-bottom: 4px; }}
+        .info-pill .pill-value {{ font-size: 1.15rem; font-weight: 700; }}
+        .malla-section {{ background: #f8fafc; border-radius: 16px; padding: 32px; }}
+        .malla-tabs {{ display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }}
+        .malla-tab {{ padding: 10px 20px; border: 1px solid #d1d5db; background: white; color: #003366; border-radius: 50px; cursor: pointer; font-size: 0.85rem; font-weight: 600; transition: all 0.2s; }}
+        .malla-tab:hover {{ background: #e8edf2; }}
+        .malla-tab.active {{ background: linear-gradient(135deg, #003366, #0066cc); color: white; border-color: transparent; }}
+        .malla-panel ul {{ list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; }}
+        .malla-panel li {{ padding: 12px 18px; background: white; border-radius: 10px; font-size: 0.9rem; border-left: 3px solid #0066cc; box-shadow: 0 1px 3px rgba(0,0,0,0.06); transition: transform 0.15s; }}
+        .malla-panel li:hover {{ transform: translateX(4px); }}
+        .cta-section {{ background: linear-gradient(135deg, #003366 0%, #0066cc 100%); border-radius: 20px; padding: 48px; color: white; text-align: center; margin: 48px 0; }}
+        .cta-section h2 {{ font-size: 2rem; margin-bottom: 8px; }}
+        .cta-section p {{ opacity: 0.85; margin-bottom: 28px; }}
+        .glass-form {{ background: rgba(255,255,255,0.12); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.25); border-radius: 16px; padding: 28px; }}
+        .glass-form input, .glass-form textarea {{ width: 100%; padding: 14px 18px; border: 1px solid rgba(255,255,255,0.3); border-radius: 10px; background: rgba(255,255,255,0.1); color: white; font-size: 0.95rem; margin-bottom: 14px; }}
+        .glass-form input::placeholder, .glass-form textarea::placeholder {{ color: rgba(255,255,255,0.5); }}
+        .glass-form input:focus, .glass-form textarea:focus {{ outline: none; border-color: rgba(255,255,255,0.6); background: rgba(255,255,255,0.15); }}
+        .glass-form label {{ font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.7; display: block; margin-bottom: 4px; }}
+        .btn-glass {{ background: white; color: #003366; border: none; padding: 14px 32px; border-radius: 50px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: all 0.25s; }}
+        .btn-glass:hover {{ background: #f0f4f8; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }}
+        .brochure-btn-glass {{ display: inline-flex; align-items: center; gap: 8px; background: white; color: #003366; border: none; padding: 14px 28px; border-radius: 50px; font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: all 0.25s; text-decoration: none; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }}
+        .brochure-btn-glass:hover {{ background: #f0f4f8; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.25); }}
+        .competencias-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }}
+        .competencia-card {{ background: rgba(255,255,255,0.65); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.4); border-radius: 12px; padding: 20px; }}
+        .competencia-card h3 {{ font-size: 0.95rem; color: #003366; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 2px solid rgba(0,51,102,0.15); }}
+        .competencia-card ul {{ list-style: none; padding: 0; }}
+        .competencia-card li {{ padding: 6px 0; font-size: 0.88rem; color: #374151; padding-left: 18px; position: relative; }}
+        .competencia-card li::before {{ content: ''; position: absolute; left: 0; top: 12px; width: 6px; height: 6px; border-radius: 50%; background: #0066cc; }}
+        .check-list {{ list-style: none; padding: 0; }}
+        .check-list li {{ padding: 10px 0 10px 32px; position: relative; color: #374151; line-height: 1.6; }}
+        .check-list li::before {{ content: ''; position: absolute; left: 0; top: 14px; width: 18px; height: 18px; background: linear-gradient(135deg, #003366, #0066cc); border-radius: 50%; }}
+        .check-list li::after {{ content: '\\2713'; position: absolute; left: 4px; top: 12px; color: white; font-size: 11px; font-weight: 700; }}
+        .two-col-grid {{ display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }}
+        .valores-grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }}
+        .valor-card {{ background: rgba(255,255,255,0.65); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.4); border-radius: 12px; padding: 16px 20px; }}
+        .valor-card strong {{ color: #003366; font-size: 0.92rem; display: block; margin-bottom: 4px; }}
+        .valor-card span {{ font-size: 0.85rem; color: #4b5563; line-height: 1.5; }}
+        .footer-grid {{ display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 30px; margin-bottom: 30px; }}
+        @media (max-width: 768px) {{ .career-hero-glass {{ min-height: 320px; padding: 40px 0; }} .career-hero-glass h1 {{ font-size: 1.75rem; }} .career-hero-glass .hero-subtitle {{ font-size: 0.9rem; line-height: 1.5; }} .info-pills {{ grid-template-columns: 1fr; gap: 10px; }} .info-pill {{ padding: 12px 16px; }} .info-pill .pill-value {{ font-size: 1rem; }} .glass-card {{ padding: 20px; }} .cta-section {{ padding: 32px 20px; }} .malla-tabs {{ gap: 6px; }} .malla-tab {{ padding: 8px 14px; font-size: 0.8rem; }} .malla-panel ul {{ grid-template-columns: 1fr; }} .malla-panel li {{ padding: 10px 14px; font-size: 0.85rem; }} .malla-section {{ padding: 20px 16px; }} .competencias-grid {{ grid-template-columns: 1fr; }} .two-col-grid {{ grid-template-columns: 1fr; }} .valores-grid {{ grid-template-columns: 1fr; }} .footer-grid {{ grid-template-columns: 1fr !important; gap: 20px; }} }}
+        @media (max-width: 480px) {{ .career-hero-glass h1 {{ font-size: 1.4rem; }} .career-hero-glass .hero-subtitle {{ font-size: 0.85rem; }} .info-pill .pill-label {{ font-size: 0.7rem; }} .info-pill .pill-value {{ font-size: 0.9rem; }} .glass-card h2 {{ font-size: 1.15rem; }} .glass-card p, .glass-card ul {{ font-size: 0.88rem; }} .cta-section h2 {{ font-size: 1.5rem; }} .brochure-btn-glass {{ padding: 10px 20px; font-size: 0.85rem; }} }}
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header" style="position: relative;">
+        <div class="container header-inner">
+            <a href="../../index.html" class="logo">
+                <img src="../../images/logo-uap.png" alt="UAP - Universidad Autónoma del Paraguay" class="logo-img">
+            </a>
+            <button class="mobile-menu-btn" onclick="document.querySelector('.nav').classList.toggle('active')">&#9776;</button>
+            <nav>
+                <ul class="nav">
+                    <li><a href="../../index.html">Inicio</a></li>
+                    <li class="dropdown">
+                        <a href="../carreras.html">Carreras</a>
+                        <div class="dropdown-content careers-dropdown">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--space-2);">
+                                <div>
+                                    <div class="dropdown-faculty">Ciencias Médicas y de la Salud</div>
+                                    <a href="odontologia.html">Odontología</a>
+                                    <a href="fisioterapia.html">Fisioterapia</a>
+                                    <a href="fonoaudiologia.html">Fonoaudiología</a>
+                                    <a href="psicologia.html">Psicología</a>
+                                    <a href="nutricion.html">Nutrición</a>
+                                    <a href="podologia.html">Podología</a>
+                                    <a href="optica-y-contactologia.html">Óptica y Contactología</a>
+                                </div>
+                                <div>
+                                    <div class="dropdown-faculty">Ingenierías y Tecnologías</div>
+                                    <a href="ingenieria-en-informatica.html">Ingeniería en Informática</a>
+                                    <a href="ingenieria-en-tecnologia-de-alimentos.html">Ingeniería en Tecnología de Alimentos</a>
+                                    <a href="ingenieria-comercial.html">Ingeniería Comercial</a>
+                                    <a href="ingenieria-en-comercio-internacional.html">Ingeniería en Comercio Internacional</a>
+                                    <a href="ingenieria-en-marketing.html">Ingeniería en Marketing</a>
+                                </div>
+                                <div>
+                                    <div class="dropdown-faculty">Ciencias Sociales y Humanas</div>
+                                    <a href="marketing-y-publicidad.html">Marketing y Publicidad</a>
+                                    <a href="periodismo.html">Periodismo</a>
+                                    <a href="ciencias-de-la-educacion.html">Ciencias de la Educación</a>
+                                    <a href="educacion-parvularia.html">Educación Parvularia</a>
+                                    <a href="derecho.html">Derecho</a>
+                                    <a href="trabajo-social.html">Trabajo Social</a>
+                                    <a href="administracion-publica.html">Administración Pública</a>
+                                    <a href="administracion-de-empresas.html">Administración de Empresas</a>
+                                    <a href="ciencias-contables.html">Ciencias Contables</a>
+                                    <a href="contabilidad-y-auditoria.html">Contabilidad y Auditoría</a>
+                                    <a href="contaduria-publica.html">Contaduría Pública</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="../posgrados.html">Posgrados</a>
+                        <div class="dropdown-content">
+                            <div class="dropdown-faculty">Facultad de Ciencias Médicas y de la Salud</div>
+                            <a href="../posgrados.html#odontologicas">Odontología</a>
+                            <div class="dropdown-faculty">Facultad de Ciencias Sociales y Humanas</div>
+                            <a href="../posgrados.html#educacion">Educación</a>
+                            <a href="../posgrados.html#psicologia">Psicología</a>
+                        </div>
+                    </li>
+                    <li><a href="../noticias.html">Noticias</a></li>
+                    <li class="dropdown">
+                        <a href="../institucional.html">Institucional</a>
+                        <div class="dropdown-content">
+                            <a href="../institucional.html">Misión, Visión y Valores</a>
+                            <a href="../institucional.html#autoridades">Autoridades</a>
+                            <a href="../institucional.html#convenios">Convenios</a>
+                            <a href="../institucional.html#reglamentos">Reglamentos</a>
+                        </div>
+                    </li>
+                    <li><a href="../investigacion.html">Investigación</a></li>
+                    <li><a href="../estudiantes.html">Estudiantes</a></li>
+                    <li><a href="../contacto.html">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="career-hero-glass">
+        <div class="container">
+            <h1>{name}</h1>
+            <p class="hero-subtitle">{esc(hero_subtitle)}</p>
+            {brochure_html}
+            <div class="info-pills">
+                <div class="info-pill">
+                    <div class="pill-label">Título</div>
+                    <div class="pill-value">{titulo}</div>
+                </div>
+                <div class="info-pill">
+                    <div class="pill-label">Duración</div>
+                    <div class="pill-value">{duracion}</div>
+                </div>
+                <div class="info-pill">
+                    <div class="pill-label">Sede</div>
+                    <div class="pill-value">{sede}</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{sections}
+{malla_section}
+    <!-- FORMULARIO DE CONTACTO -->
+    <section class="cta-section">
+        <div class="container" style="max-width: 640px;">
+            <h2 style="color: white; text-align: center; border: none;">Solicita información</h2>
+            <p style="color: rgba(255,255,255,0.85); text-align: center; margin-bottom: 28px;">Completa el formulario y un asesor se contactará contigo.</p>
+            <div class="glass-form">
+                <form onsubmit="event.preventDefault(); alert('¡Gracias! Nos contactaremos contigo pronto.');">
+                    <label>Nombre completo *</label>
+                    <input type="text" placeholder="Tu nombre completo" required>
+                    <label>Email *</label>
+                    <input type="email" placeholder="tu@email.com" required>
+                    <label>Teléfono *</label>
+                    <input type="tel" placeholder="+595 9XX XXX XXX" required>
+                    <label>Mensaje</label>
+                    <textarea rows="3" placeholder="{esc(form_placeholder)}"></textarea>
+                    <button type="submit" class="btn-glass" style="width: 100%;">Enviar consulta</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer style="background: #003366; color: white; padding: 40px 0 20px; margin-top: 0;">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <a href="../../index.html"><img src="../../images/logo-white.png" alt="UAP" style="height: 40px; margin-bottom: 12px;"></a>
+                    <p style="opacity: 0.8; font-size: 14px;">Universidad Autónoma del Paraguay.<br>Comprometidos con la excelencia académica.</p>
+                    <p style="opacity: 0.6; font-size: 13px; margin-top: 12px;">Colón No 658 e/Haedo, Asunción<br>+595 21 447 579<br>info@uap.edu.py</p>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 12px; font-size: 14px;">Carreras</h4>
+                    <ul style="list-style: none; font-size: 13px; opacity: 0.7;">
+                        <li><a href="odontologia.html" style="color: white; text-decoration: none;">Odontología</a></li>
+                        <li><a href="derecho.html" style="color: white; text-decoration: none;">Derecho</a></li>
+                        <li><a href="psicologia.html" style="color: white; text-decoration: none;">Psicología</a></li>
+                        <li><a href="../carreras.html" style="color: white; text-decoration: none;">Ver todas</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 12px; font-size: 14px;">Posgrados</h4>
+                    <ul style="list-style: none; font-size: 13px; opacity: 0.7;">
+                        <li><a href="../posgrados.html" style="color: white; text-decoration: none;">Maestrías</a></li>
+                        <li><a href="../posgrados.html" style="color: white; text-decoration: none;">Especializaciones</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 12px; font-size: 14px;">Institucional</h4>
+                    <ul style="list-style: none; font-size: 13px; opacity: 0.7;">
+                        <li><a href="../institucional.html" style="color: white; text-decoration: none;">Sobre la UAP</a></li>
+                        <li><a href="../institucional.html#autoridades" style="color: white; text-decoration: none;">Autoridades</a></li>
+                        <li><a href="../contacto.html" style="color: white; text-decoration: none;">Contacto</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div style="border-top: 1px solid rgba(255,255,255,0.2); padding-top: 20px; text-align: center; font-size: 13px; opacity: 0.6;">
+                Universidad Autónoma del Paraguay &copy; 2026
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function showSemester(idx, btn) {{
+            document.querySelectorAll('.malla-panel').forEach(p => p.style.display = 'none');
+            document.querySelectorAll('.malla-tab').forEach(t => t.classList.remove('active'));
+            document.querySelector('.malla-panel[data-semester="' + idx + '"]').style.display = 'block';
+            btn.classList.add('active');
+        }}
+    </script>
+</body>
+</html>'''
+    
+    return html_content
+
+
+def main():
+    # Load all career data
+    data_dir = os.path.abspath(DATA_DIR)
+    out_dir = os.path.abspath(OUT_DIR)
+    
+    count = 0
+    for filename in sorted(os.listdir(data_dir)):
+        if not filename.startswith('carrera_') or not filename.endswith('.json'):
+            continue
+        
+        slug = filename.replace('carrera_', '').replace('.json', '')
+        # contaduria-publica now has data, process it normally
+        
+        filepath = os.path.join(data_dir, filename)
+        with open(filepath, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        
+        html = generate_landing(slug, data)
+        
+        out_path = os.path.join(out_dir, f'{slug}.html')
+        with open(out_path, 'w', encoding='utf-8') as f:
+            f.write(html)
+        
+        print(f'OK: {slug} -> {out_path}')
+        count += 1
+    
+    print(f'\nGenerated {count} landing pages.')
+
+
+if __name__ == '__main__':
+    main()

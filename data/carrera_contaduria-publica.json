@@ -1,20 +1,21 @@
 {
+  "slug": "contaduria-publica",
   "titulo": "Contaduría Pública",
-  "duracion": "",
-  "sede": "",
-  "descripcion": "",
-  "objetivo": "",
-  "objetivos_especificos": [],
-  "a_quien_va_dirigido": "",
-  "campo_laboral": "",
-  "perfil_egresado": "",
-  "competencias_disciplinarias": [],
-  "competencias_profesionales": [],
-  "competencias_genericas": [],
-  "mision": "",
-  "vision": "",
-  "valores": [],
-  "definicion_profesional": "",
-  "malla": {},
-  "brochure_url": ""
+  "titulo_largo": "Licenciatura en Contaduría Pública",
+  "duracion": "8 Semestres",
+  "sede": "Central",
+  "descripcion": "La Licenciatura en Contaduría Pública de la Universidad Autónoma del Paraguay está orientada a la formación de profesionales capaces de gestionar y supervisar procesos contables, financieros y administrativos en organizaciones públicas, privadas y del tercer sector. El plan de estudios integra conocimientos teóricos y prácticos en contabilidad, auditoría, finanzas, legislación y tecnologías de la información, promoviendo el pensamiento crítico, el compromiso ético y la responsabilidad social. A través de una formación sólida y actualizada, la carrera prepara a los estudiantes para desempeñar funciones clave en la gestión organizacional, la toma de decisiones y el control interno, en un contexto nacional e internacional.",
+  "objetivo": "Formar profesionales íntegros y competentes en el campo de la contaduría pública, con sólidos conocimientos en contabilidad, auditoría, finanzas, administración y legislación vigente, capaces de generar, analizar e interpretar información financiera y contable para la toma de decisiones estratégicas en organizaciones públicas, privadas y sociales, con responsabilidad ética, pensamiento crítico y compromiso con el desarrollo sustentable.",
+  "campo_laboral": "El egresado en Contaduría Pública podrá desempeñarse en organismos públicos, empresas privadas, organizaciones sin fines de lucro, estudios contables y consultorías, tanto a nivel nacional como internacional. Estará habilitado para ejercer como contador general, auditor interno o externo, analista financiero, asesor tributario, gerente administrativo-contable, responsable de presupuestos y costos, o como profesional independiente. Además, podrá liderar proyectos contables, implementar sistemas de información financiera, participar en procesos de control interno y fiscalización, así como contribuir en la toma de decisiones estratégicas, promoviendo la eficiencia, la transparencia y la sostenibilidad organizacional.",
+  "perfil_egresado": "El egresado de la Licenciatura en Contaduría Pública será un profesional capaz de generar y analizar información contable y financiera, auditar procesos administrativos, diseñar estrategias de gestión y asesorar en la toma de decisiones organizacionales. Se distinguirá por su pensamiento crítico, actitud ética, responsabilidad social y capacidad para adaptarse a contextos dinámicos.",
+  "malla": {
+    "1": ["Administración General", "Guaraní", "Introducción a la Comercialización", "Teorías Económicas", "Comunicación Oral y Escrita"],
+    "2": ["Contabilidad General I", "Matemática Fundamental", "Organización, Sistemas y Métodos", "Inglés", "Tecnología de la Información y la Comunicación"],
+    "3": ["Contabilidad General II", "Matemática Aplicada", "Microeconomía", "Comportamiento Organizacional", "Administración de Empresas y Organizaciones"],
+    "4": ["Lógica Matemática", "Contabilidad de Costos, Precios y Cotizaciones", "Contabilidad Financiera", "Macroeconomía", "Diseño de Sistemas de la Información"],
+    "5": ["Matemática Financiera", "Legislación Civil, Comercial y Laboral", "Contabilidad Gubernamental y de la Gestión", "Optativa I", "Informática Aplicada a la Contabilidad"],
+    "6": ["Estados Contables", "Administración de Recursos Humanos", "Probabilidad y Estadística", "Legislación Aduanera y Tributaria", "Optativa II"],
+    "7": ["Sistema de Información Gerencial", "Auditoría en Informática", "Gabinete Contable I", "Metodología de la Investigación", "Auditoría Gubernamental"],
+    "8": ["Gabinete Contable II", "Auditoría de la Gestión Administrativa", "Finanzas Operativas y Estratégicas", "Formulación y Evaluación de Proyectos", "Ejercicio Profesional de la Contabilidad", "Trabajo de Grado"]
+  }
 }

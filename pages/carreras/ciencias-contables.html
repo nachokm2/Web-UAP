@@ -3,161 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ciencias Contables - UAP</title>
+    <title>Ciencias Contables - Universidad Autónoma del Paraguay</title>
     <link rel="stylesheet" href="../../css/uap-refined.css">
     <style>
-        .career-hero {
-            background: linear-gradient(135deg, #003366 0%, #0066cc 100%);
-            color: white;
-            padding: 60px 0 40px;
-        }
-        .career-hero h1 {
-            font-size: 36px;
-            margin-bottom: 12px;
-        }
-        .career-hero p {
-            font-size: 16px;
-            opacity: 0.9;
-            max-width: 700px;
-            line-height: 1.6;
-        }
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 16px;
-            margin: 32px 0;
-        }
-        .info-card {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            border-left: 3px solid #003366;
-        }
-        .info-card h3 {
-            color: #003366;
-            font-size: 12px;
-            text-transform: uppercase;
-            margin-bottom: 4px;
-        }
-        .info-card p {
-            color: #333;
-            font-weight: 600;
-        }
-        .profile-section {
-            background: #f5f5f5;
-            padding: 32px;
-            border-radius: 8px;
-            margin: 32px 0;
-        }
-        .profile-section p {
-            line-height: 1.7;
-        }
-        .profile-section ul li {
-            padding: 8px 0;
-            color: #555;
-            line-height: 1.5;
-        }
-        .contact-form {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            margin: 24px 0;
-        }
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
-        .form-group.full {
-            grid-column: 1 / -1;
-        }
-        .form-group label {
-            font-size: 13px;
-            font-weight: 600;
-            margin-bottom: 4px;
-            color: #555;
-        }
-        .form-group input,
-        .form-group textarea {
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            font-size: 14px;
-        }
-        .btn-submit {
-            grid-column: 1 / -1;
-            background: #003366;
-            color: white;
-            border: none;
-            padding: 14px;
-            border-radius: 6px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        .btn-submit:hover {
-            background: #0066cc;
-        }
-        .brochure-btn {
-            display: inline-block;
-            background: white;
-            color: #003366;
-            border: 2px solid #003366;
-            padding: 12px 24px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 600;
-            margin: 24px 0;
-            transition: all 0.2s;
-        }
-        .brochure-btn:hover {
-            background: #003366;
-            color: white;
-        }
-        
-        .malla-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
-        .malla-tab { padding: 8px 16px; border: 1px solid #003366; background: white; color: #003366; border-radius: 6px; cursor: pointer; font-size: 13px; }
-        .malla-tab.active { background: #003366; color: white; }
-        .malla-panel ul { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 8px; }
-        .malla-panel li { padding: 10px 16px; background: #f5f5f5; border-radius: 6px; font-size: 14px; border-left: 3px solid #003366; }
-        @media (max-width: 768px) { .malla-tab { font-size: 12px; padding: 6px 12px; } .malla-panel ul { grid-template-columns: 1fr; } }
-    
-        @media (max-width: 768px) {
-            .career-hero { padding: 40px 0 30px; }
-            .career-hero h1 { font-size: 28px; }
-            .contact-form { grid-template-columns: 1fr; }
-            .info-grid { grid-template-columns: 1fr; }
-            .profile-section { padding: 20px; }
-        }
-        .nav.active {
-            display: flex !important;
-            flex-direction: column;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            width: 100%;
-            background: white;
-            padding: 20px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            z-index: 1000;
-        }
-        .nav.active li {
-            margin: 10px 0;
-        }
-        .nav.active a {
-            color: #003366 !important;
-            font-size: 16px;
-        }
+        /* ===== GLASSMORPHISM LANDING STYLES ===== */
+        .career-hero-glass { position: relative; min-height: 420px; display: flex; align-items: center; background: linear-gradient(135deg, #003366 0%, #001a33 60%), url('../../images/heroes/contabilidad.jpg') center/cover no-repeat; background-blend-mode: overlay; color: white; overflow: hidden; }
+        .career-hero-glass::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(135deg, rgba(0,51,102,0.92) 0%, rgba(0,102,204,0.78) 50%, rgba(0,51,102,0.88) 100%); z-index: 1; }
+        .career-hero-glass .container { position: relative; z-index: 2; }
+        .career-hero-glass h1 { font-size: 2.8rem; font-weight: 800; margin-bottom: 12px; letter-spacing: -0.5px; }
+        .career-hero-glass .hero-subtitle { font-size: 1.1rem; line-height: 1.7; max-width: 700px; opacity: 0.92; }
+        .glass-card { background: rgba(255,255,255,0.65); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.4); border-radius: 16px; padding: 28px; transition: transform 0.25s ease, box-shadow 0.25s ease; }
+        .glass-card:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,51,102,0.12); }
+        .glass-card h2 { font-size: 1.35rem; color: #003366; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+        .glass-card h2 .section-icon { width: 32px; height: 32px; background: linear-gradient(135deg, #003366, #0066cc); border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .glass-card h2 .section-icon svg { width: 18px; height: 18px; stroke: white; fill: none; stroke-width: 2; }
+        .glass-card p, .glass-card ul { color: #374151; line-height: 1.75; font-size: 0.95rem; }
+        .section-dark { background: linear-gradient(135deg, #003366 0%, #001a33 100%); color: white; }
+        .section-dark .glass-card { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; }
+        .section-dark .glass-card h2 { color: white; }
+        .section-dark .glass-card p, .section-dark .glass-card ul { color: rgba(255,255,255,0.9); }
+        .info-pills { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 32px; }
+        .info-pill { background: rgba(255,255,255,0.12); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 16px 20px; text-align: center; }
+        .info-pill .pill-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; opacity: 0.7; margin-bottom: 4px; }
+        .info-pill .pill-value { font-size: 1.15rem; font-weight: 700; }
+        .malla-section { background: #f8fafc; border-radius: 16px; padding: 32px; }
+        .malla-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+        .malla-tab { padding: 10px 20px; border: 1px solid #d1d5db; background: white; color: #003366; border-radius: 50px; cursor: pointer; font-size: 0.85rem; font-weight: 600; transition: all 0.2s; }
+        .malla-tab:hover { background: #e8edf2; }
+        .malla-tab.active { background: linear-gradient(135deg, #003366, #0066cc); color: white; border-color: transparent; }
+        .malla-panel ul { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; }
+        .malla-panel li { padding: 12px 18px; background: white; border-radius: 10px; font-size: 0.9rem; border-left: 3px solid #0066cc; box-shadow: 0 1px 3px rgba(0,0,0,0.06); transition: transform 0.15s; }
+        .malla-panel li:hover { transform: translateX(4px); }
+        .cta-section { background: linear-gradient(135deg, #003366 0%, #0066cc 100%); border-radius: 20px; padding: 48px; color: white; text-align: center; margin: 48px 0; }
+        .cta-section h2 { font-size: 2rem; margin-bottom: 8px; }
+        .cta-section p { opacity: 0.85; margin-bottom: 28px; }
+        .glass-form { background: rgba(255,255,255,0.12); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.25); border-radius: 16px; padding: 28px; }
+        .glass-form input, .glass-form textarea { width: 100%; padding: 14px 18px; border: 1px solid rgba(255,255,255,0.3); border-radius: 10px; background: rgba(255,255,255,0.1); color: white; font-size: 0.95rem; margin-bottom: 14px; }
+        .glass-form input::placeholder, .glass-form textarea::placeholder { color: rgba(255,255,255,0.5); }
+        .glass-form input:focus, .glass-form textarea:focus { outline: none; border-color: rgba(255,255,255,0.6); background: rgba(255,255,255,0.15); }
+        .glass-form label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.7; display: block; margin-bottom: 4px; }
+        .btn-glass { background: white; color: #003366; border: none; padding: 14px 32px; border-radius: 50px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: all 0.25s; }
+        .btn-glass:hover { background: #f0f4f8; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
+        .brochure-btn-glass { display: inline-flex; align-items: center; gap: 8px; background: white; color: #003366; border: none; padding: 14px 28px; border-radius: 50px; font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: all 0.25s; text-decoration: none; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        .brochure-btn-glass:hover { background: #f0f4f8; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.25); }
+        .competencias-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .competencia-card { background: rgba(255,255,255,0.65); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.4); border-radius: 12px; padding: 20px; }
+        .competencia-card h3 { font-size: 0.95rem; color: #003366; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 2px solid rgba(0,51,102,0.15); }
+        .competencia-card ul { list-style: none; padding: 0; }
+        .competencia-card li { padding: 6px 0; font-size: 0.88rem; color: #374151; padding-left: 18px; position: relative; }
+        .competencia-card li::before { content: ''; position: absolute; left: 0; top: 12px; width: 6px; height: 6px; border-radius: 50%; background: #0066cc; }
+        .check-list { list-style: none; padding: 0; }
+        .check-list li { padding: 10px 0 10px 32px; position: relative; color: #374151; line-height: 1.6; }
+        .check-list li::before { content: ''; position: absolute; left: 0; top: 14px; width: 18px; height: 18px; background: linear-gradient(135deg, #003366, #0066cc); border-radius: 50%; }
+        .check-list li::after { content: '\2713'; position: absolute; left: 4px; top: 12px; color: white; font-size: 11px; font-weight: 700; }
+        .two-col-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        .valores-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+        .valor-card { background: rgba(255,255,255,0.65); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.4); border-radius: 12px; padding: 16px 20px; }
+        .valor-card strong { color: #003366; font-size: 0.92rem; display: block; margin-bottom: 4px; }
+        .valor-card span { font-size: 0.85rem; color: #4b5563; line-height: 1.5; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 30px; margin-bottom: 30px; }
+        @media (max-width: 768px) { .career-hero-glass { min-height: 320px; padding: 40px 0; } .career-hero-glass h1 { font-size: 1.75rem; } .career-hero-glass .hero-subtitle { font-size: 0.9rem; line-height: 1.5; } .info-pills { grid-template-columns: 1fr; gap: 10px; } .info-pill { padding: 12px 16px; } .info-pill .pill-value { font-size: 1rem; } .glass-card { padding: 20px; } .cta-section { padding: 32px 20px; } .malla-tabs { gap: 6px; } .malla-tab { padding: 8px 14px; font-size: 0.8rem; } .malla-panel ul { grid-template-columns: 1fr; } .malla-panel li { padding: 10px 14px; font-size: 0.85rem; } .malla-section { padding: 20px 16px; } .competencias-grid { grid-template-columns: 1fr; } .two-col-grid { grid-template-columns: 1fr; } .valores-grid { grid-template-columns: 1fr; } .footer-grid { grid-template-columns: 1fr !important; gap: 20px; } }
+        @media (max-width: 480px) { .career-hero-glass h1 { font-size: 1.4rem; } .career-hero-glass .hero-subtitle { font-size: 0.85rem; } .info-pill .pill-label { font-size: 0.7rem; } .info-pill .pill-value { font-size: 0.9rem; } .glass-card h2 { font-size: 1.15rem; } .glass-card p, .glass-card ul { font-size: 0.88rem; } .cta-section h2 { font-size: 1.5rem; } .brochure-btn-glass { padding: 10px 20px; font-size: 0.85rem; } }
     </style>
 </head>
 <body>
+    <!-- HEADER -->
     <header class="header" style="position: relative;">
         <div class="container header-inner">
-            <a href="../index.html" class="logo">
+            <a href="../../index.html" class="logo">
                 <img src="../../images/logo-uap.png" alt="UAP - Universidad Autónoma del Paraguay" class="logo-img">
             </a>
-            <button class="mobile-menu-btn" onclick="document.querySelector('.nav').classList.toggle('active')">☰</button>
+            <button class="mobile-menu-btn" onclick="document.querySelector('.nav').classList.toggle('active')">&#9776;</button>
             <nav>
                 <ul class="nav">
-                    <li><a href="../index.html" >Inicio</a></li>
+                    <li><a href="../../index.html">Inicio</a></li>
                     <li class="dropdown">
                         <a href="../carreras.html">Carreras</a>
                         <div class="dropdown-content careers-dropdown">
@@ -225,172 +144,159 @@
         </div>
     </header>
 
-    <main class="page">
-        <div class="career-hero">
-            <div class="container">
-                <h1>Ciencias Contables</h1>
-                <p>La Licenciatura en Ciencias Contables de la Universidad Autónoma del Paraguay brinda una formación integral en contabilidad, finanzas, auditoría y gestión organizacional, con énfasis en el uso de herramientas tecnológicas y el pensamiento crítico. Está orientada al desarrollo de profesionales capaces de generar, interpretar y aplicar información contable para la toma de decisiones estratégicas en organizaciones públicas y privadas. La carrera incorpora una sólida base en ciencias económicas y administrativas, ética profesional y responsabilidad social, permitiendo a los egresados contribuir al desarrollo sostenible y a la transparencia financiera en diversos sectores.</p>
+    <!-- HERO -->
+    <section class="career-hero-glass">
+        <div class="container">
+            <h1>Ciencias Contables</h1>
+            <p class="hero-subtitle">La Licenciatura en Ciencias Contables de la Universidad Autónoma del Paraguay brinda una formación integral en contabilidad, finanzas, auditoría y gestión organizacional, con énfasis en el uso de h...</p>
+            
+                <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px;">
+                    <a href="https://uap.edu.py/wp-content/uploads/2025/06/Licenciatura-en-ciencias-contables-Brochure-UAP.pdf" class="brochure-btn-glass" target="_blank" rel="noopener" style="margin-top: 0;">Descargar Brochure</a>
+                </div>
+            <div class="info-pills">
+                <div class="info-pill">
+                    <div class="pill-label">Título</div>
+                    <div class="pill-value">Ciencias Contables</div>
+                </div>
+                <div class="info-pill">
+                    <div class="pill-label">Duración</div>
+                    <div class="pill-value">8 Semestres</div>
+                </div>
+                <div class="info-pill">
+                    <div class="pill-label">Sede</div>
+                    <div class="pill-value">Central</div>
+                </div>
             </div>
         </div>
+    </section>
 
+
+    <!-- OBJETIVO + CAMPO LABORAL en grid -->
+    <section style="padding: 48px 0; background: linear-gradient(180deg, #f0f4f8, #fff);">
         <div class="container">
-                <div class="info-card">
-                    <h3>Título</h3>
-                    <p>Ciencias Contables</p>
+            <div class="two-col-grid">
+                <div class="glass-card">
+                    <h2>
+                        <span class="section-icon"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                        Objetivo
+                    </h2>
+                    <p>Formar profesionales altamente competentes en el campo de las Ciencias Contables, con capacidad para generar, analizar e interpretar información contable y financiera de organizaciones públicas y privadas, mediante el uso de herramientas tecnológicas, pensamiento crítico, principios éticos y responsabilidad social, a fin de contribuir a una gestión eficiente, transparente e innovadora de los recursos organizacionales.</p>
                 </div>
-                <div class="info-card">
-                    <h3>Duración</h3>
-                    <p>8 Semestres</p>
+                <div class="glass-card">
+                    <h2>
+                        <span class="section-icon"><svg viewBox="0 0 24 24"><path d="M21 13.255A10.008 10.008 0 0112 22c-5.523 0-10-4.477-10-10S6.477 2 12 2a10 10 0 018.744 5.255M16 6l4 0m0 0l0 4m0-4l-4 4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                        Campo Laboral
+                    </h2>
+                    <p>El egresado de la Licenciatura en Ciencias Contables de la Universidad Autónoma del Paraguay puede desempeñarse en organizaciones públicas, privadas y del tercer sector, tanto a nivel nacional como internacional. Está capacitado para ejercer funciones en áreas contables, financieras, tributarias, de auditoría y de gestión administrativa, así como brindar asesoramiento independiente o integrar estudios contables. Puede liderar departamentos financieros, evaluar proyectos, implementar sistemas de información contable y colaborar con organismos de control y fiscalización. Su formación ética, crítica y actualizada le permite afrontar con solvencia los desafíos del entorno profesional.</p>
                 </div>
-                <div class="info-card">
-                    <h3>Sede</h3>
-                    <p>Central</p>
-                </div>
-
-
-            <div class="profile-section" style="background: #f5f5f5;">
-                <h2 style="color: #003366; margin-bottom: 16px;">Objetivo</h2>
-                <p>Formar profesionales altamente competentes en el campo de las Ciencias Contables, con capacidad para generar, analizar e interpretar información contable y financiera de organizaciones públicas y privadas, mediante el uso de herramientas tecnológicas, pensamiento crítico, principios éticos y responsabilidad social, a fin de contribuir a una gestión eficiente, transparente e innovadora de los recursos organizacionales.</p>
             </div>
+        </div>
+    </section>
 
-
-            <div class="profile-section" style="border-left: 4px solid #0066cc;">
-                <h2 style="color: #003366; margin-bottom: 16px;">Campo Laboral</h2>
-                <p>El egresado de la Licenciatura en Ciencias Contables de la Universidad Autónoma del Paraguay puede desempeñarse en organizaciones públicas, privadas y del tercer sector, tanto a nivel nacional como internacional. Está capacitado para ejercer funciones en áreas contables, financieras, tributarias, de auditoría y de gestión administrativa, así como brindar asesoramiento independiente o integrar estudios contables. Puede liderar departamentos financieros, evaluar proyectos, implementar sistemas de información contable y colaborar con organismos de control y fiscalización. Su formación ética, crítica y actualizada le permite afrontar con solvencia los desafíos del entorno profesional.</p>
-            </div>
-
-
-            <div class="profile-section">
-                <h2 style="color: #003366; margin-bottom: 16px;">Perfil del Graduado</h2>
+    <!-- PERFIL DEL GRADUADO -->
+    <section style="padding: 48px 0;">
+        <div class="container">
+            <div class="glass-card" style="max-width: 900px; margin: 0 auto;">
+                <h2>
+                    <span class="section-icon"><svg viewBox="0 0 24 24"><path d="M12 14l9-5-9-5-9 5 9 5zm0 7l-9-5 9-5 9 5-9 5zm0-7v7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                    Perfil del Graduado
+                </h2>
                 <p>El egresado de la Licenciatura en Ciencias Contables es un profesional ético, crítico y competente para generar, interpretar y utilizar información contable y financiera en organizaciones de diversos sectores. Está capacitado para evaluar procesos, diseñar estrategias, realizar auditorías y proponer soluciones innovadoras que aporten a la transparencia, eficiencia y desarrollo económico-social.</p>
             </div>
+        </div>
+    </section>
 
 
-
-
-            <section class="malla-section">
-                <h2 style="color: #003366; margin-bottom: 20px;">Plan de Estudios</h2>
-                <div class="malla-tabs">
-                <button class="malla-tab active" onclick="showSemester('1° Semestre')">1° Semestre</button>
-                <button class="malla-tab" onclick="showSemester('2° Semestre')">2° Semestre</button>
-                <button class="malla-tab" onclick="showSemester('3° Semestre')">3° Semestre</button>
-                <button class="malla-tab" onclick="showSemester('4° Semestre')">4° Semestre</button>
-                <button class="malla-tab" onclick="showSemester('5° Semestre')">5° Semestre</button>
-                <button class="malla-tab" onclick="showSemester('6° Semestre')">6° Semestre</button>
-                <button class="malla-tab" onclick="showSemester('7° Semestre')">7° Semestre</button>
-                <button class="malla-tab" onclick="showSemester('8° Semestre')">8° Semestre</button>
+    <!-- PLAN DE ESTUDIOS -->
+    <section style="padding: 48px 0; background: #f8fafc;">
+        <div class="container">
+            <div class="malla-section">
+                <h2 style="color: #003366; text-align: center; font-size: 1.6rem; margin-bottom: 24px;">Plan de Estudios</h2>
+                <div class="malla-tabs" id="malla-tabs">
+                    <button class="malla-tab active" onclick="showSemester(0, this)">1°° Semestre</button>
+                    <button class="malla-tab" onclick="showSemester(1, this)">2°° Semestre</button>
+                    <button class="malla-tab" onclick="showSemester(2, this)">3°° Semestre</button>
+                    <button class="malla-tab" onclick="showSemester(3, this)">4°° Semestre</button>
+                    <button class="malla-tab" onclick="showSemester(4, this)">5°° Semestre</button>
+                    <button class="malla-tab" onclick="showSemester(5, this)">6°° Semestre</button>
+                    <button class="malla-tab" onclick="showSemester(6, this)">7°° Semestre</button>
+                    <button class="malla-tab" onclick="showSemester(7, this)">8°° Semestre</button>
                 </div>
-                <div class="malla-content">
-            <div class="malla-panel" id="panel-1° Semestre" style="display:block">
-                <ul>
-                        <li>Administración General</li>
-                        <li>Guaraní</li>
-                        <li>Introducción a la Comercialización</li>
-                        <li>Teorías Económicas</li>
-                        <li>Comunicación Oral y Escrita</li>
-                </ul>
-            </div>
-            <div class="malla-panel" id="panel-2° Semestre" style="display:none">
-                <ul>
-                        <li>Contabilidad General I</li>
-                        <li>Matemática Fundamental</li>
-                        <li>Organización, Sistemas y Métodos</li>
-                        <li>Inglés</li>
-                        <li>Tecnología de la Información y la Comunicación</li>
-                </ul>
-            </div>
-            <div class="malla-panel" id="panel-3° Semestre" style="display:none">
-                <ul>
-                        <li>Contabilidad General II</li>
-                        <li>Matemática Aplicada</li>
-                        <li>Microeconomía</li>
-                        <li>Comportamiento Organizacional</li>
-                        <li>Administración de Empresas y Organizaciones</li>
-                </ul>
-            </div>
-            <div class="malla-panel" id="panel-4° Semestre" style="display:none">
-                <ul>
-                        <li>Lógica Matemática</li>
-                        <li>Contabilidad de Costos, Precios y Cotizaciones</li>
-                        <li>Contabilidad Financiera</li>
-                        <li>Macroeconomía</li>
-                        <li>Diseño de Sistemas de la Información</li>
-                </ul>
-            </div>
-            <div class="malla-panel" id="panel-5° Semestre" style="display:none">
-                <ul>
-                        <li>Matemática Financiera</li>
-                        <li>Legislación Civil, Comercial y Laboral</li>
-                        <li>Contabilidad Gubernamental y de la Gestión</li>
-                        <li>Optativa I</li>
-                        <li>Informática Aplicada a la Contabilidad</li>
-                </ul>
-            </div>
-            <div class="malla-panel" id="panel-6° Semestre" style="display:none">
-                <ul>
-                        <li>Estados Contables</li>
-                        <li>Administración de Recursos Humanos</li>
-                        <li>Probabilidad y Estadística</li>
-                        <li>Legislación Aduanera y Tributaria</li>
-                        <li>Optativa II</li>
-                </ul>
-            </div>
-            <div class="malla-panel" id="panel-7° Semestre" style="display:none">
-                <ul>
-                        <li>Sistema de Información Gerencial</li>
-                        <li>Auditoría en Informática</li>
-                        <li>Gabinete Contable I</li>
-                        <li>Metodología de la Investigación</li>
-                        <li>Auditoría Gubernamental</li>
-                </ul>
-            </div>
-            <div class="malla-panel" id="panel-8° Semestre" style="display:none">
-                <ul>
-                        <li>Gabinete Contable II</li>
-                        <li>Auditoría de la Gestión Administrativa</li>
-                        <li>Finanzas Operativas y Estratégicas</li>
-                        <li>Formulación y Evaluación de Proyectos</li>
-                        <li>Ejercicio Profesional de la Contabilidad</li>
-                        <li>Trabajo de Grado</li>
-                </ul>
-            </div>
+<div id="malla-panels">
+                <div class="malla-panel" data-semester="0"><ul><li>Administración General</li>
+<li>Guaraní</li>
+<li>Introducción a la Comercialización</li>
+<li>Teorías Económicas</li>
+<li>Comunicación Oral y Escrita</li></ul></div>
+                <div class="malla-panel" data-semester="1" style="display:none"><ul><li>Contabilidad General I</li>
+<li>Matemática Fundamental</li>
+<li>Organización, Sistemas y Métodos</li>
+<li>Inglés</li>
+<li>Tecnología de la Información y la Comunicación</li></ul></div>
+                <div class="malla-panel" data-semester="2" style="display:none"><ul><li>Contabilidad General II</li>
+<li>Matemática Aplicada</li>
+<li>Microeconomía</li>
+<li>Comportamiento Organizacional</li>
+<li>Administración de Empresas y Organizaciones</li></ul></div>
+                <div class="malla-panel" data-semester="3" style="display:none"><ul><li>Lógica Matemática</li>
+<li>Contabilidad de Costos, Precios y Cotizaciones</li>
+<li>Contabilidad Financiera</li>
+<li>Macroeconomía</li>
+<li>Diseño de Sistemas de la Información</li></ul></div>
+                <div class="malla-panel" data-semester="4" style="display:none"><ul><li>Matemática Financiera</li>
+<li>Legislación Civil, Comercial y Laboral</li>
+<li>Contabilidad Gubernamental y de la Gestión</li>
+<li>Optativa I</li>
+<li>Informática Aplicada a la Contabilidad</li></ul></div>
+                <div class="malla-panel" data-semester="5" style="display:none"><ul><li>Estados Contables</li>
+<li>Administración de Recursos Humanos</li>
+<li>Probabilidad y Estadística</li>
+<li>Legislación Aduanera y Tributaria</li>
+<li>Optativa II</li></ul></div>
+                <div class="malla-panel" data-semester="6" style="display:none"><ul><li>Sistema de Información Gerencial</li>
+<li>Auditoría en Informática</li>
+<li>Gabinete Contable I</li>
+<li>Metodología de la Investigación</li>
+<li>Auditoría Gubernamental</li></ul></div>
+                <div class="malla-panel" data-semester="7" style="display:none"><ul><li>Gabinete Contable II</li>
+<li>Auditoría de la Gestión Administrativa</li>
+<li>Finanzas Operativas y Estratégicas</li>
+<li>Formulación y Evaluación de Proyectos</li>
+<li>Ejercicio Profesional de la Contabilidad</li>
+<li>Trabajo de Grado</li></ul></div>
                 </div>
-            </section>
 
+            </div>
+        </div>
+    </section>
 
-            <div style="background: white; padding: 32px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); margin: 32px 0;">
-                <h2 style="color: #003366; margin-bottom: 8px;">Solicita información</h2>
-                <p style="color: #666; margin-bottom: 24px;">Completa el formulario y un asesor se contactará contigo.</p>
-                <form class="contact-form">
-                    <div class="form-group full">
-                        <label>Nombre completo *</label>
-                        <input type="text" placeholder="Tu nombre completo" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Email *</label>
-                        <input type="email" placeholder="tu@email.com" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Teléfono *</label>
-                        <input type="tel" placeholder="+595 9XX XXX XXX" required>
-                    </div>
-                    <div class="form-group full">
-                        <label>Mensaje</label>
-                        <textarea placeholder="Tus dudas o consultas sobre Ciencias Contables..." rows="4"></textarea>
-                    </div>
-                    <button type="submit" class="btn-submit">Enviar consulta</button>
+    <!-- FORMULARIO DE CONTACTO -->
+    <section class="cta-section">
+        <div class="container" style="max-width: 640px;">
+            <h2 style="color: white; text-align: center; border: none;">Solicita información</h2>
+            <p style="color: rgba(255,255,255,0.85); text-align: center; margin-bottom: 28px;">Completa el formulario y un asesor se contactará contigo.</p>
+            <div class="glass-form">
+                <form onsubmit="event.preventDefault(); alert('¡Gracias! Nos contactaremos contigo pronto.');">
+                    <label>Nombre completo *</label>
+                    <input type="text" placeholder="Tu nombre completo" required>
+                    <label>Email *</label>
+                    <input type="email" placeholder="tu@email.com" required>
+                    <label>Teléfono *</label>
+                    <input type="tel" placeholder="+595 9XX XXX XXX" required>
+                    <label>Mensaje</label>
+                    <textarea rows="3" placeholder="Tus dudas o consultas sobre Ciencias Contables..."></textarea>
+                    <button type="submit" class="btn-glass" style="width: 100%;">Enviar consulta</button>
                 </form>
             </div>
-
-            <a href="https://uap.edu.py/wp-content/uploads/2025/06/Licenciatura-en-ciencias-contables-Brochure-UAP.pdf" class="brochure-btn" target="_blank">Descargar Brochure</a>
         </div>
-    </main>
+    </section>
 
-    <footer style="background: #003366; color: white; padding: 40px 0 20px; margin-top: 40px;">
+    <!-- FOOTER -->
+    <footer style="background: #003366; color: white; padding: 40px 0 20px; margin-top: 0;">
         <div class="container">
-            <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 30px; margin-bottom: 30px;">
+            <div class="footer-grid">
                 <div>
-                    <img src="../../images/logo-white.png" alt="UAP" style="height: 40px; margin-bottom: 12px;">
+                    <a href="../../index.html"><img src="../../images/logo-white.png" alt="UAP" style="height: 40px; margin-bottom: 12px;"></a>
                     <p style="opacity: 0.8; font-size: 14px;">Universidad Autónoma del Paraguay.<br>Comprometidos con la excelencia académica.</p>
                     <p style="opacity: 0.6; font-size: 13px; margin-top: 12px;">Colón No 658 e/Haedo, Asunción<br>+595 21 447 579<br>info@uap.edu.py</p>
                 </div>
@@ -426,19 +332,12 @@
     </footer>
 
     <script>
-        // Menu hamburguesa
-        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
-            document.querySelector('.nav').classList.toggle('active');
-        });
-        
-        function showSemester(sem) {
+        function showSemester(idx, btn) {
             document.querySelectorAll('.malla-panel').forEach(p => p.style.display = 'none');
             document.querySelectorAll('.malla-tab').forEach(t => t.classList.remove('active'));
-            var panel = document.getElementById('panel-' + sem);
-            if (panel) panel.style.display = 'block';
-            event.target.classList.add('active');
+            document.querySelector('.malla-panel[data-semester="' + idx + '"]').style.display = 'block';
+            btn.classList.add('active');
         }
-    
     </script>
 </body>
 </html>
