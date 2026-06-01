@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posgrados – UAP</title>
+    <link rel="stylesheet" href="../css/uap-refined.css">
+    <style>
+        .logo-img { height: 45px; }
+        .posgrado-badge { display: inline-block; font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.05em; padding: var(--space-1) var(--space-3); background-color: var(--color-primary); color: white; border-radius: var(--radius-sm); margin-bottom: var(--space-4); }
+        .badge-especializacion { background-color: var(--color-warning); }
+        .badge-doctorado { background-color: var(--color-success); }
+        .faculty-section { margin-bottom: var(--space-16); }
+        .faculty-title { font-family: var(--font-primary); font-size: var(--text-2xl); color: var(--color-primary); margin-bottom: var(--space-6); padding-bottom: var(--space-3); border-bottom: 2px solid var(--color-border); }
+    </style>
+</head>
+<body>
+    <header class="header" style="position: relative;">
+        <div class="container header-inner">
+            <a href="../index.html" class="logo"><img src="../images/logo-uap.png" alt="UAP" class="logo-img"></a>
+            <button class="mobile-menu-btn" onclick="document.querySelector('.nav').classList.toggle('active')">☰</button>
+            <nav>
+                <ul class="nav">
+                    <li><a href="../index.html">Inicio</a></li>
+                    <li class="dropdown">
+                        <a href="carreras.html">Carreras</a>
+                        <div class="dropdown-content">
+                            <div class="dropdown-faculty">Facultad de Ciencias Médicas y de la Salud</div>
+                            <a href="carreras/podologia.html">Podología</a>
+                            <a href="carreras/optica.html">Óptica y Contactología</a>
+                            <a href="carreras/fisioterapia.html">Fisioterapia</a>
+                            <a href="carreras/fonoaudiologia.html">Fonoaudiología</a>
+                            <a href="carreras/psicologia.html">Psicología</a>
+                            <a href="carreras/nutricion.html">Nutrición</a>
+                            <a href="carreras/odontologia.html">Odontología</a>
+                            <div class="dropdown-faculty">Facultad de Ingenierías y Tecnologías</div>
+                            <a href="carreras/informatica.html">Ingeniería en Informática</a>
+                            <a href="carreras/alimentos.html">Ingeniería en Tecnología de Alimentos</a>
+                            <div class="dropdown-faculty">Facultad de Ciencias Sociales y Humanas</div>
+                            <a href="carreras/periodismo.html">Periodismo</a>
+                            <a href="carreras/educacion.html">Ciencias de la Educación</a>
+                            <a href="carreras/parvularia.html">Educación Parvularia</a>
+                            <a href="carreras/derecho.html">Derecho</a>
+                            <a href="carreras/trabajo-social.html">Trabajo Social</a>
+                            <a href="carreras/admin-publica.html">Administración Pública</a>
+                            <a href="carreras/admin-empresas.html">Administración de Empresas</a>
+                            <a href="carreras/contables.html">Ciencias Contables</a>
+                            <a href="carreras/contabilidad-auditoria.html">Contabilidad y Auditoría</a>
+                            <a href="carreras/contaduria.html">Contaduría Pública</a>
+                            <a href="carreras/marketing.html">Marketing y Publicidad</a>
+                            <a href="carreras/ing-comercial.html">Ingeniería Comercial</a>
+                            <a href="carreras/comercio-internacional.html">Ingeniería en Comercio Internacional</a>
+                            <a href="carreras/ing-marketing.html">Ingeniería en Marketing</a>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="posgrados.html" class="nav-active">Posgrados</a>
+                        <div class="dropdown-content">
+                            <div class="dropdown-faculty">Facultad de Ciencias Médicas y de la Salud</div>
+                            <a href="posgrados.html#salud">Programas de Salud</a>
+                            <div class="dropdown-faculty">Facultad de Ciencias Sociales y Humanas</div>
+                            <a href="posgrados.html#sociales">Programas de Ciencias Sociales</a>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="institucional.html">Institucional</a>
+                        <div class="dropdown-content">
+                            <a href="institucional.html#mision">Misión, Visión y Valores</a>
+                            <a href="institucional.html#autoridades">Autoridades</a>
+                            <a href="institucional.html#convenios">Convenios</a>
+                            <a href="institucional.html#reglamentos">Reglamentos</a>
+                        </div>
+                    </li>
+                    <li><a href="noticias.html">Noticias</a></li>
+                    <li><a href="investigacion.html">Investigación</a></li>
+                    <li><a href="estudiantes.html">Estudiantes</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <section class="page-hero"><div class="container"><h1>Posgrados</h1><p class="lead">Continuá tu formación académica con nuestras maestrías, especializaciones y doctorados con excelencia internacional.</p></div></section>
+
+        <section class="section section-alt">
+            <div class="container">
+
+                <!-- Facultad de Ciencias Médicas y de la Salud -->
+                <div class="faculty-section" id="salud">
+                    <h2 class="faculty-title">Facultad de Ciencias Médicas y de la Salud</h2>
+                    <div class="careers-grid">
+                        <div class="career-card">
+                            <div class="posgrado-badge badge-doctorado">Doctorado</div>
+                            <h3>Doctorado en Ciencias Odontológicas con Énfasis en Endodoncia</h3>
+                            <p>Formación de alto nivel en investigación odontológica y endodoncia avanzada. Duración: 24 meses.</p>
+                        </div>
+                        <div class="career-card">
+                            <div class="posgrado-badge">Maestría</div>
+                            <h3>Maestría en Ciencias Odontológicas</h3>
+                            <p>Investigación avanzada en ciencias odontológicas y práctica especializada. Duración: 18 meses.</p>
+                        </div>
+                        <div class="career-card">
+                            <div class="posgrado-badge badge-especializacion">Especialización</div>
+                            <h3>Especialización en Cirugía Dentoalveolar</h3>
+                            <p>Formación especializada en cirugía oral y maxilofacial básica. Duración: 20 meses.</p>
+                        </div>
+                        <div class="career-card">
+                            <div class="posgrado-badge badge-especializacion">Especialización</div>
+                            <h3>Especialización en Rehabilitación Oral y Estética</h3>
+                            <p>Técnicas avanzadas de rehabilitación protésica y estética dental. Duración: 24 meses.</p>
+                        </div>
+                        <div class="career-card">
+                            <div class="posgrado-badge badge-especializacion">Especialización</div>
+                            <h3>Especialización en Cirugía y Traumatología Buco Maxilo Facial</h3>
+                            <p>Cirugía avanzada de cavidad oral y estructuras maxilofaciales. Duración: 33 meses.</p>
+                        </div>
+                        <div class="career-card">
+                            <div class="posgrado-badge badge-especializacion">Especialización</div>
+                            <h3>Especialización en Implantología Oral</h3>
+                            <p>Colocación y rehabilitación sobre implantes dentales. Duración: 18 meses.</p>
+                        </div>
+                        <div class="career-card">
+                            <div class="posgrado-badge badge-especializacion">Especialización</div>
+                            <h3>Especialización en Odontopedíatría y Salud Comunitaria</h3>
+                            <p>Odontología infantil y programas de salud bucal comunitaria. Duración: 20 meses.</p>
+                        </div>
+                        <div class="career-card">
+                            <div class="posgrado-badge badge-especializacion">Especialización</div>
+                            <h3>Especialización en Ortodoncia</h3>
+                            <p>Diagnóstico y tratamiento de maloclusiones y deformidades dentofaciales. Duración: 36 meses.</p>
+                        </div>
+                        <div class="career-card">
+                            <div class="posgrado-badge badge-especializacion">Especialización</div>
+                            <h3>Especialización en Ortopedia Maxilar</h3>
+                            <p>Corrección de deformidades esqueléticas maxilofaciales. Duración: 24 meses.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Facultad de Ciencias Sociales y Humanas -->
+                <div class="faculty-section" id="sociales">
+                    <h2 class="faculty-title">Facultad de Ciencias Sociales y Humanas</h2>
+                    <div class="careers-grid">
+                        <div class="career-card">
+                            <div class="posgrado-badge badge-doctorado">Doctorado</div>
+                            <h3>Doctorado en Ciencias de la Educación</h3>
+                            <p>Investigación educativa de alto nivel y generación de conocimiento pedagógico. Duración: 24 meses.</p>
+                        </div>
+                        <div class="career-card">
+                            <div class="posgrado-badge">Maestría</div>
+                            <h3>Maestría en Ciencias de la Educación</h3>
+                            <p>Formación avanzada en pedagogía, didáctica y gestión educativa. Duración: 24 meses.</p>
+                        </div>
+                        <div class="career-card">
+                            <div class="posgrado-badge badge-especializacion">Especialización</div>
+                            <h3>Especialización en Diseño y Actualización Curricular por Competencias y Sistema de Créditos en Educación Superior</h3>
+                            <p>Diseño de planes de estudio basados en competencias y créditos académicos. Duración: 7 meses.</p>
+                        </div>
+                        <div class="career-card">
+                            <div class="posgrado-badge badge-especializacion">Especialización</div>
+                            <h3>Especialización en Counseling</h3>
+                            <p>Acompañamiento psicológico y orientación en contextos educativos y clínicos. Duración: 12 meses.</p>
+                        </div>
+                        <div class="career-card">
+                            <div class="posgrado-badge badge-especializacion">Especialización</div>
+                            <h3>Especialización en Didáctica Universitaria</h3>
+                            <p>Metodologías de enseñanza superior y evaluación del aprendizaje universitario. Duración: 7 meses.</p>
+                        </div>
+                        <div class="career-card">
+                            <div class="posgrado-badge badge-especializacion">Especialización</div>
+                            <h3>Especialización en Metodología para el Diseño y Redacción de Tesis</h3>
+                            <p>Herramientas metodológicas para la investigación científica y redacción académica. Duración: 7 meses.</p>
+                        </div>
+                        <div class="career-card">
+                            <div class="posgrado-badge badge-especializacion">Especialización</div>
+                            <h3>Especialización en Psicología Clínica y de la Salud</h3>
+                            <p>Intervención psicológica en contextos clínicos y de salud pública. Duración: 18 meses.</p>
+                        </div>
+                        <div class="career-card">
+                            <div class="posgrado-badge badge-especializacion">Especialización</div>
+                            <h3>Especialización en Psicología Jurídica y Forense</h3>
+                            <p>Aplicación de la psicología en el ámbito legal y peritaje forense. Duración: 12 meses.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+        <!-- Footer limpio -->
+        <!-- Footer limpio -->
+    <footer style="background: #003366; color: white; padding: 40px 0 20px;">
+        <div class="container">
+            <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 30px;">
+                <div>
+                    <img src="../images/logo-white.png" alt="UAP" style="height: 45px; margin-bottom: 16px;">
+                    <p style="opacity: 0.8; line-height: 1.6; margin-bottom: 16px;">
+                        Universidad Autónoma del Paraguay.<br>
+                        Comprometidos con la excelencia académica y el desarrollo del país.
+                    </p>
+                    <div style="display: flex; flex-direction: column; gap: 8px; font-size: 14px; opacity: 0.7;">
+                        <span>Colón Nº 658 e/Haedo, Asunción, Paraguay</span>
+                        <span>+595 21 447 579</span>
+                        <span>info@uap.edu.py</span>
+                    </div>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 16px; font-weight: 600;">Carreras</h4>
+                    <ul style="list-style: none; display: flex; flex-direction: column; gap: 8px;">
+                        <li><a href="carreras/odontologia.html" style="color: rgba(255,255,255,0.7); text-decoration: none;">Odontología</a></li>
+                        <li><a href="carreras/psicologia.html" style="color: rgba(255,255,255,0.7); text-decoration: none;">Psicología</a></li>
+                        <li><a href="carreras/fisioterapia.html" style="color: rgba(255,255,255,0.7); text-decoration: none;">Fisioterapia</a></li>
+                        <li><a href="carreras/marketing.html" style="color: rgba(255,255,255,0.7); text-decoration: none;">Marketing</a></li>
+                        <li><a href="carreras.html" style="color: rgba(255,255,255,0.7); text-decoration: none;">Ver todas →</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 16px; font-weight: 600;">Posgrados</h4>
+                    <ul style="list-style: none; display: flex; flex-direction: column; gap: 8px;">
+                        <li><a href="posgrados.html" style="color: rgba(255,255,255,0.7); text-decoration: none;">Maestrías</a></li>
+                        <li><a href="posgrados.html" style="color: rgba(255,255,255,0.7); text-decoration: none;">Especializaciones</a></li>
+                        <li><a href="posgrados.html" style="color: rgba(255,255,255,0.7); text-decoration: none;">Doctorados</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 16px; font-weight: 600;">Institucional</h4>
+                    <ul style="list-style: none; display: flex; flex-direction: column; gap: 8px;">
+                        <li><a href="institucional.html" style="color: rgba(255,255,255,0.7); text-decoration: none;">Sobre la UAP</a></li>
+                        <li><a href="institucional.html#autoridades" style="color: rgba(255,255,255,0.7); text-decoration: none;">Autoridades</a></li>
+                        <li><a href="investigacion.html" style="color: rgba(255,255,255,0.7); text-decoration: none;">Investigación</a></li>
+                        <li><a href="contacto.html" style="color: rgba(255,255,255,0.7); text-decoration: none;">Contacto</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div style="border-top: 1px solid rgba(255,255,255,0.2); padding-top: 20px; text-align: center; font-size: 14px; opacity: 0.6;">
+                Universidad Autónoma del Paraguay © 2026
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

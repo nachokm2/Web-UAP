@@ -1,0 +1,90 @@
+{
+  "titulo": "Licenciado(a) en Psicología",
+  "duracion": "8 Semestres",
+  "sede": "Central",
+  "descripcion": "La Licenciatura en Psicología forma profesionales capaces de evaluar el estado psicológico de las personas, diseñar e implementar proyectos de prevención en salud mental y realizar investigaciones en diversos contextos laborales. El programa enfatiza el trabajo interdisciplinario y el compromiso con la detección, promoción, intervención y control de problemáticas psicosociales, con el objetivo de contribuir a la mejora de la calidad de vida de la población.",
+  "objetivo": "Formar psicólogos con una visión integral del ser humano, capaces de comprender, evaluar e intervenir en los diferentes ámbitos de la Psicología: salud, educación, trabajo, jurídico y social-comunitario. El egresado estará preparado para integrarse a equipos interdisciplinarios, afrontar los desafíos contemporáneos y contribuir al bienestar psicológico individual y colectivo.",
+  "objetivos_especificos": [],
+  "a_quien_va_dirigido": "",
+  "campo_laboral": "El profesional psicólogo podrá trabajar en las áreas educativas, de salud y de trabajo social-comunitario. Podrá realizar análisis de la problemática de la relación individuo-estructura social, así como de los fenómenos psicosociales más importantes de la temática grupal, organizacional y comunitaria.",
+  "perfil_egresado": "El profesional en Psicología de la Universidad Autónoma del Paraguay será capaz de evaluar, diagnosticar e intervenir en los procesos psicológicos de individuos y grupos, integrando saberes científicos y humanistas. Estará preparado para actuar en diferentes contextos, promover la salud mental, y participar en equipos interdisciplinarios aplicando criterios éticos y de responsabilidad social.",
+  "competencias_disciplinarias": [],
+  "competencias_profesionales": [],
+  "competencias_genericas": [],
+  "mision": "",
+  "vision": "",
+  "valores": [],
+  "definicion_profesional": "",
+  "malla": {
+    "1° semestre": [
+      "Psicología General",
+      "Bases Biológicas del Comportamiento",
+      "Fundamentos Filosóficos de la Psicología",
+      "Criminología",
+      "Psicología de las Personas con Discapacidad y Educación Inclusiva",
+      "Psicohigiene (seminario)"
+    ],
+    "2° semestre": [
+      "Bases Biológicas del Comportamiento II",
+      "Antropología y Realidad Nacional y Regional",
+      "Historia de la Psicología",
+      "Sociología",
+      "Estadística Aplicada a la Psicología",
+      "Psicología Ambiental (Seminario)"
+    ],
+    "3° semestre": [
+      "Psicometría",
+      "Psicología del Desarrollo I",
+      "Psicología Social y Comunitaria",
+      "Psicología Jurídica y Forense",
+      "Guaraní",
+      "Psicología Deportiva (seminario)"
+    ],
+    "4° semestre": [
+      "Psicología del Desarrollo II",
+      "Conductismo",
+      "Psicoanálisis",
+      "Técnicas e Instrumentos de Evaluación Psicológica I",
+      "Tecnología de la Información y de la Comunicación",
+      "Psicología Experimental (Seminario)",
+      "Pasantía en Técnicas e Instrumentos de Evaluación Psicológica I"
+    ],
+    "5° semestre": [
+      "Psicopatología I",
+      "Técnicas e Instrumentos de Evaluación Psicológica II",
+      "Psicoterapia Cognitiva",
+      "Orientación Vocacional",
+      "Neuropsicología e Intervención en Crisis",
+      "Dinámica de Grupo (Seminario)",
+      "Pasantía en Técnicas e Instrumentos de Evaluación Psicológica II"
+    ],
+    "6° semestre": [
+      "Psicoterapia Sistémica",
+      "Psicopatología II",
+      "Psicología Laboral",
+      "Psicología Humanista y de la Personalidad",
+      "Comunicación Oral y Escrita",
+      "Pasantía en el Desarrollo Sistémico y Experimental",
+      "Epistemología (Seminario)"
+    ],
+    "7° semestre": [
+      "Psicopatología III",
+      "Metodología de la investigación",
+      "Psicología Clínica",
+      "Evaluación Psicológica I",
+      "Psicología Educacional",
+      "Pasantía en Evaluación Psicológica I"
+    ],
+    "8° semestre": [
+      "Optativa I",
+      "Evaluación Psicológica II",
+      "Intervención Clínica y en Crisis",
+      "Optativa II",
+      "Investigación en Psicología",
+      "Pasantía en Evaluación Psicológica II",
+      "Práctica Profesional Supervisada",
+      "Trabajo de Grado"
+    ]
+  },
+  "brochure_url": "https://uap.edu.py/wp-content/uploads/2025/06/Licenciatura-en-Psicologia-Brochure-UAP.pdf"
+}

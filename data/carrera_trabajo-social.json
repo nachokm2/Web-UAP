@@ -1,0 +1,76 @@
+{
+  "titulo": "Trabajo Social",
+  "duracion": "8 Semestres",
+  "sede": "Central",
+  "descripcion": "La Licenciatura en Trabajo Social se propone formar profesionales con una sólida base en teorías sociales, políticas públicas y métodos de intervención social. El programa proporciona las herramientas necesarias para analizar, intervenir y evaluar fenómenos sociales en diferentes contextos, promoviendo el desarrollo social y la justicia. A través de una formación integral que combina aspectos teóricos y prácticos, los estudiantes adquieren habilidades en empatía, escucha activa y trabajo con comunidades diversas. Los egresados serán capaces de diseñar y ejecutar estrategias eficaces para la transformación social, promoviendo el bienestar colectivo y la equidad.",
+  "objetivo": "Formar profesionales en Trabajo Social, con conocimientos teóricos, metodológicos y prácticos, capaces de\nanalizar y abordar los problemas sociales, impulsando el cambio social mediante intervenciones que favorezcan el\ndesarrollo integral de individuos, grupos y comunidades, en el marco de los derechos humanos y la justicia social.",
+  "objetivos_especificos": [],
+  "a_quien_va_dirigido": "",
+  "campo_laboral": "Los egresados podrán desempeñarse en organizaciones públicas y privadas, instituciones gubernamentales, ONGs, y organismos internacionales, en áreas como intervención comunitaria, gestión de políticas sociales, desarrollo de programas de bienestar social, atención a grupos vulnerables, educación y sensibilización sobre derechos humanos, entre otros. También podrán ejercer funciones de investigación y docencia en el ámbito académico.",
+  "perfil_egresado": "El egresado de la Licenciatura en Trabajo Social es un profesional capacitado para identificar y analizar fenómenos sociales complejos, aplicando enfoques teóricos y metodológicos de la disciplina. Es competente para diseñar y ejecutar intervenciones sociales eficaces que favorezcan el desarrollo integral y el bienestar de los individuos y las comunidades, promoviendo siempre una perspectiva de derechos humanos y responsabilidad social.",
+  "competencias_disciplinarias": [],
+  "competencias_profesionales": [],
+  "competencias_genericas": [],
+  "mision": "",
+  "vision": "",
+  "valores": [],
+  "definicion_profesional": "",
+  "malla": {
+    "1° Semestre": [
+      "Filosofía",
+      "Fundamentos Epistemológicos para la intervención",
+      "Comunicación Oral y Escrita en castellano",
+      "Guaraní",
+      "Psicología General"
+    ],
+    "2° Semestre": [
+      "Fundamentos del trabajo social",
+      "Antropología y Realidad Nacional y Regional",
+      "Matemática Fundamental",
+      "Inglés",
+      "Sociología"
+    ],
+    "3° Semestre": [
+      "Trabajo Social e Intervención (Cuestión Social y Trabajo Social)",
+      "Derechos Humanos y trabajo social",
+      "Fundamentos Económicos para la Intervención",
+      "Trabajo social en contextos familiares",
+      "Fundamentos de las políticas sociales"
+    ],
+    "4° Semestre": [
+      "Psicología Social y Comunitaria",
+      "Trabajo Social en Contextos Colectivos",
+      "Políticas Públicas e Intervención Social",
+      "Formación Socio-Histórica de la Sociedad Paraguaya y Latinoamericana",
+      "Proyectos Sociales"
+    ],
+    "5° Semestre": [
+      "Estadística Social e Informática",
+      "Taller Integrado de Intervención I",
+      "Investigación social",
+      "Gestión de la Diversidad",
+      "Trabajo Social y Políticas Públicas"
+    ],
+    "6° Semestre": [
+      "Gestión Social para el Desarrollo",
+      "Taller Integrado de Intervención II",
+      "Nuevos Escenarios de Intervención Social",
+      "Taller de Sistematización para la Intervención",
+      "Análisis de Datos Cuantitativos y Cualitativos",
+      "Pasantía Profesional I"
+    ],
+    "7° Semestre": [
+      "Optativa I",
+      "Gestión para la Intervención Social",
+      "Investigación Social Cuantitativa y Cualitativa",
+      "Pasantía Profesional II"
+    ],
+    "8° Semestre": [
+      "Innovación Social y Desarrollo",
+      "Optativa II",
+      "Pasantía Profesional Supervisada",
+      "Trabajo de Grado"
+    ]
+  },
+  "brochure_url": "https://uap.edu.py/wp-content/uploads/2025/06/Licenciatura-en-trabajo-social-Brochure-UAP.pdf"
+}

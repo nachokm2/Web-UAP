@@ -1,0 +1,112 @@
+{
+  "titulo": "Licenciado(a) en Fonoaudiología",
+  "duracion": "8 Semestres",
+  "sede": "Central",
+  "descripcion": "La Licenciatura en Fonoaudiología de la Universidad Autónoma del Paraguay forma profesionales altamente capacitados para la prevención, evaluación, diagnóstico e intervención en los trastornos de la comunicación humana, audición, voz, lenguaje, habla y deglución. El programa promueve la autonomía, la gestión responsable, el compromiso ético y la integración en equipos interdisciplinarios, desarrollando habilidades científicas y humanas que respondan a las necesidades regionales y nacionales, con un sello distintivo de excelencia académica.",
+  "objetivo": "Formar licenciados en Fonoaudiología con sólida preparación científica, técnica y ética, capaces de prevenir, evaluar, diagnosticar e intervenir en los distintos ámbitos de la comunicación humana, adaptándose a los cambios tecnológicos y científicos, y respondiendo a las necesidades de salud y educación de la región y el país.",
+  "objetivos_especificos": [],
+  "a_quien_va_dirigido": "Está dirigido a personas con vocación de servicio, interés en el área de la salud y educación, sensibilidad social, habilidades comunicativas, y disposición para el trabajo interdisciplinario, que deseen formarse como profesionales en la prevención, evaluación, diagnóstico e intervención de los trastornos de la comunicación humana.",
+  "campo_laboral": "El Fonoaudiólogo forma parte de equipos en las especialidades de Otorrinolaringología, Audiología, Neurología, Pediatría, Odontología, Malformaciones craneofaciales, Medicina Física y Rehabilitación, Psiquiatría, etc. en los servicios de salud del estado, clínicas privadas, centros médicos y otros. En la Educación el fonoaudiólogo cumple el rol de la prevención, evaluación y tratamiento de trastornos de la comunicación presentes en niños en edad preescolar y escolar; integrando equipos multidisciplinarios.",
+  "perfil_egresado": "El egresado está habilitado para desempeñarse en el área de prevención, promoción, evaluación, diagnóstico fonoaudiológico y terapéutica, tanto ejercicio privado como en el ámbito público, pudiendo integrar y liderar equipos interdisciplinarios con sentido de cooperación, manteniendo la identidad profesional y poniendo a las personas como centro del ejercicio laboral; además de liderar proyectos que aporten a la resolución de problemas específicos y el desarrollo de la profesión a nivel país.",
+  "competencias_disciplinarias": [
+    "Aplicar conocimientos teóricos y prácticos en la prevención, evaluación y tratamiento de los trastornos de la comunicación humana.",
+    "Desarrollar investigación fonoaudiológica basada en evidencia científica que contribuya al avance de la profesión."
+  ],
+  "competencias_profesionales": [
+    "Diagnosticar trastornos de la audición, voz, lenguaje, habla y deglución en diferentes etapas del ciclo vital.",
+    "Intervenir terapéuticamente en problemas de comunicación en poblaciones diversas.",
+    "Diseñar programas de prevención y promoción de la salud comunicativa en diferentes contextos.",
+    "Liderar equipos interdisciplinarios para el abordaje integral de las alteraciones comunicativas.",
+    "Elaborar informes clínicos fonoaudiológicos y planes de intervención terapéutica basados en evidencia.",
+    "Adaptar estrategias terapéuticas considerando factores biopsicosociales del usuario.",
+    "Utilizar tecnologías de la información y dispositivos de asistencia en la rehabilitación fonoaudiológica."
+  ],
+  "competencias_genericas": [
+    "Comunicación efectiva: Expresar ideas de manera clara y coherente, oralmente y por escrito.",
+    "Trabajo en equipo: Colaborar de manera empática y eficaz en entornos multidisciplinarios.",
+    "Pensamiento crítico: Analizar información de manera crítica para tomar decisiones fundamentadas.",
+    "Comportamiento ético: Actuar con justicia, respeto y responsabilidad social.",
+    "Responsabilidad social: Contribuir al desarrollo de soluciones que promuevan condiciones de vida más justas y equitativas."
+  ],
+  "mision": "Formar profesionales en Fonoaudiología idóneos, comprometidos con la realidad regional y nacional, con autonomía, pensamiento crítico, dominio de tecnologías, capacidad de gestión, compromiso con la investigación y participación en procesos de extensión, que aporten con ética, responsabilidad y valores humanos a equipos interdisciplinarios en los diversos ámbitos del quehacer fonoaudiológico.",
+  "vision": "Ser una carrera de referencia nacional en la formación de fonoaudiólogos innovadores, con capacidad de anticiparse a los cambios tecnológicos y científicos, comprometidos con la atención biopsicosocial de los usuarios, con excelencia ética y técnica, orientados a la investigación, la extensión universitaria, la promoción y prevención de la salud, contribuyendo al desarrollo humano y a la mejora de la calidad de vida.",
+  "valores": [
+    "Los valores fundamentales del Licenciado en Fonoaudiología de la Universidad Autónoma del Paraguay, ante la sociedad, son la constante capacitación, dedicación y compromiso en lograr que los pacientes se beneficien de los avances científicos. La vocación de servicio se impone desde el momento de la elección de la carrera. La Fonoaudiología gestiona cuidados que preservan, promueven, restablecen o generan una comunicación eficaz interpersonal e intrapersonal. Los valores de la carrera se enuncian a continuación:",
+    "Sensibilidad individual y espíritu solidario: Capacidad de comprender, acompañar y responder con empatía a las necesidades comunicativas de las personas, especialmente en situaciones de vulnerabilidad.",
+    "Búsqueda y entendimiento de la diversidad: Reconocimiento activo y respetuoso de las diferencias culturales, lingüísticas, cognitivas y sociales, integrando prácticas inclusivas en la atención fonoaudiológica",
+    "Respeto y convivencia ética: Adopción de principios de justicia, equidad y honestidad en el ejercicio profesional, promoviendo relaciones sanas, transparentes y respetuosas con colegas, pacientes y comunidades.",
+    "Compromiso: Implica responsabilidad social, ética y académica, con dedicación constante a la mejora de las capacidades profesionales y la atención centrada en el bienestar del usuario.",
+    "Creatividad: Habilidad para generar soluciones terapéuticas innovadoras ante diversos desafíos clínicos, educativos o sociales, basándose en evidencia y sensibilidad profesional.",
+    "Resistencia y tolerancia a la frustración: Fortaleza emocional para sostener procesos terapéuticos prolongados, adaptarse a situaciones complejas y mantener la motivación ante resultados graduales.",
+    "Capacidad de trabajo en equipo: Disposición a colaborar y liderar en contextos inter y multidisciplinarios, reconociendo el valor de las miradas complementarias en la atención integral.",
+    "Flexibilidad para adecuar prácticas y saberes a las demandas sociales: Apertura y capacidad para adaptar conocimientos y estrategias fonoaudiológicas a las necesidades cambiantes de los entornos comunitarios, institucionales y tecnológicos."
+  ],
+  "definicion_profesional": "plan de estudios",
+  "malla": {
+    "1° semestre": [
+      "Legislación, Salud Pública y Ética Profesional",
+      "Fundamentos de la Fonoaudiología",
+      "Histología y Genética",
+      "Matemática Fundamental y Bioestadística",
+      "Lingüística y Gramática Aplicada a la Comunicación Oral y Escrita"
+    ],
+    "2° semestre": [
+      "Fonética y Fonología",
+      "Física Acústica y Psicoacústica",
+      "Bioquímica",
+      "Anatomía Humana",
+      "Inglés",
+      "Tecnología de la Información y de la Comunicación en Fonoaudiología"
+    ],
+    "3° semestre": [
+      "Alteraciones del lenguaje y fonoestomatología",
+      "Psicología General y Evolutiva",
+      "Otorrinolaringología",
+      "Guaraní",
+      "Desarrollo de las Funciones Orales"
+    ],
+    "4° semestre": [
+      "Neurofisiología",
+      "Desarrollo y Educación de la Persona con Hipoacusia",
+      "Organización del lenguaje, aprendizaje y el pensamiento",
+      "Fisiología y Evaluación de los trastornos deglutorios",
+      "Neonatología y Gerontología"
+    ],
+    "5° semestre": [
+      "Audiología",
+      "Caracterización Terapéutica de las alteraciones de la voz",
+      "Intervención en Disturbios de la Comunicación Humana",
+      "Farmacología Aplicada a la Fonoaudiología",
+      "Optativa I",
+      "Fonoaudiología Social y Preventiva"
+    ],
+    "6° semestre": [
+      "Rehabilitación y Terapéutica de la Persona con Hipoacusia",
+      "Afasiología",
+      "Alteraciones Auditivas, Laberínticas y Otoneurológicas",
+      "Psicopatología del Lenguaje",
+      "Optativa II"
+    ],
+    "7° semestre": [
+      "Fonoaudiología Clínica I (Pasantía)",
+      "Fonoaudiología Clínica II (Pasantía)",
+      "Pasantía en Audiología I (Pasantía)",
+      "Intervención en Personas con Hipoacusia I (Pasantía)",
+      "Terapéutica en Fonoestomatología I (Pasantía)",
+      "Práctica en Fonoaudiología Educacional I",
+      "Investigación en Fonoaudiología I"
+    ],
+    "8° semestre": [
+      "Fonoaudiología Clínica III (Pasantía)",
+      "Fonoaudiología Clínica IV (Pasantía)",
+      "Pasantía en Audiología II (Pasantía)",
+      "Intervención en personas con hipoacusia II (Pasantía)",
+      "Terapéutica en Fonoestomatología II (Pasantía)",
+      "Práctica en Fonoaudiología Educacional II",
+      "Investigación en Fonoaudiología II",
+      "Pasantía Integral en Fonoaudiología",
+      "Trabajo Final de Grado"
+    ]
+  },
+  "brochure_url": "https://uap.edu.py/wp-content/uploads/2025/06/Licenciatura-en-Fonoaudiologia-Brochure-UAP.pdf"
+}

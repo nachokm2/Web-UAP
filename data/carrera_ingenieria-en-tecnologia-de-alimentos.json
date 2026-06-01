@@ -1,0 +1,93 @@
+{
+  "titulo": "Ingeniería en Tecnología de Alimentos",
+  "duracion": "10 Semestres",
+  "sede": "Central",
+  "descripcion": "La carrera de Ingeniería en Tecnología de Alimentos forma profesionales con sólidas competencias científicas, tecnológicas y de gestión para la producción, transformación, control de calidad, innovación y aseguramiento de la inocuidad de los alimentos. Integra conocimientos de ciencias básicas, ingeniería y biotecnología aplicados al sector alimentario. El programa contempla la investigación y el desarrollo de nuevos productos, así como la optimización de procesos industriales, promoviendo prácticas sustentables y respondiendo a las demandas de un mercado globalizado. Los egresados estarán preparados para actuar en industrias alimentarias, laboratorios de control de calidad, instituciones de investigación y organismos de regulación sanitaria.",
+  "objetivo": "Formar ingenieros en tecnología de alimentos con capacidad científica, tecnológica y ética para diseñar, desarrollar, controlar y optimizar procesos de producción de alimentos, asegurando la calidad, inocuidad y sostenibilidad, y contribuyendo al bienestar social y al avance de la industria alimentaria en Paraguay y la región.",
+  "objetivos_especificos": [],
+  "a_quien_va_dirigido": "",
+  "campo_laboral": "Industria alimentaria, plantas procesadoras de alimentos, laboratorios de análisis y control de calidad, instituciones de investigación y desarrollo, organismos de regulación y certificación, empresas de consultoría alimentaria, emprendimientos de innovación en alimentos y áreas de gestión de calidad y producción.",
+  "perfil_egresado": "El egresado será un profesional capaz de diseñar, desarrollar, supervisar y optimizar procesos de producción de alimentos, garantizando la calidad, la inocuidad y la sostenibilidad, mediante la aplicación de conocimientos científicos, tecnológicos y de gestión, con responsabilidad ética y compromiso social.",
+  "competencias_disciplinarias": [],
+  "competencias_profesionales": [],
+  "competencias_genericas": [],
+  "mision": "",
+  "vision": "",
+  "valores": [],
+  "definicion_profesional": "",
+  "malla": {
+    "1° Semestre": [
+      "Comunicación Oral y Escrita",
+      "Guaraní",
+      "Alimentación Comunitaria Sustentable",
+      "Introducción a la Ingeniería",
+      "Ciencia\nde los\nAlimentos"
+    ],
+    "2° Semestre": [
+      "Matemática Fundamental",
+      "Biología Celular y Molecular",
+      "Química General y Orgánica",
+      "Inglés",
+      "Economía y Gestión de Agronegocios"
+    ],
+    "3° Semestre": [
+      "Matemática Aplicada",
+      "Mecánica, Calor y Termodinámica",
+      "Tecnología de la Información y Comunicación",
+      "Microbiología General",
+      "Bioquímica\nGeneral"
+    ],
+    "4° Semestre": [
+      "Circuitos Eléctricos y Electrónicos",
+      "Química y Bioquímica de Alimentos",
+      "Probabilidad y Estadística",
+      "Fisicoquímica",
+      "Microbiología de Alimentos"
+    ],
+    "5° Semestre": [
+      "Termodinámica y Cinética de Alimentos",
+      "Química Analítica Cuantitativa e Instrumental",
+      "Calculo Diferencial",
+      "Nutrición y Salud Pública",
+      "Saneamiento y Legislación Alimentaria y Ambiental"
+    ],
+    "6° Semestre": [
+      "Química Avanzada",
+      "Calculo Integral",
+      "Optativa I",
+      "Fenómenos de Transporte",
+      "Análisis de Alimentos"
+    ],
+    "7° Semestre": [
+      "Fisicoquímica de Alimentos",
+      "Optativa II",
+      "Seguridad Industrial y Protección Ambiental",
+      "Diseño y Desarrollo de Productos",
+      "Operaciones Unitarias Aplicadas al Procesamiento de Alimentos"
+    ],
+    "8° Semestre": [
+      "Ingeniería de Alimentos y Biotecnología Alimentaria",
+      "Optativa III",
+      "Inocuidad Alimentaria",
+      "Sistemas de Gestión de Calidad",
+      "Alimentos Funcionales y Nutracéuticos"
+    ],
+    "9° Semestre": [
+      "Toxicología de Alimentos",
+      "Procesamiento y Tecnología de Cereales y Derivados",
+      "Metodología de la Investigación",
+      "Análisis Estadístico y Diseño Experimentos",
+      "Procesamiento y Tecnología de Carne y Derivados"
+    ],
+    "10° Semestre": [
+      "Procesamiento y Tecnología de Verduras, Frutas y Hortalizas",
+      "Envases y Embalajes",
+      "Procesamiento y Tecnología de Leche y Derivados",
+      "Procesamiento y Tecnología de Bebidas",
+      "Formulación y Evaluación de Proyectos",
+      "Pasantía Supervisada",
+      "Trabajo de Grado"
+    ]
+  },
+  "brochure_url": "https://uap.edu.py/wp-content/uploads/2025/06/Ingenieria-en-Tecnologia-de-Alimentos-Brochure-UAP.pdf"
+}

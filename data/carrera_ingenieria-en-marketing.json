@@ -1,0 +1,90 @@
+{
+  "titulo": "Ingeniería en Marketing",
+  "duracion": "10 Semestres",
+  "sede": "Central",
+  "descripcion": "La carrera de Ingeniería en Marketing tiene como objetivo formar profesionales capaces de diseñar, implementar y gestionar estrategias de marketing y comunicación integrales que contribuyan al desarrollo de empresas y organizaciones. Los egresados estarán preparados para comprender el comportamiento del consumidor, gestionar marcas, ejecutar campañas publicitarias, y manejar técnicas avanzadas de marketing digital y neuromarketing, empleando herramientas tecnológicas de vanguardia y metodologías analíticas. Además, el enfoque ético y social es esencial en la formación del futuro ingeniero en marketing, brindando un marco para actuar en entornos cada vez más complejos y globalizados.",
+  "objetivo": "Formar profesionales en Ingeniería en Marketing capaces de diseñar, implementar y evaluar estrategias comerciales y de marketing efectivas, basadas en un enfoque integral y ético, aplicando metodologías innovadoras, tecnologías emergentes y un análisis profundo del mercado, para contribuir al crecimiento y sostenibilidad de las organizaciones en un contexto globalizado.",
+  "objetivos_especificos": [],
+  "a_quien_va_dirigido": "",
+  "campo_laboral": "Los Ingenieros en Marketing podrá desempeñarse en empresas de diversos sectores, agencias de publicidad, instituciones gubernamentales y ONG's, como responsable de marketing estratégico, digital, comunicación corporativa, investigación de mercado, gestión de marcas, e-commerce, y planificación de campañas publicitarias. También podrá asesorar a empresas sobre la optimización de sus procesos comerciales, análisis de consumidores, y desarrollo de nuevas oportunidades de negocio.",
+  "perfil_egresado": "El egresado de la carrera de Ingeniería en Marketing será un profesional altamente capacitado para gestionar y desarrollar estrategias de marketing integrales y efectivas, tanto en el ámbito local como internacional. Será capaz de aplicar herramientas tecnológicas, metodologías analíticas y creativas, orientando sus acciones hacia la maximización del valor de las organizaciones y la satisfacción de las necesidades del consumidor, con un enfoque ético y socialmente responsable.",
+  "competencias_disciplinarias": [],
+  "competencias_profesionales": [],
+  "competencias_genericas": [],
+  "mision": "",
+  "vision": "",
+  "valores": [],
+  "definicion_profesional": "",
+  "malla": {
+    "1° Semestre": [
+      "Administración General",
+      "Guaraní",
+      "Introducción a la Comercialización",
+      "Comunicación Oral y Escrita",
+      "Teorías Económicas"
+    ],
+    "2° Semestre": [
+      "Contabilidad General I",
+      "Matemática Fundamental",
+      "Plan de Marketing",
+      "Inglés",
+      "Tecnología de la Información y la Comunicación"
+    ],
+    "3° Semestre": [
+      "Contabilidad General II",
+      "Matemática Aplicada",
+      "Microeconomía",
+      "Comportamiento Organizacional",
+      "Comportamiento del Consumidor"
+    ],
+    "4° Semestre": [
+      "Lógica Matemática",
+      "Psicología de la Comunicación y aplicaciones sensoriales en Marketing",
+      "Técnica de negociación",
+      "Macroeconomía",
+      "Investigación de mercados y operaciones"
+    ],
+    "5° Semestre": [
+      "Matemática Financiera",
+      "Legislación Civil, Comercial y Laboral",
+      "Administración y Gestión Financiera",
+      "Optativa I",
+      "Marketing Institucional e Identidad Corporativa"
+    ],
+    "6° Semestre": [
+      "Optativa II",
+      "Administración de Recursos Humanos",
+      "Probabilidad y Estadística",
+      "Community Manager",
+      "Gerencia de Marcas y Ventas"
+    ],
+    "7° Semestre": [
+      "Marketing Digital",
+      "Optativa III",
+      "Marketing Operativo y Estratégico",
+      "Diseño Gráfico, Color y Composición",
+      "e-Marketing (Business y Advertising)"
+    ],
+    "8° Semestre": [
+      "Logística Comercial",
+      "Auditoría de Marketing",
+      "Retail Marketing",
+      "Relaciones Públicas",
+      "Trade Marketing"
+    ],
+    "9° Semestre": [
+      "Marketing Internacional",
+      "Comunicación y Nuevas Tecnologías en Marketing",
+      "Neuromarketing",
+      "Innovación en Marketing",
+      "Metodología de la Investigación"
+    ],
+    "10° Semestre": [
+      "Marketing de Servicios CRM",
+      "Marketing Relacional Directo e Indirecto",
+      "Pasantía Supervisada",
+      "Trabajo de Grado"
+    ]
+  },
+  "brochure_url": "https://uap.edu.py/wp-content/uploads/2025/06/Ingenieria-en-Marketing-Brochure-UAP-.pdf"
+}

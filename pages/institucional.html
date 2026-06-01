@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Institucional – UAP</title>
+    <link rel="stylesheet" href="../css/uap-refined.css">
+    <style>
+        .logo-img { height: 45px; }
+        .content { max-width: 800px; margin: 0 auto; }
+        .content h2 { margin-top: var(--space-12); margin-bottom: var(--space-4); color: var(--color-primary); }
+        .content p { margin-bottom: var(--space-4); color: var(--color-text-secondary); line-height: 1.8; }
+        .content ul { margin-bottom: var(--space-4); padding-left: var(--space-6); }
+        .content li { margin-bottom: var(--space-2); color: var(--color-text-secondary); }
+        .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); margin-top: var(--space-6); }
+        .value-card { background: var(--color-background); padding: var(--space-5); border-radius: var(--radius-md); text-align: center; font-weight: var(--weight-semibold); color: var(--color-primary); font-size: var(--text-sm); }
+        .authorities-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-6); margin-top: var(--space-6); }
+        .authority-card { background: var(--color-surface); padding: var(--space-6); border-radius: var(--radius-lg); text-align: center; }
+        .authority-card h3 { color: var(--color-primary); margin-bottom: var(--space-2); }
+        .authority-card p { color: var(--color-text-muted); font-size: var(--text-sm); }
+        .regulations-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--space-4); margin-top: var(--space-6); }
+        .regulation-item { background: var(--color-surface); padding: var(--space-4); border-radius: var(--radius-md); border-left: 3px solid var(--color-primary); }
+        .regulation-item a { color: var(--color-primary); text-decoration: none; }
+        .regulation-item a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <header class="header" style="position: relative;">
+        <div class="container header-inner">
+            <a href="../index.html" class="logo"><img src="../images/logo-uap.png" alt="UAP" class="logo-img"></a>
+            <button class="mobile-menu-btn" onclick="document.querySelector('.nav').classList.toggle('active')">☰</button>
+            <nav>
+                <ul class="nav">
+                    <li><a href="../index.html">Inicio</a></li>
+                    <li><a href="carreras.html">Carreras</a></li>
+                    <li><a href="posgrados.html">Posgrados</a></li>
+                    <li><a href="noticias.html">Noticias</a></li>
+                    <li><a href="institucional.html" class="nav-active">Institucional</a></li>
+                    <li><a href="investigacion.html">Investigación</a></li>
+                    <li><a href="estudiantes.html">Estudiantes</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="page">
+        <div class="page-hero">
+            <div class="container">
+                <h1>Institucional</h1>
+                <p>Conocé nuestra historia, valores y estructura organizativa</p>
+            </div>
+        </div>
+
+        <div class="container content">
+            <!-- Misión, Visión, Valores -->
+            <section>
+                <h2>Misión</h2>
+                <p>Formar profesionales íntegros, competentes y socialmente responsables, capaces de contribuir al desarrollo sostenible del Paraguay y la región, mediante una educación de excelencia basada en valores éticos y principios cristianos.</p>
+
+                <h2>Visión</h2>
+                <p>Ser la universidad líder en Paraguay, reconocida por su excelencia académica, innovación e investigación, con proyección internacional y compromiso social.</p>
+
+                <h2>Valores</h2>
+                <div class="values-grid">
+                    <div class="value-card">Excelencia académica</div>
+                    <div class="value-card">Integridad</div>
+                    <div class="value-card">Compromiso social</div>
+                    <div class="value-card">Innovación</div>
+                    <div class="value-card">Solidaridad</div>
+                    <div class="value-card">Responsabilidad</div>
+                </div>
+            </section>
+
+            <!-- Historia -->
+            <section>
+                <h2>Nuestra Historia</h2>
+                <p>La Universidad Autónoma del Paraguay (UAP) nace como una institución de educación superior comprometida con la formación de profesionales de excelencia. A lo largo de los años, hemos consolidado un modelo educativo que integra la teoría y la práctica, formando egresados altamente capacitados para responder a los desafíos del mercado laboral.</p>
+                <p>Contamos con modernas instalaciones, laboratorios equipados con tecnología de punta y un cuerpo docente conformado por profesionales de destacada trayectoria académica y profesional.</p>
+            </section>
+
+            <!-- Autoridades -->
+            <section id="autoridades">
+                <h2>Autoridades – Consejo Superior Universitario</h2>
+                <div class="authorities-grid">
+                    <div class="authority-card">
+                        <h3>Abg. Carlos Darío Pedro Ruffinelli Céspedes</h3>
+                        <p>Rector</p>
+                    </div>
+                    <div class="authority-card">
+                        <h3>Ing. Enrique Rodolfo Corthorn Silva</h3>
+                        <p>Secretario General</p>
+                    </div>
+                    <div class="authority-card">
+                        <h3>Abg. Ignacio Javier Ribera Concha</h3>
+                        <p>Miembro Asesor</p>
+                    </div>
+                    <div class="authority-card">
+                        <h3>Lic. Francisco Espínola Marín</h3>
+                        <p>Director Administrativo y Financiero</p>
+                    </div>
+                    <div class="authority-card">
+                        <h3>Lic. Felipe Orellana Riquelme</h3>
+                        <p>Director Comercial y Marketing</p>
+                    </div>
+                    <div class="authority-card">
+                        <h3>Lic. Zeneida Cáceres Saguier</h3>
+                        <p>Directora Gestión y Calidad</p>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: var(--space-10); margin-bottom: var(--space-4); color: var(--color-primary);">Directores de Carrera</h3>
+                <div class="authorities-grid">
+                    <div class="authority-card">
+                        <h3>Dra. Claudia Díaz de Vivar Silguero</h3>
+                        <p>Odontología</p>
+                    </div>
+                    <div class="authority-card">
+                        <h3>Lic. Franca La Carrubba Abbate</h3>
+                        <p>Psicología</p>
+                    </div>
+                    <div class="authority-card">
+                        <h3>Lic. Gissel Benítez Vargas</h3>
+                        <p>Fonoaudiología</p>
+                    </div>
+                    <div class="authority-card">
+                        <h3>Lic. Nilda Quiñonez Adorno</h3>
+                        <p>Podología y Fisioterapia</p>
+                    </div>
+                    <div class="authority-card">
+                        <h3>Mg. Rossana Servín Cardozo</h3>
+                        <p>Educación</p>
+                    </div>
+                    <div class="authority-card">
+                        <h3>Lic. Laura Aquino de Bordón</h3>
+                        <p>Trabajo Social</p>
+                    </div>
+                    <div class="authority-card">
+                        <h3>Lic. Carlos Rojas Candia</h3>
+                        <p>Periodismo</p>
+                    </div>
+                    <div class="authority-card">
+                        <h3>Mg. Alfredo González Palacios</h3>
+                        <p>Derecho</p>
+                    </div>
+                    <div class="authority-card">
+                        <h3>Dr. Luis Eduardo Tapia Rodríguez</h3>
+                        <p>Informática</p>
+                    </div>
+                    <div class="authority-card">
+                        <h3>Dra. Graciela Villalba Cabrera</h3>
+                        <p>Administración de Empresas, Administración Pública, Ingeniería Comercial</p>
+                    </div>
+                    <div class="authority-card">
+                        <h3>Dr. Jorge Muñoz Maldonado</h3>
+                        <p>Ciencias Contables, Comercio Internacional, Marketing y Publicidad</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Convenios -->
+            <section id="convenios">
+                <h2>Convenios Internacionales</h2>
+                <p>La UAP mantiene convenios de cooperación académica con prestigiosas instituciones de educación superior de América Latina, Europa y Estados Unidos. Estos acuerdos permiten:</p>
+                <ul>
+                    <li>Movilidad estudiantil y docente</li>
+                    <li>Investigación conjunta</li>
+                    <li>Intercambio de recursos bibliográficos</li>
+                    <li>Validación de estudios</li>
+                    <li>Conferencias y seminarios internacionales</li>
+                </ul>
+                <p>Algunas de nuestras instituciones aliadas incluyen universidades de Chile, Argentina, España, México y Estados Unidos.</p>
+            </section>
+
+            <!-- Reglamentos -->
+            <section id="reglamentos">
+                <h2>Reglamentos y Normativas</h2>
+                <p>La UAP se rige por un marco normativo que asegura la calidad académica y el buen funcionamiento institucional:</p>
+                <div class="regulations-list">
+                    <div class="regulation-item">
+                        <strong>Reglamento Académico</strong><br>
+                        <a href="#">Descargar PDF</a>
+                    </div>
+                    <div class="regulation-item">
+                        <strong>Reglamento de Evaluación</strong><br>
+                        <a href="#">Descargar PDF</a>
+                    </div>
+                    <div class="regulation-item">
+                        <strong>Reglamento de Alumnos</strong><br>
+                        <a href="#">Descargar PDF</a>
+                    </div>
+                    <div class="regulation-item">
+                        <strong>Reglamento de Posgrado</strong><br>
+                        <a href="#">Descargar PDF</a>
+                    </div>
+                    <div class="regulation-item">
+                        <strong>Código de Ética</strong><br>
+                        <a href="#">Descargar PDF</a>
+                    </div>
+                    <div class="regulation-item">
+                        <strong>Normas de Biblioteca</strong><br>
+                        <a href="#">Descargar PDF</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Reconocimientos -->
+            <section>
+                <h2>Reconocimientos y Acreditaciones</h2>
+                <p>La UAP cuenta con reconocimiento oficial de la Secretaría Nacional de Educación Superior (SNES) y mantiene un compromiso continuo con la calidad académica a través de procesos de autoevaluación y mejora continua.</p>
+                <ul>
+                    <li>Reconocimiento oficial por la SNES</li>
+                    <li>Membro de la Unión de Universidades de América Latina (UDUAL)</li>
+                    <li>Alianzas con universidades de Chile, Argentina, España y México</li>
+                </ul>
+            </section>
+        </div>
+    </main>
+
+        <!-- Footer limpio -->
+        <!-- Footer limpio -->
+    <footer style="background: #003366; color: white; padding: 40px 0 20px;">
+        <div class="container">
+            <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 30px;">
+                <div>
+                    <img src="../images/logo-white.png" alt="UAP" style="height: 45px; margin-bottom: 16px;">
+                    <p style="opacity: 0.8; line-height: 1.6; margin-bottom: 16px;">
+                        Universidad Autónoma del Paraguay.<br>
+                        Comprometidos con la excelencia académica y el desarrollo del país.
+                    </p>
+                    <div style="display: flex; flex-direction: column; gap: 8px; font-size: 14px; opacity: 0.7;">
+                        <span>Colón Nº 658 e/Haedo, Asunción, Paraguay</span>
+                        <span>+595 21 447 579</span>
+                        <span>info@uap.edu.py</span>
+                    </div>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 16px; font-weight: 600;">Carreras</h4>
+                    <ul style="list-style: none; display: flex; flex-direction: column; gap: 8px;">
+                        <li><a href="carreras/odontologia.html" style="color: rgba(255,255,255,0.7); text-decoration: none;">Odontología</a></li>
+                        <li><a href="carreras/psicologia.html" style="color: rgba(255,255,255,0.7); text-decoration: none;">Psicología</a></li>
+                        <li><a href="carreras/fisioterapia.html" style="color: rgba(255,255,255,0.7); text-decoration: none;">Fisioterapia</a></li>
+                        <li><a href="carreras/marketing.html" style="color: rgba(255,255,255,0.7); text-decoration: none;">Marketing</a></li>
+                        <li><a href="carreras.html" style="color: rgba(255,255,255,0.7); text-decoration: none;">Ver todas →</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 16px; font-weight: 600;">Posgrados</h4>
+                    <ul style="list-style: none; display: flex; flex-direction: column; gap: 8px;">
+                        <li><a href="posgrados.html" style="color: rgba(255,255,255,0.7); text-decoration: none;">Maestrías</a></li>
+                        <li><a href="posgrados.html" style="color: rgba(255,255,255,0.7); text-decoration: none;">Especializaciones</a></li>
+                        <li><a href="posgrados.html" style="color: rgba(255,255,255,0.7); text-decoration: none;">Doctorados</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 16px; font-weight: 600;">Institucional</h4>
+                    <ul style="list-style: none; display: flex; flex-direction: column; gap: 8px;">
+                        <li><a href="institucional.html" style="color: rgba(255,255,255,0.7); text-decoration: none;">Sobre la UAP</a></li>
+                        <li><a href="institucional.html#autoridades" style="color: rgba(255,255,255,0.7); text-decoration: none;">Autoridades</a></li>
+                        <li><a href="investigacion.html" style="color: rgba(255,255,255,0.7); text-decoration: none;">Investigación</a></li>
+                        <li><a href="contacto.html" style="color: rgba(255,255,255,0.7); text-decoration: none;">Contacto</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div style="border-top: 1px solid rgba(255,255,255,0.2); padding-top: 20px; text-align: center; font-size: 14px; opacity: 0.6;">
+                Universidad Autónoma del Paraguay © 2026
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

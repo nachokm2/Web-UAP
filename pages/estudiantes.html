@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estudiantes – UAP</title>
+    <link rel="stylesheet" href="../css/uap-refined.css">
+    <style>
+        .logo-img { height: 45px; }
+        .student-card {
+            background: var(--color-surface);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+            box-shadow: var(--shadow-sm);
+            transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        .student-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+        .student-card h3 {
+            color: var(--color-primary);
+            margin-bottom: var(--space-2);
+        }
+        .student-card p {
+            color: var(--color-text-secondary);
+            font-size: var(--text-sm);
+        }
+        .student-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--color-primary);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--space-4);
+            color: white;
+            font-size: 1.5rem;
+        }
+        .student-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-6);
+            margin-top: var(--space-8);
+        }
+    </style>
+</head>
+<body>
+    <header class="header" style="position: relative;">
+        <div class="container header-inner">
+            <a href="../index.html" class="logo">
+                <img src="../images/logo-uap.png" alt="UAP - Universidad Autónoma del Paraguay" class="logo-img">
+            </a>
+            <button class="mobile-menu-btn" onclick="document.querySelector('.nav').classList.toggle('active')">☰</button>
+            <nav>
+                <ul class="nav">
+                    <li><a href="../index.html" >Inicio</a></li>
+                    <li class="dropdown">
+                        <a href="carreras.html">Carreras</a>
+                        <div class="dropdown-content" style="min-width: 520px; max-height: 80vh; overflow-y: auto; right: 0; left: auto;">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-2);">
+                                <div>
+                                    <div class="dropdown-faculty">Ciencias Médicas y de la Salud</div>
+                                    <a href="carreras/podologia.html">Podología</a>
+                                    <a href="carreras/optica.html">Óptica y Contactología</a>
+                                    <a href="carreras/fisioterapia.html">Fisioterapia</a>
+                                    <a href="carreras/fonoaudiologia.html">Fonoaudiología</a>
+                                    <a href="carreras/psicologia.html">Psicología</a>
+                                    <a href="carreras/nutricion.html">Nutrición</a>
+                                    <a href="carreras/odontologia.html">Odontología</a>
+                                </div>
+                                <div>
+                                    <div class="dropdown-faculty">Ingenierías y Tecnologías</div>
+                                    <a href="carreras/informatica.html">Ingeniería en Informática</a>
+                                    <a href="carreras/alimentos.html">Ingeniería en Tecnología de Alimentos</a>
+                                    <div class="dropdown-faculty" style="margin-top: var(--space-2); border-top: 1px solid var(--color-border-light); padding-top: var(--space-2);">Ciencias Sociales y Humanas</div>
+                                    <a href="carreras/periodismo.html">Periodismo</a>
+                                    <a href="carreras/educacion.html">Ciencias de la Educación</a>
+                                    <a href="carreras/parvularia.html">Educación Parvularia</a>
+                                    <a href="carreras/derecho.html">Derecho</a>
+                                    <a href="carreras/trabajo-social.html">Trabajo Social</a>
+                                    <a href="carreras/admin-publica.html">Administración Pública</a>
+                                    <a href="carreras/admin-empresas.html">Administración de Empresas</a>
+                                    <a href="carreras/contables.html">Ciencias Contables</a>
+                                    <a href="carreras/contabilidad-auditoria.html">Contabilidad y Auditoría</a>
+                                    <a href="carreras/contaduria.html">Contaduría Pública</a>
+                                    <a href="carreras/marketing.html">Marketing y Publicidad</a>
+                                    <a href="carreras/ing-comercial.html">Ingeniería Comercial</a>
+                                    <a href="carreras/comercio-internacional.html">Ingeniería en Comercio Internacional</a>
+                                    <a href="carreras/ing-marketing.html">Ingeniería en Marketing</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="posgrados.html">Posgrados</a>
+                        <div class="dropdown-content">
+                            <div class="dropdown-faculty">Facultad de Ciencias Médicas y de la Salud</div>
+                            <a href="posgrados.html#odontologicas">Odontología</a>
+                            <div class="dropdown-faculty">Facultad de Ciencias Sociales y Humanas</div>
+                            <a href="posgrados.html#educacion">Educación</a>
+                            <a href="posgrados.html#psicologia">Psicología</a>
+                        </div>
+                    </li>
+                    <li><a href="noticias.html">Noticias</a></li>
+                    <li class="dropdown">
+                        <a href="institucional.html">Institucional</a>
+                        <div class="dropdown-content">
+                            <a href="institucional.html">Misión, Visión y Valores</a>
+                            <a href="institucional.html#autoridades">Autoridades</a>
+                            <a href="institucional.html#convenios">Convenios</a>
+                            <a href="institucional.html#reglamentos">Reglamentos</a>
+                        </div>
+                    </li>
+                    <li><a href="investigacion.html">Investigación</a></li>
+                    <li><a href="estudiantes.html">Estudiantes</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="page">
+        <div class="page-hero">
+            <div class="container">
+                <h1>Estudiantes</h1>
+                <p>Todo lo que necesitás para tu vida académica</p>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="student-grid">
+                <a href="https://uap.edu.py/biblioteca-virtual/" class="student-card" target="_blank">
+                    <div class="student-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="32" height="32" style="display: block; margin: 0 auto;"><path d="M8 12 C8 8, 14 8, 18 12 L18 38 C14 34, 8 34, 8 38 Z" fill="none" stroke="white" stroke-width="2" stroke-linejoin="round"/><path d="M18 12 C18 8, 24 8, 28 12 L28 38 C24 34, 18 34, 18 38 Z" fill="none" stroke="white" stroke-width="2" stroke-linejoin="round"/><path d="M28 12 C28 8, 34 8, 38 12 L38 38 C34 34, 28 34, 28 38 Z" fill="none" stroke="white" stroke-width="2" stroke-linejoin="round"/><line x1="8" y1="38" x2="40" y2="38" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div>
+                    <h3>Biblioteca Virtual</h3>
+                    <p>Accedé a recursos bibliográficos, libros electrónicos, revistas académicas y bases de datos científicas para tu formación.</p>
+                </a>
+
+                <div class="student-card">
+                    <div class="student-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="32" height="32" style="display: block; margin: 0 auto;"><rect x="4" y="8" width="40" height="36" rx="4" fill="none" stroke="white" stroke-width="2"/><line x1="4" y1="18" x2="44" y2="18" stroke="white" stroke-width="2"/><line x1="14" y1="4" x2="14" y2="12" stroke="white" stroke-width="2" stroke-linecap="round"/><line x1="34" y1="4" x2="34" y2="12" stroke="white" stroke-width="2" stroke-linecap="round"/><line x1="14" y1="26" x2="34" y2="26" stroke="white" stroke-width="2" stroke-linecap="round"/><line x1="14" y1="34" x2="26" y2="34" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div>
+                    <h3>Calendario Académico</h3>
+                    <p>Consultá las fechas importantes del período lectivo, exámenes, inscripciones y eventos institucionales.</p>
+                </div>
+
+                <div class="student-card">
+                    <div class="student-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="32" height="32" style="display: block; margin: 0 auto;"><rect x="8" y="4" width="32" height="40" rx="4" fill="none" stroke="white" stroke-width="2"/><line x1="8" y1="14" x2="40" y2="14" stroke="white" stroke-width="2"/><line x1="16" y1="24" x2="32" y2="24" stroke="white" stroke-width="2" stroke-linecap="round"/><line x1="16" y1="32" x2="28" y2="32" stroke="white" stroke-width="2" stroke-linecap="round"/><line x1="16" y1="40" x2="32" y2="40" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div>
+                    <h3>Reglamentos</h3>
+                    <p>Conocé el reglamento de la universidad, normativas de evaluación, derechos y deberes del estudiante.</p>
+                </div>
+
+                <div class="student-card">
+                    <div class="student-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="32" height="32" style="display: block; margin: 0 auto;"><rect x="8" y="6" width="32" height="36" rx="4" fill="none" stroke="white" stroke-width="2"/><line x1="16" y1="4" x2="16" y2="12" stroke="white" stroke-width="2" stroke-linecap="round"/><line x1="32" y1="4" x2="32" y2="12" stroke="white" stroke-width="2" stroke-linecap="round"/><line x1="8" y1="18" x2="40" y2="18" stroke="white" stroke-width="2"/><line x1="16" y1="28" x2="20" y2="28" stroke="white" stroke-width="2" stroke-linecap="round"/><line x1="26" y1="28" x2="30" y2="28" stroke="white" stroke-width="2" stroke-linecap="round"/><line x1="16" y1="36" x2="34" y2="36" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div>
+                    <h3>Trámites</h3>
+                    <p>Gestioná constancias de estudios, certificados de notas, duplicados de credencial y otros documentos.</p>
+                </div>
+
+                <div class="student-card">
+                    <div class="student-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="32" height="32" style="display: block; margin: 0 auto;"><path d="M24 42 C24 42, 4 30, 4 18 C4 12, 8 6, 14 6 C18 6, 22 8, 24 12 C26 8, 30 6, 34 6 C40 6, 44 12, 44 18 C44 30, 24 42, 24 42 Z" fill="none" stroke="white" stroke-width="2" stroke-linejoin="round"/><path d="M14 14 C16 12, 20 14, 22 16" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div>
+                    <h3>Bienestar Estudiantil</h3>
+                    <p>Accedé a programas de apoyo psicológico, orientación vocacional, actividades culturales y deportivas.</p>
+                </div>
+
+                <div class="student-card">
+                    <div class="student-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="32" height="32" style="display: block; margin: 0 auto;"><rect x="4" y="8" width="40" height="28" rx="4" fill="none" stroke="white" stroke-width="2"/><rect x="20" y="36" width="8" height="6" fill="none" stroke="white" stroke-width="2"/><line x1="16" y1="44" x2="32" y2="44" stroke="white" stroke-width="2" stroke-linecap="round"/><rect x="10" y="16" width="12" height="12" rx="2" fill="none" stroke="white" stroke-width="2"/><line x1="28" y1="16" x2="36" y2="16" stroke="white" stroke-width="2" stroke-linecap="round"/><line x1="28" y1="22" x2="36" y2="22" stroke="white" stroke-width="2" stroke-linecap="round"/><line x1="28" y1="28" x2="36" y2="28" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div>
+                    <h3>Plataforma Virtual</h3>
+                    <p>Accedé a tu aula virtual, materiales de clase, tareas y comunicación con docentes.</p>
+                </div>
+            </div>
+
+            <section class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Información de Contacto</h2>
+                </div>
+                <div style="background: var(--color-surface); padding: var(--space-8); border-radius: var(--radius-lg); max-width: 600px; margin: 0 auto;">
+                    <p style="margin-bottom: var(--space-3);"><strong>Dirección:</strong> Colón Nº 658 e/Haedo, Asunción, Paraguay</p>
+                    <p style="margin-bottom: var(--space-3);"><strong>Teléfono:</strong> +595 21 447 579</p>
+                    <p style="margin-bottom: var(--space-3);"><strong>WhatsApp:</strong> +595 981 222 785</p>
+                    <p><strong>Email:</strong> info@uap.edu.py</p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+        <!-- Footer limpio -->
+        <!-- Footer limpio -->
+    <footer style="background: #003366; color: white; padding: 40px 0 20px;">
+        <div class="container">
+            <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 30px;">
+                <div>
+                    <img src="../images/logo-white.png" alt="UAP" style="height: 45px; margin-bottom: 16px;">
+                    <p style="opacity: 0.8; line-height: 1.6; margin-bottom: 16px;">
+                        Universidad Autónoma del Paraguay.<br>
+                        Comprometidos con la excelencia académica y el desarrollo del país.
+                    </p>
+                    <div style="display: flex; flex-direction: column; gap: 8px; font-size: 14px; opacity: 0.7;">
+                        <span>Colón Nº 658 e/Haedo, Asunción, Paraguay</span>
+                        <span>+595 21 447 579</span>
+                        <span>info@uap.edu.py</span>
+                    </div>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 16px; font-weight: 600;">Carreras</h4>
+                    <ul style="list-style: none; display: flex; flex-direction: column; gap: 8px;">
+                        <li><a href="carreras/odontologia.html" style="color: rgba(255,255,255,0.7); text-decoration: none;">Odontología</a></li>
+                        <li><a href="carreras/psicologia.html" style="color: rgba(255,255,255,0.7); text-decoration: none;">Psicología</a></li>
+                        <li><a href="carreras/fisioterapia.html" style="color: rgba(255,255,255,0.7); text-decoration: none;">Fisioterapia</a></li>
+                        <li><a href="carreras/marketing.html" style="color: rgba(255,255,255,0.7); text-decoration: none;">Marketing</a></li>
+                        <li><a href="carreras.html" style="color: rgba(255,255,255,0.7); text-decoration: none;">Ver todas →</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 16px; font-weight: 600;">Posgrados</h4>
+                    <ul style="list-style: none; display: flex; flex-direction: column; gap: 8px;">
+                        <li><a href="posgrados.html" style="color: rgba(255,255,255,0.7); text-decoration: none;">Maestrías</a></li>
+                        <li><a href="posgrados.html" style="color: rgba(255,255,255,0.7); text-decoration: none;">Especializaciones</a></li>
+                        <li><a href="posgrados.html" style="color: rgba(255,255,255,0.7); text-decoration: none;">Doctorados</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 16px; font-weight: 600;">Institucional</h4>
+                    <ul style="list-style: none; display: flex; flex-direction: column; gap: 8px;">
+                        <li><a href="institucional.html" style="color: rgba(255,255,255,0.7); text-decoration: none;">Sobre la UAP</a></li>
+                        <li><a href="institucional.html#autoridades" style="color: rgba(255,255,255,0.7); text-decoration: none;">Autoridades</a></li>
+                        <li><a href="investigacion.html" style="color: rgba(255,255,255,0.7); text-decoration: none;">Investigación</a></li>
+                        <li><a href="contacto.html" style="color: rgba(255,255,255,0.7); text-decoration: none;">Contacto</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div style="border-top: 1px solid rgba(255,255,255,0.2); padding-top: 20px; text-align: center; font-size: 14px; opacity: 0.6;">
+                Universidad Autónoma del Paraguay © 2026
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

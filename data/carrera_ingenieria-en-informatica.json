@@ -1,0 +1,89 @@
+{
+  "titulo": "Ingeniería en Informática",
+  "duracion": "10 Semestres",
+  "sede": "Central",
+  "descripcion": "La carrera de Ingeniería en Informática tiene como objetivo formar profesionales altamente capacitados en el uso y desarrollo de tecnologías informáticas, con énfasis en la solución de problemas complejos en diversas áreas de la informática, como programación, redes, seguridad cibernética y sistemas de información. Los egresados de esta carrera estarán equipados con las competencias necesarias para diseñar, implementar y gestionar soluciones tecnológicas innovadoras, con un enfoque ético y socialmente responsable, contribuyendo al desarrollo sostenible de la sociedad.",
+  "objetivo": "Formar profesionales en Informática altamente competentes y éticos, capaces de abordar los retos tecnológicos y\ncontribuir al desarrollo sostenible de la sociedad, a través de la adquisición de conocimientos avanzados,\nhabilidades técnicas y capacidades de resolución de problemas en el campo de la informática.",
+  "objetivos_especificos": [],
+  "a_quien_va_dirigido": "",
+  "campo_laboral": "El profesional en informática podrá desempeñarse en una amplia variedad de sectores, incluyendo empresas de tecnología, consultoras, instituciones educativas, organismos gubernamentales, y organizaciones sin fines de lucro. Podrá trabajar en el desarrollo de software, gestión de redes, administración de bases de datos, ciberseguridad, desarrollo de aplicaciones móviles y web, auditoría de sistemas, y como líder de proyectos informáticos. Además, podrá colaborar en la mejora de procesos tecnológicos en empresas de diferentes industrias.",
+  "perfil_egresado": "",
+  "competencias_disciplinarias": [],
+  "competencias_profesionales": [],
+  "competencias_genericas": [],
+  "mision": "",
+  "vision": "",
+  "valores": [],
+  "definicion_profesional": "",
+  "malla": {
+    "1° Semestre": [
+      "Fundamentos de Ciencias de la Computación e Informática",
+      "Comunicación Oral y Escrita",
+      "Guaraní",
+      "Teorías Económicas",
+      "Introducción a la programación"
+    ],
+    "2° Semestre": [
+      "Introducción a la Ingeniería",
+      "Matemática Fundamental",
+      "Arquitectura de Computadores",
+      "Técnica de programación",
+      "Tecnología de la Información y la Comunicación"
+    ],
+    "3° Semestre": [
+      "Matemática Aplicada",
+      "Mecánica, calor y termodinámica (Física)",
+      "Programación avanzada",
+      "Comportamiento organizacional",
+      "Estructura de Datos"
+    ],
+    "4° Semestre": [
+      "Calculo Diferencial",
+      "Probabilidad y Estadística",
+      "Circuitos Eléctricos y Electrónicos (Física)",
+      "Análisis y Diseño de Sistemas",
+      "Sistemas Operativos"
+    ],
+    "5° Semestre": [
+      "Calculo Integral",
+      "Bases de datos I",
+      "Óptica Física",
+      "Inglés",
+      "Redes y Comunicaciones"
+    ],
+    "6° Semestre": [
+      "Taller de Sistemas I",
+      "Redes Modernas",
+      "Bases de Datos II",
+      "Inglés II",
+      "Seguridad de Redes"
+    ],
+    "7° Semestre": [
+      "Taller de Sistemas II",
+      "Ingeniería del Software I",
+      "Taller de Multimedios",
+      "Optativa I",
+      "Inglés III"
+    ],
+    "8° Semestre": [
+      "Ingeniería del Software II",
+      "Desarrollo de Aplicaciones Web",
+      "Liderazgo",
+      "Formulación y Evaluación de Proyectos",
+      "Optativa II"
+    ],
+    "9° Semestre": [
+      "Calidad del Software",
+      "Proyectos Informáticos",
+      "Optativa III",
+      "Metodología de la Investigación"
+    ],
+    "10° Semestre": [
+      "Auditoría de Sistemas",
+      "Pasantía Supervisada",
+      "Trabajo de Grado"
+    ]
+  },
+  "brochure_url": "https://uap.edu.py/wp-content/uploads/2025/06/Ingenieria-en-Informatica-Brochure-UAP.pdf",
+  "full_text": ""
+}

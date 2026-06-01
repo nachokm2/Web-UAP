@@ -1,0 +1,81 @@
+{
+  "titulo": "Licenciado(a) en Podología",
+  "duracion": "8 semestres",
+  "sede": "Central",
+  "descripcion": "La Licenciatura en Podología de la Universidad Autónoma del Paraguay forma profesionales de la salud especializados en el diagnóstico, tratamiento y prevención de afecciones del pie, con un enfoque humanista y ético. El programa integra sólidas bases científicas, formación clínica y responsabilidad social, promoviendo la actualización permanente y la participación activa en el mejoramiento de la salud comunitaria. La carrera prepara al egresado para ejercer su profesión de forma autónoma, en equipos interdisciplinarios y en diferentes ámbitos de la atención sanitaria.",
+  "objetivo": "Formar profesionales universitarios en Podología con sólidos conocimientos científicos, clínicos y humanísticos, capacitados para diagnosticar, tratar y prevenir afecciones del pie mediante prácticas podológicas no quirúrgicas, con competencia en gestión de la salud, investigación aplicada y extensión comunitaria, comprometidos con el mejoramiento de la calidad de vida de la población.",
+  "objetivos_especificos": [],
+  "a_quien_va_dirigido": "",
+  "campo_laboral": "El egresado podrá desempeñarse en hospitales, clínicas, centros de rehabilitación, centros comunitarios, clubes deportivos, geriátricos, guarderías, consultorías externas y en la atención domiciliaria. Asimismo, podrá ejercer de manera independiente mediante la instalación de clínicas privadas o integrarse a organizaciones públicas, privadas y ONG vinculadas a la promoción y el cuidado de la salud podológica.",
+  "perfil_egresado": "El Licenciado en Podología es un profesional universitario de la salud capacitado para actuar de manera autónoma e interdisciplinaria. Posee conocimientosl técnicos, científicos y éticos que le permiten diagnosticar, tratar y prevenir afecciones del pie mediante técnicas podológicas no quirúrgicas, aplicando criterios de normopraxis basados en la evidencia científica y con compromiso hacia la salud de sus pacientes.",
+  "competencias_disciplinarias": [],
+  "competencias_profesionales": [],
+  "competencias_genericas": [],
+  "mision": "",
+  "vision": "",
+  "valores": [],
+  "definicion_profesional": "",
+  "malla": {
+    "1° semestre": [
+      "Comunicación Oral y Escrita",
+      "Inglés",
+      "Bioestadística e informática",
+      "Biofísica",
+      "Psicología Médica"
+    ],
+    "2° semestre": [
+      "Anatomía General I",
+      "Guaraní",
+      "Neuroanatomía I",
+      "Biología celular y molecular",
+      "Histología y embriología"
+    ],
+    "3° semestre": [
+      "Neuroanatomía II",
+      "Anatomía General II",
+      "Microbiología y Bioseguridad",
+      "Biomecánica I",
+      "Fisiología General"
+    ],
+    "4° semestre": [
+      "Bioquímica",
+      "Semiopatología Médica y kinésica",
+      "Biomecánica II",
+      "Fisiopatología",
+      "Introducción a la Podología"
+    ],
+    "5° semestre": [
+      "Atención de la Primaria a la Salud y Primeros Auxilios",
+      "Farmacología",
+      "Podología",
+      "Anatomía del Pie",
+      "Patología Podológica Infanto Juvenil"
+    ],
+    "6° semestre": [
+      "Tecnología de la Información y de la Comunicación",
+      "Diagnóstico por Imágenes",
+      "Patología Podológica del Adulto y del Adulto Mayor",
+      "Preclínica Podológica",
+      "Salud Pública y Gestión Hospitalaria",
+      "Pasantía Interna en Podología I"
+    ],
+    "7° semestre": [
+      "Metodología de la Investigación",
+      "Legislación Aplicada a la Salud y Ética Profesional",
+      "Clínica Podológica",
+      "Podología Deportiva",
+      "Patología Podológica Integrada",
+      "Pasantía Interna en Podología II",
+      "Pasantía en Podología I"
+    ],
+    "8° semestre": [
+      "Investigación Científica",
+      "Dermatología podológica",
+      "Optativa I",
+      "Optativa II",
+      "Pasantía en Podología II",
+      "Trabajo de grado"
+    ]
+  },
+  "brochure_url": "https://uap.edu.py/wp-content/uploads/2025/06/Licenciatura-en-Podologia-Brochure-UAP.pdf"
+}

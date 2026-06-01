@@ -1,0 +1,154 @@
+{
+  "titulo": "Odontología",
+  "duracion": "10 semestres",
+  "sede": "Central",
+  "descripcion": "La carrera de Odontología de la Universidad Autónoma del Paraguay está orientada a la formación de profesionales íntegros en el área de la salud bucal, con sólidos conocimientos científicos, técnicos y humanísticos. El egresado será capaz de prevenir, diagnosticar y tratar enfermedades buco-maxilofaciales en individuos y comunidades, promoviendo el bienestar general. El plan de estudios integra docencia, investigación, extensión universitaria y servicio comunitario, fortaleciendo competencias clínicas, de investigación y de gestión en salud, con énfasis en el compromiso ético, la responsabilidad social y la atención a la diversidad cultural paraguaya.",
+  "objetivo": "Formar odontólogos altamente competentes en la prevención, diagnóstico, tratamiento y rehabilitación de las patologías buco-maxilofaciales, capaces de desempeñarse en contextos individuales y comunitarios, mediante una formación científica, ética y humanista. Promover el desarrollo de habilidades clínicas, investigativas y de gestión sanitaria, con responsabilidad social, respeto por la diversidad cultural y compromiso con la mejora continua de la calidad de vida de la población.",
+  "objetivos_especificos": [
+    "Desarrollar habilidades clínicas para el diagnóstico, tratamiento y rehabilitación de enfermedades bucodentales.",
+    "Fomentar la investigación científica en el área de la salud oral.",
+    "Promover programas de extensión y educación para la salud bucal en la comunidad.",
+    "Impulsar el trabajo interdisciplinario en equipos de salud.",
+    "Formar profesionales éticos, críticos, humanistas y comprometidos con la mejora de las condiciones de salud de la sociedad paraguaya.",
+    "Integrar tecnologías de vanguardia en la práctica odontológica."
+  ],
+  "a_quien_va_dirigido": "A personas que hayan culminado la educación media y demuestren vocación de servicio, interés por las ciencias de la salud y sensibilidad social. Está dirigido a quienes deseen formarse como odontólogos con una sólida preparación científica, técnica y humanística, comprometidos con el bienestar y la calidad de vida de la población.",
+  "campo_laboral": "El odontólogo egresado podrá ejercer de forma independiente en consultorios privados, clínicas y centros médicos; formar parte de equipos de salud en instituciones públicas y privadas; desempeñarse como asesor o contralor en empresas y compañías de seguros; integrarse a proyectos comunitarios de salud bucal; participar en docencia universitaria e investigación científica en el área odontológica.",
+  "perfil_egresado": "El egresado será un odontólogo competente para prevenir, diagnosticar, tratar y rehabilitar patologías buco-maxilofaciales prevalentes y complejas. Será capaz de trabajar en equipos interdisciplinarios, evaluar la salud general de sus pacientes, aplicar criterios éticos en su práctica, liderar proyectos de promoción y prevención de la salud bucal, integrar avances científicos y tecnológicos a su desempeño profesional y contribuir activamente a la investigación en odontología.",
+  "competencias_disciplinarias": [
+    "Prevenir, diagnosticar y tratar patologías buco-maxilofaciales en individuos y comunidades.",
+    "Aplicar conocimientos científicos, técnicos y humanísticos en el ejercicio de la odontología."
+  ],
+  "competencias_profesionales": [
+    "Desarrollar tratamientos odontológicos basados en principios científicos y éticos.",
+    "Integrar equipos interdisciplinarios para la atención integral de pacientes.",
+    "Diseñar y ejecutar programas de promoción y prevención de la salud bucal.",
+    "Aplicar metodologías de investigación en el ámbito de la odontología.",
+    "Utilizar tecnologías de la información y comunicación en el diagnóstico y tratamiento odontológico.",
+    "Gestionar consultorios o servicios odontológicos con criterios de calidad y eficiencia."
+  ],
+  "competencias_genericas": [
+    "Comunicación efectiva: Expresar ideas de manera clara y coherente, oralmente y por escrito.",
+    "Trabajo en equipo: Colaborar de manera empática y eficaz en entornos multidisciplinarios.",
+    "Pensamiento crítico: Analizar información de manera crítica para tomar decisiones fundamentadas.",
+    "Comportamiento ético: Actuar con justicia, respeto y responsabilidad social.",
+    "Responsabilidad social: Contribuir al desarrollo de soluciones que promuevan condiciones de vida más justas y equitativas."
+  ],
+  "mision": "Formar profesionales en Odontología con sólida preparación científica, técnica, ética y humanística, capaces de prevenir, diagnosticar y tratar enfermedades buco-maxilofaciales en individuos y comunidades, desde un enfoque integral e interdisciplinario. La carrera promueve la investigación, la extensión y el compromiso con el desarrollo sostenible, fortaleciendo el vínculo entre ciencia, salud y responsabilidad social en el contexto de la diversidad cultural paraguaya.",
+  "vision": "Ser una carrera reconocida a nivel nacional e internacional por la excelencia académica en la formación de odontólogos éticos, innovadores y socialmente comprometidos, capaces de integrar la ciencia y la tecnología con la sensibilidad humana para mejorar la salud bucal y la calidad de vida de las personas, contribuyendo activamente al desarrollo de comunidades saludables, justas y equitativas.",
+  "valores": [
+    "Vocación de servicio: Compromiso con el cuidado de la salud bucal desde un enfoque centrado en la persona, con disposición para brindar atención accesible, empática y respetuosa.",
+    "Compromiso ético: Actuar con integridad, responsabilidad y transparencia en cada intervención clínica, investigativa o comunitaria.",
+    "Sensibilidad social y cultural: Reconocer y valorar la diversidad cultural, social y económica del país, adecuando las prácticas odontológicas a las realidades locales.",
+    "Excelencia académica y actualización continua: Mantener una actitud de aprendizaje permanente, incorporando avances científicos y tecnológicos a la práctica profesional.",
+    "Trabajo en equipo y colaboración interdisciplinaria: Participar activamente en equipos de salud integrados, con respeto y apertura al diálogo profesional.",
+    "Creatividad y pensamiento crítico: Buscar soluciones innovadoras, basadas en la evidencia científica, para resolver problemáticas complejas en salud bucal.",
+    "Tolerancia a la frustración y resiliencia profesional: Afrontar con responsabilidad y equilibrio los desafíos del ejercicio odontológico en contextos clínicos exigentes o socialmente vulnerables."
+  ],
+  "definicion_profesional": "El Odontólogo formado en la Universidad Autónoma del Paraguay es un profesional universitario con sólida base científica, ética y humanista, capacitado para prevenir, diagnosticar, tratar y rehabilitar enfermedades buco-maxilofaciales, con una visión integral de la persona y su entorno. Está facultado para desempeñarse de manera autónoma o en equipos interdisciplinarios en instituciones públicas, privadas y comunitarias, ejerciendo su rol con sentido social, actitud crítica, creatividad, respeto por la diversidad y compromiso con el bienestar colectivo. Integra la investigación y la innovación tecnológica a su práctica clínica, promoviendo estrategias de prevención, promoción y educación en salud bucal orientadas a mejorar la calidad de vida de la población.",
+  "malla": {
+    "1° semestre": [
+      "Bioseguridad y Primeros Auxilios",
+      "Guaraní",
+      "Comunicación Oral y Escrita",
+      "Psicología",
+      "Biología Celular y Molecular",
+      "Química General y Orgánica",
+      "Introducción a la Odontología",
+      "Optativa I"
+    ],
+    "2° semestre": [
+      "Anatomía General",
+      "Administración y Gestión en Salud Pública",
+      "Inglés",
+      "Dibujo y Modelado",
+      "Histología y Embriología",
+      "Microbiología y Parasitología",
+      "Tecnología de la Información y la Comunicación",
+      "Optativa II"
+    ],
+    "3° semestre": [
+      "Anatomía del Cuello y Cabeza",
+      "Anatomía Dentaria I",
+      "Anatomía Patológica I",
+      "Diagnóstico Clínico",
+      "Fisiología General",
+      "Farmacología",
+      "Fisicoquímica Biológica I",
+      "Epidemiología y Salud"
+    ],
+    "4° semestre": [
+      "Fisiología Específica",
+      "Anatomía Patológica II",
+      "Anatomía Dentaria II",
+      "Farmacología Odontológica",
+      "Materiales Dentales y Técnica de Laboratorio",
+      "Microbiología Oral",
+      "Fisicoquímica Biológica II",
+      "Odontología Preventiva y Cardiología"
+    ],
+    "5° semestre": [
+      "Oclusión I",
+      "Imageneología y Radiología",
+      "Semiología y Patología Médica",
+      "Operatoria Preclínica y Biomateriales",
+      "Prótesis a Placa Preclínica",
+      "Endodoncia Preclínica",
+      "Ortodoncia Pre Clínica",
+      "Salud Pública"
+    ],
+    "6° semestre": [
+      "Semiología y Patología Buco Dentaria",
+      "Prótesis a Placa Clínica",
+      "Estomatología Legal y Forense",
+      "Endodoncia I",
+      "Cirugía Bucal I",
+      "Oclusión II",
+      "Operatoria Dental I",
+      "Ortodoncia I"
+    ],
+    "7° semestre": [
+      "Prótesis de Coronas, Puentes y Removible Preclínico",
+      "Estomatología",
+      "Endodoncia II",
+      "Operatoria Dental II",
+      "Oclusión III",
+      "Cirugía Bucal II",
+      "Ortodoncia II",
+      "Periodoncia I"
+    ],
+    "8° semestre": [
+      "Prostodoncia Completa Clínica",
+      "Endodoncia III",
+      "Ortodoncia III",
+      "Operatoria Dental III",
+      "Periodoncia II",
+      "Cirugía Bucal III",
+      "Odontología Deportiva",
+      "Clínica Integral del Niño y del Adolescente I"
+    ],
+    "9° semestre": [
+      "Emergencia en Odontología",
+      "Prostodoncia Parcial Removible Clínica",
+      "Endodoncia IV",
+      "Ortodoncia IV",
+      "Operatoria Dental IV",
+      "Cirugía Bucal IV",
+      "Clínica Integral del Niño y del Adolescente II",
+      "Periodoncia III",
+      "Metodología de la Investigación"
+    ],
+    "10° semestre": [
+      "Prótesis de Coronas, Puentes y Removible Clínico",
+      "Clinica Integrada",
+      "Clinica Integral del Niño y del Adolescente III",
+      "Implantología",
+      "Investigación en Odontología",
+      "Pasantía Supervisada Externa",
+      "Pasantía Integrada Supervisada Interna",
+      "Trabajo de Grado"
+    ]
+  },
+  "brochure_url": "https://uap.edu.py/wp-content/uploads/2025/06/Odontologia-Brochure-UAP.pdf",
+  "full_text": "ODONTOLOGÍA\nTÍTULO\nOdontólogo(a)\nDURACIÓN\n10 semestres\nSEDE\nCentral\nDESCRIPCIÓN\nLa carrera de Odontología de la Universidad Autónoma del Paraguay está orientada a la formación de profesionales íntegros en el área de la salud bucal, con sólidos conocimientos científicos, técnicos y humanísticos. El egresado será capaz de prevenir, diagnosticar y tratar enfermedades buco-maxilofaciales en individuos y comunidades, promoviendo el bienestar general. El plan de estudios integra docencia, investigación, extensión universitaria y servicio comunitario, fortaleciendo competencias clínicas, de investigación y de gestión en salud, con énfasis en el compromiso ético, la responsabilidad social y la atención a la diversidad cultural paraguaya.\nOBJETIVO\nFormar odontólogos altamente competentes en la prevención, diagnóstico, tratamiento y rehabilitación de las patologías buco-maxilofaciales, capaces de desempeñarse en contextos individuales y comunitarios, mediante una formación científica, ética y humanista. Promover el desarrollo de habilidades clínicas, investigativas y de gestión sanitaria, con responsabilidad social, respeto por la diversidad cultural y compromiso con la mejora continua de la calidad de vida de la población.\nOBJETIVOS ESPECÍFICOS\nDesarrollar habilidades clínicas para el diagnóstico, tratamiento y rehabilitación de enfermedades bucodentales.\nFomentar la investigación científica en el área de la salud oral.\nPromover programas de extensión y educación para la salud bucal en la comunidad.\nImpulsar el trabajo interdisciplinario en equipos de salud.\nFormar profesionales éticos, críticos, humanistas y comprometidos con la mejora de las condiciones de salud de la sociedad paraguaya.\nIntegrar tecnologías de vanguardia en la práctica odontológica.\nA QUIÉN VA DIRIGIDO\nA personas que hayan culminado la educación media y demuestren vocación de servicio, interés por las ciencias de la salud y sensibilidad social. Está dirigido a quienes deseen formarse como odontólogos con una sólida preparación científica, técnica y humanística, comprometidos con el bienestar y la calidad de vida de la población.\nCAMPO LABORAL\nEl odontólogo egresado podrá ejercer de forma independiente en consultorios privados, clínicas y centros médicos; formar parte de equipos de salud en instituciones públicas y privadas; desempeñarse como asesor o contralor en empresas y compañías de seguros; integrarse a proyectos comunitarios de salud bucal; participar en docencia universitaria e investigación científica en el área odontológica.\nPERFIL DE EGRESADO\nEl egresado será un odontólogo competente para prevenir, diagnosticar, tratar y rehabilitar patologías buco-maxilofaciales prevalentes y complejas. Será capaz de trabajar en equipos interdisciplinarios, evaluar la salud general de sus pacientes, aplicar criterios éticos en su práctica, liderar proyectos de promoción y prevención de la salud bucal, integrar avances científicos y tecnológicos a su desempeño profesional y contribuir activamente a la investigación en odontología.\nCOMPETENCIAS DISCIPLINARIAS\nPrevenir, diagnosticar y tratar patologías buco-maxilofaciales en individuos y comunidades.\nAplicar conocimientos científicos, técnicos y humanísticos en el ejercicio de la odontología.\nCOMPETENCIAS PROFESIONALES\nDesarrollar tratamientos odontológicos basados en principios científicos y éticos.\nIntegrar equipos interdisciplinarios para la atención integral de pacientes.\nDiseñar y ejecutar programas de promoción y prevención de la salud bucal.\nAplicar metodologías de investigación en el ámbito de la odontología.\nUtilizar tecnologías de la información y comunicación en el diagnóstico y tratamiento odontológico.\nGestionar consultorios o servicios odontológicos con criterios de calidad y eficiencia.\nCOMPETENCIAS GENÉRICAS\nComunicación efectiva: Expresar ideas de manera clara y coherente, oralmente y por escrito.\nTrabajo en equipo: Colaborar de manera empática y eficaz en entornos multidisciplinarios.\nPensamiento crítico: Analizar información de manera crítica para tomar decisiones fundamentadas.\nComportamiento ético: Actuar con justicia, respeto y responsabilidad social.\nResponsabilidad social: Contribuir al desarrollo de soluciones que promuevan condiciones de vida más justas y equitativas.\nMISIÓN\nFormar profesionales en Odontología con sólida preparación científica, técnica, ética y humanística, capaces de prevenir, diagnosticar y tratar enfermedades buco-maxilofaciales en individuos y comunidades, desde un enfoque integral e interdisciplinario. La carrera promueve la investigación, la extensión y el compromiso con el desarrollo sostenible, fortaleciendo el vínculo entre ciencia, salud y responsabilidad social en el contexto de la diversidad cultural paraguaya.\nVISIÓN\nSer una carrera reconocida a nivel nacional e internacional por la excelencia académica en la formación de odontólogos éticos, innovadores y socialmente comprometidos, capaces de integrar la ciencia y la tecnología con la sensibilidad humana para mejorar la salud bucal y la calidad de vida de las personas, contribuyendo activamente al desarrollo de comunidades saludables, justas y equitativas.\nVALORES DE LA CARRERA\nVocación de servicio: Compromiso con el cuidado de la salud bucal desde un enfoque centrado en la persona, con disposición para brindar atención accesible, empática y respetuosa.\nCompromiso ético: Actuar con integridad, responsabilidad y transparencia en cada intervención clínica, investigativa o comunitaria.\nSensibilidad social y cultural: Reconocer y valorar la diversidad cultural, social y económica del país, adecuando las prácticas odontológicas a las realidades locales.\nExcelencia académica y actualización continua: Mantener una actitud de aprendizaje permanente, incorporando avances científicos y tecnológicos a la práctica profesional.\nTrabajo en equipo y colaboración interdisciplinaria: Participar activamente en equipos de salud integrados, con respeto y apertura al diálogo profesional.\nCreatividad y pensamiento crítico: Buscar soluciones innovadoras, basadas en la evidencia científica, para resolver problemáticas complejas en salud bucal.\nTolerancia a la frustración y resiliencia profesional: Afrontar con responsabilidad y equilibrio los desafíos del ejercicio odontológico en contextos clínicos exigentes o socialmente vulnerables.\nDEFINICIÓN DEL PROFESIONAL\nEl Odontólogo formado en la Universidad Autónoma del Paraguay es un profesional universitario con sólida base científica, ética y humanista, capacitado para prevenir, diagnosticar, tratar y rehabilitar enfermedades buco-maxilofaciales, con una visión integral de la persona y su entorno. Está facultado para desempeñarse de manera autónoma o en equipos interdisciplinarios en instituciones públicas, privadas y comunitarias, ejerciendo su rol con sentido social, actitud crítica, creatividad, respeto por la diversidad y compromiso con el bienestar colectivo. Integra la investigación y la innovación tecnológica a su práctica clínica, promoviendo estrategias de prevención, promoción y educación en salud bucal orientadas a mejorar la calidad de vida de la población."
+}

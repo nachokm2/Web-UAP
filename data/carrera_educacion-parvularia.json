@@ -1,0 +1,81 @@
+{
+  "titulo": "Educación Parvularia",
+  "duracion": "8 Semestres",
+  "sede": "Central",
+  "descripcion": "La Licenciatura en Educación Parvularia de la Universidad Autónoma del Paraguay forma profesionales comprometidos con el desarrollo integral de los niños en su primera infancia (0-6 años). A través de un enfoque teórico-práctico, los estudiantes participan en actividades que integran la psicología evolutiva, las metodologías pedagógicas innovadoras y las herramientas tecnológicas, permitiéndoles crear ambientes de aprendizaje estimulantes, inclusivos y adecuados para el desarrollo emocional, social y cognitivo de los niños. Además, se promueve la colaboración con las familias y la comunidad para fortalecer el proceso educativo.",
+  "objetivo": "Formar profesionales reflexivos, altamente capacitados y comprometidos con el desarrollo integral de los niños, promoviendo un enfoque inclusivo y participativo en la educación parvularia y el trabajo en equipo con las familias y la comunidad.",
+  "objetivos_especificos": [],
+  "a_quien_va_dirigido": "",
+  "campo_laboral": "El egresado podrá desempeñarse en instituciones educativas de nivel inicial, guarderías, centros de atención a la infancia, programas gubernamentales y ONGs. Además, podrá contribuir en proyectos comunitarios y organizaciones sociales que promuevan la educación inclusiva y el bienestar de la infancia en diversos contextos, incluyendo el ámbito privado y en instituciones educativas alternativas.",
+  "perfil_egresado": "El egresado de la Licenciatura en Educación Parvularia será un profesional íntegro y capacitado, capaz de diseñar e implementar estrategias educativas inclusivas que favorezcan el desarrollo integral de los niños en su primera infancia. Poseerá conocimientos sólidos en pedagogía, psicología evolutiva, neurociencia y gestión educativa, así como habilidades para trabajar en colaboración con las familias, comunidades y equipos multidisciplinarios, y para adaptarse a contextos educativos diversos.",
+  "competencias_disciplinarias": [],
+  "competencias_profesionales": [],
+  "competencias_genericas": [],
+  "mision": "",
+  "vision": "",
+  "valores": [],
+  "definicion_profesional": "",
+  "malla": {
+    "1° Semestre": [
+      "Comunicación Oral y Escrita",
+      "Metodología del Trabajo Intelectual",
+      "Guaraní",
+      "Psicología General y Evolutiva",
+      "Historia de la Educación"
+    ],
+    "2° Semestre": [
+      "Tecnología Educativa como Recurso Didáctico",
+      "Fundamentos Filosóficos, Antropológicos y Sociológicos del Desarrollo",
+      "Fundamento Biofisiológico del Desarrollo y del Aprendizaje",
+      "Psicología de las Personas con Discapacidad y Educación Inclusiva",
+      "Inglés"
+    ],
+    "3° Semestre": [
+      "Administración y gestión Educativa",
+      "Fundamentos Filosóficos, Antropológicos y Sociológicos del Aprendizaje",
+      "Aprendizaje y Desarrollo en Contextos Educativos",
+      "Bases para la Didáctica y Evaluación del Aprendizaje",
+      "Introducción a la Educación Parvularia",
+      "Identidad y Rol del Docente (Seminario)"
+    ],
+    "4° Semestre": [
+      "Cuidado y Promoción de la Salud del Infante",
+      "Curriculum de la Educación Parvularia",
+      "Psicomotricidad",
+      "Fundamentos Curriculares y de la Evaluación",
+      "Formación Ciudadana, Derechos y Deberes",
+      "Cultura Escolar (Seminario)"
+    ],
+    "5° Semestre": [
+      "Modelos Psicopedagógicos de Atención Primaria, de Atención Integral a la Primera Infancia",
+      "Didáctica de la Lengua y Literatura Infantil",
+      "Neurociencia y Educación Temprana",
+      "Didáctica de la Educación Parvularia I",
+      "Didáctica de la Matemática en Educación Inicial",
+      "Práctica Inicial"
+    ],
+    "6° Semestre": [
+      "Didáctica de la Educación Parvularia II",
+      "Lenguajes Expresivos y sus Didácticas I: Corporal y Plástica",
+      "Política y Gestión para el Mejoramiento Educativo",
+      "Didáctica de la Iniciación al Medio Natural, Social y Cultural",
+      "Pensamiento Científico",
+      "Practica Intermedia"
+    ],
+    "7° Semestre": [
+      "Lenguajes expresivos y sus didácticas II: Musical y literaria",
+      "Metodología de Investigación Educativa",
+      "Liderazgo y gestión Educativa",
+      "Optativa I",
+      "Práctica Profesional Supervisada I"
+    ],
+    "8° Semestre": [
+      "Investigación en Educación Inicial",
+      "Ambientes Educativos Inclusivos",
+      "Optativa II",
+      "Práctica Profesional Supervisada",
+      "Trabajo de Grado"
+    ]
+  },
+  "brochure_url": "https://uap.edu.py/wp-content/uploads/2025/06/Licenciatura-en-educacion-parvularia-Brochure-UAP-.pdf"
+}

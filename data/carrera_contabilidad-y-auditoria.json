@@ -1,0 +1,78 @@
+{
+  "titulo": "Contabilidad y Auditoría",
+  "duracion": "8 Semestres",
+  "sede": "Central",
+  "descripcion": "La carrera de Licenciatura en Contabilidad y Auditoría de la Universidad Autónoma del Paraguay forma profesionales íntegros y capacitados para responder a las exigencias del entorno económico y empresarial actual. Su enfoque combina conocimientos técnicos en contabilidad, auditoría, finanzas, legislación y sistemas de información, con una sólida formación ética y social. A lo largo de los ocho semestres, los estudiantes desarrollan habilidades para analizar y gestionar información financiera, evaluar procesos, diseñar estrategias contables y realizar auditorías en organizaciones públicas, privadas y del tercer sector. Esta carrera busca preparar egresados capaces de contribuir a la transparencia, eficiencia y sostenibilidad de las organizaciones.",
+  "objetivo": "Formar profesionales altamente calificados en contabilidad y auditoría, con sólidos conocimientos técnicos, capacidad analítica, pensamiento crítico y compromiso ético, capaces de generar, interpretar y auditar información financiera, diseñar estrategias contables y contribuir a la toma de decisiones en organizaciones públicas, privadas y sociales, promoviendo la transparencia, la eficiencia y el desarrollo sostenible.",
+  "objetivos_especificos": [],
+  "a_quien_va_dirigido": "",
+  "campo_laboral": "Los egresados de esta carrera pueden desempeñarse en empresas privadas, entidades gubernamentales, organizaciones sin fines de lucro o como consultores independientes. Están capacitados para ejercer funciones en áreas contables, auditoría interna y externa, asesoría financiera, control fiscal y gestión de recursos en diversas instituciones.",
+  "perfil_egresado": "El egresado de la Licenciatura en Contabilidad y Auditoría es un profesional ético, analítico y competente para generar, interpretar, controlar y auditar información financiera y contable. Está capacitado para diseñar estrategias contables, evaluar procesos administrativos, proponer soluciones eficientes y tomar decisiones fundamentadas en diversos contextos organizacionales. Su formación le permite actuar con responsabilidad social, utilizando herramientas tecnológicas y metodologías actualizadas, contribuyendo así a la transparencia, sostenibilidad y desarrollo de organizaciones públicas, privadas y del tercer sector.",
+  "competencias_disciplinarias": [],
+  "competencias_profesionales": [],
+  "competencias_genericas": [],
+  "mision": "",
+  "vision": "",
+  "valores": [],
+  "definicion_profesional": "",
+  "malla": {
+    "1° Semestre": [
+      "Administración General",
+      "Guaraní",
+      "Introducción a la Comercialización",
+      "Teorías Económicas",
+      "Comunicación Oral y Escrita"
+    ],
+    "2° Semestre": [
+      "Contabilidad General I",
+      "Matemática Fundamental",
+      "Organización, Sistemas y Métodos",
+      "Inglés",
+      "Tecnología de la Información y la Comunicación"
+    ],
+    "3° Semestre": [
+      "Contabilidad General II",
+      "Matemática Aplicada",
+      "Microeconomía",
+      "Comportamiento Organizacional",
+      "Administración de Empresas y Organizaciones"
+    ],
+    "4° Semestre": [
+      "Lógica Matemática",
+      "Contabilidad de Costos, Precios y Cotizaciones",
+      "Contabilidad Financiera",
+      "Macroeconomía",
+      "Diseño de Sistemas de la Información"
+    ],
+    "5° Semestre": [
+      "Matemática Financiera",
+      "Legislación Civil, Comercial y Laboral",
+      "Contabilidad Gubernamental y de la Gestión",
+      "Optativa I",
+      "Informática Aplicada a la Contabilidad"
+    ],
+    "6° Semestre": [
+      "Estados Contables",
+      "Administración de Recursos Humanos",
+      "Probabilidad y Estadística",
+      "Legislación Aduanera y Tributaria",
+      "Optativa II"
+    ],
+    "7° Semestre": [
+      "Sistema de Información Gerencial",
+      "Auditoría en Informática",
+      "Gabinete Contable I",
+      "Metodología de la Investigación",
+      "Auditoría Gubernamental"
+    ],
+    "8° Semestre": [
+      "Gabinete Contable II",
+      "Auditoría de la Gestión Administrativa",
+      "Finanzas Operativas y Estratégicas",
+      "Formulación y Evaluación de Proyectos",
+      "Ejercicio Profesional de la Contabilidad",
+      "Trabajo de Grado"
+    ]
+  },
+  "brochure_url": "https://uap.edu.py/wp-content/uploads/2025/06/Licenciatura-en-contabilidad-y-auditoria-Brochure-UAP.pdf"
+}

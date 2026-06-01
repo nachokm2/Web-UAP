@@ -1,0 +1,80 @@
+{
+  "titulo": "Derecho",
+  "duracion": "8 Semestres",
+  "sede": "Central",
+  "descripcion": "La carrera de Derecho se establece como una disciplina esencial para la organización y regulación social, enfocándose en el estudio del marco normativo y la interpretación de las leyes. Su objetivo es formar profesionales con capacidades para analizar y aplicar las normas jurídicas, resolver problemas legales y promover la justicia social. Los egresados adquieren habilidades en la argumentación jurídica, interpretación normativa y resolución de conflictos. Además, se enfocan en promover la igualdad de género, el respeto a los derechos humanos y la democracia. El plan de estudios incluye áreas fundamentales como el derecho constitucional, penal, civil, mercantil y derecho internacional, además de integrar la ética como un principio rector de la profesión. Los estudiantes se preparan para abordar la litigación y mediación, enfrentando los retos del ejercicio legal con responsabilidad y compromiso social.",
+  "objetivo": "Formar profesionales en Derecho con un sólido conocimiento de las normativas legales y los principios éticos que\nrigen la sociedad, capacitados para analizar y resolver problemas jurídicos, promoviendo la justicia y el respeto a los\nderechos humanos.",
+  "objetivos_especificos": [],
+  "a_quien_va_dirigido": "",
+  "campo_laboral": "Los egresados de Derecho pueden desempeñarse en instituciones públicas y privadas, en funciones como abogados, asesores jurídicos, fiscales, defensores públicos, litigantes, mediadores, docentes de derecho, entre otros. También pueden trabajar en organismos internacionales, en empresas del sector privado o en organizaciones no gubernamentales dedicadas a la defensa de los derechos humanos.",
+  "perfil_egresado": "El egresado de Derecho se caracteriza por ser un profesional con profundo conocimiento de las normativas legales y principios éticos que rigen la profesión. Está capacitado para interpretar y aplicar eficientemente las leyes, analizar situaciones jurídicas complejas y formular soluciones legales. Posee habilidades en argumentación jurídica y litigación, con una sólida formación en áreas del derecho como constitucional, penal, civil y mercantil. Su ética profesional y compromiso con los derechos humanos lo preparan para actuar con integridad y responsabilidad social en el ejercicio del Derecho.",
+  "competencias_disciplinarias": [],
+  "competencias_profesionales": [],
+  "competencias_genericas": [],
+  "mision": "",
+  "vision": "",
+  "valores": [],
+  "definicion_profesional": "",
+  "malla": {
+    "1° Semestre": [
+      "Comunicación Oral y Escrita",
+      "Guaraní",
+      "Introducción a las Ciencia Jurídicas",
+      "Criminología",
+      "Teoría General del Derecho y del Estado"
+    ],
+    "2° Semestre": [
+      "Inglés",
+      "Sociología Jurídica",
+      "Historia de las Instituciones Jurídicas, Políticas y Sociales del Derecho.",
+      "Lógica e Interpretación jurídica",
+      "Medios Alternativos de Solución de Conflictos"
+    ],
+    "3° Semestre": [
+      "Antropología y Filosofía del Derecho",
+      "Derecho Romano",
+      "Derecho de la Niñez y la Adolescencia",
+      "Finanzas Públicas",
+      "Derecho Constitucional (Nacional y Comparado)"
+    ],
+    "4° Semestre": [
+      "Derechos Humanos (nacional e Internacional)",
+      "Teoría y Fundamento del Derecho",
+      "Quiebras",
+      "Derecho Administrativo",
+      "Derecho Mercantil"
+    ],
+    "5° Semestre": [
+      "Derecho Procesal Constitucional",
+      "Derecho Civil I: Personas, Familias y Reales",
+      "Derecho Penal I (general y Especial)",
+      "Derecho laboral y de Seguridad Social",
+      "Derecho Internacional (Públicos y Privados)",
+      "Argumentación Jurídica y Análisis de la Jurisprudencia"
+    ],
+    "6° Semestre": [
+      "Derecho Civil II: Hechos, Actos Jurídicos y Obligaciones",
+      "Derecho Probatorio",
+      "Derecho Tributario",
+      "Derecho Procesal Laboral",
+      "Técnicas de Litigación Oral",
+      "Tecnología de la Información y la Comunicación"
+    ],
+    "7° Semestre": [
+      "Derecho Civil III: Contratos y Sucesiones",
+      "Derecho Procesal Civil (general y Especial)",
+      "Derecho Intelectual y de la Propiedad",
+      "Derecho Procesal Penal",
+      "Metodología de la Investigación",
+      "Técnica Legislativa o Jurídica: Tramitación de Juicios y Consultorio Jurídico"
+    ],
+    "8° Semestre": [
+      "Optativa I",
+      "Optativa II",
+      "Práctica Forense (Actuaciones Escritas y Orales)",
+      "Pasantía Profesional Supervisada",
+      "Trabajo de Grado"
+    ]
+  },
+  "brochure_url": "https://uap.edu.py/wp-content/uploads/2025/06/derecho-Brochure-UAP.pdf"
+}

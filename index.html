@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UAP – Universidad Autónoma del Paraguay</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/uap-refined.css">
+    <style>
+        .logo-img { height: 45px; width: auto; }
+        .hero-clean {
+            position: relative;
+            width: 100%;
+            height: 600px;
+            overflow: hidden;
+            background-color: #003366;
+        }
+        .hero-clean .carousel-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            z-index: 0;
+        }
+        .hero-clean .carousel-slide.carousel-active {
+            opacity: 1;
+            z-index: 1;
+        }
+        .hero-clean .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center;
+            background-color: #003366;
+        }
+        .hero-clean .carousel-slide a {
+            display: block;
+            width: 100%;
+            height: 100%;
+            text-decoration: none;
+        }
+        .carousel-indicators {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 10;
+        }
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.4);
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .indicator.active, .indicator:hover {
+            background: white;
+        }
+        @media (max-width: 768px) {
+            .hero-clean { height: 350px; }
+        }
+        @media (max-width: 480px) {
+            .hero-clean { height: 280px; }
+        }
+        .partners-section {
+            background: var(--color-surface);
+            padding: var(--space-12) 0;
+        }
+        .partners-grid {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: var(--space-8);
+            flex-wrap: wrap;
+        }
+        .partner-logo {
+            height: 60px;
+            width: auto;
+            filter: grayscale(0.3);
+            transition: filter 0.3s;
+        }
+        .partner-logo:hover {
+            filter: grayscale(0);
+        }
+        .careers-grid-20 {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: var(--space-6);
+        }
+        .careers-grid-20 .career-card {
+            text-align: center;
+        }
+        .tab-buttons {
+            display: flex;
+            gap: 0;
+            border-bottom: 2px solid var(--color-border-light);
+            margin-bottom: var(--space-8);
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        .tab-buttons::-webkit-scrollbar {
+            display: none;
+        }
+        .tab-btn {
+            flex: 0 0 auto;
+            min-width: 0;
+            padding: 12px 20px;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            color: var(--color-text-muted);
+            font-weight: var(--weight-medium);
+            cursor: pointer;
+            font-size: var(--text-sm);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+        .tab-btn.active {
+            border-bottom: 3px solid var(--color-primary);
+            color: var(--color-primary);
+            font-weight: var(--weight-semibold);
+        }
+        .news-image img { width: 100%; height: 100%; object-fit: cover; }
+        .career-icon { width: 48px; height: 48px; background: var(--color-background); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; margin: 0 auto var(--space-4); }
+        .career-icon img { width: 28px; height: 28px; object-fit: contain; }
+        .icon-box { display: inline-flex; align-items: center; gap: var(--space-2); }
+        .icon-sm { width: 16px; height: 16px; vertical-align: middle; }
+        .footer-contact { display: flex; flex-direction: column; gap: var(--space-2); margin-top: var(--space-4); font-size: var(--text-sm); }
+        .footer-contact .icon-box { color: var(--color-text-muted); }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
+    <header class="header" style="position: relative;">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <img src="images/logo-uap.png" alt="UAP - Universidad Autónoma del Paraguay" class="logo-img">
+            </a>
+            <button class="mobile-menu-btn" onclick="document.querySelector('.nav').classList.toggle('active')">☰</button>
+            <nav>
+                <ul class="nav">
+                    <li><a href="index.html" class="nav-active">Inicio</a></li>
+                    <li class="dropdown">
+                        <a href="pages/carreras.html">Carreras</a>
+                        <div class="dropdown-content careers-dropdown">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--space-2);">
+                                <div>
+                                    <div class="dropdown-faculty">Ciencias Médicas y de la Salud</div>
+                                    <a href="pages/carreras/podologia.html">Podología</a>
+                                    <a href="pages/carreras/optica-y-contactologia.html">Óptica y Contactología</a>
+                                    <a href="pages/carreras/fisioterapia.html">Fisioterapia</a>
+                                    <a href="pages/carreras/fonoaudiologia.html">Fonoaudiología</a>
+                                    <a href="pages/carreras/psicologia.html">Psicología</a>
+                                    <a href="pages/carreras/nutricion.html">Nutrición</a>
+                                    <a href="pages/carreras/odontologia.html">Odontología</a>
+                                </div>
+                                <div>
+                                    <div class="dropdown-faculty">Ingenierías y Tecnologías</div>
+                                    <a href="pages/carreras/ingenieria-en-informatica.html">Ingeniería en Informática</a>
+                                    <a href="pages/carreras/ingenieria-en-tecnologia-de-alimentos.html">Ingeniería en Tecnología de Alimentos</a>
+                                    <a href="pages/carreras/ingenieria-comercial.html">Ingeniería Comercial</a>
+                                    <a href="pages/carreras/ingenieria-en-comercio-internacional.html">Ingeniería en Comercio Internacional</a>
+                                    <a href="pages/carreras/ingenieria-en-marketing.html">Ingeniería en Marketing</a>
+                                </div>
+                                <div>
+                                    <div class="dropdown-faculty">Ciencias Sociales y Humanas</div>
+                                    <a href="pages/carreras/periodismo.html">Periodismo</a>
+                                    <a href="pages/carreras/ciencias-de-la-educacion.html">Ciencias de la Educación</a>
+                                    <a href="pages/carreras/educacion-parvularia.html">Educación Parvularia</a>
+                                    <a href="pages/carreras/derecho.html">Derecho</a>
+                                    <a href="pages/carreras/trabajo-social.html">Trabajo Social</a>
+                                    <a href="pages/carreras/administracion-publica.html">Administración Pública</a>
+                                    <a href="pages/carreras/administracion-de-empresas.html">Administración de Empresas</a>
+                                    <a href="pages/carreras/ciencias-contables.html">Ciencias Contables</a>
+                                    <a href="pages/carreras/contabilidad-y-auditoria.html">Contabilidad y Auditoría</a>
+                                    <a href="pages/carreras/contaduria-publica.html">Contaduría Pública</a>
+                                    <a href="pages/carreras/marketing-y-publicidad.html">Marketing y Publicidad</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="pages/posgrados.html">Posgrados</a>
+                        <div class="dropdown-content">
+                            <div class="dropdown-faculty">Facultad de Ciencias Médicas y de la Salud</div>
+                            <a href="pages/posgrados.html#odontologicas">Odontología</a>
+                            <div class="dropdown-faculty">Facultad de Ciencias Sociales y Humanas</div>
+                            <a href="pages/posgrados.html#educacion">Educación</a>
+                            <a href="pages/posgrados.html#psicologia">Psicología</a>
+                        </div>
+                    </li>
+                    <li><a href="pages/noticias.html">Noticias</a></li>
+                    <li class="dropdown">
+                        <a href="pages/institucional.html">Institucional</a>
+                        <div class="dropdown-content">
+                            <a href="pages/institucional.html">Misión, Visión y Valores</a>
+                            <a href="pages/institucional.html#autoridades">Autoridades</a>
+                            <a href="pages/institucional.html#convenios">Convenios</a>
+                            <a href="pages/institucional.html#reglamentos">Reglamentos</a>
+                        </div>
+                    </li>
+                    <li><a href="pages/investigacion.html">Investigación</a></li>
+                    <li><a href="pages/estudiantes.html">Estudiantes</a></li>
+                    <li><a href="pages/contacto.html">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- Hero Carrusel - Imágenes con links -->
+        <section class="hero-clean" id="hero-carousel">
+            <div class="carousel-slide carousel-active">
+                <a href="pages/carreras.html">
+                    <img src="images/banner-hero.jpg" alt="Campus UAP - Explorar carreras">
+                </a>
+            </div>
+            <div class="carousel-slide">
+                <a href="pages/inscripcion.html">
+                    <img src="images/banner-matriculas.png" alt="Matrículas Abiertas 2026 - Inscribirse">
+                </a>
+            </div>
+            <div class="carousel-slide">
+                <a href="pages/posgrados.html">
+                    <img src="images/banner-hero.jpg" alt="Posgrados UAP - Ver posgrados">
+                </a>
+            </div>
+            <!-- Indicadores del carrusel -->
+            <div class="carousel-indicators">
+                <span class="indicator active" onclick="goToSlide(0)"></span>
+                <span class="indicator" onclick="goToSlide(1)"></span>
+                <span class="indicator" onclick="goToSlide(2)"></span>
+            </div>
+        </section>
+
+        <script>
+            const slides = document.querySelectorAll('.carousel-slide');
+            const indicators = document.querySelectorAll('.indicator');
+            let currentSlide = 0;
+            
+            function goToSlide(n) {
+                slides[currentSlide].classList.remove('carousel-active');
+                indicators[currentSlide].classList.remove('active');
+                currentSlide = (n + slides.length) % slides.length;
+                slides[currentSlide].classList.add('carousel-active');
+                indicators[currentSlide].classList.add('active');
+            }
+            
+            function nextSlide() {
+                goToSlide(currentSlide + 1);
+            }
+            
+            setInterval(nextSlide, 5000);
+        </script>
+
+        <!-- Stats -->
+        <div class="container">
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-number" data-count="50">+50</div>
+                    <div class="stat-label">Convenios internacionales</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" data-count="10">+10</div>
+                    <div class="stat-label">Mil egresados</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" data-count="5">+5</div>
+                    <div class="stat-label">Mil volúmenes biblioteca</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" data-count="20">+20</div>
+                    <div class="stat-label">Carreras profesionales</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Alianzas Estratégicas -->
+        <section class="partners-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Alianzas Estratégicas</h2>
+                    <p class="section-subtitle">Colaboramos con líderes mundiales para brindar la mejor experiencia educativa</p>
+                </div>
+                <div class="partners-marquee">
+                    <div class="partners-track">
+                        <a href="https://www.uautonoma.cl" target="_blank" rel="noopener" class="partner-slide">
+                            <img src="images/logo-uautonoma-chile.png" alt="">
+                            <span>Universidad Autónoma de Chile</span>
+                        </a>
+                        <a href="https://carver.university" target="_blank" rel="noopener" class="partner-slide">
+                            <img src="images/logo-carver-university.png" alt="">
+                            <span>Carver University</span>
+                        </a>
+                        <a href="https://iees.pt" target="_blank" rel="noopener" class="partner-slide">
+                            <img src="images/logo-iees-portugal.png" alt="">
+                            <span>IEES Portugal</span>
+                        </a>
+                        <a href="https://ipg.cl" target="_blank" rel="noopener" class="partner-slide">
+                            <img src="images/logo-ipg.png" alt="">
+                            <span>Instituto IPG</span>
+                        </a>
+                        <a href="https://www.coursera.org/campus" target="_blank" rel="noopener" class="partner-slide">
+                            <img src="images/logo-coursera-campus.png" alt="">
+                            <span>Coursera for Campus</span>
+                        </a>
+                        <a href="https://gan.education" target="_blank" rel="noopener" class="partner-slide">
+                            <img src="images/logo-global-academic-network.png" alt="">
+                            <span>Global Academic Network</span>
+                        </a>
+                        <a href="https://www.microsoft.com" target="_blank" rel="noopener" class="partner-slide">
+                            <svg width="120" height="26" viewBox="0 0 120 26" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="0" y="0" width="12" height="12" fill="#f25022"/>
+                                <rect x="14" y="0" width="12" height="12" fill="#7fba00"/>
+                                <rect x="0" y="14" width="12" height="12" fill="#00a4ef"/>
+                                <rect x="14" y="14" width="12" height="12" fill="#ffb900"/>
+                                <text x="32" y="18" font-family="Segoe UI, sans-serif" font-size="16" font-weight="600" fill="#737373">Microsoft</text>
+                            </svg>
+                            <span>Microsoft</span>
+                        </a>
+                        <!-- Duplicados para loop infinito -->
+                        <a href="https://www.uautonoma.cl" target="_blank" rel="noopener" class="partner-slide">
+                            <img src="images/logo-uautonoma-chile.png" alt="">
+                            <span>Universidad Autónoma de Chile</span>
+                        </a>
+                        <a href="https://carver.university" target="_blank" rel="noopener" class="partner-slide">
+                            <img src="images/logo-carver-university.png" alt="">
+                            <span>Carver University</span>
+                        </a>
+                        <a href="https://iees.pt" target="_blank" rel="noopener" class="partner-slide">
+                            <img src="images/logo-iees-portugal.png" alt="">
+                            <span>IEES Portugal</span>
+                        </a>
+                        <a href="https://ipg.cl" target="_blank" rel="noopener" class="partner-slide">
+                            <img src="images/logo-ipg.png" alt="">
+                            <span>Instituto IPG</span>
+                        </a>
+                        <a href="https://www.coursera.org/campus" target="_blank" rel="noopener" class="partner-slide">
+                            <img src="images/logo-coursera-campus.png" alt="">
+                            <span>Coursera for Campus</span>
+                        </a>
+                        <a href="https://gan.education" target="_blank" rel="noopener" class="partner-slide">
+                            <img src="images/logo-global-academic-network.png" alt="">
+                            <span>Global Academic Network</span>
+                        </a>
+                        <a href="https://www.microsoft.com" target="_blank" rel="noopener" class="partner-slide">
+                            <svg width="120" height="26" viewBox="0 0 120 26" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="0" y="0" width="12" height="12" fill="#f25022"/>
+                                <rect x="14" y="0" width="12" height="12" fill="#7fba00"/>
+                                <rect x="0" y="14" width="12" height="12" fill="#00a4ef"/>
+                                <rect x="14" y="14" width="12" height="12" fill="#ffb900"/>
+                                <text x="32" y="18" font-family="Segoe UI, sans-serif" font-size="16" font-weight="600" fill="#737373">Microsoft</text>
+                            </svg>
+                            <span>Microsoft</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Carreras con pestañas por facultad -->
+        <section id="carreras" class="section section-alt">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Carreras Profesionales</h2>
+                    <p>Formación de excelencia organizada por facultades</p>
+                </div>
+
+                <!-- Tabs -->
+                <div class="tab-buttons">
+                    <button class="tab-btn active" data-tab="salud">
+                        Ciencias Médicas y de la Salud
+                    </button>
+                    <button class="tab-btn" data-tab="ingenieria">
+                        Ingenierías y Tecnologías
+                    </button>
+                    <button class="tab-btn" data-tab="sociales">
+                        Ciencias Sociales y Humanas
+                    </button>
+                </div>
+
+                <!-- Tab Content: Ciencias Médicas y de la Salud -->
+                <div class="tab-content active" id="tab-salud" style="padding: var(--space-8) 0;">
+                    <div class="careers-grid-20">
+                        <a href="pages/carreras/odontologia.html" class="career-card">
+                            <div class="career-icon"><img src="images/icon-odontologia.svg" alt=""></div>
+                            <h3>Odontología</h3>
+                            <p style="font-size: var(--text-xs); color: var(--color-text-muted); margin-top: var(--space-1);">5 años • Doctor en Odontología</p>
+                        </a>
+                        <a href="pages/carreras/psicologia.html" class="career-card">
+                            <div class="career-icon"><img src="images/icon-psicologia.svg" alt=""></div>
+                            <h3>Psicología</h3>
+                            <p style="font-size: var(--text-xs); color: var(--color-text-muted); margin-top: var(--space-1);">5 años • Licenciatura</p>
+                        </a>
+                        <a href="pages/carreras/nutricion.html" class="career-card">
+                            <div class="career-icon"><img src="images/icon-nutricion.svg" alt=""></div>
+                            <h3>Nutrición</h3>
+                            <p style="font-size: var(--text-xs); color: var(--color-text-muted); margin-top: var(--space-1);">4 años • Licenciatura</p>
+                        </a>
+                        <a href="pages/carreras/fisioterapia.html" class="career-card">
+                            <div class="career-icon"><img src="images/icon-fisioterapia.svg" alt=""></div>
+                            <h3>Fisioterapia</h3>
+                            <p style="font-size: var(--text-xs); color: var(--color-text-muted); margin-top: var(--space-1);">4 años • Licenciatura</p>
+                        </a>
+                        <a href="pages/carreras/fonoaudiologia.html" class="career-card">
+                            <div class="career-icon"><img src="images/icon-fono.svg" alt=""></div>
+                            <h3>Fonoaudiología</h3>
+                            <p style="font-size: var(--text-xs); color: var(--color-text-muted); margin-top: var(--space-1);">4 años • Licenciatura</p>
+                        </a>
+                        <a href="pages/carreras/podologia.html" class="career-card">
+                            <div class="career-icon"><img src="images/icon-podologia.svg" alt=""></div>
+                            <h3>Podología</h3>
+                            <p style="font-size: var(--text-xs); color: var(--color-text-muted); margin-top: var(--space-1);">4 años • Licenciatura</p>
+                        </a>
+                        <a href="pages/carreras/optica-y-contactologia.html" class="career-card">
+                            <div class="career-icon"><img src="images/icon-optica.svg" alt=""></div>
+                            <h3>Óptica y Contactología</h3>
+                            <p style="font-size: var(--text-xs); color: var(--color-text-muted); margin-top: var(--space-1);">3 años • Licenciatura</p>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Tab Content: Ingenierías y Tecnologías -->
+                <div class="tab-content" id="tab-ingenieria" style="padding: var(--space-8) 0; display: none;">
+                    <div class="careers-grid-20">
+                        <a href="pages/carreras/ingenieria-en-informatica.html" class="career-card">
+                            <div class="career-icon"><img src="images/icon-informatica.svg" alt=""></div>
+                            <h3>Ingeniería en Informática</h3>
+                            <p style="font-size: var(--text-xs); color: var(--color-text-muted); margin-top: var(--space-1);">5 años • Ingeniería</p>
+                        </a>
+                        <a href="pages/carreras/ingenieria-en-tecnologia-de-alimentos.html" class="career-card">
+                            <div class="career-icon"><img src="images/icon-alimentos.svg" alt=""></div>
+                            <h3>Ingeniería en Tecnología de Alimentos</h3>
+                            <p style="font-size: var(--text-xs); color: var(--color-text-muted); margin-top: var(--space-1);">5 años • Ingeniería</p>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Tab Content: Ciencias Sociales y Humanas -->
+                <div class="tab-content" id="tab-sociales" style="padding: var(--space-8) 0; display: none;">
+                    <div class="careers-grid-20">
+                        <a href="pages/carreras/administracion-de-empresas.html" class="career-card">
+                            <div class="career-icon"><img src="images/icon-admin.svg" alt=""></div>
+                            <h3>Administración de Empresas</h3>
+                            <p style="font-size: var(--text-xs); color: var(--color-text-muted); margin-top: var(--space-1);">4 años • Licenciatura</p>
+                        </a>
+                        <a href="pages/carreras/ingenieria-comercial.html" class="career-card">
+                            <div class="career-icon"><img src="images/icon-comercial.svg" alt=""></div>
+                            <h3>Ingeniería Comercial</h3>
+                            <p style="font-size: var(--text-xs); color: var(--color-text-muted); margin-top: var(--space-1);">5 años • Ingeniería</p>
+                        </a>
+                        <a href="pages/carreras/ingenieria-en-marketing.html" class="career-card">
+                            <div class="career-icon"><img src="images/icon-marketing.svg" alt=""></div>
+                            <h3>Ingeniería en Marketing</h3>
+                            <p style="font-size: var(--text-xs); color: var(--color-text-muted); margin-top: var(--space-1);">5 años • Ingeniería</p>
+                        </a>
+                        <a href="pages/carreras/ingenieria-en-comercio-internacional.html" class="career-card">
+                            <div class="career-icon"><img src="images/icon-comercio.svg" alt=""></div>
+                            <h3>Ingeniería en Comercio Internacional</h3>
+                            <p style="font-size: var(--text-xs); color: var(--color-text-muted); margin-top: var(--space-1);">5 años • Ingeniería</p>
+                        </a>
+                        <a href="pages/carreras/marketing-y-publicidad.html" class="career-card">
+                            <div class="career-icon"><img src="images/icon-publicidad.svg" alt=""></div>
+                            <h3>Marketing y Publicidad</h3>
+                            <p style="font-size: var(--text-xs); color: var(--color-text-muted); margin-top: var(--space-1);">4 años • Licenciatura</p>
+                        </a>
+                        <a href="pages/carreras/ciencias-contables.html" class="career-card">
+                            <div class="career-icon"><img src="images/icon-contable.svg" alt=""></div>
+                            <h3>Ciencias Contables</h3>
+                            <p style="font-size: var(--text-xs); color: var(--color-text-muted); margin-top: var(--space-1);">4 años • Licenciatura</p>
+                        </a>
+                        <a href="pages/carreras/contabilidad-y-auditoria.html" class="career-card">
+                            <div class="career-icon"><img src="images/icon-auditoria.svg" alt=""></div>
+                            <h3>Contabilidad y Auditoría</h3>
+                            <p style="font-size: var(--text-xs); color: var(--color-text-muted); margin-top: var(--space-1);">4 años • Licenciatura</p>
+                        </a>
+                        <a href="pages/carreras/contaduria-publica.html" class="career-card">
+                            <div class="career-icon"><img src="images/icon-contaduria.svg" alt=""></div>
+                            <h3>Contaduría Pública</h3>
+                            <p style="font-size: var(--text-xs); color: var(--color-text-muted); margin-top: var(--space-1);">4 años • Contaduría</p>
+                        </a>
+                        <a href="pages/carreras/derecho.html" class="career-card">
+                            <div class="career-icon"><img src="images/icon-derecho.svg" alt=""></div>
+                            <h3>Derecho</h3>
+                            <p style="font-size: var(--text-xs); color: var(--color-text-muted); margin-top: var(--space-1);">5 años • Abogacía</p>
+                        </a>
+                        <a href="pages/carreras/periodismo.html" class="career-card">
+                            <div class="career-icon"><img src="images/icon-periodismo.svg" alt=""></div>
+                            <h3>Periodismo</h3>
+                            <p style="font-size: var(--text-xs); color: var(--color-text-muted); margin-top: var(--space-1);">4 años • Licenciatura</p>
+                        </a>
+                        <a href="pages/carreras/trabajo-social.html" class="career-card">
+                            <div class="career-icon"><img src="images/icon-trabajo-social.svg" alt=""></div>
+                            <h3>Trabajo Social</h3>
+                            <p style="font-size: var(--text-xs); color: var(--color-text-muted); margin-top: var(--space-1);">4 años • Licenciatura</p>
+                        </a>
+                    </div>
+                </div>
+
+                <script>
+                    // Tab functionality
+                    document.querySelectorAll('.tab-btn').forEach(btn => {
+                        btn.addEventListener('click', function() {
+                            // Remove active from all buttons
+                            document.querySelectorAll('.tab-btn').forEach(b => {
+                                b.classList.remove('active');
+                                b.style.borderBottom = '3px solid transparent';
+                                b.style.color = 'var(--color-text-muted)';
+                                b.style.fontWeight = 'var(--weight-medium)';
+                            });
+                            
+                            // Add active to clicked button
+                            this.classList.add('active');
+                            this.style.borderBottom = '3px solid var(--color-primary)';
+                            this.style.color = 'var(--color-primary)';
+                            this.style.fontWeight = 'var(--weight-semibold)';
+                            
+                            // Hide all content
+                            document.querySelectorAll('.tab-content').forEach(content => {
+                                content.style.display = 'none';
+                            });
+                            
+                            // Show selected content
+                            const tabId = this.getAttribute('data-tab');
+                            document.getElementById('tab-' + tabId).style.display = 'block';
+                        });
+                    });
+                </script>
+
+                <div class="section-footer">
+                    <a href="pages/carreras.html" class="btn btn-dark">Ver todas las carreras</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Noticias -->
+        <section id="noticias" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Noticias</h2>
+                    <p>Entérate de las últimas novedades y actividades de la universidad.</p>
+                </div>
+                <div class="news-grid">
+                    <article class="news-card">
+                        <div class="news-image">
+                            <img src="images/noticia-austria.png" alt="Delegación de Austria visita la UAP">
+                        </div>
+                        <div class="news-content">
+                            <div class="news-meta">
+                                <span class="news-tag">Noticias</span>
+                                <span class="news-date">19 Marzo, 2026</span>
+                            </div>
+                            <h3>Delegación de Austria visita la UAP para fortalecer vínculos institucionales</h3>
+                            <p>La Universidad Autónoma del Paraguay recibió la visita de una delegación de representantes provenientes de Austria.</p>
+                            <a href="pages/noticias/delegacion-austria.html" class="news-link">Leer más →</a>
+                        </div>
+                    </article>
+                    <article class="news-card">
+                        <div class="news-image">
+                            <img src="images/noticia-semanacero.jpg" alt="Semana Cero 2026">
+                        </div>
+                        <div class="news-content">
+                            <div class="news-meta">
+                                <span class="news-tag">Noticias</span>
+                                <span class="news-date">24 Febrero, 2026</span>
+                            </div>
+                            <h3>La UAP dio inicio a las clases con la Semana Cero para estudiantes ingresantes 2026</h3>
+                            <p>Actividades académicas con el desarrollo de la denominada Semana Cero, una instancia de bienvenida.</p>
+                            <a href="pages/noticias/semana-cero-2026.html" class="news-link">Leer más →</a>
+                        </div>
+                    </article>
+                    <article class="news-card">
+                        <div class="news-image">
+                            <img src="images/noticia-seminario.jpg" alt="Seminario Internacional Posgrado">
+                        </div>
+                        <div class="news-content">
+                            <div class="news-meta">
+                                <span class="news-tag">Noticias</span>
+                                <span class="news-date">22 Enero, 2026</span>
+                            </div>
+                            <h3>La UAP dio inicio al III Seminario Internacional de Formación Investigativa en Posgrado</h3>
+                            <p>Espacio académico que reúne a estudiantes, docentes e investigadores de diversas disciplinas.</p>
+                            <a href="pages/noticias/seminario-posgrado-2026.html" class="news-link">Leer más →</a>
+                        </div>
+                    </article>
+                </div>
+                <div class="section-footer">
+                    <a href="pages/noticias.html" class="btn btn-dark">Ver todas las noticias</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta">
+            <div class="container">
+                <div class="cta-content">
+                    <h2>¿Querés formar parte de la UAP?</h2>
+                    <p>Descubrí todas las oportunidades que tenemos para tu formación académica y profesional.</p>
+                    <a href="pages/inscripcion.html" class="btn btn-outline btn-lg">Inscribite ahora</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer limpio -->
+    <footer style="background: #003366; color: white; padding: 40px 0 20px;">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <img src="images/logo-white.png" alt="UAP" style="height: 45px; margin-bottom: 16px;">
+                    <p style="opacity: 0.8; line-height: 1.6; margin-bottom: 16px;">
+                        Universidad Autónoma del Paraguay.<br>
+                        Comprometidos con la excelencia académica y el desarrollo del país.
+                    </p>
+                    <div style="display: flex; flex-direction: column; gap: 8px; font-size: 14px; opacity: 0.7;">
+                        <span>Colón Nº 658 e/Haedo, Asunción, Paraguay</span>
+                        <span>+595 21 447 579</span>
+                        <span>info@uap.edu.py</span>
+                    </div>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 16px; font-weight: 600;">Carreras</h4>
+                    <ul style="list-style: none; display: flex; flex-direction: column; gap: 8px;">
+                        <li><a href="pages/carreras/odontologia.html" style="color: rgba(255,255,255,0.7); text-decoration: none;">Odontología</a></li>
+                        <li><a href="pages/carreras/psicologia.html" style="color: rgba(255,255,255,0.7); text-decoration: none;">Psicología</a></li>
+                        <li><a href="pages/carreras/fisioterapia.html" style="color: rgba(255,255,255,0.7); text-decoration: none;">Fisioterapia</a></li>
+                        <li><a href="pages/carreras/marketing-y-publicidad.html" style="color: rgba(255,255,255,0.7); text-decoration: none;">Marketing</a></li>
+                        <li><a href="pages/carreras.html" style="color: rgba(255,255,255,0.7); text-decoration: none;">Ver todas →</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 16px; font-weight: 600;">Posgrados</h4>
+                    <ul style="list-style: none; display: flex; flex-direction: column; gap: 8px;">
+                        <li><a href="pages/posgrados.html" style="color: rgba(255,255,255,0.7); text-decoration: none;">Maestrías</a></li>
+                        <li><a href="pages/posgrados.html" style="color: rgba(255,255,255,0.7); text-decoration: none;">Especializaciones</a></li>
+                        <li><a href="pages/posgrados.html" style="color: rgba(255,255,255,0.7); text-decoration: none;">Doctorados</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 16px; font-weight: 600;">Institucional</h4>
+                    <ul style="list-style: none; display: flex; flex-direction: column; gap: 8px;">
+                        <li><a href="pages/institucional.html" style="color: rgba(255,255,255,0.7); text-decoration: none;">Sobre la UAP</a></li>
+                        <li><a href="pages/institucional.html#autoridades" style="color: rgba(255,255,255,0.7); text-decoration: none;">Autoridades</a></li>
+                        <li><a href="pages/investigacion.html" style="color: rgba(255,255,255,0.7); text-decoration: none;">Investigación</a></li>
+                        <li><a href="pages/contacto.html" style="color: rgba(255,255,255,0.7); text-decoration: none;">Contacto</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div style="border-top: 1px solid rgba(255,255,255,0.2); padding-top: 20px; text-align: center; font-size: 14px; opacity: 0.6;">
+                Universidad Autónoma del Paraguay © 2026
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-count'));
+                const duration = 2000;
+                const increment = target / (duration / 16);
+                let current = 0;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        counter.textContent = '+' + target;
+                        clearInterval(timer);
+                    } else {
+                        counter.textContent = '+' + Math.floor(current);
+                    }
+                }, 16);
+            });
+        }
+        document.addEventListener('DOMContentLoaded', animateCounters);
+    </script>
+</body>
+</html>

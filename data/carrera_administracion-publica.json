@@ -1,0 +1,78 @@
+{
+  "titulo": "Administración Pública",
+  "duracion": "8 Semestres",
+  "sede": "Central",
+  "descripcion": "La Licenciatura en Administración Pública de la Universidad Autónoma del Paraguay forma profesionales con sólidos conocimientos teóricos, metodológicos y prácticos para gestionar y liderar organizaciones del sector público en un entorno dinámico y cambiante. El programa integra áreas clave como políticas públicas, planificación estratégica, gestión de recursos, control gubernamental y tecnologías aplicadas a la administración. Se promueve el desarrollo de competencias éticas, habilidades de liderazgo, pensamiento crítico y capacidad de innovación para mejorar la eficiencia, transparencia y rendición de cuentas en el sector estatal. Los egresados serán agentes activos en la modernización del Estado y en la promoción de una gestión pública orientada al bienestar social y al desarrollo sostenible.",
+  "objetivo": "Formar profesionales íntegros y competentes en el campo de la administración pública, capaces de liderar, gestionar y transformar organizaciones gubernamentales y sociales mediante la aplicación de conocimientos científicos, herramientas tecnológicas, y principios éticos, contribuyendo al fortalecimiento institucional, la equidad social y el desarrollo sostenible.",
+  "objetivos_especificos": [],
+  "a_quien_va_dirigido": "",
+  "campo_laboral": "El egresado podrá desempeñarse en organismos gubernamentales a nivel nacional, regional y local, en ministerios, municipios, entes autónomos, empresas públicas, organismos internacionales, organizaciones no gubernamentales y consultorías especializadas en gestión pública y políticas públicas. Estará capacitado para ocupar cargos de dirección, coordinación, asesoría y gestión administrativa, liderando procesos de modernización, planificación, control de gestión y evaluación de programas públicos, con enfoque en la eficiencia, la transparencia y el desarrollo sostenible.",
+  "perfil_egresado": "El egresado de la Licenciatura en Administración Pública será un profesional capacitado para liderar y gestionar procesos administrativos y estratégicos en el sector público, con una sólida formación teórica, práctica y ética. Poseerá competencias en la formulación, implementación y evaluación de políticas públicas; gestión de recursos humanos, físicos, financieros y tecnológicos; auditoría y control gubernamental; planificación estratégica y mejora de procesos. Con habilidades de comunicación, pensamiento crítico y responsabilidad social, estará preparado para desempeñarse en organizaciones gubernamentales, organismos internacionales, ONGs y consultorías, promoviendo la transparencia, eficiencia y el desarrollo sostenible.",
+  "competencias_disciplinarias": [],
+  "competencias_profesionales": [],
+  "competencias_genericas": [],
+  "mision": "",
+  "vision": "",
+  "valores": [],
+  "definicion_profesional": "",
+  "malla": {
+    "1° Semestre": [
+      "Guaraní",
+      "Comunicación Oral y Escrita",
+      "Teorías Económicas",
+      "Elementos del Derecho",
+      "Administración Pública"
+    ],
+    "2° Semestre": [
+      "Contabilidad General I",
+      "Matemática Fundamental",
+      "Inglés",
+      "Fundamentos de la Gestión",
+      "Administración Pública Paraguaya"
+    ],
+    "3° Semestre": [
+      "Matemática Aplicada",
+      "Teoría de la Organización",
+      "Derecho Constitucional",
+      "Gestión Pública",
+      "Comportamiento Humano en las Organizaciones"
+    ],
+    "4° Semestre": [
+      "Ciencias Políticas I",
+      "Gobierno y Administración Regional",
+      "Tecnología de la Información y la Comunicación",
+      "Probabilidad y Estadística",
+      "Derecho Administrativo"
+    ],
+    "5° Semestre": [
+      "Ciencias Políticas II",
+      "Desarrollo Organizacional",
+      "Derecho del Trabajo y Seguridad Social",
+      "Optativa I",
+      "Gobierno y Administración Local"
+    ],
+    "6° Semestre": [
+      "Economía del Sector Público",
+      "Administración de Recursos Humanos",
+      "Gestión del Cambio Organizacional",
+      "Gestión de Recursos Físicos y Tecnológicos",
+      "Gestión de Procesos y Diseño Organizacional"
+    ],
+    "7° Semestre": [
+      "Optativa II",
+      "Dirección y toma de decisiones",
+      "Administración Financiera del Estado",
+      "Metodología de la Investigación",
+      "Control de Gestión"
+    ],
+    "8° Semestre": [
+      "Políticas Públicas",
+      "Marcos Reguladores en la Administración Pública",
+      "Auditoría del Sector Público",
+      "Planificación y Evaluación de Programas Públicos",
+      "Práctica Profesional",
+      "Trabajo de Grado"
+    ]
+  },
+  "brochure_url": "https://uap.edu.py/wp-content/uploads/2025/06/Licenciatura-en-administracion-publica-Brochure-UAP.pdf"
+}

@@ -1,0 +1,78 @@
+{
+  "titulo": "Administración de Empresas",
+  "duracion": "8 Semestres",
+  "sede": "Central",
+  "descripcion": "La Licenciatura en Administración de Empresas de la Universidad Autónoma del Paraguay forma profesionales capaces de liderar procesos organizacionales en contextos dinámicos y globalizados. Con una sólida base en ciencias administrativas, económicas y tecnológicas, el programa integra conocimientos de finanzas, recursos humanos, marketing, logística, producción y emprendimiento, fomentando la innovación, el pensamiento estratégico y la responsabilidad social. La modalidad presencial potencia el aprendizaje experiencial y el desarrollo de competencias blandas, preparando a los egresados para afrontar los desafíos del mercado laboral con ética, visión sistémica y capacidad de adaptación a los cambios digitales y económicos.",
+  "objetivo": "Formar profesionales en Administración de Empresas con competencias científicas, técnicas y éticas, capaces de diseñar, gestionar, evaluar y liderar estrategias organizacionales innovadoras, orientadas al desarrollo sostenible en contextos nacionales e internacionales. Se busca desarrollar habilidades de pensamiento crítico, liderazgo, gestión de proyectos, trabajo en equipo, comunicación efectiva y uso de tecnologías, integrando una visión interdisciplinaria que promueva la responsabilidad social, el respeto a la dignidad humana y la generación de valor económico y social en las organizaciones.",
+  "objetivos_especificos": [],
+  "a_quien_va_dirigido": "",
+  "campo_laboral": "El Licenciado en Administración de Empresas podrá desempeñarse en empresas privadas, organismos públicos y organizaciones del tercer sector, en áreas como gestión administrativa, finanzas, recursos humanos, marketing, comercio internacional, logística y operaciones. También podrá actuar como consultor, emprendedor, gestor de proyectos o académico, contribuyendo al desarrollo económico y social, liderando procesos de innovación, optimización y crecimiento organizacional en el ámbito nacional e internacional.",
+  "perfil_egresado": "El egresado de la Licenciatura en Administración de Empresas de la Universidad Autónoma del Paraguay es un profesional integral, con competencias para diseñar, gestionar y evaluar estrategias organizacionales en diversos sectores. Capaz de diagnosticar y resolver problemas, liderar proyectos innovadores, optimizar recursos, aplicar tecnologías de gestión y promover prácticas éticas y socialmente responsables. Su formación interdisciplinaria y su pensamiento crítico le permiten actuar eficazmente en entornos locales e internacionales, contribuyendo al desarrollo sostenible mediante el liderazgo de equipos y la toma de decisiones fundamentadas.",
+  "competencias_disciplinarias": [],
+  "competencias_profesionales": [],
+  "competencias_genericas": [],
+  "mision": "",
+  "vision": "",
+  "valores": [],
+  "definicion_profesional": "",
+  "malla": {
+    "1° Semestre": [
+      "Administración General",
+      "Guaraní",
+      "Introducción a la Comercialización",
+      "Comunicación Oral y Escrita",
+      "Teorías Económicas"
+    ],
+    "2° Semestre": [
+      "Contabilidad General I",
+      "Matemática Fundamental",
+      "Organización, Sistemas y Métodos",
+      "Inglés",
+      "Tecnología de la Información y la Comunicación"
+    ],
+    "3° Semestre": [
+      "Contabilidad General II",
+      "Matemática Aplicada",
+      "Microeconomía",
+      "Comportamiento Organizacional",
+      "Administración de la Producción y Operaciones"
+    ],
+    "4° Semestre": [
+      "LógicaMatemática",
+      "Contabilidad de Costos, precios y Cotizaciones",
+      "Técnica de Negociación",
+      "Macroeconomía",
+      "Investigación de Mercados y Operaciones"
+    ],
+    "5° Semestre": [
+      "Matemática Financiera",
+      "Legislación Civil, Comercial y Laboral",
+      "Administración y Gestión Financiera",
+      "Optativa I",
+      "Comercio Internacional"
+    ],
+    "6° Semestre": [
+      "Optativa II",
+      "Administración de Recursos Humanos",
+      "Probabilidad y Estadística",
+      "Legislación Aduanera y Tributaria",
+      "Mercados Capitales y del Dinero"
+    ],
+    "7° Semestre": [
+      "Sistema de Información Gerencial",
+      "Marketing Operativo y Estratégico",
+      "Planificación y Dirección Estratégica",
+      "Metodología de la Investigación",
+      "Administración Pública"
+    ],
+    "8° Semestre": [
+      "Logística Comercial",
+      "Auditoría de la Gestión Administrativa",
+      "Finanzas Operativas y Estratégicas",
+      "Formulación y Evaluación de Proyectos",
+      "Práctica Profesional",
+      "Trabajo de Grado"
+    ]
+  },
+  "brochure_url": "https://uap.edu.py/wp-content/uploads/2025/06/Licenciatura-en-administracion-de-empresas-Brochure-UAP-1.pdf"
+}

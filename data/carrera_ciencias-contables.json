@@ -1,0 +1,78 @@
+{
+  "titulo": "Ciencias Contables",
+  "duracion": "8 Semestres",
+  "sede": "Central",
+  "descripcion": "La Licenciatura en Ciencias Contables de la Universidad Autónoma del Paraguay brinda una formación integral en contabilidad, finanzas, auditoría y gestión organizacional, con énfasis en el uso de herramientas tecnológicas y el pensamiento crítico. Está orientada al desarrollo de profesionales capaces de generar, interpretar y aplicar información contable para la toma de decisiones estratégicas en organizaciones públicas y privadas. La carrera incorpora una sólida base en ciencias económicas y administrativas, ética profesional y responsabilidad social, permitiendo a los egresados contribuir al desarrollo sostenible y a la transparencia financiera en diversos sectores.",
+  "objetivo": "Formar profesionales altamente competentes en el campo de las Ciencias Contables, con capacidad para generar, analizar e interpretar información contable y financiera de organizaciones públicas y privadas, mediante el uso de herramientas tecnológicas, pensamiento crítico, principios éticos y responsabilidad social, a fin de contribuir a una gestión eficiente, transparente e innovadora de los recursos organizacionales.",
+  "objetivos_especificos": [],
+  "a_quien_va_dirigido": "",
+  "campo_laboral": "El egresado de la Licenciatura en Ciencias Contables de la Universidad Autónoma del Paraguay puede desempeñarse en organizaciones públicas, privadas y del tercer sector, tanto a nivel nacional como internacional. Está capacitado para ejercer funciones en áreas contables, financieras, tributarias, de auditoría y de gestión administrativa, así como brindar asesoramiento independiente o integrar estudios contables. Puede liderar departamentos financieros, evaluar proyectos, implementar sistemas de información contable y colaborar con organismos de control y fiscalización. Su formación ética, crítica y actualizada le permite afrontar con solvencia los desafíos del entorno profesional.",
+  "perfil_egresado": "El egresado de la Licenciatura en Ciencias Contables es un profesional ético, crítico y competente para generar, interpretar y utilizar información contable y financiera en organizaciones de diversos sectores. Está capacitado para evaluar procesos, diseñar estrategias, realizar auditorías y proponer soluciones innovadoras que aporten a la transparencia, eficiencia y desarrollo económico-social.",
+  "competencias_disciplinarias": [],
+  "competencias_profesionales": [],
+  "competencias_genericas": [],
+  "mision": "",
+  "vision": "",
+  "valores": [],
+  "definicion_profesional": "",
+  "malla": {
+    "1° Semestre": [
+      "Administración General",
+      "Guaraní",
+      "Introducción a la Comercialización",
+      "Teorías Económicas",
+      "Comunicación Oral y Escrita"
+    ],
+    "2° Semestre": [
+      "Contabilidad General I",
+      "Matemática Fundamental",
+      "Organización, Sistemas y Métodos",
+      "Inglés",
+      "Tecnología de la Información y la Comunicación"
+    ],
+    "3° Semestre": [
+      "Contabilidad General II",
+      "Matemática Aplicada",
+      "Microeconomía",
+      "Comportamiento Organizacional",
+      "Administración de Empresas y Organizaciones"
+    ],
+    "4° Semestre": [
+      "Lógica Matemática",
+      "Contabilidad de Costos, Precios y Cotizaciones",
+      "Contabilidad Financiera",
+      "Macroeconomía",
+      "Diseño de Sistemas de la Información"
+    ],
+    "5° Semestre": [
+      "Matemática Financiera",
+      "Legislación Civil, Comercial y Laboral",
+      "Contabilidad Gubernamental y de la Gestión",
+      "Optativa I",
+      "Informática Aplicada a la Contabilidad"
+    ],
+    "6° Semestre": [
+      "Estados Contables",
+      "Administración de Recursos Humanos",
+      "Probabilidad y Estadística",
+      "Legislación Aduanera y Tributaria",
+      "Optativa II"
+    ],
+    "7° Semestre": [
+      "Sistema de Información Gerencial",
+      "Auditoría en Informática",
+      "Gabinete Contable I",
+      "Metodología de la Investigación",
+      "Auditoría Gubernamental"
+    ],
+    "8° Semestre": [
+      "Gabinete Contable II",
+      "Auditoría de la Gestión Administrativa",
+      "Finanzas Operativas y Estratégicas",
+      "Formulación y Evaluación de Proyectos",
+      "Ejercicio Profesional de la Contabilidad",
+      "Trabajo de Grado"
+    ]
+  },
+  "brochure_url": "https://uap.edu.py/wp-content/uploads/2025/06/Licenciatura-en-ciencias-contables-Brochure-UAP.pdf"
+}

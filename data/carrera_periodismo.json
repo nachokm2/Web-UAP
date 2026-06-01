@@ -1,0 +1,77 @@
+{
+  "titulo": "Periodismo",
+  "duracion": "8 Semestres",
+  "sede": "Central",
+  "descripcion": "El periodismo es una profesión que implica la recolección, elaboración y difusión de información en diferentes medios de comunicación, como prensa tradicional, radio, televisión y plataformas digitales. Su propósito principal es proporcionar información veraz y oportuna a la ciudadanía, lo cual requiere una investigación exhaustiva y la presentación de los hechos desde diferentes perspectivas. Los periodistas deben desarrollar competencias éticas y habilidades técnicas para responder a las demandas de un entorno mediático que cambia rápidamente y que exige un enfoque integral e innovador.",
+  "objetivo": "Formar profesionales del periodismo capaces de optimizar el uso de los medios de comunicación masiva en entornos digitales, aplicando procesos de comunicación humana con un fuerte sentido ético y un compromiso social. Además, busca capacitar a los estudiantes para gestionar y ejecutar estructuras de comunicación y asesorías de prensa en instituciones públicas y privadas. Los futuros periodistas desarrollarán sus habilidades en redacción en prensa, radio y televisión, y se desempeñarán de manera efectiva en medios de comunicación de alcance nacional e internacional.",
+  "objetivos_especificos": [],
+  "a_quien_va_dirigido": "",
+  "campo_laboral": "El egresado podrá desempeñarse en medios de comunicación, como televisión, radio, diarios, revistas y plataformas digitales. También podrá ejercer en el área de comunicación estratégica, en el desarrollo de planes de comunicación para empresas públicas y privadas, o trabajar de manera independiente. Además, puede integrar equipos de comunicación en organizaciones no gubernamentales (ONGs) y en diversos ámbitos del sector público.",
+  "perfil_egresado": "El egresado de la Licenciatura en Periodismo es un profesional capaz de analizar y producir contenidos periodísticos en diversos formatos y plataformas. Posee una comprensión crítica de los cambios políticos, económicos, culturales y tecnológicos, y es capaz de aplicar estos conocimientos en la creación de soluciones comunicacionales efectivas y responsables, utilizando herramientas tecnológicas avanzadas y un enfoque ético.",
+  "competencias_disciplinarias": [],
+  "competencias_profesionales": [],
+  "competencias_genericas": [],
+  "mision": "",
+  "vision": "",
+  "valores": [],
+  "definicion_profesional": "",
+  "malla": {
+    "1° Semestre": [
+      "Filosofía",
+      "Teoría de la Comunicación",
+      "Comunicación Oral y Escrita",
+      "Guaraní",
+      "Introducción al Periodismo y Desafíos de la era Digital"
+    ],
+    "2° Semestre": [
+      "Antropología y Realidad Nacional y Regional",
+      "Sociología",
+      "Teoría yEconomíaPolítica",
+      "Inglés",
+      "Semiótica"
+    ],
+    "3° Semestre": [
+      "Derechos Humanos y Trabajo Social",
+      "Redacción General",
+      "Narración Periodística",
+      "Cultura Visual",
+      "Herramientas Digitales"
+    ],
+    "4° Semestre": [
+      "Narración Escrita",
+      "Taller de Reporteo",
+      "Narración Radial",
+      "Taller de Periodismo Prensa",
+      "Periodismo de Investigación"
+    ],
+    "5° Semestre": [
+      "Investigación social",
+      "Narración audiovisual",
+      "Taller de periodismo Radio",
+      "Opinión Pública",
+      "Comunicación Estratégica y Organizacional"
+    ],
+    "6° Semestre": [
+      "Narración interactiva",
+      "Taller de periodismo Televisión",
+      "Análisis de audiencia",
+      "Periodismo de datos y precisión",
+      "Optativa I"
+    ],
+    "7° Semestre": [
+      "Metodología de la Investigación",
+      "Narración gráfica",
+      "Taller de convergencia digital",
+      "Optativa II",
+      "Pasantía Profesional Supervisada I"
+    ],
+    "8° Semestre": [
+      "Investigación en la Ciencias de la Comunicación",
+      "Formulación de proyectos y emprendimientos",
+      "Taller de análisis e integración periodística",
+      "Pasantía Profesional Supervisada II",
+      "Trabajo de Grado"
+    ]
+  },
+  "brochure_url": "https://uap.edu.py/wp-content/uploads/2025/06/Licenciatura-en-periodismo-Brochure-UAP-.pdf"
+}

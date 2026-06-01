@@ -1,0 +1,115 @@
+{
+  "titulo": "Licenciado(a) en Fisioterapia",
+  "duracion": "8 Semestres",
+  "sede": "Central",
+  "descripcion": "La Licenciatura en Fisioterapia forma profesionales líderes, creativos y socialmente comprometidos, capacitados para promover, prevenir, habilitar, recuperar y rehabilitar la salud integral de las personas. Desde un enfoque ético, científico y humanístico, los egresados contribuyen al bienestar individual y colectivo, integrándose en equipos interdisciplinarios y fomentando el desarrollo sostenible de la sociedad.",
+  "objetivo": "Formar fisioterapeutas integrales capaces de comprender y abordar el movimiento corporal humano y sus alteraciones desde una perspectiva biopsicosocial, mediante la investigación, la atención clínica, la gestión en salud y la educación en fisioterapia, con ética, responsabilidad social e innovación, contribuyendo al bienestar y desarrollo humano en todas las etapas del ciclo vital.",
+  "objetivos_especificos": [
+    "Desarrollar conocimientos científicos, clínicos y humanísticos que fundamenten la práctica profesional de la fisioterapia.",
+    "Formar habilidades técnicas y de razonamiento clínico para prevenir, evaluar, diagnosticar y tratar alteraciones del movimiento corporal humano.",
+    "Fomentar competencias en investigación y gestión de proyectos en fisioterapia aplicados al contexto social y sanitario.",
+    "Promover la participación activa en programas de educación para la salud, prevención de discapacidades y rehabilitación integral en diversos escenarios."
+  ],
+  "a_quien_va_dirigido": "Personas interesadas en desarrollar una carrera en el área de la salud, con vocación de servicio, habilidades para el trabajo en equipo, interés en el estudio del cuerpo humano y su movimiento, y compromiso con la mejora de la calidad de vida de las personas y las comunidades.",
+  "campo_laboral": "El fisioterapeuta egresado podrá desempeñarse en hospitales, clínicas, centros de salud, centros comunitarios, centros de rehabilitación, gimnasios, clubes deportivos, hogares de adultos mayores, guarderías, instituciones educativas, programas de salud pública y como consultor independiente en rehabilitación y promoción de la salud.",
+  "perfil_egresado": "El egresado de la Licenciatura en Fisioterapia será un profesional competente en la evaluación, diagnóstico cinético-funcional, prevención, tratamiento y rehabilitación de alteraciones del movimiento corporal humano. Poseerá habilidades para integrar equipos interdisciplinarios, desarrollar proyectos de investigación e intervención comunitaria, gestionar servicios de salud y promover la salud y el bienestar social, actuando dentro de un marco ético y de responsabilidad social.",
+  "competencias_disciplinarias": [
+    "Evaluar el movimiento corporal humano y las disfunciones cinético-funcionales para establecer un diagnóstico fisioterapéutico preciso."
+  ],
+  "competencias_profesionales": [
+    "Aplicar tratamientos fisioterapéuticos adecuados a las necesidades individuales y comunitarias.",
+    "Gestionar servicios de fisioterapia en instituciones de salud o en práctica independiente.",
+    "Investigar problemáticas relacionadas con la fisioterapia y proponer soluciones innovadoras.",
+    "Integrar equipos interdisciplinarios de salud, promoviendo un enfoque integral de atención.",
+    "Educar a individuos y comunidades en estrategias de prevención, promoción de la salud y rehabilitación."
+  ],
+  "competencias_genericas": [
+    "Comunicación efectiva: Expresar ideas de manera clara y coherente, oralmente y por escrito.",
+    "Trabajo en equipo: Colaborar de manera empática y eficaz en entornos multidisciplinarios.",
+    "Pensamiento crítico: Analizar información de manera crítica para tomar decisiones fundamentadas.",
+    "Comportamiento ético: Actuar con justicia, respeto y responsabilidad social.",
+    "Responsabilidad social: Contribuir al desarrollo de soluciones que promuevan condiciones de vida más justas y equitativas."
+  ],
+  "mision": "Formar fisioterapeutas competentes, éticos y comprometidos con el desarrollo humano, capaces de comprender el Movimiento Corporal Humano desde una perspectiva integral, interdisciplinaria y contextualizada. Promover procesos formativos e investigativos innovadores, que contribuyan a la transformación social, la rehabilitación funcional y el desarrollo sostenible, con énfasis en la extensión universitaria y el uso estratégico de tecnologías aplicadas a la salud.",
+  "vision": "Ser reconocida como una carrera innovadora, referente nacional en la formación de fisioterapeutas líderes, capaces de transformar entornos sociales y sanitarios mediante prácticas clínicas basadas en evidencia, trabajo interdisciplinario, desarrollo tecnológico, investigación aplicada y una ética profesional comprometida con el bienestar de las personas, la equidad social y el respeto a la diversidad.",
+  "valores": [
+    "Vocación de servicio: Voluntad de contribuir al cuidado, recuperación y mejora de la calidad de vida de las personas, priorizando siempre sus derechos y dignidad.",
+    "Compromiso ético: Actuación basada en principios de integridad, responsabilidad, respeto a la confidencialidad y justicia social en el ejercicio profesional.",
+    "Empatía y calidez humana: Capacidad de establecer vínculos respetuosos, sensibles y empáticos con los usuarios y sus familias, valorando su realidad individual y social.",
+    "Trabajo colaborativo: Disposición para integrarse en equipos interdisciplinarios con actitud de escucha, diálogo y cooperación para el abordaje integral de la salud.",
+    "Actualización permanente: Búsqueda continua de nuevos conocimientos científicos y tecnológicos, con actitud crítica y reflexiva para mejorar las intervenciones fisioterapéuticas.",
+    "Flexibilidad profesional: Capacidad para adaptar estrategias, técnicas y enfoques terapéuticos a las necesidades cambiantes de las personas y los contextos sociales.",
+    "Resiliencia y tolerancia a la frustración: Fortaleza personal para sostener procesos de rehabilitación complejos, afrontar desafíos clínicos y acompañar el sufrimiento de los pacientes."
+  ],
+  "definicion_profesional": "plan de estudios",
+  "malla": {
+    "1° semestre": [
+      "Comunicación Oral y Escrita",
+      "Inglés",
+      "Bioestadística e Informática",
+      "Biofísica",
+      "Psicología Médica",
+      "Legislación Aplicada a la Salud y Ética Profesional"
+    ],
+    "2° semestre": [
+      "Anatomía General I",
+      "Guaraní",
+      "Neuroanatomía I",
+      "Biología Celular y Molecular",
+      "Histología y Embriología",
+      "Salud Pública y Gestión Hospitalaria"
+    ],
+    "3° semestre": [
+      "Neuroanatomía II",
+      "Anatomía General II",
+      "Microbiología y Bioseguridad",
+      "Biomecánica I",
+      "Fisiología General I",
+      "Anatomía Palpatoria"
+    ],
+    "4° semestre": [
+      "Bioquímica",
+      "Salud Ocupacional y Ergonomía",
+      "Semiopatología Médica y kinésica",
+      "Biomecánica II",
+      "Fisiopatología",
+      "Introducción a la Fisioterapia"
+    ],
+    "5° semestre": [
+      "Atención de la Primaria a la Salud y Primeros Auxilios",
+      "Kinesiología General y Kinefilaxia",
+      "Farmacología",
+      "Fisioterapia I",
+      "Técnicas Evaluativas y Diagnóstico Kinésico Funcional",
+      "Ortopedia y Traumatología"
+    ],
+    "6° semestre": [
+      "Mecanoterapia",
+      "Prótesis y Ortesis",
+      "Diagnóstico por Imágenes",
+      "Fisioterapia II",
+      "Clínica Kinésica Médica",
+      "Cardio Respiratorio Adulto y Pediátrico",
+      "Pasantía Interna en Fisioterapia I"
+    ],
+    "7° semestre": [
+      "Metodología de la Investigación",
+      "Intervención Kinesiológica en el Adulto Mayor",
+      "Fisioterapia Deportiva",
+      "Clínica kinésica Quirúrgica",
+      "Rehabilitación Neurológica del Niño y del Adulto",
+      "Técnica de Tratamiento",
+      "Pasantía interna en Fisioterapia II",
+      "Pasantía Externa en Fisioterapia. Áreas: Ortopedia y Traumatología"
+    ],
+    "8° semestre": [
+      "Investigación Científica",
+      "Optativa I",
+      "Optativa II",
+      "Pasantía externa en Fisioterapia. Áreas: Cardiorrespiratorio y Rehabilitación Neurológica",
+      "Trabajo de Grado"
+    ]
+  },
+  "brochure_url": "https://uap.edu.py/wp-content/uploads/2025/06/Licenciatura-en-Fisioterapia-Brochure-UAP-c.pdf",
+  "full_text": "Fisioterapia - UAP. Descargar Brochure. Título: Licenciado(a) en Fisioterapia. Duración: 8 Semestres. Sede: Central. DESCRIPCIÓN: La Licenciatura en Fisioterapia forma profesionales líderes, creativos y socialmente comprometidos, capacitados para promover, prevenir, habilitar, recuperar y rehabilitar la salud integral de las personas. Desde un enfoque ético, científico y humanístico, los egresados contribuyen al bienestar individual y colectivo, integrándose en equipos interdisciplinarios y fomentando el desarrollo sostenible de la sociedad. OBJETIVO: Formar fisioterapeutas integrales capaces de comprender y abordar el movimiento corporal humano y sus alteraciones desde una perspectiva biopsicosocial, mediante la investigación, la atención clínica, la gestión en salud y la educación en fisioterapia, con ética, responsabilidad social e innovación, contribuyendo al bienestar y desarrollo humano en todas las etapas del ciclo vital. OBJETIVOS ESPECÍFICOS: Desarrollar conocimientos científicos, clínicos y humanísticos que fundamenten la práctica profesional de la fisioterapia. Formar habilidades técnicas y de razonamiento clínico para prevenir, evaluar, diagnosticar y tratar alteraciones del movimiento corporal humano. Fomentar competencias en investigación y gestión de proyectos en fisioterapia aplicados al contexto social y sanitario. Promover la participación activa en programas de educación para la salud, prevención de discapacidades y rehabilitación integral en diversos escenarios. Impulsar el compromiso ético, la responsabilidad social y el trabajo en equipos interdisciplinares. A QUIÉN VA DIRIGIDO: Personas interesadas en desarrollar una carrera en el área de la salud, con vocación de servicio, habilidades para el trabajo en equipo, interés en el estudio del cuerpo humano y su movimiento, y compromiso con la mejora de la calidad de vida de las personas y las comunidades. CAMPO LABORAL: El fisioterapeuta egresado podrá desempeñarse en hospitales, clínicas, centros de salud, centros comunitarios, centros de rehabilitación, gimnasios, clubes deportivos, hogares de adultos mayores, guarderías, instituciones educativas, programas de salud pública y como consultor independiente en rehabilitación y promoción de la salud. PERFIL DE EGRESO: El egresado de la Licenciatura en Fisioterapia será un profesional competente en la evaluación, diagnóstico cinético-funcional, prevención, tratamiento y rehabilitación de alteraciones del movimiento corporal humano. Poseerá habilidades para integrar equipos interdisciplinarios, desarrollar proyectos de investigación e intervención comunitaria, gestionar servicios de salud y promover la salud y el bienestar social, actuando dentro de un marco ético y de responsabilidad social. COMPETENCIAS DISCIPLINARIAS: Evaluar el movimiento corporal humano y las disfunciones cinético-funcionales para establecer un diagnóstico fisioterapéutico preciso. Intervenir en la recuperación y rehabilitación de la capacidad funcional mediante estrategias fisioterapéuticas basadas en evidencia científica. COMPETENCIAS PROFESIONALES: Aplicar tratamientos fisioterapéuticos adecuados a las necesidades individuales y comunitarias. Diseñar planes de intervención fisioterapéutica personalizados, basados en la evaluación clínica. Gestionar servicios de fisioterapia en instituciones de salud o en práctica independiente. Investigar problemáticas relacionadas con la fisioterapia y proponer soluciones innovadoras. Integrar equipos interdisciplinarios de salud, promoviendo un enfoque integral de atención. Educar a individuos y comunidades en estrategias de prevención, promoción de la salud y rehabilitación. Adoptar principios éticos, legales y de responsabilidad social en el ejercicio profesional. COMPETENCIAS GENÉRICAS: Comunicación efectiva: Expresar ideas de manera clara y coherente, oralmente y por escrito. Trabajo en equipo: Colaborar de manera empática y eficaz en entornos multidisciplinarios. Pensamiento crítico: Analizar información de manera crítica para tomar decisiones fundamentadas. Comportamiento ético: Actuar con justicia, respeto y responsabilidad social. Responsabilidad social: Contribuir al desarrollo de soluciones que promuevan condiciones de vida más justas y equitativas. MISIÓN: Formar fisioterapeutas competentes, éticos y comprometidos con el desarrollo humano, capaces de comprender el Movimiento Corporal Humano desde una perspectiva integral, interdisciplinaria y contextualizada. Promover procesos formativos e investigativos innovadores, que contribuyan a la transformación social, la rehabilitación funcional y el desarrollo sostenible, con énfasis en la extensión universitaria y el uso estratégico de tecnologías aplicadas a la salud. VISIÓN: Ser reconocida como una carrera innovadora, referente nacional en la formación de fisioterapeutas líderes, capaces de transformar entornos sociales y sanitarios mediante prácticas clínicas basadas en evidencia, trabajo interdisciplinario, desarrollo tecnológico, investigación aplicada y una ética profesional comprometida con el bienestar de las personas, la equidad social y el respeto a la diversidad. VALORES DE LA CARRERA: Vocación de servicio: Voluntad de contribuir al cuidado, recuperación y mejora de la calidad de vida de las personas, priorizando siempre sus derechos y dignidad. Compromiso ético: Actuación basada en principios de integridad, responsabilidad, respeto a la confidencialidad y justicia social en el ejercicio profesional. Empatía y calidez humana: Capacidad de establecer vínculos respetuosos, sensibles y empáticos con los usuarios y sus familias, valorando su realidad individual y social. Trabajo colaborativo: Disposición para integrarse en equipos interdisciplinarios con actitud de escucha, diálogo y cooperación para el abordaje integral de la salud. Actualización permanente: Búsqueda continua de nuevos conocimientos científicos y tecnológicos, con actitud crítica y reflexiva para mejorar las intervenciones fisioterapéuticas. Flexibilidad profesional: Capacidad para adaptar estrategias, técnicas y enfoques terapéuticos a las necesidades cambiantes de las personas y los contextos sociales. Resiliencia y tolerancia a la frustración: Fortaleza personal para sostener procesos de rehabilitación complejos, afrontar desafíos clínicos y acompañar el sufrimiento de los pacientes. DEFINICIÓN DEL PROFESIONAL: El Licenciado en Fisioterapia, egresado de la Universidad Autónoma del Paraguay es una persona preparada para recuperar la capacidad motora de los pacientes que han sufrido accidentes, lesiones o inmovilidad de cuerpo. Podrá practicar correctamente las técnicas de rehabilitación, tanto de los sistemas musculares, como del óseo y fisiológico. Será por ello, un profesional muy requerido en clubes y gimnasios como soporte asistencial a todas las disciplinas deportivas que involucren desafíos en la motricidad. Está igualmente capacitado para planificar, ejecutar y evaluar Programas de Promoción de la Salud porque podrá concebir al ser humano en todas sus dimensiones: biológica, psicológica, sociocultural y ética. Así mismo podrá participar dentro de programas de habilitación/ rehabilitación para la restauración de la función óptima y la calidad de vida de los individuos como pérdidas o desordenes de movimientos, además de participar en la promoción de las deficiencias, limitaciones funcionales y discapacidades en individuos en riesgo de alteraciones del comportamiento motor, debido a factores de salud o médicos, estrés socioeconómico y estilos de vida. Plan de estudios: 1° semestre: Comunicación Oral y Escrita, Inglés, Bioestadística e Informática, Biofísica, Psicología Médica, Legislación Aplicada a la Salud y Ética Profesional. 2° semestre: Anatomía General I, Guaraní, Neuroanatomía I, Biología Celular y Molecular, Histología y Embriología, Salud Pública y Gestión Hospitalaria. 3° semestre: Neuroanatomía II, Anatomía General II, Microbiología y Bioseguridad, Biomecánica I, Fisiología General I, Anatomía Palpatoria. 4° semestre: Bioquímica, Salud Ocupacional y Ergonomía, Semiopatología Médica y kinésica, Biomecánica II, Fisiopatología, Introducción a la Fisioterapia. 5° semestre: Atención de la Primaria a la Salud y Primeros Auxilios, Kinesiología General y Kinefilaxia, Farmacología, Fisioterapia I, Técnicas Evaluativas y Diagnóstico Kinésico Funcional, Ortopedia y Traumatología. 6° semestre: Mecanoterapia, Prótesis y Ortesis, Diagnóstico por Imágenes, Fisioterapia II, Clínica Kinésica Médica, Cardio Respiratorio Adulto y Pediátrico, Pasantía Interna en Fisioterapia I. 7° semestre: Metodología de la Investigación, Intervención Kinesiológica en el Adulto Mayor, Fisioterapia Deportiva, Clínica kinésica Quirúrgica, Rehabilitación Neurológica del Niño y del Adulto, Técnica de Tratamiento, Pasantía interna en Fisioterapia II, Pasantía Externa en Fisioterapia. Áreas: Ortopedia y Traumatología. 8° semestre: Investigación Científica, Optativa I, Optativa II, Pasantía externa en Fisioterapia. Áreas: Cardiorrespiratorio y Rehabilitación Neurológica, Trabajo de Grado. Malla sujeta a cambios."
+}

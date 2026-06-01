@@ -1,0 +1,81 @@
+{
+  "titulo": "Licenciado(a) en Óptica y Contactología",
+  "duracion": "8 Semestres",
+  "sede": "Central",
+  "descripcion": "La carrera de Licenciatura en Óptica y Contactología forma profesionales altamente capacitados para interpretar, elaborar, adaptar y controlar prescripciones oftalmológicas. El programa integra conocimientos científicos y técnicos que permiten actuar como auxiliares especializados en oftalmología, promoviendo la salud visual con altos estándares de calidad. Busca preparar egresados que hablen \"el mismo idioma\" de los profesionales médicos, aportando significativamente al bienestar de la población en Paraguay y en el MERCOSUR.",
+  "objetivo": "Formar profesionales competentes en Óptica y Contactología, capaces de interpretar y adaptar prescripciones oftalmológicas, gestionar establecimientos ópticos, y participar activamente en el cuidado de la salud visual de la población. Se busca que los egresados cuenten con habilidades técnicas, científicas y éticas que les permitan insertarse competitivamente en el mercado laboral nacional e internacional, especialmente en el contexto del MERCOSUR.",
+  "objetivos_especificos": [],
+  "a_quien_va_dirigido": "",
+  "campo_laboral": "El Licenciado en Óptica y Contactología podrá desempeñarse en gabinetes ópticos, clínicas oftalmológicas, hospitales, laboratorios ópticos, consultorios de contactología y centros de rehabilitación visual. Podrá ejercer funciones de adaptación de lentes de contacto, prótesis oculares y ayudas visuales, así como de gestión administrativa de establecimientos ópticos.",
+  "perfil_egresado": "El egresado de la Licenciatura en Óptica y Contactología será un profesional capacitado para interpretar prescripciones oftalmológicas, elaborar y adaptar soluciones ópticas, gestionar establecimientos especializados y participar en equipos de salud visual, con una sólida formación científica, ética y social, contribuyendo al bienestar visual de la población.",
+  "competencias_disciplinarias": [],
+  "competencias_profesionales": [],
+  "competencias_genericas": [],
+  "mision": "",
+  "vision": "",
+  "valores": [],
+  "definicion_profesional": "",
+  "malla": {
+    "1° semestre": [
+      "Fotografía",
+      "Anatomía, Histología y Fisiología Ocular",
+      "Bioquímica",
+      "Matemática Fundamental",
+      "Tecnología de la Información y de la Comunicación"
+    ],
+    "2° semestre": [
+      "Óptica Oftálmica I – Teoría",
+      "Biología Ocular",
+      "Física",
+      "Guaraní",
+      "Comunicación Oral y Escrita"
+    ],
+    "3° semestre": [
+      "Óptica Oftálmica I – Práctica",
+      "Óptica Geométrica",
+      "Óptica Física",
+      "Introducción a la Contactología",
+      "Dirección y Técnica de Ventas",
+      "Inglés"
+    ],
+    "4° semestre": [
+      "Óptica Oftálmica II – Teoría",
+      "Cálculo Óptico",
+      "Óptica Instrumental",
+      "Complicaciones del Lente de Contacto",
+      "Administración y Gestión Óptica",
+      "Legislación y Salud Pública"
+    ],
+    "5° semestre": [
+      "Óptica Oftálmica II Práctica",
+      "Contactología I Teoría",
+      "Patología Ocular Asociada al Lente de Contacto",
+      "Farmacología Asociada al Lente de Contacto",
+      "Optativa I",
+      "Clínica Social I"
+    ],
+    "6° semestre": [
+      "Óptica Oftálmica III Teoría",
+      "Contactología I Práctica",
+      "Sistemas de Ayudas Visuales",
+      "Ortóptica",
+      "Prótesis Ocular",
+      "Clínica Social II"
+    ],
+    "7° semestre": [
+      "Óptica Oftálmica III Práctica",
+      "Contactología II Teoría",
+      "Metodología de la Investigación",
+      "Optativa II",
+      "Clínica Social III"
+    ],
+    "8° semestre": [
+      "Contactología II Práctica",
+      "Investigación en Óptica y Contactología",
+      "Clínica Social IV",
+      "Pasantía",
+      "Trabajo Final de Grado"
+    ]
+  },
+  "brochure_url": "https://uap.edu.py/wp-content/uploads/2025/06/Licenciatura-en-Optica-y-Contactologia-Brochure-UAP.pdf"
+}

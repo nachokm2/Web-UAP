@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Odontología - Universidad Autónoma del Paraguay</title>
+    <link rel="stylesheet" href="../../css/uap-refined.css">
+    <style>
+        /* ===== GLASSMORPHISM LANDING STYLES ===== */
+        
+        /* Hero con imagen de fondo */
+        .career-hero-glass {
+            position: relative;
+            min-height: 420px;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #003366 0%, #001a33 60%), url('../../images/heroes/odontologia.jpg') center/cover no-repeat;
+            background-blend-mode: overlay;
+            color: white;
+            overflow: hidden;
+        }
+        .career-hero-glass::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, rgba(0,51,102,0.92) 0%, rgba(0,102,204,0.78) 50%, rgba(0,51,102,0.88) 100%);
+            z-index: 1;
+        }
+        .career-hero-glass .container {
+            position: relative;
+            z-index: 2;
+        }
+        .career-hero-glass h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+        .career-hero-glass .hero-subtitle {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            max-width: 700px;
+            opacity: 0.92;
+        }
+        .career-hero-glass .hero-badges {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.25);
+            border-radius: 50px;
+            padding: 8px 18px;
+            font-size: 0.9rem;
+            color: white;
+        }
+        .hero-badge svg {
+            width: 16px; height: 16px;
+            fill: none; stroke: white; stroke-width: 2;
+        }
+
+        /* Glass Cards */
+        .glass-card {
+            background: rgba(255,255,255,0.65);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.4);
+            border-radius: 16px;
+            padding: 28px;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .glass-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(0,51,102,0.12);
+        }
+        .glass-card h2 {
+            font-size: 1.35rem;
+            color: #003366;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .glass-card h2 .section-icon {
+            width: 32px; height: 32px;
+            background: linear-gradient(135deg, #003366, #0066cc);
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .glass-card h2 .section-icon svg {
+            width: 18px; height: 18px;
+            stroke: white; fill: none; stroke-width: 2;
+        }
+        .glass-card p, .glass-card ul {
+            color: #374151;
+            line-height: 1.75;
+            font-size: 0.95rem;
+        }
+
+        /* Sección con fondo degradado */
+        .section-gradient {
+            background: linear-gradient(180deg, #f0f4f8 0%, #ffffff 100%);
+        }
+        .section-dark {
+            background: linear-gradient(135deg, #003366 0%, #001a33 100%);
+            color: white;
+        }
+        .section-dark .glass-card {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+        }
+        .section-dark .glass-card h2 {
+            color: white;
+        }
+        .section-dark .glass-card p,
+        .section-dark .glass-card ul {
+            color: rgba(255,255,255,0.9);
+        }
+
+        /* Info pills en el hero */
+        .info-pills {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-top: 32px;
+        }
+        .info-pill {
+            background: rgba(255,255,255,0.12);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 12px;
+            padding: 16px 20px;
+            text-align: center;
+        }
+        .info-pill .pill-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.7;
+            margin-bottom: 4px;
+        }
+        .info-pill .pill-value {
+            font-size: 1.15rem;
+            font-weight: 700;
+        }
+
+        /* Malla mejorada */
+        .malla-section {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 32px;
+        }
+        .malla-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+        .malla-tab {
+            padding: 10px 20px;
+            border: 1px solid #d1d5db;
+            background: white;
+            color: #003366;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .malla-tab:hover {
+            background: #e8edf2;
+        }
+        .malla-tab.active {
+            background: linear-gradient(135deg, #003366, #0066cc);
+            color: white;
+            border-color: transparent;
+        }
+        .malla-panel ul {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 10px;
+        }
+        .malla-panel li {
+            padding: 12px 18px;
+            background: white;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            border-left: 3px solid #0066cc;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+            transition: transform 0.15s;
+        }
+        .malla-panel li:hover {
+            transform: translateX(4px);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #003366 0%, #0066cc 100%);
+            border-radius: 20px;
+            padding: 48px;
+            color: white;
+            text-align: center;
+            margin: 48px 0;
+        }
+        .cta-section h2 {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+        .cta-section p {
+            opacity: 0.85;
+            margin-bottom: 28px;
+        }
+
+        /* Formulario glass */
+        .glass-form {
+            background: rgba(255,255,255,0.12);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.25);
+            border-radius: 16px;
+            padding: 28px;
+        }
+        .glass-form input,
+        .glass-form textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 10px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-size: 0.95rem;
+            margin-bottom: 14px;
+        }
+        .glass-form input::placeholder,
+        .glass-form textarea::placeholder {
+            color: rgba(255,255,255,0.5);
+        }
+        .glass-form input:focus,
+        .glass-form textarea:focus {
+            outline: none;
+            border-color: rgba(255,255,255,0.6);
+            background: rgba(255,255,255,0.15);
+        }
+        .glass-form label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            opacity: 0.7;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .btn-glass {
+            background: white;
+            color: #003366;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.25s;
+        }
+        .btn-glass:hover {
+            background: #f0f4f8;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+        .brochure-btn-glass {
+            display: inline-block;
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255,255,255,0.5);
+            padding: 14px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 16px;
+            transition: all 0.25s;
+        }
+        .brochure-btn-glass:hover {
+            background: rgba(255,255,255,0.15);
+            border-color: white;
+        }
+
+        /* Grid de competencias */
+        .competencias-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .competencia-card {
+            background: rgba(255,255,255,0.65);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.4);
+            border-radius: 12px;
+            padding: 20px;
+        }
+        .competencia-card h3 {
+            font-size: 0.95rem;
+            color: #003366;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid rgba(0,51,102,0.15);
+        }
+        .competencia-card ul {
+            list-style: none;
+            padding: 0;
+        }
+        .competencia-card li {
+            padding: 6px 0;
+            font-size: 0.88rem;
+            color: #374151;
+            padding-left: 18px;
+            position: relative;
+        }
+        .competencia-card li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 12px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #0066cc;
+        }
+
+        /* Objetivos check list */
+        .check-list {
+            list-style: none;
+            padding: 0;
+        }
+        .check-list li {
+            padding: 10px 0 10px 32px;
+            position: relative;
+            color: #374151;
+            line-height: 1.6;
+        }
+        .check-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 14px;
+            width: 18px;
+            height: 18px;
+            background: linear-gradient(135deg, #003366, #0066cc);
+            border-radius: 50%;
+        }
+        .check-list li::after {
+            content: '✓';
+            position: absolute;
+            left: 4px;
+            top: 12px;
+            color: white;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .career-hero-glass { min-height: 320px; padding: 40px 0; }
+            .career-hero-glass h1 { font-size: 1.75rem; }
+            .career-hero-glass .hero-subtitle { font-size: 0.9rem; line-height: 1.5; }
+            .info-pills { grid-template-columns: 1fr; gap: 10px; }
+            .info-pill { padding: 12px 16px; }
+            .info-pill .pill-value { font-size: 1rem; }
+            .glass-card { padding: 20px; }
+            .cta-section { padding: 32px 20px; }
+            .malla-tabs { gap: 6px; }
+            .malla-tab { padding: 8px 14px; font-size: 0.8rem; }
+            .malla-panel ul { grid-template-columns: 1fr; }
+            .malla-panel li { padding: 10px 14px; font-size: 0.85rem; }
+            .malla-section { padding: 20px 16px; }
+            .competencias-grid { grid-template-columns: 1fr; }
+            .contact-grid { grid-template-columns: 1fr; }
+            .valores-grid { grid-template-columns: 1fr; }
+            .two-col-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 768px) {
+            .footer-grid { grid-template-columns: 1fr !important; gap: 20px; }
+        }
+        @media (max-width: 480px) {
+            .career-hero-glass h1 { font-size: 1.4rem; }
+            .career-hero-glass .hero-subtitle { font-size: 0.85rem; }
+            .info-pill .pill-label { font-size: 0.7rem; }
+            .info-pill .pill-value { font-size: 0.9rem; }
+            .glass-card h2 { font-size: 1.15rem; }
+            .glass-card p, .glass-card ul { font-size: 0.88rem; }
+            .cta-section h2 { font-size: 1.5rem; }
+            .brochure-btn-glass { padding: 12px 24px; font-size: 0.9rem; }
+        }
+
+        /* Grid contacto */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            align-items: start;
+        }
+
+        /* Two column grid for section pairs */
+        .two-col-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        /* Footer grid */
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        /* Valores cards */
+        .valores-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 14px;
+        }
+        .valor-card {
+            background: rgba(255,255,255,0.65);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.4);
+            border-radius: 12px;
+            padding: 16px 20px;
+        }
+        .valor-card strong {
+            color: #003366;
+            font-size: 0.92rem;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .valor-card span {
+            font-size: 0.85rem;
+            color: #4b5563;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER (mismo que home) -->
+    <header class="header" style="position: relative;">
+        <div class="container header-inner">
+            <a href="../index.html" class="logo">
+                <img src="../../images/logo-uap.png" alt="UAP - Universidad Autónoma del Paraguay" class="logo-img">
+            </a>
+            <button class="mobile-menu-btn" onclick="document.querySelector('.nav').classList.toggle('active')">☰</button>
+            <nav>
+                <ul class="nav">
+                    <li><a href="../index.html">Inicio</a></li>
+                    <li class="dropdown">
+                        <a href="../carreras.html">Carreras</a>
+                        <div class="dropdown-content careers-dropdown">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--space-2);">
+                                <div>
+                                    <div class="dropdown-faculty">Ciencias Médicas y de la Salud</div>
+                                    <a href="odontologia.html">Odontología</a>
+                                    <a href="fisioterapia.html">Fisioterapia</a>
+                                    <a href="fonoaudiologia.html">Fonoaudiología</a>
+                                    <a href="psicologia.html">Psicología</a>
+                                    <a href="nutricion.html">Nutrición</a>
+                                    <a href="podologia.html">Podología</a>
+                                    <a href="optica-y-contactologia.html">Óptica y Contactología</a>
+                                </div>
+                                <div>
+                                    <div class="dropdown-faculty">Ingenierías y Tecnologías</div>
+                                    <a href="ingenieria-en-informatica.html">Ingeniería en Informática</a>
+                                    <a href="ingenieria-en-tecnologia-de-alimentos.html">Ingeniería en Tecnología de Alimentos</a>
+                                    <a href="ingenieria-comercial.html">Ingeniería Comercial</a>
+                                    <a href="ingenieria-en-comercio-internacional.html">Ingeniería en Comercio Internacional</a>
+                                    <a href="ingenieria-en-marketing.html">Ingeniería en Marketing</a>
+                                </div>
+                                <div>
+                                    <div class="dropdown-faculty">Ciencias Sociales y Humanas</div>
+                                    <a href="marketing-y-publicidad.html">Marketing y Publicidad</a>
+                                    <a href="periodismo.html">Periodismo</a>
+                                    <a href="ciencias-de-la-educacion.html">Ciencias de la Educación</a>
+                                    <a href="educacion-parvularia.html">Educación Parvularia</a>
+                                    <a href="derecho.html">Derecho</a>
+                                    <a href="trabajo-social.html">Trabajo Social</a>
+                                    <a href="administracion-publica.html">Administración Pública</a>
+                                    <a href="administracion-de-empresas.html">Administración de Empresas</a>
+                                    <a href="ciencias-contables.html">Ciencias Contables</a>
+                                    <a href="contabilidad-y-auditoria.html">Contabilidad y Auditoría</a>
+                                    <a href="contaduria-publica.html">Contaduría Pública</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="../posgrados.html">Posgrados</a>
+                        <div class="dropdown-content">
+                            <div class="dropdown-faculty">Facultad de Ciencias Médicas y de la Salud</div>
+                            <a href="../posgrados.html#odontologicas">Odontología</a>
+                            <div class="dropdown-faculty">Facultad de Ciencias Sociales y Humanas</div>
+                            <a href="../posgrados.html#educacion">Educación</a>
+                            <a href="../posgrados.html#psicologia">Psicología</a>
+                        </div>
+                    </li>
+                    <li><a href="../noticias.html">Noticias</a></li>
+                    <li class="dropdown">
+                        <a href="../institucional.html">Institucional</a>
+                        <div class="dropdown-content">
+                            <a href="../institucional.html">Misión, Visión y Valores</a>
+                            <a href="../institucional.html#autoridades">Autoridades</a>
+                            <a href="../institucional.html#convenios">Convenios</a>
+                            <a href="../institucional.html#reglamentos">Reglamentos</a>
+                        </div>
+                    </li>
+                    <li><a href="../investigacion.html">Investigación</a></li>
+                    <li><a href="../estudiantes.html">Estudiantes</a></li>
+                    <li><a href="../contacto.html">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO con imagen de fondo y glassmorphism -->
+    <section class="career-hero-glass">
+        <div class="container">
+            <h1>Odontología</h1>
+            <p class="hero-subtitle">Formamos profesionales íntegros en salud bucal, con sólidos conocimientos científicos, técnicos y humanísticos, comprometidos con el bienestar de la comunidad.</p>
+            <div class="info-pills">
+                <div class="info-pill">
+                    <div class="pill-label">Título</div>
+                    <div class="pill-value">Odontología</div>
+                </div>
+                <div class="info-pill">
+                    <div class="pill-label">Duración</div>
+                    <div class="pill-value">10 Semestres</div>
+                </div>
+                <div class="info-pill">
+                    <div class="pill-label">Sede</div>
+                    <div class="pill-value">Central</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- OBJETIVO + CAMPO LABORAL en grid -->
+    <section style="padding: 48px 0; background: linear-gradient(180deg, #f0f4f8, #fff);">
+        <div class="container">
+            <div class="two-col-grid">
+                <div class="glass-card">
+                    <h2>
+                        <span class="section-icon"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                        Objetivo
+                    </h2>
+                    <p>Formar odontólogos altamente competentes en la prevención, diagnóstico, tratamiento y rehabilitación de las patologías buco-maxilofaciales, capaces de desempeñarse en contextos individuales y comunitarios, mediante una formación científica, ética y humanista. Promover el desarrollo de habilidades clínicas, investigativas y de gestión sanitaria, con responsabilidad social, respeto por la diversidad cultural y compromiso con la mejora continua de la calidad de vida de la población.</p>
+                </div>
+                <div class="glass-card">
+                    <h2>
+                        <span class="section-icon"><svg viewBox="0 0 24 24"><path d="M21 13.255A10.008 10.008 0 0112 22c-5.523 0-10-4.477-10-10S6.477 2 12 2a10 10 0 018.744 5.255M16 6l4 0m0 0l0 4m0-4l-4 4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                        Campo Laboral
+                    </h2>
+                    <p>El odontólogo egresado podrá ejercer de forma independiente en consultorios privados, clínicas y centros médicos; formar parte de equipos de salud en instituciones públicas y privadas; desempeñarse como asesor o contralor en empresas y compañías de seguros; integrarse a proyectos comunitarios de salud bucal; participar en docencia universitaria e investigación científica en el área odontológica.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PERFIL DEL GRADUADO -->
+    <section style="padding: 48px 0;">
+        <div class="container">
+            <div class="glass-card" style="max-width: 900px; margin: 0 auto;">
+                <h2>
+                    <span class="section-icon"><svg viewBox="0 0 24 24"><path d="M12 14l9-5-9-5-9 5 9 5zm0 7l-9-5 9-5 9 5-9 5zm0-7v7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                    Perfil del Graduado
+                </h2>
+                <p>El egresado será un odontólogo competente para prevenir, diagnosticar, tratar y rehabilitar patologías buco-maxilofaciales prevalentes y complejas. Será capaz de trabajar en equipos interdisciplinarios, evaluar la salud general de sus pacientes, aplicar criterios éticos en su práctica, liderar proyectos de promoción y prevención de la salud bucal, integrar avances científicos y tecnológicos a su desempeño profesional y contribuir activamente a la investigación en odontología.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- MISIÓN + VISIÓN lado a lado (sección oscura) -->
+    <section class="section-dark" style="padding: 48px 0;">
+        <div class="container">
+            <div class="two-col-grid">
+                <div class="glass-card">
+                    <h2 style="color: white;">
+                        <span class="section-icon" style="background: linear-gradient(135deg, #0066cc, #3399ff);"><svg viewBox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                        Misión
+                    </h2>
+                    <p style="color: rgba(255,255,255,0.9);">Formar profesionales en Odontología con sólida preparación científica, técnica, ética y humanística, capaces de prevenir, diagnosticar y tratar enfermedades buco-maxilofaciales en individuos y comunidades, desde un enfoque integral e interdisciplinario. La carrera promueve la investigación, la extensión y el compromiso con el desarrollo sostenible, fortaleciendo el vínculo entre ciencia, salud y responsabilidad social en el contexto de la diversidad cultural paraguaya.</p>
+                </div>
+                <div class="glass-card">
+                    <h2 style="color: white;">
+                        <span class="section-icon" style="background: linear-gradient(135deg, #0066cc, #3399ff);"><svg viewBox="0 0 24 24"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                        Visión
+                    </h2>
+                    <p style="color: rgba(255,255,255,0.9);">Ser una carrera reconocida a nivel nacional e internacional por la excelencia académica en la formación de odontólogos éticos, innovadores y socialmente comprometidos, capaces de integrar la ciencia y la tecnología con la sensibilidad humana para mejorar la salud bucal y la calidad de vida de las personas, contribuyendo activamente al desarrollo de comunidades saludables, justas y equitativas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- A QUIÉN VA DIRIGIDO -->
+    <section style="padding: 48px 0; background: #f8fafc;">
+        <div class="container">
+            <div class="glass-card" style="max-width: 800px; margin: 0 auto; border-left: 4px solid #0066cc;">
+                <h2>
+                    <span class="section-icon"><svg viewBox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                    A quién va dirigido
+                </h2>
+                <p>A personas que hayan culminado la educación media y demuestren vocación de servicio, interés por las ciencias de la salud y sensibilidad social. Está dirigido a quienes deseen formarse como odontólogos con una sólida preparación científica, técnica y humanística, comprometidos con el bienestar y la calidad de vida de la población.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- OBJETIVOS ESPECÍFICOS -->
+    <section style="padding: 48px 0;">
+        <div class="container">
+            <div class="glass-card" style="max-width: 900px; margin: 0 auto;">
+                <h2>
+                    <span class="section-icon"><svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                    Objetivos Específicos
+                </h2>
+                <ul class="check-list">
+                    <li>Desarrollar habilidades clínicas para el diagnóstico, tratamiento y rehabilitación de enfermedades bucodentales.</li>
+                    <li>Fomentar la investigación científica en el área de la salud oral.</li>
+                    <li>Promover programas de extensión y educación para la salud bucal en la comunidad.</li>
+                    <li>Impulsar el trabajo interdisciplinario en equipos de salud.</li>
+                    <li>Formar profesionales éticos, críticos, humanistas y comprometidos con la mejora de las condiciones de salud de la sociedad paraguaya.</li>
+                    <li>Integrar tecnologías de vanguardia en la práctica odontológica.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMPETENCIAS (3 columnas glass) -->
+    <section style="padding: 48px 0; background: linear-gradient(180deg, #f0f4f8, #fff);">
+        <div class="container">
+            <h2 style="color: #003366; text-align: center; font-size: 1.6rem; margin-bottom: 32px;">Competencias</h2>
+            <div class="competencias-grid">
+                <div class="competencia-card">
+                    <h3>Disciplinarias</h3>
+                    <ul>
+                        <li>Prevenir, diagnosticar y tratar patologías buco-maxilofaciales en individuos y comunidades.</li>
+                        <li>Aplicar conocimientos científicos, técnicos y humanísticos en el ejercicio de la odontología.</li>
+                    </ul>
+                </div>
+                <div class="competencia-card">
+                    <h3>Profesionales</h3>
+                    <ul>
+                        <li>Desarrollar tratamientos odontológicos basados en principios científicos y éticos.</li>
+                        <li>Integrar equipos interdisciplinarios para la atención integral de pacientes.</li>
+                        <li>Diseñar y ejecutar programas de promoción y prevención de la salud bucal.</li>
+                        <li>Aplicar metodologías de investigación en el ámbito de la odontología.</li>
+                        <li>Utilizar tecnologías de la información y comunicación en el diagnóstico y tratamiento odontológico.</li>
+                        <li>Gestionar consultorios o servicios odontológicos con criterios de calidad y eficiencia.</li>
+                    </ul>
+                </div>
+                <div class="competencia-card">
+                    <h3>Genéricas</h3>
+                    <ul>
+                        <li>Comunicación efectiva</li>
+                        <li>Trabajo en equipo</li>
+                        <li>Pensamiento crítico</li>
+                        <li>Comportamiento ético</li>
+                        <li>Responsabilidad social</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VALORES -->
+    <section style="padding: 48px 0;">
+        <div class="container">
+            <h2 style="color: #003366; text-align: center; font-size: 1.6rem; margin-bottom: 32px;">Valores de la Carrera</h2>
+            <div class="valores-grid">
+                <div class="valor-card"><strong>Vocación de servicio</strong><span>Compromiso con el cuidado de la salud bucal desde un enfoque centrado en la persona.</span></div>
+                <div class="valor-card"><strong>Compromiso ético</strong><span>Actuar con integridad, responsabilidad y transparencia en cada intervención.</span></div>
+                <div class="valor-card"><strong>Sensibilidad social y cultural</strong><span>Reconocer y valorar la diversidad cultural, social y económica del país.</span></div>
+                <div class="valor-card"><strong>Excelencia académica</strong><span>Mantener una actitud de aprendizaje permanente, incorporando avances científicos y tecnológicos.</span></div>
+                <div class="valor-card"><strong>Trabajo en equipo</strong><span>Participar activamente en equipos de salud integrados, con respeto y apertura al diálogo.</span></div>
+                <div class="valor-card"><strong>Creatividad y pensamiento crítico</strong><span>Buscar soluciones innovadoras, basadas en la evidencia científica.</span></div>
+                <div class="valor-card"><strong>Resiliencia profesional</strong><span>Afrontar con responsabilidad y equilibrio los desafíos del ejercicio odontológico.</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PLAN DE ESTUDIOS -->
+    <section style="padding: 48px 0; background: #f8fafc;">
+        <div class="container">
+            <div class="malla-section">
+                <h2 style="color: #003366; text-align: center; font-size: 1.6rem; margin-bottom: 24px;">Plan de Estudios</h2>
+                <div class="malla-tabs" id="malla-tabs">
+                    <button class="malla-tab active" onclick="showSemester(0, this)">1° Semestre</button>
+                    <button class="malla-tab" onclick="showSemester(1, this)">2° Semestre</button>
+                    <button class="malla-tab" onclick="showSemester(2, this)">3° Semestre</button>
+                    <button class="malla-tab" onclick="showSemester(3, this)">4° Semestre</button>
+                    <button class="malla-tab" onclick="showSemester(4, this)">5° Semestre</button>
+                    <button class="malla-tab" onclick="showSemester(5, this)">6° Semestre</button>
+                    <button class="malla-tab" onclick="showSemester(6, this)">7° Semestre</button>
+                    <button class="malla-tab" onclick="showSemester(7, this)">8° Semestre</button>
+                    <button class="malla-tab" onclick="showSemester(8, this)">9° Semestre</button>
+                    <button class="malla-tab" onclick="showSemester(9, this)">10° Semestre</button>
+                </div>
+                <div id="malla-panels">
+                    <div class="malla-panel" data-semester="0"><ul><li>Bioseguridad y Primeros Auxilios</li><li>Guaraní</li><li>Comunicación Oral y Escrita</li><li>Psicología</li><li>Biología Celular y Molecular</li><li>Química General y Orgánica</li><li>Introducción a la Odontología</li><li>Optativa I</li></ul></div>
+                    <div class="malla-panel" data-semester="1" style="display:none"><ul><li>Anatomía Dental y Oclusión</li><li>Embriología y Histología</li><li>Bioquímica</li><li>Fisiología</li><li>Microbiología y Parasitología</li><li>Patología General</li><li>Farmacología General</li><li>Epidemiología y Salud Pública</li></ul></div>
+                    <div class="malla-panel" data-semester="2" style="display:none"><ul><li>Morfología Dental y Oclusión II</li><li>Radiología Dental</li><li>Biomateriales Dentales</li><li>Propedéutica Clínica</li><li>Operatoria Dental I</li><li>Medicina Interna</li><li>Odontología Preventiva</li><li>Optativa II</li></ul></div>
+                    <div class="malla-panel" data-semester="3" style="display:none"><ul><li>Operatoria Dental II</li><li>Endodoncia I</li><li>Periodoncia I</li><li>Cirugía Bucomaxilofacial I</li><li>Prótesis Parcial Fija</li><li>Ortodoncia Preventiva</li><li>Odontología Legal y Deontología</li></ul></div>
+                    <div class="malla-panel" data-semester="4" style="display:none"><ul><li>Endodoncia II</li><li>Periodoncia II</li><li>Cirugía Bucomaxilofacial II</li><li>Prótesis Total</li><li>Prótesis Parcial Removible</li><li>Odontopediatría I</li><li>Metodología de la Investigación</li></ul></div>
+                    <div class="malla-panel" data-semester="5" style="display:none"><ul><li>Odontopediatría II</li><li>Ortodoncia Interceptiva</li><li>Prótesis sobre Implantes</li><li>Oclusión y Disfunción</li><li>Odontología Comunitaria</li><li>Administración de Servicios Odontológicos</li><li>Optativa III</li></div>
+                    <div class="malla-panel" data-semester="6" style="display:none"><ul><li>Clínica Integral del Adulto I</li><li>Ortodoncia Correctiva</li><li>Patología Bucomaxilofacial</li><li>Geriatría y Odontogeriatría</li><li>Implantología</li><li>Seminario de Investigación I</li></ul></div>
+                    <div class="malla-panel" data-semester="7" style="display:none"><ul><li>Clínica Integral del Adulto II</li><li>Urgencias Odontológicas</li><li>Diagnóstico por Imágenes</li><li>Seminario de Investigación II</li><li>Trabajo de Campo</li></ul></div>
+                    <div class="malla-panel" data-semester="8" style="display:none"><ul><li>Clínica Integral del Adulto III</li><li>Práctica Supervisada I</li><li>Seminario de Titulación I</li></ul></div>
+                    <div class="malla-panel" data-semester="9" style="display:none"><ul><li>Clínica Integral del Adulto IV</li><li>Práctica Supervisada II</li><li>Seminario de Titulación II</li></ul></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA + FORMULARIO -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="contact-grid">
+                <div style="text-align: left;">
+                    <h2 style="color: white; border: none;">Solicita información</h2>
+                    <p style="color: rgba(255,255,255,0.85); margin-bottom: 20px;">Completa el formulario y un asesor se contactará contigo para resolver todas tus dudas sobre la carrera.</p>
+                    <a href="https://uap.edu.py/wp-content/uploads/2025/06/Odontologia-Brochure-UAP.pdf" class="brochure-btn-glass" target="_blank" rel="noopener">Descargar Brochure</a>
+                </div>
+                <div class="glass-form">
+                    <form onsubmit="event.preventDefault(); alert('¡Gracias! Nos contactaremos contigo pronto.');">
+                        <label>Nombre completo *</label>
+                        <input type="text" placeholder="Tu nombre completo" required>
+                        <label>Email *</label>
+                        <input type="email" placeholder="tu@email.com" required>
+                        <label>Teléfono *</label>
+                        <input type="tel" placeholder="+595 9XX XXX XXX" required>
+                        <label>Mensaje</label>
+                        <textarea rows="3" placeholder="Tus dudas o consultas sobre Odontología..."></textarea>
+                        <button type="submit" class="btn-glass">Enviar consulta</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer style="background: #003366; color: white; padding: 40px 0 20px; margin-top: 0;">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <img src="../../images/logo-white.png" alt="UAP" style="height: 40px; margin-bottom: 12px;">
+                    <p style="opacity: 0.8; font-size: 14px;">Universidad Autónoma del Paraguay.<br>Comprometidos con la excelencia académica.</p>
+                    <p style="opacity: 0.6; font-size: 13px; margin-top: 12px;">Colón No 658 e/Haedo, Asunción<br>+595 21 447 579<br>info@uap.edu.py</p>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 12px; font-size: 14px;">Carreras</h4>
+                    <ul style="list-style: none; font-size: 13px; opacity: 0.7;">
+                        <li><a href="odontologia.html" style="color: white; text-decoration: none;">Odontología</a></li>
+                        <li><a href="derecho.html" style="color: white; text-decoration: none;">Derecho</a></li>
+                        <li><a href="psicologia.html" style="color: white; text-decoration: none;">Psicología</a></li>
+                        <li><a href="../carreras.html" style="color: white; text-decoration: none;">Ver todas</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 12px; font-size: 14px;">Posgrados</h4>
+                    <ul style="list-style: none; font-size: 13px; opacity: 0.7;">
+                        <li><a href="../posgrados.html" style="color: white; text-decoration: none;">Maestrías</a></li>
+                        <li><a href="../posgrados.html" style="color: white; text-decoration: none;">Especializaciones</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 12px; font-size: 14px;">Institucional</h4>
+                    <ul style="list-style: none; font-size: 13px; opacity: 0.7;">
+                        <li><a href="../institucional.html" style="color: white; text-decoration: none;">Sobre la UAP</a></li>
+                        <li><a href="../institucional.html#autoridades" style="color: white; text-decoration: none;">Autoridades</a></li>
+                        <li><a href="../contacto.html" style="color: white; text-decoration: none;">Contacto</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div style="border-top: 1px solid rgba(255,255,255,0.2); padding-top: 20px; text-align: center; font-size: 13px; opacity: 0.6;">
+                Universidad Autónoma del Paraguay &copy; 2026
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function showSemester(idx, btn) {
+            document.querySelectorAll('.malla-panel').forEach(p => p.style.display = 'none');
+            document.querySelectorAll('.malla-tab').forEach(t => t.classList.remove('active'));
+            document.querySelector('.malla-panel[data-semester="' + idx + '"]').style.display = 'block';
+            btn.classList.add('active');
+        }
+    </script>
+</body>
+</html>

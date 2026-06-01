@@ -1,0 +1,78 @@
+{
+  "titulo": "Marketing y Publicidad",
+  "duracion": "8 Semestres",
+  "sede": "Central",
+  "descripcion": "La Licenciatura en Marketing y Publicidad está diseñada para formar profesionales altamente capacitados en la gestión, planificación y ejecución de estrategias de marketing y publicidad. Los estudiantes adquieren conocimientos fundamentales sobre administración de empresas, psicología del consumidor, economía, técnicas de negociación y el uso de herramientas tecnológicas en el mundo del marketing. A lo largo de la carrera, se profundiza en áreas clave como el marketing digital, la gestión de marcas, la investigación de mercados y la comunicación efectiva, preparándolos para afrontar los retos del entorno empresarial en un mundo globalizado y digitalizado.",
+  "objetivo": "Formar licenciados con una visión integral y estratégica en las áreas de marketing y publicidad. Los egresados\nestarán capacitados para desarrollar, implementar y evaluar planes y campañas publicitarias, gestionar marcas\ny productos, realizar investigaciones de mercado, y aplicar técnicas de marketing digital en diversos canales.\nAdemás, los estudiantes aprenderán a interpretar y adaptarse a las tendencias del mercado, a comprender el\ncomportamiento del consumidor y a utilizar herramientas tecnológicas para optimizar las estrategias de\ncomunicación y ventas.",
+  "objetivos_especificos": [],
+  "a_quien_va_dirigido": "",
+  "campo_laboral": "El egresado podrá desempeñarse en agencias de publicidad, empresas privadas, consultoras de marketing, áreas comerciales y de ventas, así como en marketing digital. También podrá trabajar en gestión de marcas, investigación de mercados, desarrollo de campañas publicitarias, ventas, comercio electrónico y relaciones públicas, o como consultor independiente en estrategias de marketing y comunicación.",
+  "perfil_egresado": "El egresado será un profesional con conocimientos sólidos en marketing, publicidad y marketing digital, capaz de desarrollar estrategias de comunicación, gestionar marcas y realizar investigaciones de mercado. Tendrá habilidades analíticas, creatividad y una comunicación efectiva, actuando con ética y responsabilidad social. Estará preparado para liderar equipos y enfrentar los desafíos del mercado global con un enfoque estratégico e innovador.",
+  "competencias_disciplinarias": [],
+  "competencias_profesionales": [],
+  "competencias_genericas": [],
+  "mision": "",
+  "vision": "",
+  "valores": [],
+  "definicion_profesional": "",
+  "malla": {
+    "1° Semestre": [
+      "Administración General",
+      "Guaraní",
+      "Introducción a la Comercialización",
+      "Comunicación Oral y Escrita",
+      "Teorías Económicas"
+    ],
+    "2° Semestre": [
+      "Contabilidad General I",
+      "Matemática Fundamental",
+      "Plan de Marketing",
+      "Inglés",
+      "Tecnología de la Información y la Comunicación"
+    ],
+    "3° Semestre": [
+      "Contabilidad General II",
+      "Matemática Aplicada",
+      "Microeconomía",
+      "Comportamiento Organizacional",
+      "Comportamiento del Consumidor"
+    ],
+    "4° Semestre": [
+      "Lógica Matemática",
+      "Psicología de la Comunicación y Aplicaciones Sensoriales en Marketing",
+      "Técnica de Negociación",
+      "Macroeconomía",
+      "Investigación de Mercados y Operaciones"
+    ],
+    "5° Semestre": [
+      "Matemática Financiera",
+      "Legislación Civil, Comercial y Laboral",
+      "Administración y Gestión Financiera",
+      "Optativa I",
+      "Marketing Institucional e identidad Corporativa"
+    ],
+    "6° Semestre": [
+      "Administración de Recursos Humanos",
+      "Probabilidad y Estadística",
+      "Community Manager",
+      "Gerencia de Marcas y Ventas",
+      "Optativa II"
+    ],
+    "7° Semestre": [
+      "Marketing Digital",
+      "Metodología de la Investigación",
+      "Marketing Operativo y Estratégico",
+      "Diseño Gráfico, Color y Composición",
+      "e-Marketing (Business y Advertising)"
+    ],
+    "8° Semestre": [
+      "Auditoría de Marketing",
+      "Retail Marketing",
+      "Relaciones Públicas",
+      "Trade Marketing",
+      "Pasantia Supervisada",
+      "Trabajo de Grado"
+    ]
+  },
+  "brochure_url": "https://uap.edu.py/wp-content/uploads/2025/06/Licenciatura-en-marketing-y-publicidad-Brochure-UAP-.pdf"
+}

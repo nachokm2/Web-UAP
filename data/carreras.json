@@ -1,0 +1,209 @@
+{
+  "odontologia": {
+    "titulo": "Odontólogo(a)",
+    "duracion": "10 semestres",
+    "sede": "Central",
+    "descripcion": "La carrera de Odontología de la Universidad Autónoma del Paraguay está orientada a la formación de profesionales íntegros en el área de la salud bucal, con sólidos conocimientos científicos, técnicos y humanísticos. El egresado será capaz de prevenir, diagnosticar y tratar enfermedades buco-maxilofaciales en individuos y comunidades, promoviendo el bienestar general. El plan de estudios integra docencia, investigación, extensión universitaria y servicio comunitario, fortaleciendo competencias clínicas, de investigación y de gestión en salud, con énfasis en el compromiso ético, la responsabilidad social y la atención a la diversidad cultural paraguaya.",
+    "campo_laboral": "El odontólogo egresado podrá ejercer de forma independiente en consultorios privados, clínicas y centros médicos; formar parte de equipos de salud en instituciones públicas y privadas; desempeñarse como asesor o contralor en empresas y compañías de seguros; integrarse a proyectos comunitarios de salud bucal; participar en docencia universitaria e investigación científica en el área odontológica.",
+    "perfil_egresado": "El egresado será un odontólogo competente para prevenir, diagnosticar, tratar y rehabilitar patologías buco-maxilofaciales prevalentes y complejas. Será capaz de trabajar en equipos interdisciplinarios, evaluar la salud general de sus pacientes, aplicar criterios éticos en su práctica, liderar proyectos de promoción y prevención de la salud bucal, integrar avances científicos y tecnológicos a su desempeño profesional y contribuir activamente a la investigación en odontología.",
+    "brochure_url": ""
+  },
+  "optica-y-contactologia": {
+    "titulo": "Licenciado(a) en Óptica y Contactología",
+    "duracion": "",
+    "sede": "",
+    "descripcion": "La carrera de Licenciatura en Óptica y Contactología forma profesionales altamente capacitados para interpretar, elaborar, adaptar y controlar prescripciones oftalmológicas. El programa integra conocimientos científicos y técnicos que permiten actuar como auxiliares especializados en oftalmología, promoviendo la salud visual con altos estándares de calidad. Busca preparar egresados que hablen 'el mismo idioma' de los profesionales médicos, aportando significativamente al bienestar de la población en Paraguay y en el MERCOSUR.",
+    "campo_laboral": "El Licenciado en Óptica y Contactología podrá desempeñarse en gabinetes ópticos, clínicas oftalmológicas, hospitales, laboratorios ópticos, consultorios de contactología y centros de rehabilitación visual. Podrá ejercer funciones de adaptación de lentes de contacto, prótesis oculares y ayudas visuales, así como de gestión administrativa de establecimientos ópticos.",
+    "perfil_egresado": "El egresado de la Licenciatura en Óptica y Contactología será un profesional capacitado para interpretar prescripciones oftalmológicas, elaborar y adaptar soluciones ópticas, gestionar establecimientos especializados y participar en equipos de salud visual, con una sólida formación científica, ética y social, contribuyendo al bienestar visual de la población.",
+    "brochure_url": ""
+  },
+  "fisioterapia": {
+    "titulo": "Licenciado(a) en Fisioterapia",
+    "duracion": "",
+    "sede": "",
+    "descripcion": "La Licenciatura en Fisioterapia forma profesionales líderes, creativos y socialmente comprometidos, capacitados para promover, prevenir, habilitar, recuperar y rehabilitar la salud integral de las personas. Desde un enfoque ético, científico y humanístico, los egresados contribuyen al bienestar individual y colectivo, integrándose en equipos interdisciplinarios y fomentando el desarrollo sostenible de la sociedad.",
+    "campo_laboral": "El fisioterapeuta egresado podrá desempeñarse en hospitales, clínicas, centros de salud, centros comunitarios, centros de rehabilitación, gimnasios, clubes deportivos, hogares de adultos mayores, guarderías, instituciones educativas, programas de salud pública y como consultor independiente en rehabilitación y promoción de la salud.",
+    "perfil_egresado": "El egresado de la Licenciatura en Fisioterapia será un profesional competente en la evaluación, diagnóstico cinético-funcional, prevención, tratamiento y rehabilitación de alteraciones del movimiento corporal humano. Poseerá habilidades para integrar equipos interdisciplinarios, desarrollar proyectos de investigación e intervención comunitaria, gestionar servicios de salud y promover la salud y el bienestar social, actuando dentro de un marco ético y de responsabilidad social.",
+    "brochure_url": ""
+  },
+  "fonoaudiologia": {
+    "titulo": "Licenciado(a) en Fonoaudiología",
+    "duracion": "",
+    "sede": "",
+    "descripcion": "La Licenciatura en Fonoaudiología de la Universidad Autónoma del Paraguay forma profesionales altamente capacitados para la prevención, evaluación, diagnóstico e intervención en los trastornos de la comunicación humana, audición, voz, lenguaje, habla y deglución. El programa promueve la autonomía, la gestión responsable, el compromiso ético y la integración en equipos interdisciplinarios, desarrollando habilidades científicas y humanas que respondan a las necesidades regionales y nacionales, con un sello distintivo de excelencia académica.",
+    "campo_laboral": "El Fonoaudiólogo forma parte de equipos en las especialidades de Otorrinolaringología, Audiología, Neurología, Pediatría, Odontología, Malformaciones craneofaciales, Medicina Física y Rehabilitación, Psiquiatría, etc. en los servicios de salud del estado, clínicas privadas, centros médicos y otros. En la Educación el fonoaudiólogo cumple el rol de la prevención, evaluación y tratamiento de trastornos de la comunicación presentes en niños en edad preescolar y escolar; integrando equipos multidisciplinarios.",
+    "perfil_egresado": "El egresado está habilitado para desempeñarse en el área de prevención, promoción, evaluación, diagnóstico fonoaudiológico y terapéutica, tanto ejercicio privado como en el ámbito público, pudiendo integrar y liderar equipos interdisciplinarios con sentido de cooperación, manteniendo la identidad profesional y poniendo a las personas como centro del ejercicio laboral; además de liderar proyectos que aporten a la resolución de problemas específicos y el desarrollo de la profesión a nivel país.",
+    "brochure_url": ""
+  },
+  "psicologia": {
+    "titulo": "Licenciado(a) en Psicología",
+    "duracion": "",
+    "sede": "",
+    "descripcion": "La Licenciatura en Psicología forma profesionales capaces de evaluar el estado psicológico de las personas, diseñar e implementar proyectos de prevención en salud mental y realizar investigaciones en diversos contextos laborales. El programa enfatiza el trabajo interdisciplinario y el compromiso con la detección, promoción, intervención y control de problemáticas psicosociales, con el objetivo de contribuir a la mejora de la calidad de vida de la población.",
+    "campo_laboral": "El profesional psicólogo podrá trabajar en las áreas educativas, de salud y de trabajo social-comunitario. Podrá realizar análisis de la problemática de la relación individuo-estructura social, así como de los fenómenos psicosociales más importantes de la temática grupal, organizacional y comunitaria.",
+    "perfil_egresado": "El profesional en Psicología de la Universidad Autónoma del Paraguay será capaz de evaluar, diagnosticar e intervenir en los procesos psicológicos de individuos y grupos, integrando saberes científicos y humanistas. Estará preparado para actuar en diferentes contextos, promover la salud mental, y participar en equipos interdisciplinarios aplicando criterios éticos y de responsabilidad social.",
+    "brochure_url": ""
+  },
+  "nutricion": {
+    "titulo": "Nutricionista",
+    "duracion": "4 Años",
+    "sede": "Central",
+    "descripcion": "La carrera de Nutrición y dietética se enfoca en el estudio de la alimentación y la nutrición humana, así como en la promoción de hábitos alimentarios saludables para mantener y mejorar la salud de las personas. Los nutricionistas adquieren conocimientos sobre los nutrientes, los procesos digestivos, las necesidades nutricionales en diferentes etapas de la vida y las enfermedades relacionadas con la alimentación. Además, aprenden a planificar dietas equilibradas, ofrecer asesoramiento nutricional personalizado y desarrollar programas de educación en salud. El objetivo es prevenir enfermedades relacionadas con la nutrición, promover el bienestar y optimizar el rendimiento físico y mental a través de una alimentación adecuada.",
+    "campo_laboral": "Un nutricionista puede trabajar en áreas como salud pública, consultoría nutricional, alimentación colectiva, investigación y desarrollo, educación y docencia, e industria alimentaria.",
+    "perfil_egresado": "Al finalizar la carrera, el nutricionista está capacitado para: Realizar evaluaciones nutricionales y diseñar planes de alimentación adecuados a las necesidades individuales de cada persona. Brindar asesoramiento y educación nutricional a individuos y grupos, fomentando hábitos alimentarios saludables. Participar en la prevención y control de enfermedades relacionadas con la alimentación y la nutrición. Colaborar en equipos multidisciplinarios de salud, trabajando en conjunto con otros profesionales para mejorar la calidad de vida de los pacientes. Realizar investigaciones científicas en el campo de la nutrición, contribuyendo al avance y desarrollo de esta disciplina. Promover políticas y programas de alimentación y nutrición, tanto a nivel individual como comunitario, con el objetivo de mejorar la salud y el bienestar de la población.",
+    "brochure_url": ""
+  },
+  "podologia": {
+    "titulo": "Licenciado(a) en Podología",
+    "duracion": "8 semestres",
+    "sede": "Central",
+    "descripcion": "La Licenciatura en Podología de la Universidad Autónoma del Paraguay forma profesionales de la salud especializados en el diagnóstico, tratamiento y prevención de afecciones del pie, con un enfoque humanista y ético. El programa integra sólidas bases científicas, formación clínica y responsabilidad social, promoviendo la actualización permanente y la participación activa en el mejoramiento de la salud comunitaria. La carrera prepara al egresado para ejercer su profesión de forma autónoma, en equipos interdisciplinarios y en diferentes ámbitos de la atención sanitaria.",
+    "campo_laboral": "El egresado podrá desempeñarse en hospitales, clínicas, centros de rehabilitación, centros comunitarios, clubes deportivos, geriátricos, guarderías, consultorías externas y en la atención domiciliaria. Asimismo, podrá ejercer de manera independiente mediante la instalación de clínicas privadas o integrarse a organizaciones públicas, privadas y ONG vinculadas a la promoción y el cuidado de la salud podológica.",
+    "perfil_egresado": "El Licenciado en Podología es un profesional universitario de la salud capacitado para actuar de manera autónoma e interdisciplinaria. Posee conocimientos técnicos, científicos y éticos que le permiten diagnosticar, tratar y prevenir afecciones del pie mediante técnicas podológicas no quirúrgicas, aplicando criterios de normopraxis basados en la evidencia científica y con compromiso hacia la salud de sus pacientes.",
+    "brochure_url": ""
+  },
+  "administracion-de-empresas": {
+    "titulo": "Licenciado(a) en Administración de Empresas",
+    "duracion": "",
+    "sede": "",
+    "descripcion": "La Licenciatura en Administración de Empresas de la Universidad Autónoma del Paraguay forma profesionales capaces de liderar procesos organizacionales en contextos dinámicos y globalizados. Con una sólida base en ciencias administrativas, económicas y tecnológicas, el programa integra conocimientos de finanzas, recursos humanos, marketing, logística, producción y emprendimiento, fomentando la innovación, el pensamiento estratégico y la responsabilidad social. La modalidad presencial potencia el aprendizaje experiencial y el desarrollo de competencias blandas, preparando a los egresados para afrontar los desafíos del mercado laboral con ética, visión sistémica y capacidad de adaptación a los cambios digitales y económicos.",
+    "campo_laboral": "El Licenciado en Administración de Empresas podrá desempeñarse en empresas privadas, organismos públicos y organizaciones del tercer sector, en áreas como gestión administrativa, finanzas, recursos humanos, marketing, comercio internacional, logística y operaciones. También podrá actuar como consultor, emprendedor, gestor de proyectos o académico, contribuyendo al desarrollo económico y social, liderando procesos de innovación, optimización y crecimiento organizacional en el ámbito nacional e internacional.",
+    "perfil_egresado": "El egresado de la Licenciatura en Administración de Empresas de la Universidad Autónoma del Paraguay es un profesional integral, con competencias para diseñar, gestionar y evaluar estrategias organizacionales en diversos sectores. Capaz de diagnosticar y resolver problemas, liderar proyectos innovadores, optimizar recursos, aplicar tecnologías de gestión y promover prácticas éticas y socialmente responsables. Su formación interdisciplinaria y su pensamiento crítico le permiten actuar eficazmente en entornos locales e internacionales, contribuyendo al desarrollo sostenible mediante el liderazgo de equipos y la toma de decisiones fundamentadas.",
+    "brochure_url": ""
+  },
+  "ciencias-de-la-educacion": {
+    "titulo": "Licenciado(a) en Ciencias de la Educación",
+    "duracion": "",
+    "sede": "",
+    "descripcion": "El programa de Licenciatura en Ciencias de la Educación tiene como objetivo formar profesionales capaces de planificar, diseñar, implementar y evaluar procesos educativos innovadores y de calidad, que respondan a las necesidades de los estudiantes en diversos contextos. A través de una formación integral, los estudiantes adquieren competencias pedagógicas, didácticas y tecnológicas, con un enfoque inclusivo y socialmente responsable, preparándolos para trabajar en diversos niveles educativos, desde la educación básica hasta la superior. Además, se promueve el desarrollo de habilidades en gestión educativa, liderazgo pedagógico, investigación y el uso de herramientas tecnológicas, garantizando una formación sólida para enfrentar los desafíos del sistema educativo contemporáneo.",
+    "campo_laboral": "Podrá desempeñarse en diversos ámbitos educativos, tanto públicos como privados, en niveles de educación básica, media y superior. También podrá trabajar en instituciones de formación no formal, organizaciones comunitarias, centros de investigación educativa, y en el ámbito de la gestión educativa. Su formación le permitirá ocupar roles como docente, coordinador académico, orientador educativo, investigador, o consultor en políticas educativas, además de participar en el diseño y evaluación de programas educativos, contribuyendo al desarrollo de proyectos sociales y educativos en la comunidad.",
+    "perfil_egresado": "El egresado de la Licenciatura en Ciencias de la Educación será un profesional con una sólida formación teórica y práctica en el campo educativo, capaz de diseñar, implementar y evaluar estrategias pedagógicas que favorezcan el desarrollo integral de los estudiantes. Estará preparado para gestionar procesos educativos inclusivos, promover la participación activa de la comunidad escolar y utilizar tecnologías innovadoras en el aula. Además, será competente en la investigación educativa y en la resolución de problemas dentro del ámbito escolar. Su formación ética, su capacidad para trabajar colaborativamente y su compromiso con la mejora continua lo habilitarán para contribuir significativamente al sistema educativo y a la sociedad en general.",
+    "brochure_url": ""
+  },
+  "derecho": {
+    "titulo": "Abogado(a)",
+    "duracion": "",
+    "sede": "",
+    "descripcion": "La carrera de Derecho se establece como una disciplina esencial para la organización y regulación social, enfocándose en el estudio del marco normativo y la interpretación de las leyes. Su objetivo es formar profesionales con capacidades para analizar y aplicar las normas jurídicas, resolver problemas legales y promover la justicia social. Los egresados adquieren habilidades en la argumentación jurídica, interpretación normativa y resolución de conflictos. Además, se enfocan en promover la igualdad de género, el respeto a los derechos humanos y la democracia. El plan de estudios incluye áreas fundamentales como el derecho constitucional, penal, civil, mercantil y derecho internacional, además de integrar la ética como un principio rector de la profesión. Los estudiantes se preparan para abordar la litigación y mediación, enfrentando los retos del ejercicio legal con responsabilidad y compromiso social.",
+    "campo_laboral": "Los egresados de Derecho pueden desempeñarse en instituciones públicas y privadas, en funciones como abogados, asesores jurídicos, fiscales, defensores públicos, litigantes, mediadores, docentes de derecho, entre otros. También pueden trabajar en organismos internacionales, en empresas del sector privado o en organizaciones no gubernamentales dedicadas a la defensa de los derechos humanos.",
+    "perfil_egresado": "El egresado de Derecho se caracteriza por ser un profesional con profundo conocimiento de las normativas legales y principios éticos que rigen la profesión. Está capacitado para interpretar y aplicar eficientemente las leyes, analizar situaciones jurídicas complejas y formular soluciones legales. Posee habilidades en argumentación jurídica y litigación, con una sólida formación en áreas del derecho como constitucional, penal, civil y mercantil. Su ética profesional y compromiso con los derechos humanos lo preparan para actuar con integridad y responsabilidad social en el ejercicio del Derecho.",
+    "brochure_url": ""
+  },
+  "trabajo-social": {
+    "titulo": "Licenciado(a) en Trabajo Social",
+    "duracion": "",
+    "sede": "",
+    "descripcion": "La Licenciatura en Trabajo Social se propone formar profesionales con una sólida base en teorías sociales, políticas públicas y métodos de intervención social. El programa proporciona las herramientas necesarias para analizar, intervenir y evaluar fenómenos sociales en diferentes contextos, promoviendo el desarrollo social y la justicia. A través de una formación integral que combina aspectos teóricos y prácticos, los estudiantes adquieren habilidades en empatía, escucha activa y trabajo con comunidades diversas. Los egresados serán capaces de diseñar y ejecutar estrategias eficaces para la transformación social, promoviendo el bienestar colectivo y la equidad.",
+    "campo_laboral": "Los egresados podrán desempeñarse en organizaciones públicas y privadas, instituciones gubernamentales, ONGs, y organismos internacionales, en áreas como intervención comunitaria, gestión de políticas sociales, desarrollo de programas de bienestar social, atención a grupos vulnerables, educación y sensibilización sobre derechos humanos, entre otros. También podrán ejercer funciones de investigación y docencia en el ámbito académico.",
+    "perfil_egresado": "El egresado de la Licenciatura en Trabajo Social es un profesional capacitado para identificar y analizar fenómenos sociales complejos, aplicando enfoques teóricos y metodológicos de la disciplina. Es competente para diseñar y ejecutar intervenciones sociales eficaces que favorezcan el desarrollo integral y el bienestar de los individuos y las comunidades, promoviendo siempre una perspectiva de derechos humanos y responsabilidad social.",
+    "brochure_url": ""
+  },
+  "marketing-y-publicidad": {
+    "titulo": "Licenciado(a) en Marketing y Publicidad",
+    "duracion": "",
+    "sede": "",
+    "descripcion": "La Licenciatura en Marketing y Publicidad está diseñada para formar profesionales altamente capacitados en la gestión, planificación y ejecución de estrategias de marketing y publicidad. Los estudiantes adquieren conocimientos fundamentales sobre administración de empresas, psicología del consumidor, economía, técnicas de negociación y el uso de herramientas tecnológicas en el mundo del marketing. A lo largo de la carrera, se profundiza en áreas clave como el marketing digital, la gestión de marcas, la investigación de mercados y la comunicación efectiva, preparándolos para afrontar los retos del entorno empresarial en un mundo globalizado y digitalizado.",
+    "campo_laboral": "El egresado podrá desempeñarse en agencias de publicidad, empresas privadas, consultoras de marketing, áreas comerciales y de ventas, así como en marketing digital. También podrá trabajar en gestión de marcas, investigación de mercados, desarrollo de campañas publicitarias, ventas, comercio electrónico y relaciones públicas, o como consultor independiente en estrategias de marketing y comunicación.",
+    "perfil_egresado": "El egresado será un profesional con conocimientos sólidos en marketing, publicidad y marketing digital, capaz de desarrollar estrategias de comunicación, gestionar marcas y realizar investigaciones de mercado. Tendrá habilidades analíticas, creatividad y una comunicación efectiva, actuando con ética y responsabilidad social. Estará preparado para liderar equipos y enfrentar los desafíos del mercado global con un enfoque estratégico e innovador.",
+    "brochure_url": ""
+  },
+  "ingenieria-comercial": {
+    "titulo": "Ingeniero(a) Comercial",
+    "duracion": "",
+    "sede": "",
+    "descripcion": "La Ingeniería Comercial de la Universidad Autónoma del Paraguay proporciona una formación integral que permite a los estudiantes comprender y aplicar principios de administración, economía, finanzas y marketing en el contexto empresarial. A través de un enfoque práctico, los futuros ingenieros comerciales adquieren habilidades analíticas y estratégicas para diagnosticar, formular y ejecutar proyectos que optimicen los recursos organizacionales y generen valor económico. Este programa fomenta el desarrollo de competencias en la gestión de operaciones, el análisis de mercados y la toma de decisiones, basándose en principios éticos, responsabilidad social y uso de tecnologías de vanguardia.",
+    "campo_laboral": "El egresado de Ingeniería Comercial podrá desempeñarse en empresas privadas, organismos gubernamentales, instituciones financieras, consultoras y ONGs. Podrá ocupar cargos en áreas de administración general, finanzas, marketing, comercio internacional, recursos humanos y auditoría, entre otros. También tendrá la capacidad de emprender su propio negocio o participar en el desarrollo de proyectos comerciales.",
+    "perfil_egresado": "El egresado de la carrera de Ingeniería Comercial es un profesional con una sólida formación en administración, economía y finanzas, capaz de diseñar y ejecutar estrategias de negocio que optimicen los recursos organizacionales y generen valor. Posee competencias analíticas, habilidades interpersonales y una fuerte ética profesional, lo que le permite adaptarse a distintos entornos empresariales y aportar al desarrollo sostenible y competitivo de las organizaciones.",
+    "brochure_url": ""
+  },
+  "ingenieria-en-informatica": {
+    "titulo": "Ingeniero(a) en Informática",
+    "duracion": "",
+    "sede": "",
+    "descripcion": "",
+    "campo_laboral": "",
+    "perfil_egresado": "",
+    "brochure_url": ""
+  },
+  "ingenieria-en-tecnologia-de-alimentos": {
+    "titulo": "Ingeniero(a) en Tecnología de Alimentos",
+    "duracion": "",
+    "sede": "",
+    "descripcion": "La carrera de Ingeniería en Tecnología de Alimentos forma profesionales con sólidas competencias científicas, tecnológicas y de gestión para la producción, transformación, control de calidad, innovación y aseguramiento de la inocuidad de los alimentos. Integra conocimientos de ciencias básicas, ingeniería y biotecnología aplicados al sector alimentario. El programa contempla la investigación y el desarrollo de nuevos productos, así como la optimización de procesos industriales, promoviendo prácticas sustentables y respondiendo a las demandas de un mercado globalizado. Los egresados estarán preparados para actuar en industrias alimentarias, laboratorios de control de calidad, instituciones de investigación y organismos de regulación sanitaria.",
+    "campo_laboral": "Industria alimentaria, plantas procesadoras de alimentos, laboratorios de análisis y control de calidad, instituciones de investigación y desarrollo, organismos de regulación y certificación, empresas de consultoría alimentaria, emprendimientos de innovación en alimentos y áreas de gestión de calidad y producción.",
+    "perfil_egresado": "El egresado será un profesional capaz de diseñar, desarrollar, supervisar y optimizar procesos de producción de alimentos, garantizando la calidad, la inocuidad y la sostenibilidad, mediante la aplicación de conocimientos científicos, tecnológicos y de gestión, con responsabilidad ética y compromiso social.",
+    "brochure_url": ""
+  },
+  "periodismo": {
+    "titulo": "Licenciado(a) en Periodismo",
+    "duracion": "",
+    "sede": "",
+    "descripcion": "El periodismo es una profesión que implica la recolección, elaboración y difusión de información en diferentes medios de comunicación, como prensa tradicional, radio, televisión y plataformas digitales. Su propósito principal es proporcionar información veraz y oportuna a la ciudadanía, lo cual requiere una investigación exhaustiva y la presentación de los hechos desde diferentes perspectivas. Los periodistas deben desarrollar competencias éticas y habilidades técnicas para responder a las demandas de un entorno mediático que cambia rápidamente y que exige un enfoque integral e innovador.",
+    "campo_laboral": "El egresado podrá desempeñarse en medios de comunicación, como televisión, radio, diarios, revistas y plataformas digitales. También podrá ejercer en el área de comunicación estratégica, en el desarrollo de planes de comunicación para empresas públicas y privadas, o trabajar de manera independiente. Además, puede integrar equipos de comunicación en organizaciones no gubernamentales (ONGs) y en diversos ámbitos del sector público.",
+    "perfil_egresado": "El egresado de la Licenciatura en Periodismo es un profesional capaz de analizar y producir contenidos periodísticos en diversos formatos y plataformas. Posee una comprensión crítica de los cambios políticos, económicos, culturales y tecnológicos, y es capaz de aplicar estos conocimientos en la creación de soluciones comunicacionales efectivas y responsables, utilizando herramientas tecnológicas avanzadas y un enfoque ético.",
+    "brochure_url": ""
+  },
+  "educacion-parvularia": {
+    "titulo": "Licenciado(a) en Educación Parvularia",
+    "duracion": "",
+    "sede": "",
+    "descripcion": "La Licenciatura en Educación Parvularia de la Universidad Autónoma del Paraguay forma profesionales comprometidos con el desarrollo integral de los niños en su primera infancia (0-6 años). A través de un enfoque teórico-práctico, los estudiantes participan en actividades que integran la psicología evolutiva, las metodologías pedagógicas innovadoras y las herramientas tecnológicas, permitiéndoles crear ambientes de aprendizaje estimulantes, inclusivos y adecuados para el desarrollo emocional, social y cognitivo de los niños. Además, se promueve la colaboración con las familias y la comunidad para fortalecer el proceso educativo.",
+    "campo_laboral": "El egresado podrá desempeñarse en instituciones educativas de nivel inicial, guarderías, centros de atención a la infancia, programas gubernamentales y ONGs. Además, podrá contribuir en proyectos comunitarios y organizaciones sociales que promuevan la educación inclusiva y el bienestar de la infancia en diversos contextos, incluyendo el ámbito privado y en instituciones educativas alternativas.",
+    "perfil_egresado": "El egresado de la Licenciatura en Educación Parvularia será un profesional íntegro y capacitado, capaz de diseñar e implementar estrategias educativas inclusivas que favorezcan el desarrollo integral de los niños en su primera infancia. Poseerá conocimientos sólidos en pedagogía, psicología evolutiva, neurociencia y gestión educativa, así como habilidades para trabajar en colaboración con las familias, comunidades y equipos multidisciplinarios, y para adaptarse a contextos educativos diversos.",
+    "brochure_url": ""
+  },
+  "administracion-publica": {
+    "titulo": "Licenciado(a) en Administración Pública",
+    "duracion": "",
+    "sede": "",
+    "descripcion": "La Licenciatura en Administración Pública de la Universidad Autónoma del Paraguay forma profesionales con sólidos conocimientos teóricos, metodológicos y prácticos para gestionar y liderar organizaciones del sector público en un entorno dinámico y cambiante. El programa integra áreas clave como políticas públicas, planificación estratégica, gestión de recursos, control gubernamental y tecnologías aplicadas a la administración. Se promueve el desarrollo de competencias éticas, habilidades de liderazgo, pensamiento crítico y capacidad de innovación para mejorar la eficiencia, transparencia y rendición de cuentas en el sector estatal. Los egresados serán agentes activos en la modernización del Estado y en la promoción de una gestión pública orientada al bienestar social y al desarrollo sostenible.",
+    "campo_laboral": "El egresado podrá desempeñarse en organismos gubernamentales a nivel nacional, regional y local, en ministerios, municipios, entes autónomos, empresas públicas, organismos internacionales, organizaciones no gubernamentales y consultorías especializadas en gestión pública y políticas públicas. Estará capacitado para ocupar cargos de dirección, coordinación, asesoría y gestión administrativa, liderando procesos de modernización, planificación, control de gestión y evaluación de programas públicos, con enfoque en la eficiencia, la transparencia y el desarrollo sostenible.",
+    "perfil_egresado": "El egresado de la Licenciatura en Administración Pública será un profesional capacitado para liderar y gestionar procesos administrativos y estratégicos en el sector público, con una sólida formación teórica, práctica y ética. Poseerá competencias en la formulación, implementación y evaluación de políticas públicas; gestión de recursos humanos, físicos, financieros y tecnológicos; auditoría y control gubernamental; planificación estratégica y mejora de procesos. Con habilidades de comunicación, pensamiento crítico y responsabilidad social, estará preparado para desempeñarse en organizaciones gubernamentales, organismos internacionales, ONGs y consultorías, promoviendo la transparencia, eficiencia y el desarrollo sostenible.",
+    "brochure_url": ""
+  },
+  "ciencias-contables": {
+    "titulo": "Licenciado(a) en Ciencias Contables",
+    "duracion": "",
+    "sede": "",
+    "descripcion": "La Licenciatura en Ciencias Contables de la Universidad Autónoma del Paraguay brinda una formación integral en contabilidad, finanzas, auditoría y gestión organizacional, con énfasis en el uso de herramientas tecnológicas y el pensamiento crítico. Está orientada al desarrollo de profesionales capaces de generar, interpretar y aplicar información contable para la toma de decisiones estratégicas en organizaciones públicas y privadas. La carrera incorpora una sólida base en ciencias económicas y administrativas, ética profesional y responsabilidad social, permitiendo a los egresados contribuir al desarrollo sostenible y a la transparencia financiera en diversos sectores.",
+    "campo_laboral": "El egresado de la Licenciatura en Ciencias Contables de la Universidad Autónoma del Paraguay puede desempeñarse en organizaciones públicas, privadas y del tercer sector, tanto a nivel nacional como internacional. Está capacitado para ejercer funciones en áreas contables, financieras, tributarias, de auditoría y de gestión administrativa, así como brindar asesoramiento independiente o integrar estudios contables. Puede liderar departamentos financieros, evaluar proyectos, implementar sistemas de información contable y colaborar con organismos de control y fiscalización. Su formación ética, crítica y actualizada le permite afrontar con solvencia los desafíos del entorno profesional.",
+    "perfil_egresado": "El egresado de la Licenciatura en Ciencias Contables es un profesional ético, crítico y competente para generar, interpretar y utilizar información contable y financiera en organizaciones de diversos sectores. Está capacitado para evaluar procesos, diseñar estrategias, realizar auditorías y proponer soluciones innovadoras que aporten a la transparencia, eficiencia y desarrollo económico-social.",
+    "brochure_url": ""
+  },
+  "contabilidad-y-auditoria": {
+    "titulo": "Licenciado(a) en Contabilidad y Auditoría",
+    "duracion": "",
+    "sede": "",
+    "descripcion": "La carrera de Licenciatura en Contabilidad y Auditoría de la Universidad Autónoma del Paraguay forma profesionales íntegros y capacitados para responder a las exigencias del entorno económico y empresarial actual. Su enfoque combina conocimientos técnicos en contabilidad, auditoría, finanzas, legislación y sistemas de información, con una sólida formación ética y social. A lo largo de los ocho semestres, los estudiantes desarrollan habilidades para analizar y gestionar información financiera, evaluar procesos, diseñar estrategias contables y realizar auditorías en organizaciones públicas, privadas y del tercer sector. Esta carrera busca preparar egresados capaces de contribuir a la transparencia, eficiencia y sostenibilidad de las organizaciones.",
+    "campo_laboral": "Los egresados de esta carrera pueden desempeñarse en empresas privadas, entidades gubernamentales, organizaciones sin fines de lucro o como consultores independientes. Están capacitados para ejercer funciones en áreas contables, auditoría interna y externa, asesoría financiera, control fiscal y gestión de recursos en diversas instituciones.",
+    "perfil_egresado": "El egresado de la Licenciatura en Contabilidad y Auditoría es un profesional ético, analítico y competente para generar, interpretar, controlar y auditar información financiera y contable. Está capacitado para diseñar estrategias contables, evaluar procesos administrativos, proponer soluciones eficientes y tomar decisiones fundamentadas en diversos contextos organizacionales. Su formación le permite actuar con responsabilidad social, utilizando herramientas tecnológicas y metodologías actualizadas, contribuyendo así a la transparencia, sostenibilidad y desarrollo de organizaciones públicas, privadas y del tercer sector.",
+    "brochure_url": ""
+  },
+  "contaduria-publica": {
+    "titulo": "Contador(a) Público(a)",
+    "duracion": "",
+    "sede": "",
+    "descripcion": "",
+    "campo_laboral": "",
+    "perfil_egresado": "",
+    "brochure_url": ""
+  },
+  "ingenieria-en-comercio-internacional": {
+    "titulo": "Ingeniero(a) en Comercio Internacional",
+    "duracion": "",
+    "sede": "",
+    "descripcion": "",
+    "campo_laboral": "",
+    "perfil_egresado": "",
+    "brochure_url": ""
+  },
+  "ingenieria-en-marketing": {
+    "titulo": "Ingeniero(a) en Marketing",
+    "duracion": "",
+    "sede": "",
+    "descripcion": "La carrera de Ingeniería en Marketing tiene como objetivo formar profesionales capaces de diseñar, implementar y gestionar estrategias de marketing y comunicación integrales que contribuyan al desarrollo de empresas y organizaciones. Los egresados estarán preparados para comprender el comportamiento del consumidor, gestionar marcas, ejecutar campañas publicitarias, y manejar técnicas avanzadas de marketing digital y neuromarketing, empleando herramientas tecnológicas de vanguardia y metodologías analíticas. Además, el enfoque ético y social es esencial en la formación del futuro ingeniero en marketing, brindando un marco para actuar en entornos cada vez más complejos y globalizados.",
+    "campo_laboral": "Los Ingenieros en Marketing podrá desempeñarse en empresas de diversos sectores, agencias de publicidad, instituciones gubernamentales y ONG's, como responsable de marketing estratégico, digital, comunicación corporativa, investigación de mercado, gestión de marcas, e-commerce, y planificación de campañas publicitarias. También podrá asesorar a empresas sobre la optimización de sus procesos comerciales, análisis de consumidores, y desarrollo de nuevas oportunidades de negocio.",
+    "perfil_egresado": "El egresado de la carrera de Ingeniería en Marketing será un profesional altamente capacitado para gestionar y desarrollar estrategias de marketing integrales y efectivas, tanto en el ámbito local como internacional. Será capaz de aplicar herramientas tecnológicas, metodologías analíticas y creativas, orientando sus acciones hacia la maximización del valor de las organizaciones y la satisfacción de las necesidades del consumidor, con un enfoque ético y socialmente responsable.",
+    "brochure_url": ""
+  }
+}

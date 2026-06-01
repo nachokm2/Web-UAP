@@ -1,0 +1,76 @@
+{
+  "titulo": "Ciencias de la Educación",
+  "duracion": "8 Semestres",
+  "sede": "Central",
+  "descripcion": "El programa de Licenciatura en Ciencias de la Educación tiene como objetivo formar profesionales capaces de planificar, diseñar, implementar y evaluar procesos educativos innovadores y de calidad, que respondan a las necesidades de los estudiantes en diversos contextos. A través de una formación integral, los estudiantes adquieren competencias pedagógicas, didácticas y tecnológicas, con un enfoque inclusivo y socialmente responsable, preparándolos para trabajar en diversos niveles educativos, desde la educación básica hasta la superior. Además, se promueve el desarrollo de habilidades en gestión educativa, liderazgo pedagógico, investigación y el uso de herramientas tecnológicas, garantizando una formación sólida para enfrentar los desafíos del sistema educativo contemporáneo.",
+  "objetivo": "Formar profesionales altamente capacitados en teorías educativas contemporáneas y prácticas pedagógicas innovadoras, con habilidades y competencias sólidas para abordar los desafíos actuales y futuros del campo educativo y contribuir al desarrollo integral de la comunidad.",
+  "objetivos_especificos": [],
+  "a_quien_va_dirigido": "",
+  "campo_laboral": "Podrá desempeñarse en diversos ámbitos educativos, tanto públicos como privados, en  niveles de  educación básica, media y superior. También  podrá  trabajar  en  instituciones  de  formación  no  formal,  organizaciones comunitarias, centros de investigación educativa,  y  en  el  ámbito  de  la  gestión  educativa.  Su  formación  le permitirá ocupar roles como docente, coordinador académico, orientador educativo, investigador, o  consultor en políticas   educativas,   además   de   participar   en   el   diseño   y   evaluación   de   programas   educativos, contribuyendo al desarrollo de proyectos sociales y educativos en la comunidad.",
+  "perfil_egresado": "El egresado de la  Licenciatura  en  Ciencias  de  la  Educación  será  un  profesional  con  una  sólida  formación teórica y práctica  en  el  campo  educativo,  capaz  de  diseñar, implementar y evaluar estrategias pedagógicas que favorezcan el desarrollo integral de los estudiantes.  Estará  preparado para gestionar procesos educativos inclusivos, promover la participación activa de la comunidad escolar  y  utilizar  tecnologías  innovadoras  en  el. Además, será competente en la investigación educativa y en  la  resolución  de  problemas  dentro  del  ámbito escolar. Su formación ética, su capacidad  para  trabajar  colaborativamente  y  su  compromiso  con  la  mejora continua lo habilitarán para contribuir significativamente al sistema educativo y a la sociedad en general.",
+  "competencias_disciplinarias": [],
+  "competencias_profesionales": [],
+  "competencias_genericas": [],
+  "mision": "",
+  "vision": "",
+  "valores": [],
+  "definicion_profesional": "",
+  "malla": {
+    "1° Semestre": [
+      "Comunicación Oral y Escrita",
+      "Metodología del Trabajo Intelectual",
+      "Guaraní",
+      "Psicología General y Evolutiva",
+      "Historia de la Educación"
+    ],
+    "2° Semestre": [
+      "Tecnología Educativa Como Recurso Didáctico",
+      "Fundamentos Filosóficos, Antropológicos y Sociológicos del Desarrollo",
+      "Fundamento Biofisiológico del Desarrollo y del Aprendizaje",
+      "Psicología de las Personas con Discapacidad y Educación inclusiva",
+      "Ingles"
+    ],
+    "3° Semestre": [
+      "Administración y Gestión Educacional",
+      "Fundamentos Filosóficos, Antropológicos y Sociológicos del Aprendizaje",
+      "Matemática Fundamental",
+      "Realidad Educativa y Cultura del Paraguay",
+      "Pedagogía General"
+    ],
+    "4° Semestre": [
+      "Lógica Matemática",
+      "Bases para la Didáctica y Evaluación del Aprendizaje",
+      "Aprendizaje y Desarrollo en Contextos Educativos",
+      "Psicología Social y Comunitaria",
+      "Mediación y Resolución de Conflictos Escolares"
+    ],
+    "5° Semestre": [
+      "Didácticas Específicas I: Artes Visuales y Musicales",
+      "Orientación Educacional",
+      "Gestión Institucional Educativa",
+      "Psicología Educacional",
+      "Optativa I"
+    ],
+    "6° Semestre": [
+      "Didácticas Específicas II: del Lenguaje y Comunicación",
+      "Estadística Aplicada a la Educación",
+      "Didácticas Aspecíficas III: de las Matemáticas",
+      "Formación Ciudadana, Derechos y Deberes",
+      "Optativa II"
+    ],
+    "7° Semestre": [
+      "Educación en Contextos Diversos",
+      "Evaluación Institucional",
+      "Curriculum de la Educación Básica",
+      "Metodología de Investigación Educativa",
+      "Política Educativa"
+    ],
+    "8° Semestre": [
+      "Práctica Profesional Docente",
+      "Investigación en Educación",
+      "Práctica Profesional Integrada",
+      "Trabajo de Grado"
+    ]
+  },
+  "brochure_url": "https://uap.edu.py/wp-content/uploads/2025/06/Licenciatura-en-ciencias-de-la-educacion-Brochure-UAP-.pdf"
+}
