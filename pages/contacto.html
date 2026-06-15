@@ -2,7 +2,9 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"
+    <meta name="description" content="Contactate con la Universidad Autónoma del Paraguay. Información de carreras, posgrados, admisión e inscripciones.">
+    <meta name="robots" content="index, follow">>
     <title>Contacto – UAP</title>
     <link rel="stylesheet" href="../css/uap-refined.css">
     <style>.logo-img { height: 45px; }
@@ -37,7 +39,7 @@
                         </div>
                         <div style="margin-bottom: var(--space-6);">
                             <h3 style="font-size: var(--text-base); margin-bottom: var(--space-2);" class="icon-box"><img src="../icons/phone.svg" alt="" class="icon-sm"> Teléfono</h3>
-                            <p style="color: var(--color-text-secondary);">+595 21 000 000</p>
+                            <p style="color: var(--color-text-secondary);">+595 21 447 579</p>
                         </div>
                         <div style="margin-bottom: var(--space-6);">
                             <h3 style="font-size: var(--text-base); margin-bottom: var(--space-2);" class="icon-box"><img src="../icons/mail.svg" alt="" class="icon-sm"> Email</h3>
@@ -51,18 +53,18 @@
                 </div>
                 <div style="grid-column: span 2;">
                     <h2>Envianos un mensaje</h2>
-                    <form style="margin-top: var(--space-6);">
+                    <form action="https://formspree.io/f/info@uap.edu.py" method="POST" style="margin-top: var(--space-6);">
                         <div class="form-group">
                             <label class="form-label" for="nombre">Nombre completo</label>
-                            <input type="text" id="nombre" class="form-input" placeholder="Tu nombre">
+                            <input type="text" id="nombre" name="nombre" class="form-input" placeholder="Tu nombre" required>
                         </div>
                         <div class="form-group">
                             <label class="form-label" for="email">Correo electrónico</label>
-                            <input type="email" id="email" class="form-input" placeholder="tu@email.com">
+                            <input type="email" id="email" name="email" class="form-input" placeholder="tu@email.com" required>
                         </div>
                         <div class="form-group">
                             <label class="form-label" for="asunto">Asunto</label>
-                            <select id="asunto" class="form-select">
+                            <select id="asunto" name="asunto" class="form-select">
                                 <option>Información de carreras</option>
                                 <option>Información de posgrados</option>
                                 <option>Admisión e inscripción</option>
@@ -71,7 +73,7 @@
                         </div>
                         <div class="form-group">
                             <label class="form-label" for="mensaje">Mensaje</label>
-                            <textarea id="mensaje" class="form-textarea" placeholder="Escribí tu mensaje aquí..."></textarea>
+                            <textarea id="mensaje" name="mensaje" class="form-textarea" placeholder="Escribí tu mensaje aquí..." required></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">Enviar mensaje</button>
                     </form>
@@ -129,5 +131,59 @@
             </div>
         </div>
     </footer>
+        <script>
+            // Mobile dropdown toggle - mejorado para touch events
+            document.querySelectorAll('.nav .dropdown > a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    if (window.innerWidth <= 768) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        const li = this.parentElement;
+                        const isActive = li.classList.contains('active');
+                        
+                        // Cerrar todos los dropdowns abiertos
+                        document.querySelectorAll('.nav .dropdown.active').forEach(d => {
+                            d.classList.remove('active');
+                        });
+                        
+                        // Si no estaba activo, abrir este
+                        if (!isActive) {
+                            li.classList.add('active');
+                        }
+                        
+                        // Force grid to 1 column when dropdown opens on mobile
+                        var grid = li.querySelector('.careers-grid-3col');
+                        if (grid && li.classList.contains('active')) {
+                            grid.style.gridTemplateColumns = '1fr';
+                            grid.style.gap = '0';
+                        }
+                    }
+                });
+            });
+            
+            // Cerrar dropdowns al tocar fuera
+            document.addEventListener('click', function(e) {
+                if (window.innerWidth <= 768 && !e.target.closest('.dropdown')) {
+                    document.querySelectorAll('.nav .dropdown.active').forEach(d => {
+                        d.classList.remove('active');
+                    });
+                }
+            });
+            
+            // Force grid to 1 col on hamburger menu open
+            var menuBtn = document.querySelector('.mobile-menu-btn');
+            if (menuBtn) {
+                menuBtn.addEventListener('click', function() {
+                    setTimeout(function() {
+                        if (window.innerWidth <= 768) {
+                            document.querySelectorAll('.careers-grid-3col').forEach(function(g) {
+                                g.style.gridTemplateColumns = '1fr';
+                                g.style.gap = '0';
+                            });
+                        }
+                    }, 100);
+                });
+            }
+        </script>
 </body>
 </html>

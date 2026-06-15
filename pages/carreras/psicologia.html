@@ -80,7 +80,7 @@
                     <li class="dropdown">
                         <a href="../carreras.html">Carreras</a>
                         <div class="dropdown-content careers-dropdown">
-                            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--space-2);">
+                            <div class="careers-grid-3col">
                                 <div>
                                     <div class="dropdown-faculty">Ciencias Médicas y de la Salud</div>
                                     <a href="odontologia.html">Odontología</a>
@@ -351,5 +351,40 @@
             btn.classList.add('active');
         }
     </script>
-</body>
+
+        
+        <script>
+            // Mobile dropdown toggle
+            document.querySelectorAll('.nav .dropdown > a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    if (window.innerWidth <= 768) {
+                        e.preventDefault();
+                        const li = this.parentElement;
+                        document.querySelectorAll('.nav .dropdown.active').forEach(d => {
+                            if (d !== li) d.classList.remove('active');
+                        });
+                        li.classList.toggle('active');
+                        var grid = li.querySelector('.careers-grid-3col');
+                        if (grid && li.classList.contains('active')) {
+                            grid.style.gridTemplateColumns = '1fr';
+                            grid.style.gap = '0';
+                        }
+                    }
+                });
+            });
+            var menuBtn = document.querySelector('.mobile-menu-btn');
+            if (menuBtn) {
+                menuBtn.addEventListener('click', function() {
+                    setTimeout(function() {
+                        if (window.innerWidth <= 768) {
+                            document.querySelectorAll('.careers-grid-3col').forEach(function(g) {
+                                g.style.gridTemplateColumns = '1fr';
+                                g.style.gap = '0';
+                            });
+                        }
+                    }, 100);
+                });
+            }
+        </script>
+    </body>
 </html>
