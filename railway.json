@@ -4,7 +4,7 @@
     "builder": "NIXPACKS"
   },
   "deploy": {
-    "startCommand": "npx serve . --single --listen $PORT",
+    "startCommand": "npx serve . --listen $PORT",
     "restartPolicyType": "ON_FAILURE"
   }
 }
