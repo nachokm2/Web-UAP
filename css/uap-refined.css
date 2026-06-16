@@ -398,6 +398,40 @@ h4 {
     max-width: 560px;
 }
 
+/* Breadcrumb nav */
+.breadcrumb-nav {
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+    padding: var(--space-3) 0;
+}
+
+.breadcrumb {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    align-items: center;
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    margin: 0;
+    padding: 0;
+}
+
+.breadcrumb li + li::before {
+    content: '/';
+    margin-right: var(--space-2);
+    opacity: 0.4;
+}
+
+.breadcrumb a {
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
 /* ========================================
    Botones
    ======================================== */
