@@ -145,11 +145,12 @@ html {
 }
 
 body {
-    font-family: var(--font-system);
+    font-family: 'Inter', var(--font-system);
     font-size: var(--text-base);
     line-height: 1.6;
     color: var(--color-text);
     background-color: var(--color-background);
+    overflow-x: hidden; /* FIX #3: eliminar scroll horizontal */
 }
 
 /* ========================================
@@ -286,8 +287,13 @@ h4 {
 
 .nav {
     display: flex;
-    gap: var(--space-8);
+    gap: var(--space-4);
     list-style: none;
+}
+
+@media (max-width: 1280px) {
+    .nav { gap: var(--space-3); }
+    .nav a { font-size: 12px; }
 }
 
 .nav a {
@@ -441,6 +447,19 @@ h4 {
     background-color: var(--color-primary-dark);
     transform: translateY(-1px);
     box-shadow: var(--shadow-md);
+}
+
+/* FIX #4/#14: CTA primario institucional — rojo */
+.btn-accent {
+    background-color: #C8102E;
+    color: white;
+    border: none;
+}
+.btn-accent:hover {
+    background-color: #A00D24;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(200,16,46,0.30);
 }
 
 .btn-lg {
@@ -990,11 +1009,13 @@ h4 {
 /* ========================================
    Responsive
    ======================================== */
-@media (max-width: 768px) {
+@media (max-width: 1100px) {
     .nav {
         display: none;
     }
-    
+}
+
+@media (max-width: 768px) {
     .stats {
         grid-template-columns: repeat(2, 1fr);
         gap: var(--space-3);
@@ -1393,22 +1414,22 @@ h4 {
     padding: var(--space-2);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1100px) {
     .header {
         position: relative !important;
         z-index: 1000;
     }
-    
+
     .header-inner {
         flex-wrap: wrap;
         position: relative;
     }
-    
+
     .mobile-menu-btn {
         display: block;
         margin-left: auto;
     }
-    
+
     .nav {
         display: none;
         position: fixed;
@@ -1425,7 +1446,7 @@ h4 {
         overflow-y: auto;
         border-radius: 0 0 var(--radius-lg) var(--radius-lg);
     }
-    
+
     .nav.active {
         display: flex;
     }

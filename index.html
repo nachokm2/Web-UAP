@@ -10,7 +10,7 @@
     <!-- FUENTES EXTERNAS: ejecutar `node download-fonts.js` y eliminar estas 3 líneas -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/uap-refined.css?v=20260601">
     <style>
         .logo-img { height: 45px; width: auto; }
@@ -63,10 +63,10 @@
         }
         .hero-slide-content h2 {
             font-family: 'Playfair Display', serif;
-            font-size: 2.8rem;
-            font-weight: 700;
+            font-size: 2.2rem;
+            font-weight: 600;
             margin: 0 0 12px 0;
-            line-height: 1.15;
+            line-height: 1.2;
             text-shadow: 0 2px 8px rgba(0,0,0,0.3);
         }
         .hero-slide-content p {
@@ -79,20 +79,20 @@
         .hero-slide-cta {
             display: inline-block;
             padding: 14px 32px;
-            background: white;
-            color: #003366;
+            background: #C8102E;
+            color: white;
             font-weight: 600;
             font-size: 1rem;
             border-radius: 8px;
             text-decoration: none;
             transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 15px rgba(200,16,46,0.35);
         }
         .hero-slide-cta:hover {
-            background: #0066cc;
+            background: #A00D24;
             color: white;
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            box-shadow: 0 6px 20px rgba(200,16,46,0.45);
         }
         .hero-slide-badge {
             display: inline-block;
@@ -372,7 +372,7 @@
             // Mobile dropdown toggle - mejorado para touch events
             document.querySelectorAll('.nav .dropdown > a').forEach(link => {
                 link.addEventListener('click', function(e) {
-                    if (window.innerWidth <= 768) {
+                    if (window.innerWidth <= 1100) {
                         e.preventDefault();
                         e.stopPropagation();
                         const li = this.parentElement;
@@ -400,7 +400,7 @@
             
             // Cerrar dropdowns al tocar fuera
             document.addEventListener('click', function(e) {
-                if (window.innerWidth <= 768 && !e.target.closest('.dropdown')) {
+                if (window.innerWidth <= 1100 && !e.target.closest('.dropdown')) {
                     document.querySelectorAll('.nav .dropdown.active').forEach(d => {
                         d.classList.remove('active');
                     });
@@ -415,7 +415,7 @@
                 btn.setAttribute('aria-expanded', isActive);
                 btn.setAttribute('aria-label', isActive ? 'Cerrar menú de navegación' : 'Abrir menú de navegación');
                 setTimeout(function() {
-                    if (window.innerWidth <= 768) {
+                    if (window.innerWidth <= 1100) {
                         document.querySelectorAll('.careers-grid-3col').forEach(function(g) {
                             g.style.gridTemplateColumns = '1fr';
                             g.style.gap = '0';
