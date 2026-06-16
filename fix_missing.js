@@ -8,7 +8,7 @@ const carreras = [
   { url: 'https://uap.edu.py/trabajo-social/', slug: 'trabajo-social' }
 ];
 
-const dataDir = '/Users/esteban/.openclaw/workspace-uap/uap-web/data';
+const dataDir = path.join(__dirname, 'data');
 
 (async () => {
   const browser = await puppeteer.connect({ browserURL: 'http://127.0.0.1:18800' });

@@ -8,7 +8,7 @@ const carreras = [
   { url: 'https://uap.edu.py/periodismo/', slug: 'periodismo' }
 ];
 
-const dataDir = '/Users/esteban/.openclaw/workspace-uap/uap-web/data';
+const dataDir = path.join(__dirname, 'data');
 
 (async () => {
   const browser = await puppeteer.connect({ browserURL: 'http://127.0.0.1:18800' });

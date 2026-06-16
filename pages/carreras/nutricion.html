@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -73,7 +73,7 @@
             <a href="../../index.html" class="logo">
                 <img src="../../images/logo-uap.png" alt="UAP - Universidad Autónoma del Paraguay" class="logo-img">
             </a>
-            <button class="mobile-menu-btn" onclick="document.querySelector('.nav').classList.toggle('active')">&#9776;</button>
+            <button class="mobile-menu-btn" >&#9776;</button>
             <nav>
                 <ul class="nav">
                     <li><a href="../../index.html">Inicio</a></li>
@@ -213,14 +213,14 @@
             <div class="malla-section">
                 <h2 style="color: #003366; text-align: center; font-size: 1.6rem; margin-bottom: 24px;">Plan de Estudios</h2>
                 <div class="malla-tabs" id="malla-tabs">
-                    <button class="malla-tab active" onclick="showSemester(0, this)">1°°° Semestre</button>
-                    <button class="malla-tab" onclick="showSemester(1, this)">2°°° Semestre</button>
-                    <button class="malla-tab" onclick="showSemester(2, this)">3°°° Semestre</button>
-                    <button class="malla-tab" onclick="showSemester(3, this)">4°°° Semestre</button>
-                    <button class="malla-tab" onclick="showSemester(4, this)">5°°° Semestre</button>
-                    <button class="malla-tab" onclick="showSemester(5, this)">6°°° Semestre</button>
-                    <button class="malla-tab" onclick="showSemester(6, this)">7°°° Semestre</button>
-                    <button class="malla-tab" onclick="showSemester(7, this)">8°°° Semestre</button>
+                    <button class="malla-tab active" data-sem="0">1°°° Semestre</button>
+                    <button class="malla-tab" data-sem="1">2°°° Semestre</button>
+                    <button class="malla-tab" data-sem="2">3°°° Semestre</button>
+                    <button class="malla-tab" data-sem="3">4°°° Semestre</button>
+                    <button class="malla-tab" data-sem="4">5°°° Semestre</button>
+                    <button class="malla-tab" data-sem="5">6°°° Semestre</button>
+                    <button class="malla-tab" data-sem="6">7°°° Semestre</button>
+                    <button class="malla-tab" data-sem="7">8°°° Semestre</button>
                 </div>
 <div id="malla-panels">
                 <div class="malla-panel" data-semester="0"><ul><li>Biología General</li>
@@ -278,18 +278,8 @@
         <div class="container" style="max-width: 640px;">
             <h2 style="color: white; text-align: center; border: none;">Solicita información</h2>
             <p style="color: rgba(255,255,255,0.85); text-align: center; margin-bottom: 28px;">Completa el formulario y un asesor se contactará contigo.</p>
-            <div class="glass-form">
-                <form onsubmit="event.preventDefault(); alert('¡Gracias! Nos contactaremos contigo pronto.');">
-                    <label>Nombre completo *</label>
-                    <input type="text" placeholder="Tu nombre completo" required>
-                    <label>Email *</label>
-                    <input type="email" placeholder="tu@email.com" required>
-                    <label>Teléfono *</label>
-                    <input type="tel" placeholder="+595 9XX XXX XXX" required>
-                    <label>Mensaje</label>
-                    <textarea rows="3" placeholder="Tus dudas o consultas sobre Nutrición..."></textarea>
-                    <button type="submit" class="btn-glass" style="width: 100%;">Enviar consulta</button>
-                </form>
+            <div style="background: rgba(255,255,255,0.95); border-radius: 16px; padding: 8px;">
+                <script data-b24-form="inline/61/hi7fex" data-skip-moving="true">(function(w,d,u){var s=d.createElement('script');s.async=true;s.src=u+'?'+(Date.now()/180000|0);var h=d.getElementsByTagName('script')[0];h.parentNode.insertBefore(s,h);})(window,document,'https://cdn.bitrix24.es/b23715511/crm/form/loader_61.js');</script>
             </div>
         </div>
     </section>
@@ -333,49 +323,7 @@
             </div>
         </div>
     </footer>
-
-    <script>
-        function showSemester(idx, btn) {
-            document.querySelectorAll('.malla-panel').forEach(p => p.style.display = 'none');
-            document.querySelectorAll('.malla-tab').forEach(t => t.classList.remove('active'));
-            document.querySelector('.malla-panel[data-semester="' + idx + '"]').style.display = 'block';
-            btn.classList.add('active');
-        }
-    </script>
-
-        
-        <script>
-            // Mobile dropdown toggle
-            document.querySelectorAll('.nav .dropdown > a').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    if (window.innerWidth <= 768) {
-                        e.preventDefault();
-                        const li = this.parentElement;
-                        document.querySelectorAll('.nav .dropdown.active').forEach(d => {
-                            if (d !== li) d.classList.remove('active');
-                        });
-                        li.classList.toggle('active');
-                        var grid = li.querySelector('.careers-grid-3col');
-                        if (grid && li.classList.contains('active')) {
-                            grid.style.gridTemplateColumns = '1fr';
-                            grid.style.gap = '0';
-                        }
-                    }
-                });
-            });
-            var menuBtn = document.querySelector('.mobile-menu-btn');
-            if (menuBtn) {
-                menuBtn.addEventListener('click', function() {
-                    setTimeout(function() {
-                        if (window.innerWidth <= 768) {
-                            document.querySelectorAll('.careers-grid-3col').forEach(function(g) {
-                                g.style.gridTemplateColumns = '1fr';
-                                g.style.gap = '0';
-                            });
-                        }
-                    }, 100);
-                });
-            }
-        </script>
-    </body>
+        <script src="../../scripts/uap-nav.js"></script>
+    <script src="../../scripts/uap-carrera.js"></script>
+</body>
 </html>

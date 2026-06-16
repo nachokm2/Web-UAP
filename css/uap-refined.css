@@ -4,6 +4,62 @@
    Adaptado con colores institucionales UAP
    ======================================== */
 
+/* ---- Fuentes locales (ejecutar download-fonts.js para activar) ---- */
+@font-face {
+    font-family: 'Playfair Display';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: local('Playfair Display Regular'),
+         url('../css/fonts/playfair-400.woff2') format('woff2'),
+         local('Georgia');
+}
+@font-face {
+    font-family: 'Playfair Display';
+    font-style: italic;
+    font-weight: 400;
+    font-display: swap;
+    src: local('Playfair Display Italic'),
+         url('../css/fonts/playfair-400-italic.woff2') format('woff2'),
+         local('Georgia');
+}
+@font-face {
+    font-family: 'Playfair Display';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: local('Playfair Display SemiBold'),
+         url('../css/fonts/playfair-600.woff2') format('woff2'),
+         local('Georgia');
+}
+@font-face {
+    font-family: 'Playfair Display';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: local('Playfair Display Bold'),
+         url('../css/fonts/playfair-700.woff2') format('woff2'),
+         local('Georgia');
+}
+@font-face {
+    font-family: 'JetBrains Mono';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: local('JetBrains Mono Regular'),
+         url('../css/fonts/jetbrains-400.woff2') format('woff2'),
+         local('Courier New');
+}
+@font-face {
+    font-family: 'JetBrains Mono';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: local('JetBrains Mono Medium'),
+         url('../css/fonts/jetbrains-500.woff2') format('woff2'),
+         local('Courier New');
+}
+
 :root {
     /* Colores institucionales UAP + Refined */
     --color-primary: #003366;

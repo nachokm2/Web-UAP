@@ -2,7 +2,7 @@ const puppeteer = require('puppeteer');
 const fs = require('fs');
 const path = require('path');
 
-const dataDir = '/Users/esteban/.openclaw/workspace-uap/uap-web/data';
+const dataDir = path.join(__dirname, 'data');
 
 (async () => {
   const browser = await puppeteer.connect({ browserURL: 'http://127.0.0.1:18800' });

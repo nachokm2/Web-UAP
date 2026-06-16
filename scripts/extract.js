@@ -89,10 +89,36 @@ async function extractCareerInfo(url, outputFile) {
     }
 }
 
-const url = process.argv[2];
-const outputFile = process.argv[3];
-if (!url || !outputFile) {
+const rawUrl = process.argv[2];
+const rawOutput = process.argv[3];
+
+if (!rawUrl || !rawOutput) {
     console.error('Usage: node extract.js <url> <output.json>');
     process.exit(1);
 }
-extractCareerInfo(url, outputFile);
+
+// Validar que la URL sea HTTPS y apunte al dominio permitido
+try {
+    const parsed = new URL(rawUrl);
+    if (parsed.protocol !== 'https:' || !parsed.hostname.endsWith('uap.edu.py')) {
+        console.error('Error: URL debe ser HTTPS y pertenecer a uap.edu.py');
+        process.exit(1);
+    }
+} catch {
+    console.error('Error: URL inválida');
+    process.exit(1);
+}
+
+// Prevenir path traversal: el archivo de salida debe estar dentro de data/
+const ALLOWED_DIR = path.resolve(__dirname, '..', 'data');
+const resolvedOutput = path.resolve(rawOutput);
+if (!resolvedOutput.startsWith(ALLOWED_DIR + path.sep) && resolvedOutput !== ALLOWED_DIR) {
+    console.error(`Error: La ruta de salida debe estar dentro de ${ALLOWED_DIR}`);
+    process.exit(1);
+}
+if (path.extname(resolvedOutput) !== '.json') {
+    console.error('Error: El archivo de salida debe tener extensión .json');
+    process.exit(1);
+}
+
+extractCareerInfo(rawUrl, resolvedOutput);
