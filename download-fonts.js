@@ -9,30 +9,26 @@ const https = require('https');
 
 const FONTS_DIR = path.join(__dirname, 'css', 'fonts');
 
+// URLs verificadas contra fonts.googleapis.com el 2026-07-02 (las anteriores estaban vencidas:
+// Google Fonts rota los hashes de archivo entre versiones y 5 de las 6 URLs previas daban 404).
+// Playfair Display, JetBrains Mono e Inter se sirven hoy como "variable fonts": un solo archivo
+// cubre todo el rango de pesos, por eso hay un único request por familia/estilo en vez de uno por peso.
 const FONT_REQUESTS = [
     {
-        name: 'playfair-400',
-        url: 'https://fonts.gstatic.com/s/playfairdisplay/v37/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xRbPQ.woff2'
+        name: 'playfair-variable',
+        url: 'https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgA.woff2'
     },
     {
-        name: 'playfair-600',
-        url: 'https://fonts.gstatic.com/s/playfairdisplay/v37/nuFiD-vYSZviVYUb_rj3ij__anPXJDHYgEM86xRbPQ.woff2'
+        name: 'playfair-variable-italic',
+        url: 'https://fonts.gstatic.com/s/playfairdisplay/v40/nuFRD-vYSZviVYUb_rj3ij__anPXDTnCjmHKM4nYO7KN_qiTXtHA-Q.woff2'
     },
     {
-        name: 'playfair-700',
-        url: 'https://fonts.gstatic.com/s/playfairdisplay/v37/nuFiD-vYSZviVYUb_rj3ij__anPXBTLYgEM86xRbPQ.woff2'
+        name: 'jetbrains-variable',
+        url: 'https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2'
     },
     {
-        name: 'playfair-400-italic',
-        url: 'https://fonts.gstatic.com/s/playfairdisplay/v37/nuFvD-vYSZviVYUb_rj3ij__anPXBYf9lW4e5j5hNKc.woff2'
-    },
-    {
-        name: 'jetbrains-400',
-        url: 'https://fonts.gstatic.com/s/jetbrainsmono/v18/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKxTOlOTk6OThhvAWV8.woff2'
-    },
-    {
-        name: 'jetbrains-500',
-        url: 'https://fonts.gstatic.com/s/jetbrainsmono/v18/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKxTOlOTk6OThhnAWV8.woff2'
+        name: 'inter-variable',
+        url: 'https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2'
     }
 ];
 

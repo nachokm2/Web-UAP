@@ -6,7 +6,9 @@
     <meta name="description" content="Conocé la Universidad Autónoma del Paraguay. Misión, visión, valores y autoridades de la institución.">
     <meta name="robots" content="index, follow">
     <title>Sobre la UAP | Misión, Visión y Autoridades – Universidad Autónoma del Paraguay</title>
-    <link rel="stylesheet" href="../css/uap-refined.css">
+    <link rel="icon" type="image/svg+xml" href="../images/favicon.svg">
+    <link rel="icon" type="image/png" href="../images/logo-uap.png">
+    <link rel="stylesheet" href="../css/uap-refined.css?v=20260702">
     <style>
         .logo-img { height: 45px; }
         .content { max-width: 800px; margin: 0 auto; }
@@ -15,29 +17,69 @@
         .content ul { margin-bottom: var(--space-4); padding-left: var(--space-6); }
         .content li { margin-bottom: var(--space-2); color: var(--color-text-secondary); }
         .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); margin-top: var(--space-6); }
-        .value-card { background: var(--color-background); padding: var(--space-5); border-radius: var(--radius-md); text-align: center; font-weight: var(--weight-semibold); color: var(--color-primary); font-size: var(--text-sm); }
         .authorities-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-6); margin-top: var(--space-6); }
-        .authority-card { background: var(--color-surface); padding: var(--space-6); border-radius: var(--radius-lg); text-align: center; }
-        .authority-card h3 { color: var(--color-primary); margin-bottom: var(--space-2); }
-        .authority-card p { color: var(--color-text-muted); font-size: var(--text-sm); }
         .regulations-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--space-4); margin-top: var(--space-6); }
-        .regulation-item { background: var(--color-surface); padding: var(--space-4); border-radius: var(--radius-md); border-left: 3px solid var(--color-primary); }
-        .regulation-item a { color: var(--color-primary); text-decoration: none; }
-        .regulation-item a:hover { text-decoration: underline; }
+        /* .value-card, .authority-card y .regulation-item ahora viven en css/uap-refined.css */
     </style>
 </head>
 <body>
     <header class="header" style="position: relative;">
         <div class="container header-inner">
-            <a href="../index.html" class="logo"><img src="../images/logo-uap.png" alt="UAP" class="logo-img"></a>
+            <a href="../index.html" class="logo"><img src="../images/logo-uap.png" alt="UAP – Universidad Autónoma del Paraguay" class="logo-img"></a>
             <button class="mobile-menu-btn" >☰</button>
             <nav>
                 <ul class="nav">
                     <li><a href="../index.html">Inicio</a></li>
-                    <li><a href="carreras.html">Carreras</a></li>
-                    <li><a href="posgrados.html">Posgrados</a></li>
+                    <li class="dropdown">
+                        <a href="carreras.html">Carreras</a>
+                        <div class="dropdown-content">
+                            <div class="dropdown-faculty">Facultad de Ciencias Médicas y de la Salud</div>
+                            <a href="carreras/podologia.html">Podología</a>
+                            <a href="carreras/optica-y-contactologia.html">Óptica y Contactología</a>
+                            <a href="carreras/fisioterapia.html">Fisioterapia</a>
+                            <a href="carreras/fonoaudiologia.html">Fonoaudiología</a>
+                            <a href="carreras/psicologia.html">Psicología</a>
+                            <a href="carreras/nutricion.html">Nutrición</a>
+                            <a href="carreras/odontologia.html">Odontología</a>
+                            <div class="dropdown-faculty">Facultad de Ingenierías y Tecnologías</div>
+                            <a href="carreras/ingenieria-en-informatica.html">Ingeniería en Informática</a>
+                            <a href="carreras/ingenieria-en-tecnologia-de-alimentos.html">Ingeniería en Tecnología de Alimentos</a>
+                            <div class="dropdown-faculty">Facultad de Ciencias Sociales y Humanas</div>
+                            <a href="carreras/periodismo.html">Periodismo</a>
+                            <a href="carreras/ciencias-de-la-educacion.html">Ciencias de la Educación</a>
+                            <a href="carreras/educacion-parvularia.html">Educación Parvularia</a>
+                            <a href="carreras/derecho.html">Derecho</a>
+                            <a href="carreras/trabajo-social.html">Trabajo Social</a>
+                            <a href="carreras/administracion-publica.html">Administración Pública</a>
+                            <a href="carreras/administracion-de-empresas.html">Administración de Empresas</a>
+                            <a href="carreras/ciencias-contables.html">Ciencias Contables</a>
+                            <a href="carreras/contabilidad-y-auditoria.html">Contabilidad y Auditoría</a>
+                            <a href="carreras/contaduria-publica.html">Contaduría Pública</a>
+                            <a href="carreras/marketing-y-publicidad.html">Marketing y Publicidad</a>
+                            <a href="carreras/ingenieria-comercial.html">Ingeniería Comercial</a>
+                            <a href="carreras/ingenieria-en-comercio-internacional.html">Ingeniería en Comercio Internacional</a>
+                            <a href="carreras/ingenieria-en-marketing.html">Ingeniería en Marketing</a>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="posgrados.html">Posgrados</a>
+                        <div class="dropdown-content">
+                            <a href="posgrados.html#diplomados">Diplomados</a>
+                            <a href="posgrados.html#especializaciones">Especializaciones</a>
+                            <a href="posgrados.html#maestrias">Maestrías</a>
+                            <a href="posgrados.html#doctorados">Doctorados</a>
+                        </div>
+                    </li>
                     <li><a href="noticias.html">Noticias</a></li>
-                    <li><a href="institucional.html" class="nav-active">Institucional</a></li>
+                    <li class="dropdown">
+                        <a href="institucional.html" class="nav-active">Institucional</a>
+                        <div class="dropdown-content">
+                            <a href="institucional.html#mision">Misión, Visión y Valores</a>
+                            <a href="institucional.html#autoridades">Autoridades</a>
+                            <a href="institucional.html#convenios">Convenios</a>
+                            <a href="institucional.html#reglamentos">Reglamentos</a>
+                        </div>
+                    </li>
                     <li><a href="investigacion.html">Investigación</a></li>
                     <li><a href="estudiantes.html">Estudiantes</a></li>
                     <li><a href="contacto.html">Contacto</a></li>

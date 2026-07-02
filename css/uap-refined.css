@@ -4,60 +4,42 @@
    Adaptado con colores institucionales UAP
    ======================================== */
 
-/* ---- Fuentes locales (ejecutar download-fonts.js para activar) ---- */
+/* ---- Fuentes autohospedadas (css/fonts/, generadas por download-fonts.js) ----
+   Playfair Display, JetBrains Mono e Inter se sirven como variable fonts: un solo
+   archivo woff2 cubre todo el rango de peso declarado, por eso hay un único
+   @font-face por familia/estilo en vez de uno por peso. Cargadas en las 33 páginas
+   vía este archivo — ya no dependen del CDN de Google Fonts. */
 @font-face {
     font-family: 'Playfair Display';
     font-style: normal;
-    font-weight: 400;
+    font-weight: 400 900;
     font-display: swap;
-    src: local('Playfair Display Regular'),
-         url('../css/fonts/playfair-400.woff2') format('woff2'),
+    src: url('fonts/playfair-variable.woff2') format('woff2'),
          local('Georgia');
 }
 @font-face {
     font-family: 'Playfair Display';
     font-style: italic;
-    font-weight: 400;
+    font-weight: 400 900;
     font-display: swap;
-    src: local('Playfair Display Italic'),
-         url('../css/fonts/playfair-400-italic.woff2') format('woff2'),
-         local('Georgia');
-}
-@font-face {
-    font-family: 'Playfair Display';
-    font-style: normal;
-    font-weight: 600;
-    font-display: swap;
-    src: local('Playfair Display SemiBold'),
-         url('../css/fonts/playfair-600.woff2') format('woff2'),
-         local('Georgia');
-}
-@font-face {
-    font-family: 'Playfair Display';
-    font-style: normal;
-    font-weight: 700;
-    font-display: swap;
-    src: local('Playfair Display Bold'),
-         url('../css/fonts/playfair-700.woff2') format('woff2'),
+    src: url('fonts/playfair-variable-italic.woff2') format('woff2'),
          local('Georgia');
 }
 @font-face {
     font-family: 'JetBrains Mono';
     font-style: normal;
-    font-weight: 400;
+    font-weight: 100 800;
     font-display: swap;
-    src: local('JetBrains Mono Regular'),
-         url('../css/fonts/jetbrains-400.woff2') format('woff2'),
+    src: url('fonts/jetbrains-variable.woff2') format('woff2'),
          local('Courier New');
 }
 @font-face {
-    font-family: 'JetBrains Mono';
+    font-family: 'Inter';
     font-style: normal;
-    font-weight: 500;
+    font-weight: 100 900;
     font-display: swap;
-    src: local('JetBrains Mono Medium'),
-         url('../css/fonts/jetbrains-500.woff2') format('woff2'),
-         local('Courier New');
+    src: url('fonts/inter-variable.woff2') format('woff2'),
+         local('Segoe UI');
 }
 
 :root {
@@ -65,23 +47,31 @@
     --color-primary: #003366;
     --color-primary-light: #0066cc;
     --color-primary-dark: #002244;
+    --color-primary-darker: #001a33;
     --color-accent: #0066cc;
-    
+
     /* Neutros Refined */
     --color-surface: #FFFFFF;
     --color-surface-elevated: #FAFBFC;
+    --color-surface-subtle: #f8fafc;
     --color-background: #F7F8FA;
     --color-text: #111827;
     --color-text-secondary: #4B5563;
+    --color-text-strong: #374151;
     --color-text-muted: #9CA3AF;
     --color-border: #E5E7EB;
     --color-border-light: #F3F4F6;
+    --color-border-strong: #d1d5db;
+    --color-hover-subtle: #e8edf2;
     
     /* Estados */
     --color-success: #16A34A;
     --color-warning: #D97706;
     --color-danger: #DC2626;
-    
+    --color-whatsapp: #075E54;
+    --color-cta-accent: #C8102E;
+    --color-cta-accent-hover: #A00D24;
+
     /* Tipografía */
     --font-primary: 'Playfair Display', Georgia, serif;
     --font-mono: 'JetBrains Mono', monospace;
@@ -485,12 +475,12 @@ h4 {
 
 /* FIX #4/#14: CTA primario institucional — rojo */
 .btn-accent {
-    background-color: #C8102E;
+    background-color: var(--color-cta-accent);
     color: white;
     border: none;
 }
 .btn-accent:hover {
-    background-color: #A00D24;
+    background-color: var(--color-cta-accent-hover);
     color: white;
     transform: translateY(-2px);
     box-shadow: 0 8px 24px rgba(200,16,46,0.30);
@@ -499,6 +489,47 @@ h4 {
 .btn-lg {
     font-size: var(--text-base);
     padding: var(--space-4) var(--space-8);
+}
+
+/* Variante "glass" del botón — usada en el hero de las 23 landings de carrera (antes
+   redefinida de forma idéntica en el <style> inline de cada página; ver scripts/dedupe_career_buttons.js) */
+.btn-glass {
+    background: white;
+    color: var(--color-primary);
+    border: none;
+    padding: 14px 32px;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s;
+}
+.btn-glass:hover {
+    background: #f0f4f8;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.brochure-btn-glass {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: white;
+    color: var(--color-primary);
+    border: none;
+    padding: 14px 28px;
+    border-radius: 50px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s;
+    text-decoration: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+.brochure-btn-glass:hover {
+    background: #f0f4f8;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
 }
 
 /* ========================================
@@ -1713,14 +1744,16 @@ h4 {
     color: var(--color-primary);
 }
 
-/* Botón flotante de WhatsApp */
+/* Botón flotante de WhatsApp — verde oficial oscuro (no el verde claro de la app) para que
+   el ícono blanco cumpla el contraste mínimo de WCAG 1.4.11 (>=3:1); el verde claro #25D366
+   contra blanco da ~1.98:1 y no pasa. */
 .whatsapp-float {
     position: fixed;
     right: 24px;
     bottom: 24px;
     width: 58px;
     height: 58px;
-    background-color: #25D366;
+    background-color: var(--color-whatsapp);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -1771,3 +1804,163 @@ h4 {
     color: var(--color-text-muted);
     flex-shrink: 0;
 }
+
+/* ========================================
+   Landing de carrera ("glassmorphism")
+   Antes duplicado byte a byte en el <style> inline de las 23 páginas de
+   pages/carreras/*.html (ver K-06 de la auditoría UX/UI). La única variación real
+   entre páginas es la imagen del hero, que ahora se pasa vía --hero-image en el
+   propio elemento: style="--hero-image: url('...')".
+   ======================================== */
+.career-hero-glass {
+    position: relative;
+    min-height: 420px;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-darker) 60%), var(--hero-image) center/cover no-repeat;
+    background-blend-mode: overlay;
+    color: white;
+    overflow: hidden;
+}
+.career-hero-glass::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(135deg, rgba(0,51,102,0.92) 0%, rgba(0,102,204,0.78) 50%, rgba(0,51,102,0.88) 100%);
+    z-index: 1;
+}
+.career-hero-glass .container { position: relative; z-index: 2; }
+.career-hero-glass h1 { font-size: 2.8rem; font-weight: 800; margin-bottom: 12px; letter-spacing: -0.5px; }
+.career-hero-glass .hero-subtitle { font-size: 1.1rem; line-height: 1.7; max-width: 700px; opacity: 0.92; }
+
+/* Familia "glass card" — .glass-card, .competencia-card y .valor-card comparten el mismo
+   patrón visual (fondo translúcido + backdrop-filter); antes eran 3 reglas separadas con los
+   mismos 4 valores repetidos. Sólo cambia blur/radio/padding entre variantes, vía custom
+   properties, así que cada una sigue viéndose exactamente igual que antes. */
+.glass-card, .competencia-card, .valor-card {
+    background: rgba(255,255,255,0.65);
+    -webkit-backdrop-filter: blur(var(--glass-blur, 15px));
+    backdrop-filter: blur(var(--glass-blur, 15px));
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: var(--glass-radius, 12px);
+    padding: var(--glass-padding, 20px);
+}
+.glass-card {
+    --glass-blur: 20px;
+    --glass-radius: 16px;
+    --glass-padding: 28px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.glass-card:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,51,102,0.12); }
+.glass-card h2 { font-size: 1.35rem; color: var(--color-primary); margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+.glass-card h2 .section-icon { width: 32px; height: 32px; background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light)); border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.glass-card h2 .section-icon svg { width: 18px; height: 18px; stroke: white; fill: none; stroke-width: 2; }
+.glass-card p, .glass-card ul { color: var(--color-text-strong); line-height: 1.75; font-size: 0.95rem; }
+
+.section-dark { background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-darker) 100%); color: white; }
+.section-dark .glass-card { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; }
+.section-dark .glass-card h2 { color: white; }
+.section-dark .glass-card p, .section-dark .glass-card ul { color: rgba(255,255,255,0.9); }
+
+.info-pills { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 32px; }
+.info-pill { background: rgba(255,255,255,0.12); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 16px 20px; text-align: center; }
+.info-pill .pill-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; opacity: 0.7; margin-bottom: 4px; }
+.info-pill .pill-value { font-size: 1.15rem; font-weight: 700; }
+
+.malla-section { background: var(--color-surface-subtle); border-radius: 16px; padding: 32px; }
+.malla-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+.malla-tab { padding: 10px 20px; border: 1px solid var(--color-border-strong); background: white; color: var(--color-primary); border-radius: 50px; cursor: pointer; font-size: 0.85rem; font-weight: 600; transition: all 0.2s; }
+.malla-tab:hover { background: var(--color-hover-subtle); }
+.malla-tab.active { background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light)); color: white; border-color: transparent; }
+.malla-panel ul { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; }
+.malla-panel li { padding: 12px 18px; background: white; border-radius: 10px; font-size: 0.9rem; border-left: 3px solid var(--color-primary-light); box-shadow: 0 1px 3px rgba(0,0,0,0.06); transition: transform 0.15s; }
+.malla-panel li:hover { transform: translateX(4px); }
+
+.cta-section { background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%); border-radius: 20px; padding: 48px; color: white; text-align: center; margin: 48px 0; }
+.cta-section h2 { font-size: 2rem; margin-bottom: 8px; }
+.cta-section p { opacity: 0.85; margin-bottom: 28px; }
+
+.glass-form { background: rgba(255,255,255,0.12); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.25); border-radius: 16px; padding: 28px; }
+.glass-form input, .glass-form textarea { width: 100%; padding: 14px 18px; border: 1px solid rgba(255,255,255,0.3); border-radius: 10px; background: rgba(255,255,255,0.1); color: white; font-size: 0.95rem; margin-bottom: 14px; }
+.glass-form input::placeholder, .glass-form textarea::placeholder { color: rgba(255,255,255,0.5); }
+.glass-form input:focus, .glass-form textarea:focus { outline: none; border-color: rgba(255,255,255,0.6); background: rgba(255,255,255,0.15); }
+.glass-form label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.7; display: block; margin-bottom: 4px; }
+
+.competencias-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+/* .competencia-card usa los valores por defecto de la familia "glass card" (blur 15px, radio 12px, padding 20px) */
+.competencia-card h3 { font-size: 0.95rem; color: var(--color-primary); margin-bottom: 10px; padding-bottom: 8px; border-bottom: 2px solid rgba(0,51,102,0.15); }
+.competencia-card ul { list-style: none; padding: 0; }
+.competencia-card li { padding: 6px 0; font-size: 0.88rem; color: var(--color-text-strong); padding-left: 18px; position: relative; }
+.competencia-card li::before { content: ''; position: absolute; left: 0; top: 12px; width: 6px; height: 6px; border-radius: 50%; background: var(--color-primary-light); }
+
+.check-list { list-style: none; padding: 0; }
+.check-list li { padding: 10px 0 10px 32px; position: relative; color: var(--color-text-strong); line-height: 1.6; }
+.check-list li::before { content: ''; position: absolute; left: 0; top: 14px; width: 18px; height: 18px; background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light)); border-radius: 50%; }
+.check-list li::after { content: '\2713'; position: absolute; left: 4px; top: 12px; color: white; font-size: 11px; font-weight: 700; }
+
+.two-col-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.valores-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+.valor-card { --glass-padding: 16px 20px; }
+.valor-card strong { color: var(--color-primary); font-size: 0.92rem; display: block; margin-bottom: 4px; }
+.valor-card span { font-size: 0.85rem; color: var(--color-text-secondary); line-height: 1.5; }
+
+@media (max-width: 768px) {
+    .career-hero-glass { min-height: 320px; padding: 40px 0; }
+    .career-hero-glass h1 { font-size: 1.75rem; }
+    .career-hero-glass .hero-subtitle { font-size: 0.9rem; line-height: 1.5; }
+    .info-pills { grid-template-columns: 1fr; gap: 10px; }
+    .info-pill { padding: 12px 16px; }
+    .info-pill .pill-value { font-size: 1rem; }
+    .glass-card { padding: 20px; }
+    .cta-section { padding: 32px 20px; }
+    .malla-tabs { gap: 6px; }
+    .malla-tab { padding: 8px 14px; font-size: 0.8rem; }
+    .malla-panel ul { grid-template-columns: 1fr; }
+    .malla-panel li { padding: 10px 14px; font-size: 0.85rem; }
+    .malla-section { padding: 20px 16px; }
+    .competencias-grid { grid-template-columns: 1fr; }
+    .two-col-grid { grid-template-columns: 1fr; }
+    .valores-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+    .career-hero-glass h1 { font-size: 1.4rem; }
+    .career-hero-glass .hero-subtitle { font-size: 0.85rem; }
+    .info-pill .pill-label { font-size: 0.7rem; }
+    .info-pill .pill-value { font-size: 0.9rem; }
+    .glass-card h2 { font-size: 1.15rem; }
+    .glass-card p, .glass-card ul { font-size: 0.88rem; }
+    .cta-section h2 { font-size: 1.5rem; }
+    .brochure-btn-glass { padding: 10px 20px; font-size: 0.85rem; }
+}
+
+/* ========================================
+   Cards institucionales (pages/institucional.html)
+   .value-card, .authority-card y .regulation-item comparten fondo + padding + radio;
+   antes repetían esos 3 valores en cada regla. Sólo cambian los valores vía custom
+   properties, cada card sigue viéndose igual que antes.
+   ======================================== */
+.value-card, .authority-card, .regulation-item {
+    background: var(--card-bg, var(--color-surface));
+    padding: var(--card-padding, var(--space-5));
+    border-radius: var(--card-radius, var(--radius-md));
+}
+.value-card {
+    --card-bg: var(--color-background);
+    text-align: center;
+    font-weight: var(--weight-semibold);
+    color: var(--color-primary);
+    font-size: var(--text-sm);
+}
+.authority-card {
+    --card-padding: var(--space-6);
+    --card-radius: var(--radius-lg);
+    text-align: center;
+}
+.authority-card h3 { color: var(--color-primary); margin-bottom: var(--space-2); }
+.authority-card p { color: var(--color-text-muted); font-size: var(--text-sm); }
+.regulation-item {
+    --card-padding: var(--space-4);
+    border-left: 3px solid var(--color-primary);
+}
+.regulation-item a { color: var(--color-primary); text-decoration: none; }
+.regulation-item a:hover { text-decoration: underline; }
