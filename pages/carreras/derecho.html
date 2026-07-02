@@ -16,7 +16,7 @@
             <a href="../../index.html" class="logo">
                 <img src="../../images/logo-uap.png" alt="UAP – Universidad Autónoma del Paraguay" class="logo-img">
             </a>
-            <button class="mobile-menu-btn" >&#9776;</button>
+            <button class="mobile-menu-btn">&#9776;</button>
             <nav>
                 <ul class="nav">
                     <li><a href="../../index.html">Inicio</a></li>
@@ -72,7 +72,7 @@
                     <li class="dropdown">
                         <a href="../institucional.html">Institucional</a>
                         <div class="dropdown-content">
-                            <a href="../institucional.html">Misión, Visión y Valores</a>
+                            <a href="../institucional.html#mision">Misión, Visión y Valores</a>
                             <a href="../institucional.html#autoridades">Autoridades</a>
                             <a href="../institucional.html#convenios">Convenios</a>
                             <a href="../institucional.html#reglamentos">Reglamentos</a>
@@ -103,6 +103,8 @@
         </ol>
       </div>
     </nav>
+
+    <main id="main-content">
 
     <!-- HERO -->
     <section class="career-hero-glass" style="--hero-image: url('../../images/heroes/derecho.jpg')">
@@ -174,56 +176,56 @@ derechos humanos.</p>
         <div class="container">
             <div class="malla-section">
                 <h2 style="color: #003366; text-align: center; font-size: 1.6rem; margin-bottom: 24px;">Plan de Estudios</h2>
-                <div class="malla-tabs" id="malla-tabs">
-                    <button class="malla-tab active" data-sem="0">1°° Semestre</button>
-                    <button class="malla-tab" data-sem="1">2°° Semestre</button>
-                    <button class="malla-tab" data-sem="2">3°° Semestre</button>
-                    <button class="malla-tab" data-sem="3">4°° Semestre</button>
-                    <button class="malla-tab" data-sem="4">5°° Semestre</button>
-                    <button class="malla-tab" data-sem="5">6°° Semestre</button>
-                    <button class="malla-tab" data-sem="6">7°° Semestre</button>
-                    <button class="malla-tab" data-sem="7">8°° Semestre</button>
+                <div class="malla-tabs" id="malla-tabs" role="tablist" aria-label="Plan de estudios por semestre">
+                    <button class="malla-tab active" data-sem="0" role="tab" id="malla-tab-0" aria-controls="malla-panel-0" aria-selected="true" tabindex="0">1°° Semestre</button>
+                    <button class="malla-tab" data-sem="1" role="tab" id="malla-tab-1" aria-controls="malla-panel-1" aria-selected="false" tabindex="-1">2°° Semestre</button>
+                    <button class="malla-tab" data-sem="2" role="tab" id="malla-tab-2" aria-controls="malla-panel-2" aria-selected="false" tabindex="-1">3°° Semestre</button>
+                    <button class="malla-tab" data-sem="3" role="tab" id="malla-tab-3" aria-controls="malla-panel-3" aria-selected="false" tabindex="-1">4°° Semestre</button>
+                    <button class="malla-tab" data-sem="4" role="tab" id="malla-tab-4" aria-controls="malla-panel-4" aria-selected="false" tabindex="-1">5°° Semestre</button>
+                    <button class="malla-tab" data-sem="5" role="tab" id="malla-tab-5" aria-controls="malla-panel-5" aria-selected="false" tabindex="-1">6°° Semestre</button>
+                    <button class="malla-tab" data-sem="6" role="tab" id="malla-tab-6" aria-controls="malla-panel-6" aria-selected="false" tabindex="-1">7°° Semestre</button>
+                    <button class="malla-tab" data-sem="7" role="tab" id="malla-tab-7" aria-controls="malla-panel-7" aria-selected="false" tabindex="-1">8°° Semestre</button>
                 </div>
 <div id="malla-panels">
-                <div class="malla-panel" data-semester="0"><ul><li>Comunicación Oral y Escrita</li>
+                <div class="malla-panel" data-semester="0" role="tabpanel" id="malla-panel-0" aria-labelledby="malla-tab-0" tabindex="0"><ul><li>Comunicación Oral y Escrita</li>
 <li>Guaraní</li>
 <li>Introducción a las Ciencia Jurídicas</li>
 <li>Criminología</li>
 <li>Teoría General del Derecho y del Estado</li></ul></div>
-                <div class="malla-panel" data-semester="1" style="display:none"><ul><li>Inglés</li>
+                <div class="malla-panel" data-semester="1" style="display:none" role="tabpanel" id="malla-panel-1" aria-labelledby="malla-tab-1" tabindex="0"><ul><li>Inglés</li>
 <li>Sociología Jurídica</li>
 <li>Historia de las Instituciones Jurídicas, Políticas y Sociales del Derecho.</li>
 <li>Lógica e Interpretación jurídica</li>
 <li>Medios Alternativos de Solución de Conflictos</li></ul></div>
-                <div class="malla-panel" data-semester="2" style="display:none"><ul><li>Antropología y Filosofía del Derecho</li>
+                <div class="malla-panel" data-semester="2" style="display:none" role="tabpanel" id="malla-panel-2" aria-labelledby="malla-tab-2" tabindex="0"><ul><li>Antropología y Filosofía del Derecho</li>
 <li>Derecho Romano</li>
 <li>Derecho de la Niñez y la Adolescencia</li>
 <li>Finanzas Públicas</li>
 <li>Derecho Constitucional (Nacional y Comparado)</li></ul></div>
-                <div class="malla-panel" data-semester="3" style="display:none"><ul><li>Derechos Humanos (nacional e Internacional)</li>
+                <div class="malla-panel" data-semester="3" style="display:none" role="tabpanel" id="malla-panel-3" aria-labelledby="malla-tab-3" tabindex="0"><ul><li>Derechos Humanos (nacional e Internacional)</li>
 <li>Teoría y Fundamento del Derecho</li>
 <li>Quiebras</li>
 <li>Derecho Administrativo</li>
 <li>Derecho Mercantil</li></ul></div>
-                <div class="malla-panel" data-semester="4" style="display:none"><ul><li>Derecho Procesal Constitucional</li>
+                <div class="malla-panel" data-semester="4" style="display:none" role="tabpanel" id="malla-panel-4" aria-labelledby="malla-tab-4" tabindex="0"><ul><li>Derecho Procesal Constitucional</li>
 <li>Derecho Civil I: Personas, Familias y Reales</li>
 <li>Derecho Penal I (general y Especial)</li>
 <li>Derecho laboral y de Seguridad Social</li>
 <li>Derecho Internacional (Públicos y Privados)</li>
 <li>Argumentación Jurídica y Análisis de la Jurisprudencia</li></ul></div>
-                <div class="malla-panel" data-semester="5" style="display:none"><ul><li>Derecho Civil II: Hechos, Actos Jurídicos y Obligaciones</li>
+                <div class="malla-panel" data-semester="5" style="display:none" role="tabpanel" id="malla-panel-5" aria-labelledby="malla-tab-5" tabindex="0"><ul><li>Derecho Civil II: Hechos, Actos Jurídicos y Obligaciones</li>
 <li>Derecho Probatorio</li>
 <li>Derecho Tributario</li>
 <li>Derecho Procesal Laboral</li>
 <li>Técnicas de Litigación Oral</li>
 <li>Tecnología de la Información y la Comunicación</li></ul></div>
-                <div class="malla-panel" data-semester="6" style="display:none"><ul><li>Derecho Civil III: Contratos y Sucesiones</li>
+                <div class="malla-panel" data-semester="6" style="display:none" role="tabpanel" id="malla-panel-6" aria-labelledby="malla-tab-6" tabindex="0"><ul><li>Derecho Civil III: Contratos y Sucesiones</li>
 <li>Derecho Procesal Civil (general y Especial)</li>
 <li>Derecho Intelectual y de la Propiedad</li>
 <li>Derecho Procesal Penal</li>
 <li>Metodología de la Investigación</li>
 <li>Técnica Legislativa o Jurídica: Tramitación de Juicios y Consultorio Jurídico</li></ul></div>
-                <div class="malla-panel" data-semester="7" style="display:none"><ul><li>Optativa I</li>
+                <div class="malla-panel" data-semester="7" style="display:none" role="tabpanel" id="malla-panel-7" aria-labelledby="malla-tab-7" tabindex="0"><ul><li>Optativa I</li>
 <li>Optativa II</li>
 <li>Práctica Forense (Actuaciones Escritas y Orales)</li>
 <li>Pasantía Profesional Supervisada</li>
@@ -240,10 +242,12 @@ derechos humanos.</p>
             <h2 style="color: white; text-align: center; border: none;">Solicita información</h2>
             <p style="color: rgba(255,255,255,0.85); text-align: center; margin-bottom: 28px;">Completa el formulario y un asesor se contactará contigo.</p>
             <div style="background: rgba(255,255,255,0.95); border-radius: 16px; padding: 8px;">
+                <script>(function(){var p=new URLSearchParams(window.location.search);p.set('utm_source','web-uap');p.set('utm_medium','formulario');p.set('utm_campaign','derecho');history.replaceState(null,'',window.location.pathname+'?'+p.toString()+window.location.hash);})();</script>
                 <script data-b24-form="inline/61/hi7fex" data-skip-moving="true">(function(w,d,u){var s=d.createElement('script');s.async=true;s.src=u+'?'+(Date.now()/180000|0);var h=d.getElementsByTagName('script')[0];h.parentNode.insertBefore(s,h);})(window,document,'https://cdn.bitrix24.es/b23715511/crm/form/loader_61.js');</script>
             </div>
         </div>
     </section>
+    </main>
     <!-- Footer institucional -->
     <footer style="background: #002244; color: white; padding: 56px 0 0;">
         <div class="container">

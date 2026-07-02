@@ -222,10 +222,6 @@
         .news-image img { width: 100%; height: 100%; object-fit: cover; }
         .career-icon { width: 48px; height: 48px; background: var(--color-background); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; margin: 0 auto var(--space-4); }
         .career-icon img { width: 28px; height: 28px; object-fit: contain; }
-        .icon-box { display: inline-flex; align-items: center; gap: var(--space-2); }
-        .icon-sm { width: 16px; height: 16px; vertical-align: middle; }
-        .footer-contact { display: flex; flex-direction: column; gap: var(--space-2); margin-top: var(--space-4); font-size: var(--text-sm); }
-        .footer-contact .icon-box { color: var(--color-text-muted); }
     </style>
 </head>
 <body>
@@ -233,50 +229,40 @@
 
     <header class="header" style="position: relative;">
         <div class="container header-inner">
-            <a href="index.html" class="logo">
-                <img src="images/logo-uap.png" alt="UAP – Universidad Autónoma del Paraguay" class="logo-img">
-            </a>
+            <a href="index.html" class="logo"><img src="images/logo-uap.png" alt="UAP – Universidad Autónoma del Paraguay" class="logo-img"></a>
             <button class="mobile-menu-btn">☰</button>
             <nav>
                 <ul class="nav">
                     <li><a href="index.html" class="nav-active">Inicio</a></li>
                     <li class="dropdown">
                         <a href="pages/carreras.html">Carreras</a>
-                        <div class="dropdown-content careers-dropdown">
-                            <div class="careers-grid-3col">
-                                <div>
-                                    <div class="dropdown-faculty">Ciencias Médicas y de la Salud</div>
-                                    <a href="pages/carreras/podologia.html">Podología</a>
-                                    <a href="pages/carreras/optica-y-contactologia.html">Óptica y Contactología</a>
-                                    <a href="pages/carreras/fisioterapia.html">Fisioterapia</a>
-                                    <a href="pages/carreras/fonoaudiologia.html">Fonoaudiología</a>
-                                    <a href="pages/carreras/psicologia.html">Psicología</a>
-                                    <a href="pages/carreras/nutricion.html">Nutrición</a>
-                                    <a href="pages/carreras/odontologia.html">Odontología</a>
-                                </div>
-                                <div>
-                                    <div class="dropdown-faculty">Ingenierías y Tecnologías</div>
-                                    <a href="pages/carreras/ingenieria-en-informatica.html">Ingeniería en Informática</a>
-                                    <a href="pages/carreras/ingenieria-en-tecnologia-de-alimentos.html">Ingeniería en Tecnología de Alimentos</a>
-                                    <a href="pages/carreras/ingenieria-comercial.html">Ingeniería Comercial</a>
-                                    <a href="pages/carreras/ingenieria-en-comercio-internacional.html">Ingeniería en Comercio Internacional</a>
-                                    <a href="pages/carreras/ingenieria-en-marketing.html">Ingeniería en Marketing</a>
-                                </div>
-                                <div>
-                                    <div class="dropdown-faculty">Ciencias Sociales y Humanas</div>
-                                    <a href="pages/carreras/periodismo.html">Periodismo</a>
-                                    <a href="pages/carreras/ciencias-de-la-educacion.html">Ciencias de la Educación</a>
-                                    <a href="pages/carreras/educacion-parvularia.html">Educación Parvularia</a>
-                                    <a href="pages/carreras/derecho.html">Derecho</a>
-                                    <a href="pages/carreras/trabajo-social.html">Trabajo Social</a>
-                                    <a href="pages/carreras/administracion-publica.html">Administración Pública</a>
-                                    <a href="pages/carreras/administracion-de-empresas.html">Administración de Empresas</a>
-                                    <a href="pages/carreras/ciencias-contables.html">Ciencias Contables</a>
-                                    <a href="pages/carreras/contabilidad-y-auditoria.html">Contabilidad y Auditoría</a>
-                                    <a href="pages/carreras/contaduria-publica.html">Contaduría Pública</a>
-                                    <a href="pages/carreras/marketing-y-publicidad.html">Marketing y Publicidad</a>
-                                </div>
-                            </div>
+                        <div class="dropdown-content">
+                            <div class="dropdown-faculty">Facultad de Ciencias Médicas y de la Salud</div>
+                            <a href="pages/carreras/podologia.html">Podología</a>
+                            <a href="pages/carreras/optica-y-contactologia.html">Óptica y Contactología</a>
+                            <a href="pages/carreras/fisioterapia.html">Fisioterapia</a>
+                            <a href="pages/carreras/fonoaudiologia.html">Fonoaudiología</a>
+                            <a href="pages/carreras/psicologia.html">Psicología</a>
+                            <a href="pages/carreras/nutricion.html">Nutrición</a>
+                            <a href="pages/carreras/odontologia.html">Odontología</a>
+                            <div class="dropdown-faculty">Facultad de Ingenierías y Tecnologías</div>
+                            <a href="pages/carreras/ingenieria-en-informatica.html">Ingeniería en Informática</a>
+                            <a href="pages/carreras/ingenieria-en-tecnologia-de-alimentos.html">Ingeniería en Tecnología de Alimentos</a>
+                            <div class="dropdown-faculty">Facultad de Ciencias Sociales y Humanas</div>
+                            <a href="pages/carreras/periodismo.html">Periodismo</a>
+                            <a href="pages/carreras/ciencias-de-la-educacion.html">Ciencias de la Educación</a>
+                            <a href="pages/carreras/educacion-parvularia.html">Educación Parvularia</a>
+                            <a href="pages/carreras/derecho.html">Derecho</a>
+                            <a href="pages/carreras/trabajo-social.html">Trabajo Social</a>
+                            <a href="pages/carreras/administracion-publica.html">Administración Pública</a>
+                            <a href="pages/carreras/administracion-de-empresas.html">Administración de Empresas</a>
+                            <a href="pages/carreras/ciencias-contables.html">Ciencias Contables</a>
+                            <a href="pages/carreras/contabilidad-y-auditoria.html">Contabilidad y Auditoría</a>
+                            <a href="pages/carreras/contaduria-publica.html">Contaduría Pública</a>
+                            <a href="pages/carreras/marketing-y-publicidad.html">Marketing y Publicidad</a>
+                            <a href="pages/carreras/ingenieria-comercial.html">Ingeniería Comercial</a>
+                            <a href="pages/carreras/ingenieria-en-comercio-internacional.html">Ingeniería en Comercio Internacional</a>
+                            <a href="pages/carreras/ingenieria-en-marketing.html">Ingeniería en Marketing</a>
                         </div>
                     </li>
                     <li class="dropdown">
@@ -292,7 +278,7 @@
                     <li class="dropdown">
                         <a href="pages/institucional.html">Institucional</a>
                         <div class="dropdown-content">
-                            <a href="pages/institucional.html">Misión, Visión y Valores</a>
+                            <a href="pages/institucional.html#mision">Misión, Visión y Valores</a>
                             <a href="pages/institucional.html#autoridades">Autoridades</a>
                             <a href="pages/institucional.html#convenios">Convenios</a>
                             <a href="pages/institucional.html#reglamentos">Reglamentos</a>
@@ -400,7 +386,7 @@
                 <div class="partners-marquee">
                     <div class="partners-track">
                         <a href="https://www.uautonoma.cl" target="_blank" rel="noopener" class="partner-slide">
-                            <img src="images/logo-uautonoma-chile.png" alt="Universidad Autónoma de Chile" loading="lazy">
+                            <img src="images/logo-uautonoma-chile.png" alt="" loading="lazy">
                             <span>Universidad Autónoma de Chile</span>
                         </a>
                         <a href="https://carver.university" target="_blank" rel="noopener" class="partner-slide">
@@ -435,7 +421,7 @@
                         </a>
                         <!-- Duplicados para loop infinito -->
                         <a href="https://www.uautonoma.cl" target="_blank" rel="noopener" class="partner-slide">
-                            <img src="images/logo-uautonoma-chile.png" alt="Universidad Autónoma de Chile" loading="lazy">
+                            <img src="images/logo-uautonoma-chile.png" alt="" loading="lazy">
                             <span>Universidad Autónoma de Chile</span>
                         </a>
                         <a href="https://carver.university" target="_blank" rel="noopener" class="partner-slide">
@@ -753,7 +739,7 @@
                     <p>Descubrí todas las oportunidades que tenemos para tu formación académica y profesional.</p>
                     <div style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center;">
                         <a href="pages/inscripcion.html" class="btn btn-accent btn-lg">Inscribite ahora</a>
-                        <a href="pages/contacto.html" class="btn btn-outline btn-lg">Solicitar información</a>
+                        <a href="pages/contacto.html" class="btn btn-outline btn-lg">Solicita información</a>
                     </div>
                 </div>
             </div>

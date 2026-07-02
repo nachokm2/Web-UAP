@@ -16,7 +16,7 @@
             <a href="../../index.html" class="logo">
                 <img src="../../images/logo-uap.png" alt="UAP – Universidad Autónoma del Paraguay" class="logo-img">
             </a>
-            <button class="mobile-menu-btn" >&#9776;</button>
+            <button class="mobile-menu-btn">&#9776;</button>
             <nav>
                 <ul class="nav">
                     <li><a href="../../index.html">Inicio</a></li>
@@ -72,7 +72,7 @@
                     <li class="dropdown">
                         <a href="../institucional.html">Institucional</a>
                         <div class="dropdown-content">
-                            <a href="../institucional.html">Misión, Visión y Valores</a>
+                            <a href="../institucional.html#mision">Misión, Visión y Valores</a>
                             <a href="../institucional.html#autoridades">Autoridades</a>
                             <a href="../institucional.html#convenios">Convenios</a>
                             <a href="../institucional.html#reglamentos">Reglamentos</a>
@@ -103,6 +103,8 @@
         </ol>
       </div>
     </nav>
+
+    <main id="main-content">
 
     <!-- HERO -->
     <section class="career-hero-glass" style="--hero-image: url('../../images/heroes/parvularia.jpg')">
@@ -172,57 +174,57 @@
         <div class="container">
             <div class="malla-section">
                 <h2 style="color: #003366; text-align: center; font-size: 1.6rem; margin-bottom: 24px;">Plan de Estudios</h2>
-                <div class="malla-tabs" id="malla-tabs">
-                    <button class="malla-tab active" data-sem="0">1°° Semestre</button>
-                    <button class="malla-tab" data-sem="1">2°° Semestre</button>
-                    <button class="malla-tab" data-sem="2">3°° Semestre</button>
-                    <button class="malla-tab" data-sem="3">4°° Semestre</button>
-                    <button class="malla-tab" data-sem="4">5°° Semestre</button>
-                    <button class="malla-tab" data-sem="5">6°° Semestre</button>
-                    <button class="malla-tab" data-sem="6">7°° Semestre</button>
-                    <button class="malla-tab" data-sem="7">8°° Semestre</button>
+                <div class="malla-tabs" id="malla-tabs" role="tablist" aria-label="Plan de estudios por semestre">
+                    <button class="malla-tab active" data-sem="0" role="tab" id="malla-tab-0" aria-controls="malla-panel-0" aria-selected="true" tabindex="0">1°° Semestre</button>
+                    <button class="malla-tab" data-sem="1" role="tab" id="malla-tab-1" aria-controls="malla-panel-1" aria-selected="false" tabindex="-1">2°° Semestre</button>
+                    <button class="malla-tab" data-sem="2" role="tab" id="malla-tab-2" aria-controls="malla-panel-2" aria-selected="false" tabindex="-1">3°° Semestre</button>
+                    <button class="malla-tab" data-sem="3" role="tab" id="malla-tab-3" aria-controls="malla-panel-3" aria-selected="false" tabindex="-1">4°° Semestre</button>
+                    <button class="malla-tab" data-sem="4" role="tab" id="malla-tab-4" aria-controls="malla-panel-4" aria-selected="false" tabindex="-1">5°° Semestre</button>
+                    <button class="malla-tab" data-sem="5" role="tab" id="malla-tab-5" aria-controls="malla-panel-5" aria-selected="false" tabindex="-1">6°° Semestre</button>
+                    <button class="malla-tab" data-sem="6" role="tab" id="malla-tab-6" aria-controls="malla-panel-6" aria-selected="false" tabindex="-1">7°° Semestre</button>
+                    <button class="malla-tab" data-sem="7" role="tab" id="malla-tab-7" aria-controls="malla-panel-7" aria-selected="false" tabindex="-1">8°° Semestre</button>
                 </div>
 <div id="malla-panels">
-                <div class="malla-panel" data-semester="0"><ul><li>Comunicación Oral y Escrita</li>
+                <div class="malla-panel" data-semester="0" role="tabpanel" id="malla-panel-0" aria-labelledby="malla-tab-0" tabindex="0"><ul><li>Comunicación Oral y Escrita</li>
 <li>Metodología del Trabajo Intelectual</li>
 <li>Guaraní</li>
 <li>Psicología General y Evolutiva</li>
 <li>Historia de la Educación</li></ul></div>
-                <div class="malla-panel" data-semester="1" style="display:none"><ul><li>Tecnología Educativa como Recurso Didáctico</li>
+                <div class="malla-panel" data-semester="1" style="display:none" role="tabpanel" id="malla-panel-1" aria-labelledby="malla-tab-1" tabindex="0"><ul><li>Tecnología Educativa como Recurso Didáctico</li>
 <li>Fundamentos Filosóficos, Antropológicos y Sociológicos del Desarrollo</li>
 <li>Fundamento Biofisiológico del Desarrollo y del Aprendizaje</li>
 <li>Psicología de las Personas con Discapacidad y Educación Inclusiva</li>
 <li>Inglés</li></ul></div>
-                <div class="malla-panel" data-semester="2" style="display:none"><ul><li>Administración y gestión Educativa</li>
+                <div class="malla-panel" data-semester="2" style="display:none" role="tabpanel" id="malla-panel-2" aria-labelledby="malla-tab-2" tabindex="0"><ul><li>Administración y gestión Educativa</li>
 <li>Fundamentos Filosóficos, Antropológicos y Sociológicos del Aprendizaje</li>
 <li>Aprendizaje y Desarrollo en Contextos Educativos</li>
 <li>Bases para la Didáctica y Evaluación del Aprendizaje</li>
 <li>Introducción a la Educación Parvularia</li>
 <li>Identidad y Rol del Docente (Seminario)</li></ul></div>
-                <div class="malla-panel" data-semester="3" style="display:none"><ul><li>Cuidado y Promoción de la Salud del Infante</li>
+                <div class="malla-panel" data-semester="3" style="display:none" role="tabpanel" id="malla-panel-3" aria-labelledby="malla-tab-3" tabindex="0"><ul><li>Cuidado y Promoción de la Salud del Infante</li>
 <li>Curriculum de la Educación Parvularia</li>
 <li>Psicomotricidad</li>
 <li>Fundamentos Curriculares y de la Evaluación</li>
 <li>Formación Ciudadana, Derechos y Deberes</li>
 <li>Cultura Escolar (Seminario)</li></ul></div>
-                <div class="malla-panel" data-semester="4" style="display:none"><ul><li>Modelos Psicopedagógicos de Atención Primaria, de Atención Integral a la Primera Infancia</li>
+                <div class="malla-panel" data-semester="4" style="display:none" role="tabpanel" id="malla-panel-4" aria-labelledby="malla-tab-4" tabindex="0"><ul><li>Modelos Psicopedagógicos de Atención Primaria, de Atención Integral a la Primera Infancia</li>
 <li>Didáctica de la Lengua y Literatura Infantil</li>
 <li>Neurociencia y Educación Temprana</li>
 <li>Didáctica de la Educación Parvularia I</li>
 <li>Didáctica de la Matemática en Educación Inicial</li>
 <li>Práctica Inicial</li></ul></div>
-                <div class="malla-panel" data-semester="5" style="display:none"><ul><li>Didáctica de la Educación Parvularia II</li>
+                <div class="malla-panel" data-semester="5" style="display:none" role="tabpanel" id="malla-panel-5" aria-labelledby="malla-tab-5" tabindex="0"><ul><li>Didáctica de la Educación Parvularia II</li>
 <li>Lenguajes Expresivos y sus Didácticas I: Corporal y Plástica</li>
 <li>Política y Gestión para el Mejoramiento Educativo</li>
 <li>Didáctica de la Iniciación al Medio Natural, Social y Cultural</li>
 <li>Pensamiento Científico</li>
 <li>Practica Intermedia</li></ul></div>
-                <div class="malla-panel" data-semester="6" style="display:none"><ul><li>Lenguajes expresivos y sus didácticas II: Musical y literaria</li>
+                <div class="malla-panel" data-semester="6" style="display:none" role="tabpanel" id="malla-panel-6" aria-labelledby="malla-tab-6" tabindex="0"><ul><li>Lenguajes expresivos y sus didácticas II: Musical y literaria</li>
 <li>Metodología de Investigación Educativa</li>
 <li>Liderazgo y gestión Educativa</li>
 <li>Optativa I</li>
 <li>Práctica Profesional Supervisada I</li></ul></div>
-                <div class="malla-panel" data-semester="7" style="display:none"><ul><li>Investigación en Educación Inicial</li>
+                <div class="malla-panel" data-semester="7" style="display:none" role="tabpanel" id="malla-panel-7" aria-labelledby="malla-tab-7" tabindex="0"><ul><li>Investigación en Educación Inicial</li>
 <li>Ambientes Educativos Inclusivos</li>
 <li>Optativa II</li>
 <li>Práctica Profesional Supervisada</li>
@@ -239,10 +241,12 @@
             <h2 style="color: white; text-align: center; border: none;">Solicita información</h2>
             <p style="color: rgba(255,255,255,0.85); text-align: center; margin-bottom: 28px;">Completa el formulario y un asesor se contactará contigo.</p>
             <div style="background: rgba(255,255,255,0.95); border-radius: 16px; padding: 8px;">
+                <script>(function(){var p=new URLSearchParams(window.location.search);p.set('utm_source','web-uap');p.set('utm_medium','formulario');p.set('utm_campaign','educacion-parvularia');history.replaceState(null,'',window.location.pathname+'?'+p.toString()+window.location.hash);})();</script>
                 <script data-b24-form="inline/61/hi7fex" data-skip-moving="true">(function(w,d,u){var s=d.createElement('script');s.async=true;s.src=u+'?'+(Date.now()/180000|0);var h=d.getElementsByTagName('script')[0];h.parentNode.insertBefore(s,h);})(window,document,'https://cdn.bitrix24.es/b23715511/crm/form/loader_61.js');</script>
             </div>
         </div>
     </section>
+    </main>
     <!-- Footer institucional -->
     <footer style="background: #002244; color: white; padding: 56px 0 0;">
         <div class="container">
