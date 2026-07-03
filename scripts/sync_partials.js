@@ -70,6 +70,7 @@ function processFile(file, template, tokens, activeFilename) {
 
 const headerTpl = fs.readFileSync(path.join(ROOT_DIR, 'partials', 'header.html'), 'utf-8');
 const headerCareerTpl = fs.readFileSync(path.join(ROOT_DIR, 'partials', 'header-career.html'), 'utf-8');
+const headerPosgradoTpl = fs.readFileSync(path.join(ROOT_DIR, 'partials', 'header-posgrado.html'), 'utf-8');
 
 let updated = 0;
 
@@ -86,6 +87,15 @@ for (const f of fs.readdirSync(path.join(ROOT_DIR, 'pages'))) {
 for (const f of fs.readdirSync(path.join(ROOT_DIR, 'pages', 'carreras'))) {
   if (!f.endsWith('.html')) continue;
   if (processFile(path.join(ROOT_DIR, 'pages', 'carreras', f), headerCareerTpl, { ROOT: '../../', PAGES: '../' }, f)) updated++;
+}
+
+// pages/posgrados/*.html (landings de programas de posgrado)
+const posgradoDir = path.join(ROOT_DIR, 'pages', 'posgrados');
+if (fs.existsSync(posgradoDir)) {
+  for (const f of fs.readdirSync(posgradoDir)) {
+    if (!f.endsWith('.html')) continue;
+    if (processFile(path.join(posgradoDir, f), headerPosgradoTpl, { ROOT: '../../', PAGES: '../' }, f)) updated++;
+  }
 }
 
 console.log('Archivos actualizados:', updated);

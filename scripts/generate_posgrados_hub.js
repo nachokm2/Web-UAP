@@ -29,15 +29,19 @@ function card(p) {
   const badge = BADGE_CLASS[p.tipo] || '';
   const meta = [p.duracion, p.modalidad].filter(Boolean).join(' · ');
   const desc = truncate(p.descripcion, 150);
+  const landingHref = `posgrados/${esc(p.slug)}.html`;
   const brochure = p.brochure_url
-    ? `<a href="${esc(p.brochure_url)}" class="posgrado-brochure-link" target="_blank" rel="noopener">Descargar Brochure</a>`
+    ? `<a href="${esc(p.brochure_url)}" class="posgrado-brochure-link" target="_blank" rel="noopener" style="margin-top: 0;">Descargar Brochure</a>`
     : '';
   return `                        <div class="career-card">
                             <div class="posgrado-badge ${badge}">${esc(p.tipo)}</div>
-                            <h3>${esc(p.nombre)}</h3>
+                            <h3><a href="${landingHref}" style="color: inherit; text-decoration: none;">${esc(p.nombre)}</a></h3>
                             ${meta ? `<p class="posgrado-meta">${esc(meta)}</p>` : ''}
                             ${desc ? `<p>${esc(desc)}</p>` : ''}
-                            ${brochure}
+                            <div style="display: flex; gap: 16px; flex-wrap: wrap; align-items: center; margin-top: var(--space-3);">
+                                <a href="${landingHref}" class="posgrado-brochure-link" style="margin-top: 0;">Ver programa →</a>
+                                ${brochure}
+                            </div>
                         </div>`;
 }
 
