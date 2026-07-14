@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -c \"import json; d=json.load\\(open\\('data/posgrados.json',encoding='utf-8'\\)\\); print\\(type\\(d\\)\\); print\\(list\\(d.keys\\(\\)\\) if isinstance\\(d,dict\\) else len\\(d\\)\\)\")",
+      "Bash(py --version)",
+      "Bash(py -c \"import pdfplumber; print\\('pdfplumber ok'\\)\")",
+      "Bash(py -c \"import pypdf; print\\('pypdf ok'\\)\")",
+      "Bash(py -c \"import fitz; print\\('fitz ok'\\)\")",
+      "PowerShell(python --version)",
+      "PowerShell(python -c \"import pdfplumber; print\\('pdfplumber ok'\\)\" 2>$null)",
+      "PowerShell(python -c \"import fitz; print\\('fitz ok'\\)\" 2>$null)",
+      "PowerShell(python -c \"import pypdf; print\\('pypdf ok'\\)\" 2>$null)",
+      "PowerShell(python -c \"import PyPDF2; print\\('PyPDF2 ok'\\)\" 2>$null)",
+      "Bash(npm init *)",
+      "Bash(npm install *)",
+      "Bash(node -e ' *)"
+    ]
+  }
+}

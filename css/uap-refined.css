@@ -1740,6 +1740,26 @@ h4 {
 .career-hero-glass h1 { font-size: 2.8rem; font-weight: 800; margin-bottom: 12px; letter-spacing: -0.5px; }
 .career-hero-glass .hero-subtitle { font-size: 1.1rem; line-height: 1.7; max-width: 700px; opacity: 0.92; }
 
+/* Variante ".hero-photo": hero de programas de posgrado con foto de fondo visible.
+   El overlay es más ligero que el de las carreras para que la imagen SE NOTE detrás
+   del título, manteniéndolo legible (más oscuro a la izquierda, donde va el texto,
+   y hacia abajo, donde están las info-pills). No afecta a las páginas de carreras. */
+.career-hero-glass.hero-photo {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-blend-mode: normal;
+}
+.career-hero-glass.hero-photo::before {
+    background:
+        linear-gradient(90deg, rgba(0,20,45,0.62) 0%, rgba(0,20,45,0.32) 42%, rgba(0,20,45,0.12) 74%, rgba(0,20,45,0.04) 100%),
+        linear-gradient(180deg, rgba(0,20,45,0) 45%, rgba(0,20,45,0.42) 100%);
+}
+/* Sombra fuerte en el texto: hace el trabajo de contraste para que el título se lea
+   aunque el overlay sea ligero y la foto quede bien visible. */
+.career-hero-glass.hero-photo h1 { text-shadow: 0 2px 4px rgba(0,10,25,0.9), 0 4px 22px rgba(0,10,25,0.75); }
+.career-hero-glass.hero-photo .hero-subtitle { text-shadow: 0 1px 3px rgba(0,10,25,0.95), 0 2px 12px rgba(0,10,25,0.8); }
+
 /* Familia "glass card" — .glass-card, .competencia-card y .valor-card comparten el mismo
    patrón visual (fondo translúcido + backdrop-filter); antes eran 3 reglas separadas con los
    mismos 4 valores repetidos. Sólo cambia blur/radio/padding entre variantes, vía custom
