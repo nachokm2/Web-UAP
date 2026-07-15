@@ -1891,3 +1891,32 @@ h4 {
 }
 .regulation-item a { color: var(--color-primary); text-decoration: none; }
 .regulation-item a:hover { text-decoration: underline; }
+
+
+.hero-clean {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 500px; /* Altura fija ideal para que no se vea gigante */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-video-bg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center; /* Fuerza a que el centro del video/imagen siempre quede visible */
+}
+
+.carousel-slide {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%; /* Toma el alto de .hero-clean (ej: 500px) */
+    background-image: none !important; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
