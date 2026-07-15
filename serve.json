@@ -1,4 +1,11 @@
 {
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/wp-content/uploads/:restoDeLaRuta*",
+      "destination": "/pages/institucional#reglamentos",
+      "type": 301
+    }
+  ]
 }
