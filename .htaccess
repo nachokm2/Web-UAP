@@ -1,0 +1,97 @@
+# UAP - Universidad Autónoma del Paraguay
+# Configuración para SiteGround (Apache) - URLs limpias equivalentes a uap.edu.py
+
+DirectoryIndex index.html
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # ---------------------------------------------------------------
+    # URLs planas identicas al sitio actual (uap.edu.py usa WordPress
+    # con permalinks planos en la raiz, ej: /diplomado-en-mindfulness/,
+    # /podologia/ — NO /posgrados/{slug}/ ni /carreras/{slug}/).
+    # ---------------------------------------------------------------
+
+    # Alias explicitos: slugs del sitio viejo que NO coinciden con el
+    # nombre de archivo nuevo (confirmado contra el sitemap real de
+    # uap.edu.py). Van antes de la regla generica para tener prioridad.
+    RewriteRule ^python-y-data-science/?$ pages/posgrados/diplomado-en-python-and-data-science.html [L]
+    RewriteRule ^neurorehabilitacion-infantil-e-integracion-sensorial/?$ pages/posgrados/diplomado-internacional-en-neurorrehabilitacion-infantil-e-integracion-sensorial.html [L]
+    RewriteRule ^urgencias-hospitalarias/?$ pages/posgrados/diplomado-en-urgencias-hospitalarias.html [L]
+    RewriteRule ^diplomado-en-trastorno-del-espectroautista-tea/?$ pages/posgrados/diplomado-trastorno-del-espectro-autista-tea.html [L]
+    RewriteRule ^ingenieria-informatica/?$ pages/carreras/ingenieria-en-informatica.html [L]
+    RewriteRule ^contador-publico/?$ pages/carreras/contaduria-publica.html [L]
+    RewriteRule ^comercio-internacional/?$ pages/carreras/ingenieria-en-comercio-internacional.html [L]
+
+    # El sitio viejo usa "/postgrados/" (con t); el nuevo usa "posgrados.html".
+    RewriteRule ^postgrados/?$ pages/posgrados.html [L]
+    # Subsecciones del listado de posgrados del sitio viejo -> anclas en la pagina nueva.
+    RewriteRule ^doctorado/?$ pages/posgrados.html#doctorados [L,R=301]
+    RewriteRule ^maestrias/?$ pages/posgrados.html#maestrias [L,R=301]
+    RewriteRule ^todas-las-especializaciones/?$ pages/posgrados.html#especializaciones [L,R=301]
+
+    # /carreras/  ->  pages/carreras.html
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^carreras/?$ pages/carreras.html [L]
+
+    # /posgrados/  ->  pages/posgrados.html
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^posgrados/?$ pages/posgrados.html [L]
+
+    # Paginas institucionales de primer nivel
+    # /institucional/, /contacto/, /estudiantes/, /inscripcion/, /investigacion/, /noticias/, /privacidad/
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^(institucional|contacto|estudiantes|inscripcion|investigacion|noticias|privacidad)/?$ pages/$1.html [L]
+
+    # Regla generica: cualquier slug plano en la raiz que coincida con un
+    # archivo real en pages/posgrados/ o pages/carreras/ se sirve ahi,
+    # replicando la URL plana del sitio viejo sin necesitar un alias por
+    # cada programa/carrera (autosuficiente para nuevas paginas futuras).
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{DOCUMENT_ROOT}/pages/posgrados/$1.html -f
+    RewriteRule ^([a-z0-9-]+)/?$ pages/posgrados/$1.html [L]
+
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{DOCUMENT_ROOT}/pages/carreras/$1.html -f
+    RewriteRule ^([a-z0-9-]+)/?$ pages/carreras/$1.html [L]
+
+    # Compatibilidad: tambien se aceptan las rutas con prefijo
+    # /carreras/{slug}/ y /posgrados/{slug}/ por si se enlazan asi.
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^carreras/([a-z0-9-]+)/?$ pages/carreras/$1.html [L]
+
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^posgrados/([a-z0-9-]+)/?$ pages/posgrados/$1.html [L]
+</IfModule>
+
+# ---------------------------------------------------------------
+# Cabeceras de seguridad (equivalentes a las definidas en vercel.json)
+# ---------------------------------------------------------------
+<IfModule mod_headers.c>
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.bitrix24.es; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.bitrix24.es; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https:; connect-src 'self' https://*.bitrix24.es; frame-src 'self' https://*.bitrix24.es; frame-ancestors 'none'; form-action 'self' https://*.bitrix24.es; base-uri 'self'; object-src 'none';"
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+    Header always set X-Frame-Options "DENY"
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+</IfModule>
+
+# ---------------------------------------------------------------
+# Caché de assets estáticos
+# ---------------------------------------------------------------
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType application/pdf "access plus 1 month"
+</IfModule>
+
+<IfModule mod_headers.c>
+    <FilesMatch "\.(css|png|jpe?g|svg|webp|gif)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+</IfModule>
