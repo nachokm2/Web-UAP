@@ -2,6 +2,22 @@
     'use strict';
 
     document.addEventListener('DOMContentLoaded', function () {
+        var brochureBtns = document.querySelectorAll('[data-brochure-id]');
+        brochureBtns.forEach(function (brochureBtn) {
+            var mediaId = brochureBtn.getAttribute('data-brochure-id');
+            fetch('https://uap.edu.py/wp-json/wp/v2/media/' + mediaId + '?_fields=source_url')
+                .then(function (r) { return r.ok ? r.json() : null; })
+                .then(function (data) {
+                    if (data && data.source_url) {
+                        brochureBtn.href = data.source_url;
+                        brochureBtn.removeAttribute('aria-disabled');
+                    }
+                })
+                .catch(function () { /* el boton queda deshabilitado si falla la carga */ });
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
         var tabsContainer = document.getElementById('malla-tabs');
         if (!tabsContainer) return;
 
