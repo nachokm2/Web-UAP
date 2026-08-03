@@ -15,7 +15,7 @@
                 var isActive = nav.classList.toggle('active');
                 menuBtn.setAttribute('aria-expanded', String(isActive));
                 menuBtn.setAttribute('aria-label', isActive ? 'Cerrar menú de navegación' : 'Abrir menú de navegación');
-                if (window.innerWidth <= 1100) {
+                if (window.innerWidth <= 1200) {
                     document.querySelectorAll('.careers-grid-3col').forEach(function (g) {
                         g.style.gridTemplateColumns = '1fr';
                         g.style.gap = '0';
@@ -35,7 +35,7 @@
 
         document.querySelectorAll('.nav .dropdown > a').forEach(function (link) {
             link.addEventListener('click', function (e) {
-                if (window.innerWidth <= 1100) {
+                if (window.innerWidth <= 1200) {
                     e.preventDefault();
                     var li = this.parentElement;
                     var isActive = li.classList.contains('active');

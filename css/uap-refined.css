@@ -282,6 +282,8 @@ h4 {
 
 .nav {
     display: flex;
+    justify-content: flex-end;
+    align-items: center;
     gap: var(--space-4);
     list-style: none;
 }
@@ -301,6 +303,7 @@ h4 {
     transition: color var(--transition-fast);
     position: relative;
     padding: var(--space-2) 0;
+    white-space: nowrap;
 }
 
 .nav a:hover,
@@ -1004,7 +1007,7 @@ h4 {
 /* ========================================
    Responsive
    ======================================== */
-@media (max-width: 1100px) {
+@media (max-width: 1200px) {
     .nav {
         display: none;
     }
@@ -1422,7 +1425,7 @@ h4 {
     padding: var(--space-2);
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 1200px) {
     .header {
         position: relative !important;
         z-index: var(--z-mobile-header);
@@ -1447,6 +1450,7 @@ h4 {
         width: 100%;
         background: var(--color-surface);
         flex-direction: column;
+        justify-content: flex-start;
         padding: var(--space-4);
         box-shadow: var(--shadow-lg);
         z-index: var(--z-mobile-nav);
