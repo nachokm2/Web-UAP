@@ -56,3 +56,7 @@ node_modules/
 # Resultados de Playwright
 /test-results
 /playwright-report
+
+# Migración: caché de descargas y lotes locales
+/scripts/migracion/.cache
+/scripts/migracion/lotes

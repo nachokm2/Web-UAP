@@ -25,7 +25,6 @@ function chromiumLocal(): string | undefined {
 export default defineConfig({
   testDir: './tests/e2e',
   testMatch: '**/*.e2e.spec.ts',
-  globalSetup: './tests/e2e/globalSetup.ts',
   fullyParallel: false,
   workers: 1,
   retries: process.env.CI ? 1 : 0,
@@ -40,10 +39,10 @@ export default defineConfig({
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
   webServer: {
     // Prueba el build de producción (npm run build) como corre en Railway.
-    command: `npx next start -p ${PUERTO}`,
+    command: `npx tsx tests/e2e/prepararBase.ts && npx next start -p ${PUERTO}`,
     url: URL_E2E,
     reuseExistingServer: false,
-    timeout: 120_000,
+    timeout: 240_000,
     env: {
       DATABASE_URL: BASE_E2E,
       SITE_URL: URL_E2E,

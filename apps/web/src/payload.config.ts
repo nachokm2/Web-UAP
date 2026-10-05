@@ -17,6 +17,7 @@ import { Auditoria, Redirecciones } from './collections/sistema'
 import { Categorias, Facultades, Sedes } from './collections/taxonomias'
 import { Usuarios } from './collections/Usuarios'
 import { Configuracion } from './globals/Configuracion'
+import { invalidarCacheAlCambiar } from './lib/pluginCache'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -73,6 +74,7 @@ export default buildConfig({
   upload: { limits: { fileSize: LIMITE_PDF_MB * 1024 * 1024 } },
   telemetry: false,
   plugins: [
+    invalidarCacheAlCambiar,
     seoPlugin({
       collections: ['carreras', 'posgrados', 'noticias'],
       uploadsCollection: 'medios',

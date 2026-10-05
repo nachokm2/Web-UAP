@@ -279,6 +279,38 @@ describe('Direcciones web y redirecciones', () => {
   })
 })
 
+describe('Resolución de redirecciones del sitio', () => {
+  it('no redirige a contenido sin publicar y se actualiza al publicar (sin esperar la caché)', async () => {
+    const { buscarRedireccion } = await import('@/lib/redirecciones')
+    const c = await crearCarreraBorrador('Contador Público')
+    const desde = `/${unico('contador-publico-viejo')}/`
+    await payload.create({
+      collection: 'redirecciones',
+      data: { desde, tipo: '301', destinoTipo: 'interno', destino: { relationTo: 'carreras', value: c.id } },
+      ...como(admin),
+    })
+    expect(await buscarRedireccion(desde)).toBeNull()
+
+    await transicion(admin, 'carreras', c.id, 'publicado')
+    expect(await buscarRedireccion(desde)).toEqual({ tipo: '301', url: `/${c.slug}/` })
+    // Sin barra final también (las URL viejas llegan de las dos formas).
+    expect(await buscarRedireccion(desde.slice(0, -1))).toEqual({ tipo: '301', url: `/${c.slug}/` })
+  })
+
+  it('410 para páginas eliminadas, sin destino', async () => {
+    const { buscarRedireccion } = await import('@/lib/redirecciones')
+    const desde = `/${unico('sample-page')}/`
+    await payload.create({ collection: 'redirecciones', data: { desde, tipo: '410' }, ...como(admin) })
+    expect(await buscarRedireccion(desde)).toEqual({ tipo: '410' })
+  })
+
+  it('los editores no gestionan redirecciones', async () => {
+    await expect(
+      payload.create({ collection: 'redirecciones', data: { desde: `/${unico('x')}/`, tipo: '410' }, ...como(edCarreras) }),
+    ).rejects.toThrow()
+  })
+})
+
 describe('Seguridad de cuentas', () => {
   it('rechaza contraseñas de menos de 12 caracteres', async () => {
     await expect(crearUsuario(payload, ['lectura'], { password: 'corta' } as never)).rejects.toThrow(/al menos 12/)

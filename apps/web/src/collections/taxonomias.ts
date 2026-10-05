@@ -20,6 +20,7 @@ const hooksTaxonomia: CollectionConfig['hooks'] = {
 
 export const Facultades: CollectionConfig = {
   slug: 'facultades',
+  typescript: { interface: 'Facultad' },
   labels: { singular: 'Facultad o área', plural: 'Facultades y áreas' },
   admin: {
     group: 'Configuración',

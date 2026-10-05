@@ -73,9 +73,9 @@ export interface Config {
     categorias: Categoria;
     medios: Medio;
     documentos: Documento;
-    facultades: Facultade;
+    facultades: Facultad;
     sedes: Sede;
-    redirecciones: Redireccione;
+    redirecciones: Redireccion;
     usuarios: Usuario;
     auditoria: Auditoria;
     'payload-kv': PayloadKv;
@@ -152,7 +152,7 @@ export interface Carrera {
    * Para menús y tarjetas. Ej.: "Ing. en Informática".
    */
   nombreCorto?: string | null;
-  facultad?: (number | null) | Facultade;
+  facultad?: (number | null) | Facultad;
   /**
    * Ej.: "Licenciatura".
    */
@@ -361,7 +361,7 @@ export interface Carrera {
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "facultades".
  */
-export interface Facultade {
+export interface Facultad {
   id: number;
   nombre: string;
   /**
@@ -395,6 +395,10 @@ export interface Documento {
   titulo: string;
   tipo: 'brochure' | 'malla' | 'reglamento' | 'otro';
   descripcion?: string | null;
+  /**
+   * URL o ruta de donde se importó el archivo (migración del sitio anterior).
+   */
+  origen?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -420,6 +424,10 @@ export interface Medio {
    */
   alt: string;
   credito?: string | null;
+  /**
+   * URL o ruta de donde se importó el archivo (migración del sitio anterior).
+   */
+  origen?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -480,7 +488,7 @@ export interface Posgrado {
    */
   nombreCorto?: string | null;
   tipo: 'diplomado' | 'especializacion' | 'maestria' | 'doctorado' | 'maestria_doctorado' | 'otro';
-  area?: (number | null) | Facultade;
+  area?: (number | null) | Facultad;
   tituloOtorgado?: string | null;
   /**
    * Ej.: "8 semestres", "5 meses".
@@ -806,7 +814,7 @@ export interface Categoria {
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirecciones".
  */
-export interface Redireccione {
+export interface Redireccion {
   id: number;
   /**
    * Solo la ruta, por ejemplo /contador-publico/
@@ -941,7 +949,7 @@ export interface PayloadLockedDocument {
       } | null)
     | ({
         relationTo: 'facultades';
-        value: number | Facultade;
+        value: number | Facultad;
       } | null)
     | ({
         relationTo: 'sedes';
@@ -949,7 +957,7 @@ export interface PayloadLockedDocument {
       } | null)
     | ({
         relationTo: 'redirecciones';
-        value: number | Redireccione;
+        value: number | Redireccion;
       } | null)
     | ({
         relationTo: 'usuarios';
@@ -1195,6 +1203,7 @@ export interface CategoriasSelect<T extends boolean = true> {
 export interface MediosSelect<T extends boolean = true> {
   alt?: T;
   credito?: T;
+  origen?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -1259,6 +1268,7 @@ export interface DocumentosSelect<T extends boolean = true> {
   titulo?: T;
   tipo?: T;
   descripcion?: T;
+  origen?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;

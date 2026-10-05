@@ -28,6 +28,7 @@ const validarDesde: TextFieldSingleValidation = (value) => {
 
 export const Redirecciones: CollectionConfig = {
   slug: 'redirecciones',
+  typescript: { interface: 'Redireccion' },
   labels: { singular: 'Redirección', plural: 'Redirecciones' },
   admin: {
     group: 'Configuración',

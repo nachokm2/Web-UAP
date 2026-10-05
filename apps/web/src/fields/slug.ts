@@ -48,17 +48,22 @@ type OpcionesSlug = {
   desde: string
   /** Otras colecciones con las que no puede repetirse. */
   espacioCompartido?: CollectionSlug[]
+  /**
+   * Si el contenido vive en la raíz del sitio (/{slug}/), no puede usar rutas del sitio
+   * (admin, noticias…). No aplica a noticias (/noticias/{slug}/) ni a categorías.
+   */
+  enRaizDelSitio?: boolean
 }
 
 /** Devuelve el problema del slug, o null si es válido. */
 async function problemaDeSlug(
   value: string | null | undefined,
-  ctx: { req: PayloadRequest; coleccion?: string; id?: number | string; espacioCompartido: CollectionSlug[] },
+  ctx: { req: PayloadRequest; coleccion?: string; id?: number | string; espacioCompartido: CollectionSlug[]; reservados: boolean },
 ): Promise<string | null> {
-  const { req, coleccion, id, espacioCompartido } = ctx
+  const { req, coleccion, id, espacioCompartido, reservados } = ctx
   if (!value) return 'La dirección web es obligatoria.'
   if (value !== normalizarSlug(value)) return 'Use solo minúsculas, números y guiones, sin tildes.'
-  if (SLUGS_RESERVADOS.has(value)) return `"${value}" está reservado para una sección del sitio.`
+  if (reservados && SLUGS_RESERVADOS.has(value)) return `"${value}" está reservado para una sección del sitio.`
   for (const otra of espacioCompartido) {
     if (otra === coleccion) continue
     const { totalDocs } = await req.payload.count({
@@ -81,10 +86,10 @@ async function problemaDeSlug(
   return null
 }
 
-export const campoSlug = ({ desde, espacioCompartido = [] }: OpcionesSlug): Field => {
+export const campoSlug = ({ desde, espacioCompartido = [], enRaizDelSitio = false }: OpcionesSlug): Field => {
   // Mensaje en línea en el formulario al publicar.
   const validate: TextFieldSingleValidation = async (value, { req, collectionSlug, id }) =>
-    (await problemaDeSlug(value, { req, coleccion: collectionSlug, id, espacioCompartido })) ?? true
+    (await problemaDeSlug(value, { req, coleccion: collectionSlug, id, espacioCompartido, reservados: enRaizDelSitio })) ?? true
 
   // Payload no valida campos al guardar borradores: la misma regla se aplica acá,
   // que corre siempre, para que un borrador tampoco pueda ocupar una URL ajena.
@@ -94,6 +99,7 @@ export const campoSlug = ({ desde, espacioCompartido = [] }: OpcionesSlug): Fiel
       coleccion: collection?.slug,
       id: (originalDoc as { id?: number | string } | undefined)?.id,
       espacioCompartido,
+      reservados: enRaizDelSitio,
     })
     if (problema) throw new ValidationError({ errors: [{ message: problema, path: 'slug' }] })
     return value

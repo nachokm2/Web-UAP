@@ -67,7 +67,7 @@ export const Posgrados: CollectionConfig = {
         pestanaContacto,
       ],
     },
-    campoSlug({ desde: 'nombre', espacioCompartido: ESPACIO_URL_PROGRAMAS }),
+    campoSlug({ desde: 'nombre', espacioCompartido: ESPACIO_URL_PROGRAMAS, enRaizDelSitio: true }),
     ...camposWorkflow('posgrados'),
     campoOrden,
   ],

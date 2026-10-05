@@ -8,6 +8,7 @@ import { eliminacionDefinitiva, subidaDeArchivos } from '../access'
 import { auditarCambios, auditarEliminacion } from '../audit/hooks'
 
 const MB = 1024 * 1024
+export const OMITIR_LIMITE_TAMANO = 'omitirLimiteTamano'
 export const LIMITE_IMAGEN_MB = 10
 export const LIMITE_PDF_MB = 30
 
@@ -15,6 +16,9 @@ const limiteDeTamano =
   (maxMb: number, consejo: string): CollectionBeforeOperationHook =>
   ({ args, operation, req }) => {
     if (operation !== 'create' && operation !== 'update') return args
+    // Solo la migración del sitio anterior (script de servidor) importa archivos más grandes;
+    // req.context no se puede fijar desde una petición HTTP.
+    if (req.context?.[OMITIR_LIMITE_TAMANO] === true) return args
     const tamano = req.file?.size ?? 0
     if (tamano > maxMb * MB) {
       const mb = (tamano / MB).toFixed(1)
@@ -66,6 +70,13 @@ export const Medios: CollectionConfig = {
       admin: { description: 'Describa la imagen para personas que no pueden verla. Ej.: "Estudiantes en el laboratorio de odontología".' },
     },
     { name: 'credito', label: 'Crédito o fuente', type: 'text' },
+    {
+      name: 'origen',
+      label: 'Origen',
+      type: 'text',
+      index: true,
+      admin: { readOnly: true, position: 'sidebar', description: 'URL o ruta de donde se importó el archivo (migración del sitio anterior).' },
+    },
   ],
 }
 
@@ -98,5 +109,12 @@ export const Documentos: CollectionConfig = {
     { name: 'titulo', label: 'Título', type: 'text', required: true },
     { name: 'tipo', label: 'Tipo', type: 'select', required: true, defaultValue: 'otro', index: true, options: TIPOS_DOCUMENTO },
     { name: 'descripcion', label: 'Descripción', type: 'textarea' },
+    {
+      name: 'origen',
+      label: 'Origen',
+      type: 'text',
+      index: true,
+      admin: { readOnly: true, position: 'sidebar', description: 'URL o ruta de donde se importó el archivo (migración del sitio anterior).' },
+    },
   ],
 }

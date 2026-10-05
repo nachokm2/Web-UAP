@@ -1,0 +1,352 @@
+/* Estilos de la portada y de las páginas institucionales (contacto, estudiantes,
+   investigación, inscripción, privacidad). En el sitio estático eran bloques <style>
+   propios de cada página o atributos style=""; acá están con los mismos valores.
+   Se carga después de uap-refined.css, igual que los <style> de cada página, así que
+   las reglas que allí pisaban a la hoja global la siguen pisando. Las clases nuevas
+   (las que reemplazan atributos style="") llevan el prefijo de su página. */
+
+/* ---- Común: logo del encabezado (estaba en el <style> de todas las páginas) ---- */
+.logo-img { height: 45px; width: auto; }
+
+/* ========================================
+   Portada (index.html)
+   ======================================== */
+
+/* Encabezado con video y carrusel */
+.hero-clean {
+  position: relative;
+  width: 100%;
+  max-width: 1920px;
+  margin: 0 auto;
+  height: 600px;
+  overflow: hidden;
+  background-color: #003366;
+}
+.hero-clean .carousel-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  z-index: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.hero-clean .carousel-slide.carousel-active {
+  opacity: 1;
+  z-index: 1;
+}
+.hero-clean .carousel-slide a {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  background: linear-gradient(135deg, rgba(0,51,102,0.85) 0%, rgba(0,26,51,0.7) 50%, rgba(0,51,102,0.4) 100%);
+}
+.hero-slide-content {
+  max-width: 700px;
+  padding: 0 60px;
+  color: white;
+}
+.hero-slide-content h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin: 0 0 12px 0;
+  line-height: 1.15;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+.hero-slide-content h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem;
+  font-weight: 600;
+  margin: 0 0 12px 0;
+  line-height: 1.2;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+.hero-slide-content p {
+  font-size: 1.15rem;
+  margin: 0 0 24px 0;
+  opacity: 0.9;
+  line-height: 1.5;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+}
+.hero-slide-cta {
+  display: inline-block;
+  padding: 14px 32px;
+  background: var(--color-cta-accent);
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.3s;
+  box-shadow: 0 4px 15px rgba(200,16,46,0.35);
+}
+.hero-slide-cta:hover {
+  background: var(--color-cta-accent-hover);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(200,16,46,0.45);
+}
+.hero-slide-badge {
+  display: inline-block;
+  padding: 6px 16px;
+  background: #0066cc;
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: 20px;
+  margin-bottom: 16px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+/* Antes style="background: ..." en las insignias de la 2.ª y 3.ª diapositiva */
+.hero-slide-badge.inicio-insignia--matriculas { background: #c0392b; }
+.hero-slide-badge.inicio-insignia--posgrados { background: #2c3e50; }
+@media (max-width: 768px) {
+  .hero-slide-content {
+    padding: 0 24px;
+    max-width: 100%;
+  }
+  .hero-slide-content h2 {
+    font-size: 1.8rem;
+  }
+  .hero-slide-content p {
+    font-size: 1rem;
+    display: none;
+  }
+  .hero-slide-cta {
+    padding: 10px 24px;
+    font-size: 0.9rem;
+  }
+}
+@media (max-width: 480px) {
+  .hero-slide-content h2 {
+    font-size: 1.5rem;
+  }
+  .hero-slide-badge {
+    font-size: 0.75rem;
+    padding: 4px 12px;
+  }
+}
+.carousel-indicators {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  z-index: 10;
+}
+.carousel-indicators .indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.4);
+  cursor: pointer;
+  transition: background 0.3s;
+  /* Ahora son <button> (antes <span>): sin el borde ni el relleno del navegador */
+  border: none;
+  padding: 0;
+}
+.carousel-indicators .indicator.active,
+.carousel-indicators .indicator:hover {
+  background: white;
+}
+@media (max-width: 768px) {
+  .hero-clean { height: 350px; }
+}
+@media (max-width: 480px) {
+  .hero-clean { height: 280px; }
+}
+
+/* Alianzas estratégicas */
+.partners-section.inicio-socios {
+  background: var(--color-surface);
+  padding: var(--space-12) 0;
+}
+/* Las <img> llevan width/height para reservar espacio; el tamaño visible lo siguen
+   dando max-width/max-height de uap-refined.css, como en el sitio estático. */
+.inicio-socios .partner-slide img { width: auto; height: auto; }
+
+/* Carreras por facultad */
+.careers-grid-20 {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--space-6);
+}
+.careers-grid-20 .career-card {
+  text-align: center;
+}
+.tab-buttons {
+  display: flex;
+  gap: 0;
+  border-bottom: 2px solid var(--color-border-light);
+  margin-bottom: var(--space-8);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.tab-buttons::-webkit-scrollbar {
+  display: none;
+}
+.tab-btn {
+  flex: 0 0 auto;
+  min-width: 0;
+  padding: 12px 20px;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  color: var(--color-text-muted);
+  font-weight: var(--weight-medium);
+  cursor: pointer;
+  font-size: var(--text-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+.tab-btn.active {
+  border-bottom: 3px solid var(--color-primary);
+  color: var(--color-primary);
+  font-weight: var(--weight-semibold);
+}
+/* Antes style="padding: var(--space-8) 0;" en cada panel */
+.tab-content.inicio-pestana { padding: var(--space-8) 0; }
+.careers-grid-20 .career-icon { width: 48px; height: 48px; background: var(--color-background); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; margin: 0 auto var(--space-4); }
+.careers-grid-20 .career-icon img { width: 28px; height: 28px; object-fit: contain; }
+/* Antes style="" en la línea de duración y título de cada tarjeta */
+.career-card p.inicio-carrera-meta { font-size: var(--text-xs); color: var(--color-text-muted); margin-top: var(--space-1); }
+
+/* Noticias */
+.inicio-noticias .news-image img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Llamado final: antes style="display:flex;..." */
+.inicio-cta-acciones { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+
+/* Movimiento reducido: sin transición del carrusel ni desplazamiento continuo de logos
+   (se muestran en filas y sin la copia que sólo servía para el bucle). */
+@media (prefers-reduced-motion: reduce) {
+  .hero-clean .carousel-slide { transition: none; }
+  .inicio-socios .partners-track { animation: none; flex-wrap: wrap; justify-content: center; width: auto; }
+  .inicio-socios .inicio-socio-duplicado { display: none; }
+}
+
+/* ========================================
+   Institucional (pages/institucional.html)
+   ======================================== */
+/* Mismas reglas que .content de uap-refined.css, pero 800px de ancho. Se repiten porque
+   en el sitio estático venían después de la hoja global y ganaban, por ejemplo, a
+   .authority-card p. */
+.institucional-contenido { max-width: 800px; margin: 0 auto; }
+.institucional-contenido h2 { margin-top: var(--space-12); margin-bottom: var(--space-4); color: var(--color-primary); }
+.institucional-contenido p { margin-bottom: var(--space-4); color: var(--color-text-secondary); line-height: 1.8; }
+.institucional-contenido ul { margin-bottom: var(--space-4); padding-left: var(--space-6); }
+.institucional-contenido li { margin-bottom: var(--space-2); color: var(--color-text-secondary); }
+.values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); margin-top: var(--space-6); }
+.authorities-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-6); margin-top: var(--space-6); }
+.regulations-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--space-4); margin-top: var(--space-6); }
+/* Antes style="" en el título "Directores de Carrera" */
+.institucional-subtitulo { margin-top: var(--space-10); margin-bottom: var(--space-4); color: var(--color-primary); }
+
+/* ========================================
+   Contacto (pages/contacto.html)
+   ======================================== */
+.contacto-datos .contact-row { display: flex; align-items: center; gap: 10px; font-size: var(--text-base); font-weight: 600; margin-bottom: var(--space-2); }
+.contacto-datos .contact-row svg { flex-shrink: 0; }
+/* Antes style="" en los contenedores, párrafos y enlaces de cada dato */
+.contacto-datos { margin-top: var(--space-6); }
+.contacto-dato:not(:last-child) { margin-bottom: var(--space-6); }
+.contacto-valor { color: var(--color-text-secondary); padding-left: 28px; }
+.contacto-valor a { color: inherit; text-decoration: none; border-bottom: 1px solid currentColor; }
+.contacto-horario { white-space: pre-line; }
+.contacto-formulario { grid-column: span 2; }
+
+/* ========================================
+   Estudiantes (pages/estudiantes.html)
+   ======================================== */
+.student-card {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+.student-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+.student-card h3 {
+  color: var(--color-primary);
+  margin-bottom: var(--space-2);
+}
+.student-card p {
+  color: var(--color-text-secondary);
+  font-size: var(--text-sm);
+}
+.student-icon {
+  width: 48px;
+  height: 48px;
+  background: var(--color-primary);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-4);
+  color: white;
+  font-size: 1.5rem;
+}
+/* Antes style="display: block; margin: 0 auto;" en cada ícono */
+.student-icon svg { display: block; margin: 0 auto; }
+.student-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-6);
+  margin-top: var(--space-8);
+}
+/* Antes style="" en el recuadro de contacto y sus párrafos */
+.estudiantes-contacto { background: var(--color-surface); padding: var(--space-8); border-radius: var(--radius-lg); max-width: 600px; margin: 0 auto; }
+.estudiantes-contacto p:not(:last-child) { margin-bottom: var(--space-3); }
+
+/* ========================================
+   Investigación (pages/investigacion.html)
+   ======================================== */
+.investigacion-lineas .career-icon { display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; background: var(--color-background); border-radius: var(--radius-md); margin-bottom: var(--space-4); }
+.investigacion-lineas .career-icon img { width: 28px; height: 28px; object-fit: contain; }
+
+/* ========================================
+   Inscripción (pages/inscripcion.html)
+   ======================================== */
+.inscripcion-contenido { max-width: 600px; margin: 0 auto; }
+
+/* ========================================
+   Privacidad (pages/privacidad.html)
+   Las reglas sueltas de tabla del original (table, th, td) quedan acotadas al texto.
+   ======================================== */
+.privacy-container { max-width: 860px; margin: 0 auto; }
+.privacy-container h2 { font-size: 1.3rem; color: #003366; margin: 36px 0 12px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; }
+.privacy-container h3 { font-size: 1.05rem; color: #003366; margin: 24px 0 8px; }
+.privacy-container p, .privacy-container li { color: #374151; line-height: 1.8; font-size: 0.97rem; }
+.privacy-container ul { padding-left: 22px; margin-bottom: 16px; }
+.privacy-container ul li { margin-bottom: 6px; }
+.privacy-container a { color: #0066cc; }
+.privacy-container .last-update { display: inline-block; background: #f0f4f8; border-radius: 6px; padding: 6px 14px; font-size: 0.82rem; color: var(--color-text-secondary); margin-bottom: 28px; }
+.privacy-container .highlight-box { background: #f0f7ff; border-left: 4px solid #0066cc; border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 20px 0; }
+.privacy-container .highlight-box p { margin: 0; font-size: 0.93rem; }
+.privacy-container .contact-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px 24px; margin-top: 12px; }
+.privacy-container .contact-card p { margin: 4px 0; font-size: 0.93rem; }
+.privacy-container table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.9rem; }
+.privacy-container th { background: #003366; color: white; padding: 10px 14px; text-align: left; }
+.privacy-container td { padding: 10px 14px; border-bottom: 1px solid #e2e8f0; color: #374151; }
+.privacy-container tr:nth-child(even) td { background: #f8fafc; }
+/* Antes style="margin-top: 16px;" en el último párrafo */
+.privacy-container .privacidad-nota { margin-top: 16px; }
