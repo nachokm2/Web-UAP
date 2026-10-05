@@ -2,10 +2,14 @@
   "name": "web-uap",
   "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": "24.x"
+  },
   "scripts": {
-    "start": "serve . --listen $PORT"
+    "build": "node scripts/build-static.js",
+    "start": "serve dist --config ../serve.json --no-clipboard"
   },
   "dependencies": {
-    "serve": "^14.2.4"
+    "serve": "14.2.6"
   }
 }
