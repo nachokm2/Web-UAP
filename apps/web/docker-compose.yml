@@ -1,0 +1,16 @@
+# PostgreSQL para desarrollo y tests locales. En Railway se usa el servicio Postgres del proyecto.
+services:
+  postgres:
+    image: postgres:18-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: payload
+      POSTGRES_PASSWORD: payload
+      POSTGRES_DB: uap_web
+    ports:
+      - '54329:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql
+
+volumes:
+  pgdata:

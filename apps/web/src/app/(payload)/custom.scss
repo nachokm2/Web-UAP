@@ -1,0 +1,60 @@
+// Estilos del panel "Flujo editorial" (components/admin/FlujoEditorial.tsx).
+
+.flujo-editorial {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 0 16px;
+  border-bottom: 1px solid var(--theme-elevation-100);
+  margin-bottom: 16px;
+
+  &__titulo {
+    font-weight: 600;
+    font-size: 13px;
+  }
+
+  &__estado {
+    margin: 0;
+  }
+
+  &__nota {
+    margin: 0;
+    font-size: 12px;
+    color: var(--theme-elevation-600);
+  }
+
+  &__acciones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+
+    .btn {
+      margin: 0;
+    }
+  }
+
+  &__pill {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    background: var(--theme-elevation-100);
+
+    &--en_revision {
+      background: var(--theme-warning-100);
+      color: var(--theme-warning-800);
+    }
+
+    &--publicado {
+      background: var(--theme-success-100);
+      color: var(--theme-success-800);
+    }
+
+    &--no_publicado,
+    &--archivado {
+      background: var(--theme-elevation-150);
+      color: var(--theme-elevation-700);
+    }
+  }
+}
