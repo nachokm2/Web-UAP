@@ -399,6 +399,8 @@ export interface Documento {
    * URL o ruta de donde se importó el archivo (migración del sitio anterior).
    */
   origen?: string | null;
+  prefix?: string | null;
+  _objectKey?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -428,6 +430,8 @@ export interface Medio {
    * URL o ruta de donde se importó el archivo (migración del sitio anterior).
    */
   origen?: string | null;
+  prefix?: string | null;
+  _objectKey?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -1204,6 +1208,8 @@ export interface MediosSelect<T extends boolean = true> {
   alt?: T;
   credito?: T;
   origen?: T;
+  prefix?: T;
+  _objectKey?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -1269,6 +1275,8 @@ export interface DocumentosSelect<T extends boolean = true> {
   tipo?: T;
   descripcion?: T;
   origen?: T;
+  prefix?: T;
+  _objectKey?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;

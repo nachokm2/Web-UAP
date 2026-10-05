@@ -85,6 +85,9 @@ export default buildConfig({
     }),
     s3Storage({
       enabled: usarS3,
+      // Los campos del plugin (_objectKey, prefix) existen siempre, con o sin S3: así el
+      // esquema y las migraciones son iguales en desarrollo, tests y producción.
+      alwaysInsertFields: true,
       bucket: process.env.S3_BUCKET || '',
       config: {
         endpoint: process.env.S3_ENDPOINT,
