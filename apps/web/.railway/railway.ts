@@ -11,10 +11,11 @@
 // Secretos: PAYLOAD_SECRET se carga una vez con la CLI (sellado) y acá queda como
 // preserve() para que el apply no lo borre. Nunca escribir secretos en este archivo.
 //
-// Límites conocidos de IaC (oct 2026): no maneja watchPatterns ni builder; se fijan con
-// la API/panel de Railway y este archivo no los toca.
+// watchPatterns: solo cambios en apps/web redespliegan este servicio (las rutas se
+// escriben desde la raíz del repositorio). `railway config migrate` no las traduce desde
+// railway.json, pero el DSL las admite en la forma de objeto de `build`.
 
-import { bucket, defineRailway, github, postgres, preserve, project, service } from 'railway/iac'
+import { bucket, defineRailway, github, postgres, preserve, project, ref, service } from 'railway/iac'
 
 export const partial = 'cms'
 
@@ -27,7 +28,7 @@ export default defineRailway(() => {
   const cms = service('web-cms', {
     // Mientras el CMS no esté en main, despliega desde su rama.
     source: github('nachokm2/Web-UAP', { branch: 'feat/cms-payload', rootDirectory: 'apps/web', checkSuites: false }),
-    build: 'npm run build',
+    build: { buildCommand: 'npm run build', builder: 'RAILPACK', watchPatterns: ['/apps/web/**'] },
     preDeploy: 'npm run migrate',
     start: 'npm start',
     healthcheck: '/api/health',
@@ -38,12 +39,14 @@ export default defineRailway(() => {
       DATABASE_URL: db.env.DATABASE_URL,
       PAYLOAD_SECRET: preserve(),
       // Dominio de pruebas hasta el cambio de DNS; luego https://uap.edu.py
-      SITE_URL: 'https://web-cms-production.up.railway.app',
-      S3_BUCKET: archivos.env.BUCKET,
-      S3_ENDPOINT: archivos.env.ENDPOINT,
-      S3_REGION: archivos.env.REGION,
-      S3_ACCESS_KEY_ID: archivos.env.ACCESS_KEY_ID,
-      S3_SECRET_ACCESS_KEY: archivos.env.SECRET_ACCESS_KEY,
+      SITE_URL: 'https://web-cms-production-fd17.up.railway.app',
+      // Entorno de pruebas: no indexar. Quitar al apuntar uap.edu.py a este servicio.
+      NOINDEX: 'true',
+      S3_BUCKET: ref(archivos, 'BUCKET'),
+      S3_ENDPOINT: ref(archivos, 'ENDPOINT'),
+      S3_REGION: ref(archivos, 'REGION'),
+      S3_ACCESS_KEY_ID: ref(archivos, 'ACCESS_KEY_ID'),
+      S3_SECRET_ACCESS_KEY: ref(archivos, 'SECRET_ACCESS_KEY'),
     },
   })
 

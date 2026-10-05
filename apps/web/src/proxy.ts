@@ -1,7 +1,8 @@
 // Proxy (antes "middleware"; en Next 16 corre en Node.js):
 // 1. Redirecciones del CMS (301/302) y páginas eliminadas (410), incluidas las URL del WordPress anterior.
 // 2. Barra final en las páginas, como el sitio anterior (/periodismo/).
-// 3. noindex en cualquier dominio que no sea el oficial (por ejemplo, el de pruebas de Railway).
+// 3. noindex en cualquier dominio que no sea el oficial, o en todo el sitio si NOINDEX=true
+//    (entorno de pruebas: su SITE_URL es el dominio de Railway pero no debe indexarse).
 
 import { NextResponse, type NextRequest } from 'next/server'
 
@@ -41,7 +42,9 @@ export async function proxy(req: NextRequest) {
 
   const res = NextResponse.next()
   const oficial = dominioOficial()
-  if (oficial && req.headers.get('host') !== oficial) res.headers.set('X-Robots-Tag', 'noindex, nofollow')
+  if (process.env.NOINDEX === 'true' || (oficial && req.headers.get('host') !== oficial)) {
+    res.headers.set('X-Robots-Tag', 'noindex, nofollow')
+  }
   return res
 }
 
