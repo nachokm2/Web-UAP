@@ -5,6 +5,24 @@
       "slug": "administracion-publica",
       "imagen": "https://uap.edu.py/wp-content/uploads/2023/06/ADM.-PUBLICA-scaled.jpg",
       "motivo": "Revisión 6-oct: la imagen del sitio estático (palacio municipal de Túnez) no corresponde a la carrera; se usa la que publica WordPress."
+    },
+    {
+      "coleccion": "posgrados",
+      "slug": "maestria-en-ciencias-de-la-educacion",
+      "imagen": "https://uap.edu.py/wp-content/uploads/2025/03/BANNER-Maestria-en-Ciencias-de-la-Educacion.png",
+      "motivo": "Revisión 6-oct: el sitio estático usaba como banner un ícono de 128 px (birrete); se usa el banner del programa que publica WordPress."
+    },
+    {
+      "coleccion": "posgrados",
+      "slug": "doctorado-en-ciencias-de-la-educacion",
+      "imagen": "https://uap.edu.py/wp-content/uploads/2025/03/BANNER-Doctorado-en-Ciencias-de-la-Educacion.png",
+      "motivo": "Mismo problema que la Maestría (ícono de 128 px como banner); se usa el banner del programa que publica WordPress."
+    },
+    {
+      "coleccion": "posgrados",
+      "slug": "diplomado-en-abordaje-cognitivo-auditivo-y-linguistico-del-adulto",
+      "imagen": "https://uap.edu.py/wp-content/uploads/2023/06/EN-ABORDAJE-DEL-LENGUAJE.jpg",
+      "motivo": "Mismo problema (ícono de 128 px como banner); se usa la imagen que muestra la página del programa en WordPress."
     }
   ],
   "redirecciones": [
