@@ -42,8 +42,11 @@ export const SLUGS_RESERVADOS = new Set([
   'wp-json',
 ])
 
-/** Carreras y posgrados comparten el espacio de URL plano /{slug}/ (como el sitio actual). */
-export const ESPACIO_URL_PROGRAMAS: CollectionSlug[] = ['carreras', 'posgrados']
+/**
+ * Contenido que vive en el espacio de URL plano /{slug}/ (como el sitio actual): carreras,
+ * posgrados y formularios de postulación por asesor. Ninguno puede repetir la dirección de otro.
+ */
+export const ESPACIO_URL_PROGRAMAS: CollectionSlug[] = ['carreras', 'posgrados', 'formularios']
 
 type OpcionesSlug = {
   /** Campo desde el que se genera si queda vacío. */
@@ -55,6 +58,8 @@ type OpcionesSlug = {
    * (admin, noticias…). No aplica a noticias (/noticias/{slug}/) ni a categorías.
    */
   enRaizDelSitio?: boolean
+  /** Ayuda del campo en el panel (por defecto, la de contenido con redirección automática). */
+  descripcion?: string
 }
 
 /** Devuelve el problema del slug, o null si es válido. */
@@ -88,7 +93,7 @@ async function problemaDeSlug(
   return null
 }
 
-export const campoSlug = ({ desde, espacioCompartido = [], enRaizDelSitio = false }: OpcionesSlug): Field => {
+export const campoSlug = ({ desde, espacioCompartido = [], enRaizDelSitio = false, descripcion }: OpcionesSlug): Field => {
   // Mensaje en línea en el formulario al publicar.
   const validate: TextFieldSingleValidation = async (value, { req, collectionSlug, id }) =>
     (await problemaDeSlug(value, { req, coleccion: collectionSlug, id, espacioCompartido, reservados: enRaizDelSitio })) ?? true
@@ -118,6 +123,7 @@ export const campoSlug = ({ desde, espacioCompartido = [], enRaizDelSitio = fals
     admin: {
       position: 'sidebar',
       description:
+        descripcion ??
         'Final de la URL, por ejemplo "psicologia" → uap.edu.py/psicologia/. Se completa sola a partir del nombre. Si la cambia en un contenido publicado, se crea una redirección automática.',
     },
     hooks: {

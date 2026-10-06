@@ -5,6 +5,7 @@ import path from 'path'
 import { describe, expect, it } from 'vitest'
 
 import { urlDeInsercion } from '@/components/sitio/TextoCms'
+import { leerCodigoBitrix } from '@/lib/bitrix'
 
 import {
   RAIZ_SITIO,
@@ -177,6 +178,21 @@ describe('Autoridades de WordPress', () => {
       { grupo: 'directivos', cargo: 'Director Académico', nombre: 'Víctor Salazar Parra', foto: 'https://uap.edu.py/va.jpg' },
       { grupo: 'carreras', cargo: 'Odontología', nombre: 'Dra. Claudia Díaz de Vivar' },
     ])
+  })
+})
+
+describe('Código de inserción de Bitrix24', () => {
+  it('saca el formulario y el loader del código completo o de una versión mínima', () => {
+    const completo = `<script data-b24-form="inline/1537/vgks4c" data-skip-moving="true">(function(w,d,u){})(window,document,'https://cdn.bitrix24.es/b23715511/crm/form/loader_1537.js');</script>`
+    expect(leerCodigoBitrix(completo)).toEqual({ formulario: 'inline/1537/vgks4c', loaderUrl: 'https://cdn.bitrix24.es/b23715511/crm/form/loader_1537.js' })
+    expect(leerCodigoBitrix('inline/61/hi7fex https://cdn.bitrix24.es/b23715511/crm/form/loader_61.js')?.formulario).toBe('inline/61/hi7fex')
+  })
+
+  it('rechaza números que no coinciden, otros dominios y textos sin código', () => {
+    expect(leerCodigoBitrix('inline/1537/vgks4c https://cdn.bitrix24.es/b23715511/crm/form/loader_1525.js')).toBeNull()
+    expect(leerCodigoBitrix('inline/61/hi7fex https://evil.example/crm/form/loader_61.js')).toBeNull()
+    expect(leerCodigoBitrix('<p>Formulario</p>')).toBeNull()
+    expect(leerCodigoBitrix(null)).toBeNull()
   })
 })
 

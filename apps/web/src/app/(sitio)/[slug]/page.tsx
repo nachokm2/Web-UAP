@@ -1,7 +1,8 @@
-// Landing de carrera o posgrado en /{slug}/ (misma URL que el sitio anterior).
+// Landing de carrera o posgrado en /{slug}/ (misma URL que el sitio anterior). En el mismo
+// espacio viven los formularios de postulación por asesor (/formulario-de-postulacion-uap-…/).
 
 import type { Metadata } from 'next'
-import { notFound } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 
 import { Breadcrumb } from '@/components/sitio/Breadcrumb'
 import { FormularioBitrix } from '@/components/sitio/FormularioBitrix'
@@ -12,7 +13,8 @@ import { TextoCms } from '@/components/sitio/TextoCms'
 import { MODALIDADES } from '@/fields/programa'
 import { TIPOS_POSGRADO } from '@/collections/Posgrados'
 import type { Documento, Medio, Sede } from '@/payload-types'
-import { obtenerConfiguracion, obtenerPrograma, type Programa } from '@/lib/datos'
+import { PaginaFormulario } from '@/components/sitio/PaginaFormulario'
+import { obtenerConfiguracion, obtenerFormulario, obtenerPrograma, type Programa } from '@/lib/datos'
 import { SITIO, urlAbsoluta, urlPrograma } from '@/lib/urls'
 
 type Params = { params: Promise<{ slug: string }> }
@@ -30,7 +32,11 @@ function descripcionSeo(p: Programa): string | undefined {
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { slug } = await params
   const p = await obtenerPrograma(slug)
-  if (!p) return {}
+  if (!p) {
+    const f = await obtenerFormulario(slug)
+    // Páginas por asesor: los asesores comparten el enlace; no compiten en buscadores.
+    return f?.activo ? { title: f.titulo, robots: { index: false, follow: true }, alternates: { canonical: urlAbsoluta(urlPrograma(f.slug)) } } : {}
+  }
   const imagen = (esMedio(p.meta?.image) && p.meta.image) || (esMedio(p.imagenPrincipal) && p.imagenPrincipal) || null
   const og = urlDeImagen(imagen as Medio | null, 'og')
   return {
@@ -108,7 +114,13 @@ function Tarjetas({ items, fondo }: { items: Tarjeta[]; fondo?: 'degradado' | 'g
 export default async function PaginaPrograma({ params }: Params) {
   const { slug } = await params
   const [p, config] = await Promise.all([obtenerPrograma(slug), obtenerConfiguracion()])
-  if (!p) notFound()
+  if (!p) {
+    const f = await obtenerFormulario(slug)
+    if (!f) notFound()
+    // Formulario dado de baja (p. ej. el asesor ya no está): nadie queda sin poder postular.
+    if (!f.activo) redirect(SITIO.inscripcion)
+    return <PaginaFormulario formulario={f} />
+  }
 
   const esCarrera = p.coleccion === 'carreras'
   const hero = urlDeImagen(esMedio(p.imagenPrincipal) ? p.imagenPrincipal : null, 'hero')

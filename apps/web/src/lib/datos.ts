@@ -4,7 +4,7 @@
 import config from '@payload-config'
 import { getPayload } from 'payload'
 
-import type { Autoridad, Carrera, Configuracion, Documento, Facultad, Noticia, Posgrado } from '@/payload-types'
+import type { Autoridad, Carrera, Configuracion, Documento, Facultad, FormularioPostulacion, Noticia, Posgrado } from '@/payload-types'
 
 import { enCache } from './cache'
 
@@ -45,6 +45,13 @@ export const obtenerPrograma = (slug: string) =>
       if (docs[0]) return { ...docs[0], coleccion } as Programa
     }
     return null
+  })
+
+/** Formulario de postulación de un asesor o campaña (también en /{slug}/). Incluye los inactivos. */
+export const obtenerFormulario = (slug: string) =>
+  enCache(`formulario:${slug}`, ['formularios'], async () => {
+    const { docs } = await (await payload()).find({ collection: 'formularios', where: { slug: { equals: slug } }, depth: 0, limit: 1, overrideAccess: false })
+    return (docs[0] as FormularioPostulacion | undefined) ?? null
   })
 
 export const POR_PAGINA_NOTICIAS = 12

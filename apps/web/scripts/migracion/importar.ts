@@ -4,7 +4,7 @@
 //   npx tsx scripts/migracion/importar.ts --aplicar       → escribe en la base de DATABASE_URL
 //
 // Opciones:
-//   --solo=configuracion,taxonomias,programas,reglamentos,autoridades,noticias,redirecciones
+//   --solo=configuracion,taxonomias,programas,reglamentos,autoridades,formularios,noticias,redirecciones
 //                               pasos a pedido (no van por defecto):
 //                                 galerias      completa las fotos de noticias ya importadas
 //                                 correcciones  aplica scripts/migracion/correcciones.json
@@ -38,6 +38,7 @@ import { CONTEXTO_ACTOR } from '../../src/audit/hooks'
 import { OMITIR_LIMITE_TAMANO } from '../../src/collections/archivos'
 import { normalizarRuta } from '../../src/collections/sistema'
 import { normalizarSlug } from '../../src/fields/slug'
+import { leerCodigoBitrix } from '../../src/lib/bitrix'
 import { CONTEXTO_TRANSICION } from '../../src/workflow/hooks'
 import { extraerAutoridades } from './autoridades'
 import { clasificarPostWp, type CategoriaWp } from './clasificar'
@@ -65,7 +66,7 @@ const args = process.argv.slice(2)
 const opcion = (nombre: string) => args.find((a) => a.startsWith(`--${nombre}=`))?.split('=')[1]
 const APLICAR = args.includes('--aplicar')
 const SIN_ARCHIVOS = args.includes('--sin-archivos')
-const SOLO = new Set((opcion('solo') ?? 'configuracion,taxonomias,programas,reglamentos,autoridades,noticias,redirecciones').split(','))
+const SOLO = new Set((opcion('solo') ?? 'configuracion,taxonomias,programas,reglamentos,autoridades,formularios,noticias,redirecciones').split(','))
 const NOTICIAS = (opcion('noticias') ?? 'listadas') as 'listadas' | 'todas'
 const ESTADO = (opcion('estado') ?? 'publicado') as 'publicado' | 'borrador'
 const MAX_PDF_MB = Number(opcion('max-pdf-mb') ?? 200)
@@ -403,29 +404,34 @@ async function paginaWp(slug: string): Promise<string | null> {
   return p?.content.rendered ?? null
 }
 
-async function postsDeWordpress(): Promise<PostWp[]> {
-  const campos = '_fields=id,slug,date_gmt,link,categories,title,excerpt,content,_links,_embedded&_embed=wp:featuredmedia,wp:term'
-  if (NOTICIAS === 'todas') {
-    if (INSTANTANEA) {
-      const guardada = JSON.parse(fs.readFileSync(INSTANTANEA, 'utf8')) as { categorias: CategoriaWp[]; posts: PostWp[] }
-      categoriasWp = guardada.categorias
-      return guardada.posts
-    }
-    categoriasWp = await wpJson<CategoriaWp[]>('/categories?per_page=100&_fields=id,slug,parent')
-    const todos: PostWp[] = []
-    for (let pagina = 1; ; pagina++) {
-      let lote: PostWp[]
-      try {
-        lote = await wpJson<PostWp[]>(`/posts?per_page=50&page=${pagina}&${campos}`)
-      } catch (e) {
-        if (e instanceof FinDePaginas) break
-        throw e
-      }
-      if (!lote.length) break
-      todos.push(...lote)
-    }
-    return todos
+const CAMPOS_POST = '_fields=id,slug,date_gmt,link,categories,title,excerpt,content,_links,_embedded&_embed=wp:featuredmedia,wp:term'
+
+/** Todos los posts de WordPress (y sus categorías), de la instantánea o de la API. */
+async function todosLosPostsWp(): Promise<PostWp[]> {
+  if (INSTANTANEA) {
+    const guardada = JSON.parse(fs.readFileSync(INSTANTANEA, 'utf8')) as { categorias: CategoriaWp[]; posts: PostWp[] }
+    categoriasWp = guardada.categorias
+    return guardada.posts
   }
+  categoriasWp = await wpJson<CategoriaWp[]>('/categories?per_page=100&_fields=id,slug,parent')
+  const todos: PostWp[] = []
+  for (let pagina = 1; ; pagina++) {
+    let lote: PostWp[]
+    try {
+      lote = await wpJson<PostWp[]>(`/posts?per_page=50&page=${pagina}&${CAMPOS_POST}`)
+    } catch (e) {
+      if (e instanceof FinDePaginas) break
+      throw e
+    }
+    if (!lote.length) break
+    todos.push(...lote)
+  }
+  return todos
+}
+
+async function postsDeWordpress(): Promise<PostWp[]> {
+  const campos = CAMPOS_POST
+  if (NOTICIAS === 'todas') return todosLosPostsWp()
   const listadas = JSON.parse(fs.readFileSync(path.join(RAIZ_SITIO, 'data/noticias.json'), 'utf8')) as { url_original: string }[]
   const posts: PostWp[] = []
   for (const n of listadas) {
@@ -613,6 +619,59 @@ async function completarGalerias(payload: Payload) {
   }
 }
 
+/**
+ * Formularios de postulación por asesor o campaña. En WordPress son posts sin categoría
+ * (/formulario-de-postulacion-uap-…/) con un formulario de Bitrix24 cada uno: se conserva la
+ * misma URL y el mismo formulario. Los que no tienen formulario de Bitrix quedan fuera.
+ */
+async function importarFormularios(payload: Payload) {
+  const usados = new Map<string, string>()
+  for (const post of await todosLosPostsWp()) {
+    if (!post.slug.startsWith('formulario')) continue
+    const embebido = /<script[^>]*data-b24-form[^>]*>[\s\S]*?<\/script>/i.exec(post.content.rendered)?.[0]
+    const bitrix = leerCodigoBitrix(embebido)
+    if (!embebido || !bitrix) {
+      reporte.pendientes.push({ tipo: 'formularios', clave: post.slug, detalle: 'sin formulario de Bitrix24 en WordPress: queda fuera' })
+      continue
+    }
+    if (usados.has(bitrix.formulario)) {
+      reporte.pendientes.push({
+        tipo: 'formularios',
+        clave: post.slug,
+        detalle: `usa el mismo formulario de Bitrix24 (${bitrix.formulario}) que ${usados.get(bitrix.formulario)}: revisar a quién asigna`,
+      })
+    } else usados.set(bitrix.formulario, post.slug)
+
+    const { docs } = await payload.find({ collection: 'formularios', where: { slug: { equals: post.slug } }, limit: 1, depth: 0, overrideAccess: true })
+    if (docs[0]) {
+      reporte.omitidos.push({ tipo: 'formularios', clave: post.slug, detalle: 'ya existe' })
+      continue
+    }
+    const titulo = load(post.title.rendered).text().trim()
+    if (!APLICAR) {
+      reporte.creados.push({ tipo: 'formularios', clave: post.slug, detalle: bitrix.formulario })
+      continue
+    }
+    try {
+      const doc = await payload.create({
+        collection: 'formularios',
+        data: {
+          titulo,
+          asesor: titulo.split(/\s[–-]\s/)[1]?.trim() || null,
+          slug: post.slug,
+          codigoBitrix: embebido,
+          activo: true,
+        },
+        overrideAccess: true,
+        context: contexto(),
+      })
+      registrarCreado('formularios', doc, post.slug)
+    } catch (e) {
+      reporte.errores.push({ tipo: 'formularios', clave: post.slug, detalle: detalle(e) })
+    }
+  }
+}
+
 /** Autoridades según la página de WordPress (la nómina vigente; el sitio estático estaba desactualizado). */
 async function importarAutoridades(payload: Payload) {
   const html = await paginaWp('autoridades-del-c-s-u')
@@ -787,6 +846,7 @@ async function main() {
     ['programas', importarProgramas],
     ['reglamentos', importarReglamentos],
     ['autoridades', importarAutoridades],
+    ['formularios', importarFormularios],
     ['noticias', importarNoticias],
     ['redirecciones', importarRedirecciones],
     ['galerias', completarGalerias],

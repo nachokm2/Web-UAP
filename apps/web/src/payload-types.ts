@@ -76,6 +76,7 @@ export interface Config {
     facultades: Facultad;
     sedes: Sede;
     autoridades: Autoridad;
+    formularios: FormularioPostulacion;
     redirecciones: Redireccion;
     usuarios: Usuario;
     auditoria: Auditoria;
@@ -95,6 +96,7 @@ export interface Config {
     facultades: FacultadesSelect<false> | FacultadesSelect<true>;
     sedes: SedesSelect<false> | SedesSelect<true>;
     autoridades: AutoridadesSelect<false> | AutoridadesSelect<true>;
+    formularios: FormulariosSelect<false> | FormulariosSelect<true>;
     redirecciones: RedireccionesSelect<false> | RedireccionesSelect<true>;
     usuarios: UsuariosSelect<false> | UsuariosSelect<true>;
     auditoria: AuditoriaSelect<false> | AuditoriaSelect<true>;
@@ -838,6 +840,39 @@ export interface Autoridad {
   createdAt: string;
 }
 /**
+ * Un formulario de Bitrix24 por asesor o campaña, cada uno en su dirección. La postulación le llega a quien Bitrix24 tenga asignado ese formulario. Para un asesor nuevo: cree el formulario en Bitrix24, cree aquí la ficha y pegue el código de inserción.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "formularios".
+ */
+export interface FormularioPostulacion {
+  id: number;
+  /**
+   * Se muestra en la página, p. ej. "Formulario de Postulación UAP – Tamara".
+   */
+  titulo: string;
+  /**
+   * Para encontrarlo en el panel; no se muestra en el sitio.
+   */
+  asesor?: string | null;
+  /**
+   * Final de la URL que comparte el asesor, p. ej. "formulario-de-postulacion-uap-tamara". Si la cambia, el enlace que ya circula deja de funcionar.
+   */
+  slug: string;
+  codigoBitrix: string;
+  /**
+   * Se completa solo a partir del código.
+   */
+  bitrixFormulario?: string | null;
+  bitrixLoaderUrl?: string | null;
+  /**
+   * Si se desactiva, su dirección lleva al formulario general de inscripción.
+   */
+  activo?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * Envía a los visitantes de una URL antigua a la nueva. Se crean solas al cambiar la dirección web de un contenido publicado.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -987,6 +1022,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'autoridades';
         value: number | Autoridad;
+      } | null)
+    | ({
+        relationTo: 'formularios';
+        value: number | FormularioPostulacion;
       } | null)
     | ({
         relationTo: 'redirecciones';
@@ -1350,6 +1389,21 @@ export interface AutoridadesSelect<T extends boolean = true> {
   grupo?: T;
   foto?: T;
   orden?: T;
+  activo?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "formularios_select".
+ */
+export interface FormulariosSelect<T extends boolean = true> {
+  titulo?: T;
+  asesor?: T;
+  slug?: T;
+  codigoBitrix?: T;
+  bitrixFormulario?: T;
+  bitrixLoaderUrl?: T;
   activo?: T;
   updatedAt?: T;
   createdAt?: T;

@@ -43,6 +43,7 @@
 .paginacion [aria-current="page"] { background: var(--color-primary); color: #fff; border-color: var(--color-primary); }
 
 .formulario-bitrix { min-height: 320px; }
+.formulario-asesor { max-width: 760px; padding-block: var(--space-10) var(--space-16); }
 
 /* Landing de programa: antes eran style="" en cada página */
 .seccion-programa { padding: 48px 0; }

@@ -279,6 +279,38 @@ describe('Direcciones web y redirecciones', () => {
   })
 })
 
+describe('Formularios de postulación por asesor', () => {
+  // Código tal como lo entrega Bitrix24 (el de la página de una asesora en WordPress).
+  const codigo = (id = 1251, clave = '9oeoyp') => `<script data-b24-form="inline/${id}/${clave}" data-skip-moving="true">
+(function(w,d,u){var s=d.createElement('script');s.async=true;s.src=u+'?'+(Date.now()/180000|0);
+var h=d.getElementsByTagName('script')[0];h.parentNode.insertBefore(s,h);})(window,document,'https://cdn.bitrix24.es/b23715511/crm/form/loader_${id}.js');
+</script>`
+
+  it('un administrador pega el código de Bitrix24 y el formulario queda listo; los editores no los gestionan', async () => {
+    const slug = unico('formulario-de-postulacion-uap-tamara')
+    const f = await payload.create({ collection: 'formularios', data: { titulo: 'Formulario de Postulación UAP – Tamara', slug, codigoBitrix: codigo() }, ...como(admin) })
+    expect(f).toMatchObject({ bitrixFormulario: 'inline/1251/9oeoyp', bitrixLoaderUrl: 'https://cdn.bitrix24.es/b23715511/crm/form/loader_1251.js', activo: true })
+    await expect(
+      payload.create({ collection: 'formularios', data: { titulo: 'X', slug: unico('formulario-x'), codigoBitrix: codigo() }, ...como(edCarreras) }),
+    ).rejects.toThrow()
+  })
+
+  it('rechaza un código que no es de Bitrix24 o cuyo loader no corresponde al formulario', async () => {
+    await esperarRechazo(payload.create({ collection: 'formularios', data: { titulo: 'Sin código', slug: unico('formulario-sin-codigo'), codigoBitrix: '<p>hola</p>' }, ...como(admin) }), /Bitrix24/)
+    const cruzado = codigo(1251).replace('loader_1251', 'loader_1537')
+    await esperarRechazo(payload.create({ collection: 'formularios', data: { titulo: 'Cruzado', slug: unico('formulario-cruzado'), codigoBitrix: cruzado }, ...como(admin) }), /Bitrix24/)
+  })
+
+  it('comparte el espacio de direcciones con carreras y posgrados', async () => {
+    const slug = unico('formulario-de-postulacion-uap-paz')
+    await payload.create({ collection: 'formularios', data: { titulo: 'Paz', slug, codigoBitrix: codigo(1519, 'aiqb3e') }, ...como(admin) })
+    await esperarRechazo(
+      payload.create({ collection: 'carreras', data: { nombre: 'Choque', slug }, draft: true, ...como(edCarreras) }),
+      /Ya existe un contenido en "formularios"/,
+    )
+  })
+})
+
 describe('Resolución de redirecciones del sitio', () => {
   it('no redirige a contenido sin publicar y se actualiza al publicar (sin esperar la caché)', async () => {
     const { buscarRedireccion } = await import('@/lib/redirecciones')
