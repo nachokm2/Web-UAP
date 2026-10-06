@@ -94,6 +94,15 @@ describe('Limpieza del HTML de WordPress (Elementor)', () => {
     expect(imagenes).toEqual(['https://uap.edu.py/a-1024.jpg'])
   })
 
+  it('ajusta los títulos a los niveles que admite el editor (H2–H4)', () => {
+    expect(limpiarHtml('<h1>A</h1><h5>B</h5><h6>C</h6><h3>D</h3>').html).toBe('<h2>A</h2>\n<h4>B</h4>\n<h4>C</h4>\n<h3>D</h3>')
+  })
+
+  it('un enlace sin destino válido conserva su texto pero deja de ser enlace', () => {
+    const { html: limpio } = limpiarHtml('<p>Ver <a target="_blank" rel="noopener">el cuerpo docente</a> y <a href="javascript:x()">esto</a>.</p>')
+    expect(limpio).toBe('<p>Ver el cuerpo docente y esto.</p>')
+  })
+
   it('recorta textos largos en una palabra completa', () => {
     expect(textoPlano('<p>Uno dos tres cuatro cinco</p>', 15)).toBe('Uno dos tres…')
     expect(textoPlano('<p>  </p>')).toBeNull()

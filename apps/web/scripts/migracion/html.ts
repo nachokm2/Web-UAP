@@ -49,8 +49,11 @@ export function limpiarHtml(html: string): { html: string; imagenes: string[] } 
       const href = h.is('a') ? h.attr('href') : undefined
       for (const atributo of Object.keys(hijo.attribs ?? {})) h.removeAttr(atributo)
       if (href && /^(https?:|mailto:|tel:|\/)/.test(href)) h.attr('href', href)
+      // Un <a> sin destino válido no es un enlace (el editor lo rechazaría): queda su texto.
+      else if (h.is('a')) h.replaceWith(h.contents())
     })
-    const etiqueta = el.tagName.toLowerCase() === 'h1' ? 'h2' : el.tagName.toLowerCase()
+    // El editor de noticias admite H2–H4 (el H1 es el título de la página).
+    const etiqueta = ({ h1: 'h2', h5: 'h4', h6: 'h4' } as Record<string, string>)[el.tagName.toLowerCase()] ?? el.tagName.toLowerCase()
     partes.push(`<${etiqueta}>${nodo.html()?.trim() ?? ''}</${etiqueta}>`)
   })
   return { html: partes.join('\n'), imagenes }
