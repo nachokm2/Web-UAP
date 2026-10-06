@@ -16,6 +16,8 @@
 //   --sin-archivos              no descarga ni sube imágenes/PDF (prueba rápida de estructura)
 //   --guardar-instantanea=f.json  guarda posts y categorías de WordPress en f.json y termina
 //   --wp-instantanea=f.json     usa ese archivo en vez de la API (la API bloquea servidores de datacenter)
+//   --precargar-fotos=dir       descarga las fotos de las noticias de WordPress a dir y termina (sin base)
+//   --cache=dir                 lee/guarda las descargas en dir (p. ej. la carpeta precargada)
 //
 // Es idempotente: lo que ya existe (mismo slug, o mismo origen en archivos) se omite.
 // Cada ejecución con --aplicar guarda un lote en scripts/migracion/lotes/ para poder revertirla.
@@ -104,17 +106,21 @@ function registrarCreado(coleccion: string, doc: { id: number | string; updatedA
 // ---------------------------------------------------------------------------
 // Red: descargas con caché local y reintentos
 
-const CACHE = path.join(DIR, '.cache')
+// --cache=dir: carpeta de descargas (p. ej. una precargada con --precargar-fotos y enviada al servidor).
+const CACHE = opcion('cache') ? path.resolve(opcion('cache')!) : path.join(DIR, '.cache')
+const archivoEnCache = (url: string) => path.join(CACHE, crypto.createHash('sha1').update(url).digest('hex'))
 
 async function descargar(url: string): Promise<Buffer> {
   fs.mkdirSync(CACHE, { recursive: true })
-  const archivo = path.join(CACHE, crypto.createHash('sha1').update(url).digest('hex'))
+  const archivo = archivoEnCache(url)
   if (fs.existsSync(archivo)) return fs.readFileSync(archivo)
   let ultimo: unknown
   for (let intento = 1; intento <= 3; intento++) {
     try {
       const res = await fetch(url, { signal: AbortSignal.timeout(300_000) })
       if (!res.ok) throw new Error(`HTTP ${res.status}`)
+      // El anti-bots del hosting responde una página HTML con estado 200: no es el archivo.
+      if ((res.headers.get('content-type') ?? '').includes('text/html')) throw new Error('el servidor respondió HTML (¿bloqueo anti-bots?)')
       const buf = Buffer.from(await res.arrayBuffer())
       fs.writeFileSync(archivo, buf)
       return buf
@@ -687,6 +693,29 @@ function imprimirReporte() {
 }
 
 async function main() {
+  const precargar = opcion('precargar-fotos')
+  if (precargar) {
+    // Para servidores a los que WordPress bloquea: las fotos se bajan desde una red que no
+    // está bloqueada y la carpeta viaja con el código (luego --cache=esa carpeta).
+    fs.mkdirSync(precargar, { recursive: true })
+    let ok = 0
+    const fallidas: string[] = []
+    for (const post of await postsDeWordpress()) {
+      if (NOTICIAS === 'todas' && clasificarPostWp(post, categoriasWp).tipo !== 'noticia') continue
+      for (const url of limpiarHtml(post.content.rendered).imagenes) {
+        try {
+          await descargar(url)
+          fs.copyFileSync(archivoEnCache(url), path.join(precargar, path.basename(archivoEnCache(url))))
+          ok++
+        } catch {
+          fallidas.push(url)
+        }
+      }
+    }
+    console.log(`Fotos precargadas: ${ok} en ${precargar}; fallidas: ${fallidas.length}`)
+    fallidas.slice(0, 10).forEach((u) => console.log('  ✗', u))
+    process.exit(fallidas.length ? 1 : 0)
+  }
   if (GUARDAR_INSTANTANEA) {
     const posts = await postsDeWordpress()
     fs.writeFileSync(GUARDAR_INSTANTANEA, JSON.stringify({ categorias: categoriasWp, posts }))
