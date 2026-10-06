@@ -47,9 +47,11 @@ async function main() {
   const porLink = new Map(posts.map((p) => [p.link, p]))
 
   const payload = await getPayload({ config })
+  // También las ya archivadas: si una ejecución se cortó entre archivar y borrar sus
+  // redirecciones, la siguiente termina de borrarlas.
   const { docs } = await payload.find({
     collection: 'noticias',
-    where: { and: [{ urlOriginal: { exists: true } }, { estado: { not_equals: 'archivado' } }] },
+    where: { urlOriginal: { exists: true } },
     draft: true,
     limit: 1000,
     depth: 0,
@@ -77,18 +79,26 @@ async function main() {
       overrideAccess: true,
     })
     const desdes = redirecciones.docs.map((r) => String((r as { desde?: string }).desde))
+    const yaArchivada = n.estado === 'archivado'
+    if (yaArchivada && !desdes.length) continue
 
-    let accion = editadaPorPersonas ? 'omitida: editada por una persona' : APLICAR ? 'archivada' : 'se archivaría'
+    let accion = editadaPorPersonas
+      ? 'omitida: editada por una persona'
+      : yaArchivada
+        ? APLICAR ? 'ya archivada; redirecciones borradas' : 'ya archivada; se borrarían sus redirecciones'
+        : APLICAR ? 'archivada' : 'se archivaría'
     if (APLICAR && !editadaPorPersonas) {
       try {
-        await payload.update({
-          collection: 'noticias',
-          id: n.id,
-          draft: false,
-          data: { _status: 'draft', categoria: null } as never,
-          overrideAccess: true,
-          context: { [CONTEXTO_ACTOR]: ACTOR, [CONTEXTO_TRANSICION]: 'archivado' },
-        })
+        if (!yaArchivada) {
+          await payload.update({
+            collection: 'noticias',
+            id: n.id,
+            draft: false,
+            data: { _status: 'draft', categoria: null } as never,
+            overrideAccess: true,
+            context: { [CONTEXTO_ACTOR]: ACTOR, [CONTEXTO_TRANSICION]: 'archivado' },
+          })
+        }
         for (const r of redirecciones.docs) {
           await payload.delete({ collection: 'redirecciones', id: r.id, overrideAccess: true, context: { [CONTEXTO_ACTOR]: ACTOR } })
         }
