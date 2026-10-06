@@ -5,7 +5,9 @@
 //
 // Opciones:
 //   --solo=configuracion,taxonomias,programas,reglamentos,noticias,redirecciones
-//   --noticias=listadas|todas   listadas = las 100 del sitio nuevo (por defecto); todas = las de WordPress
+//   --noticias=listadas|todas   listadas = las 100 del sitio nuevo (por defecto); todas = los posts de WordPress:
+//                               se publican solo los de categorías de noticias; las páginas de programas
+//                               y los formularios (que en WordPress también son posts) quedan archivados
 //   --estado=publicado|borrador estado con el que se crea el contenido (por defecto publicado, como hoy)
 //   --max-pdf-mb=N              no importa PDF más grandes (se informan); por defecto 200
 //   --sin-archivos              no descarga ni sube imágenes/PDF (prueba rápida de estructura)
@@ -27,7 +29,10 @@ import sharp from 'sharp'
 import config from '../../src/payload.config'
 import { CONTEXTO_ACTOR } from '../../src/audit/hooks'
 import { OMITIR_LIMITE_TAMANO } from '../../src/collections/archivos'
+import { normalizarRuta } from '../../src/collections/sistema'
 import { normalizarSlug } from '../../src/fields/slug'
+import { CONTEXTO_TRANSICION } from '../../src/workflow/hooks'
+import { clasificarPostWp, type CategoriaWp } from './clasificar'
 import {
   RAIZ_SITIO,
   extraerAgrupaciones,
@@ -351,6 +356,7 @@ type PostWp = {
   slug: string
   date_gmt: string
   link: string
+  categories?: number[]
   title: { rendered: string }
   excerpt: { rendered: string }
   content: { rendered: string }
@@ -360,9 +366,12 @@ type PostWp = {
   }
 }
 
+let categoriasWp: CategoriaWp[] = []
+
 async function postsDeWordpress(): Promise<PostWp[]> {
-  const campos = '_fields=id,slug,date_gmt,link,title,excerpt,content,_links,_embedded&_embed=wp:featuredmedia,wp:term'
+  const campos = '_fields=id,slug,date_gmt,link,categories,title,excerpt,content,_links,_embedded&_embed=wp:featuredmedia,wp:term'
   if (NOTICIAS === 'todas') {
+    categoriasWp = await wpJson<CategoriaWp[]>('/categories?per_page=100&_fields=id,slug,parent')
     const todos: PostWp[] = []
     for (let pagina = 1; ; pagina++) {
       const lote = await wpJson<PostWp[]>(`/posts?per_page=50&page=${pagina}&${campos}`).catch(() => [])
@@ -404,13 +413,21 @@ async function importarNoticias(payload: Payload) {
         const id = await asegurarImagen(payload, url, titulo)
         if (id) galeria.push(id)
       }
-      const categoriaNombre = post._embedded?.['wp:term']?.flat().find((t) => t.taxonomy === 'category' && !/sin categor|uncategorized/i.test(t.name))?.name
+      // En WordPress las páginas de programas y los formularios también son posts: se conservan
+      // archivados (no públicos, sin categoría de noticias) para no perder su contenido.
+      const { tipo, motivo } = NOTICIAS === 'todas' ? clasificarPostWp(post, categoriasWp) : { tipo: 'noticia' as const, motivo: '' }
+      const esNoticia = tipo === 'noticia'
+      const categoriaNombre = esNoticia
+        ? post._embedded?.['wp:term']?.flat().find((t) => t.taxonomy === 'category' && !/sin categor|uncategorized/i.test(t.name))?.name
+        : undefined
       const categoria = categoriaNombre ? await asegurarPorNombre(payload, 'categorias', load(categoriaNombre).text()) : null
+      if (!esNoticia) reporte.pendientes.push({ tipo: 'noticias', clave: post.link, detalle: `archivada: ${motivo}` })
 
       if (!APLICAR) {
-        reporte.creados.push({ tipo: 'noticias', clave: slug })
+        reporte.creados.push({ tipo: esNoticia ? 'noticias' : 'noticias (archivadas)', clave: slug })
         continue
       }
+      const publicar = esNoticia && ESTADO === 'publicado'
       const doc = await payload.create({
         collection: 'noticias',
         data: {
@@ -423,11 +440,11 @@ async function importarNoticias(payload: Payload) {
           categoria,
           fechaPublicacion: new Date(`${post.date_gmt}Z`).toISOString(),
           urlOriginal: post.link,
-          _status: ESTADO === 'publicado' ? 'published' : 'draft',
+          _status: publicar ? 'published' : 'draft',
         } as never,
-        draft: ESTADO !== 'publicado',
+        draft: !publicar,
         overrideAccess: true,
-        context: contexto(),
+        context: esNoticia ? contexto() : { ...contexto(), [CONTEXTO_TRANSICION]: 'archivado' },
       })
       registrarCreado('noticias', doc, slug)
     } catch (e) {
@@ -436,7 +453,9 @@ async function importarNoticias(payload: Payload) {
   }
 }
 
-async function asegurarRedireccion(payload: Payload, desde: string, destino: { relationTo: CollectionSlug; value: number }) {
+async function asegurarRedireccion(payload: Payload, origen: string, destino: { relationTo: CollectionSlug; value: number }) {
+  // Se busca con la misma normalización con que se guarda (minúsculas, barra final).
+  const desde = normalizarRuta(origen)
   const { docs } = await payload.find({ collection: 'redirecciones', where: { desde: { equals: desde } }, limit: 1, depth: 0, overrideAccess: true })
   if (docs[0]) {
     reporte.omitidos.push({ tipo: 'redirecciones', clave: desde, detalle: 'ya existe' })
@@ -446,13 +465,17 @@ async function asegurarRedireccion(payload: Payload, desde: string, destino: { r
     reporte.creados.push({ tipo: 'redirecciones', clave: desde })
     return
   }
-  const doc = await payload.create({
-    collection: 'redirecciones',
-    data: { desde, tipo: '301', destinoTipo: 'interno', destino, origen: 'migracion' } as never,
-    overrideAccess: true,
-    context: contexto(),
-  })
-  registrarCreado('redirecciones', doc, desde)
+  try {
+    const doc = await payload.create({
+      collection: 'redirecciones',
+      data: { desde, tipo: '301', destinoTipo: 'interno', destino, origen: 'migracion' } as never,
+      overrideAccess: true,
+      context: contexto(),
+    })
+    registrarCreado('redirecciones', doc, desde)
+  } catch (e) {
+    reporte.errores.push({ tipo: 'redirecciones', clave: desde, detalle: detalle(e) })
+  }
 }
 
 async function importarRedirecciones(payload: Payload) {
@@ -467,8 +490,17 @@ async function importarRedirecciones(payload: Payload) {
     }
     await asegurarRedireccion(payload, alias.desde, { relationTo: coleccion, value: docs[0].id as number })
   }
-  // Noticias: URL plana de WordPress (/{slug}/) → nueva URL /noticias/{slug}/.
-  const { docs: noticias } = await payload.find({ collection: 'noticias', where: { urlOriginal: { exists: true } }, draft: true, limit: 1000, depth: 0, overrideAccess: true })
+  // Noticias: URL plana de WordPress (/{slug}/) → nueva URL /noticias/{slug}/. Las archivadas
+  // (páginas de programas y formularios de WordPress) no: su URL antigua la resuelve el programa
+  // con la misma dirección o queda pendiente de decisión.
+  const { docs: noticias } = await payload.find({
+    collection: 'noticias',
+    where: { and: [{ urlOriginal: { exists: true } }, { estado: { not_equals: 'archivado' } }] },
+    draft: true,
+    limit: 1000,
+    depth: 0,
+    overrideAccess: true,
+  })
   for (const n of noticias) {
     const desde = new URL(String(n.urlOriginal)).pathname
     if (desde === `/noticias/${n.slug}/`) continue
@@ -511,7 +543,12 @@ async function main() {
   for (const [nombre, paso] of pasos) {
     if (!SOLO.has(nombre)) continue
     console.log(`→ ${nombre}…`)
-    await paso(payload)
+    try {
+      await paso(payload)
+    } catch (e) {
+      // Un paso que falla no impide guardar el reporte ni el lote de lo ya creado.
+      reporte.errores.push({ tipo: nombre, clave: '(paso interrumpido)', detalle: detalle(e) })
+    }
   }
   imprimirReporte()
   process.exit(reporte.errores.length ? 1 : 0)

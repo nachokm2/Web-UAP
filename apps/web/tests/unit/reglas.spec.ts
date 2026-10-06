@@ -11,7 +11,7 @@ import {
   type Rol,
 } from '@/access/roles'
 import { diffDocumentos, textoDeRichText } from '@/audit/diff'
-import { normalizarRuta } from '@/collections/sistema'
+import { esRutaDelSistema, normalizarRuta } from '@/collections/sistema'
 import { normalizarSlug } from '@/fields/slug'
 import { transicionesDisponibles, validarTransicion } from '@/workflow/estados'
 
@@ -137,5 +137,14 @@ describe('Slugs y rutas', () => {
     expect(normalizarRuta('Contador-Publico')).toBe('/contador-publico/')
     expect(normalizarRuta('https://uap.edu.py/postgrados?x=1')).toBe('/postgrados/')
     expect(normalizarRuta('/wp-content/uploads/a.pdf')).toBe('/wp-content/uploads/a.pdf')
+  })
+
+  it('protege /admin y /api sin bloquear páginas que empiezan igual', () => {
+    expect(esRutaDelSistema('/admin')).toBe(true)
+    expect(esRutaDelSistema('/admin/collections/carreras')).toBe(true)
+    expect(esRutaDelSistema('/api/carreras')).toBe(true)
+    expect(esRutaDelSistema('/administracion-de-empresas/')).toBe(false)
+    expect(esRutaDelSistema('/administracion-publica/')).toBe(false)
+    expect(esRutaDelSistema('/apicultura/')).toBe(false)
   })
 })

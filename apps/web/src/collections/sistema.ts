@@ -22,8 +22,13 @@ export function normalizarRuta(ruta: string): string {
 const validarDesde: TextFieldSingleValidation = (value) => {
   if (!value) return 'Indique la dirección de origen.'
   if (!value.startsWith('/')) return 'Debe empezar con "/". Ej.: /contador-publico/'
-  if (value.startsWith('/admin') || value.startsWith('/api/')) return 'No se pueden redirigir rutas del sistema.'
+  if (esRutaDelSistema(value)) return 'No se pueden redirigir rutas del sistema.'
   return true
+}
+
+/** /admin y /api (y lo que cuelga de ellas). /administracion-publica/ es una página normal. */
+export function esRutaDelSistema(ruta: string): boolean {
+  return /^\/(admin|api)(\/|$)/i.test(ruta)
 }
 
 export const Redirecciones: CollectionConfig = {
