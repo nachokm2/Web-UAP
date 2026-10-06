@@ -26,15 +26,30 @@ export function limpiarHtml(html: string): { html: string; imagenes: string[] } 
   $('script, style, noscript, form, iframe, svg').remove()
 
   const imagenes: string[] = []
-  $('img').each((_, el) => {
-    const img = $(el)
-    const srcset = img.attr('srcset')
-    const mayor = srcset
-      ?.split(',')
-      .map((s) => s.trim().split(/\s+/))
-      .sort((a, b) => parseInt(b[1] ?? '0') - parseInt(a[1] ?? '0'))[0]?.[0]
-    const src = mayor || img.attr('data-src') || img.attr('src')
+  const agregar = (src: string | undefined) => {
     if (src && /^https?:\/\//.test(src) && !imagenes.includes(src)) imagenes.push(src)
+  }
+  // En orden de aparición: <img> y las fotos que Elementor pone como fondo o slideshow de
+  // una sección (van en data-settings, no como <img>; WordPress las muestra igual).
+  $('img, [data-settings]').each((_, el) => {
+    const nodo = $(el)
+    if (nodo.is('img')) {
+      const mayor = nodo
+        .attr('srcset')
+        ?.split(',')
+        .map((s) => s.trim().split(/\s+/))
+        .sort((a, b) => parseInt(b[1] ?? '0') - parseInt(a[1] ?? '0'))[0]?.[0]
+      agregar(mayor || nodo.attr('data-src') || nodo.attr('src'))
+      return
+    }
+    let ajustes: { background_slideshow_gallery?: { url?: string }[]; background_image?: { url?: string } }
+    try {
+      ajustes = JSON.parse(nodo.attr('data-settings') ?? '')
+    } catch {
+      return
+    }
+    for (const foto of ajustes.background_slideshow_gallery ?? []) agregar(foto?.url)
+    agregar(ajustes.background_image?.url)
   })
 
   const partes: string[] = []

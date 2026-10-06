@@ -94,6 +94,15 @@ describe('Limpieza del HTML de WordPress (Elementor)', () => {
     expect(imagenes).toEqual(['https://uap.edu.py/a-1024.jpg'])
   })
 
+  it('rescata las fotos de slideshows y fondos de Elementor, en orden y sin repetir', () => {
+    // Así llega en content.rendered de WordPress (data-settings con entidades).
+    const ajustes = (o: unknown) => JSON.stringify(o).replace(/"/g, '&quot;')
+    const html = `<section data-settings="${ajustes({ background_background: 'slideshow', background_slideshow_gallery: [{ id: 1, url: 'https://uap.edu.py/a.jpg' }, { id: 2, url: 'https://uap.edu.py/b.jpg' }] })}"><p>Texto</p></section>
+      <div data-settings="${ajustes({ background_image: { url: 'https://uap.edu.py/c.jpg' } })}"></div>
+      <div data-settings="${ajustes({ animation: 'fadeIn' })}"></div><img src="https://uap.edu.py/a.jpg"><img src="https://uap.edu.py/d.jpg">`
+    expect(limpiarHtml(html).imagenes).toEqual(['https://uap.edu.py/a.jpg', 'https://uap.edu.py/b.jpg', 'https://uap.edu.py/c.jpg', 'https://uap.edu.py/d.jpg'])
+  })
+
   it('ajusta los títulos a los niveles que admite el editor (H2–H4)', () => {
     expect(limpiarHtml('<h1>A</h1><h5>B</h5><h6>C</h6><h3>D</h3>').html).toBe('<h2>A</h2>\n<h4>B</h4>\n<h4>C</h4>\n<h3>D</h3>')
   })

@@ -5,6 +5,8 @@ import { MODALIDADES } from '@/fields/programa'
 import type { Carrera, Documento, Posgrado, Sede } from '@/payload-types'
 import { urlPrograma } from '@/lib/urls'
 
+import { Imagen, esMedio } from './Imagen'
+
 type Props = { programa: Carrera | Posgrado; tipo: 'carrera' | 'posgrado' }
 
 const etiqueta = (lista: { value: string; label: string }[], v?: string | null) => lista.find((o) => o.value === v)?.label
@@ -19,6 +21,11 @@ export function TarjetaPrograma({ programa: p, tipo }: Props) {
 
   return (
     <div className="career-card">
+      {esMedio(p.imagenPrincipal) && (
+        <Link href={urlPrograma(p.slug)} className="career-card__imagen" tabIndex={-1} aria-hidden="true">
+          <Imagen medio={p.imagenPrincipal} tamano="tarjeta" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 380px" />
+        </Link>
+      )}
       <div className={`posgrado-badge${tipoPosgrado ? ` badge-${tipoPosgrado}` : ''}`}>{badge}</div>
       <h3>
         <Link href={urlPrograma(p.slug)}>{p.nombre}</Link>

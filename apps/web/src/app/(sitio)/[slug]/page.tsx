@@ -144,9 +144,10 @@ export default async function PaginaPrograma({ params }: Params) {
         ]}
       />
       <main id="main-content">
+        {/* Con foto: la foto se ve (degradado solo detrás del texto). Sin foto: fondo institucional. */}
         <section
-          className={esCarrera ? 'career-hero-glass' : 'career-hero-glass hero-photo'}
-          style={hero ? ({ '--hero-image': `url('${hero}')`, ...(esCarrera ? {} : { backgroundImage: `url('${hero}')` }) } as React.CSSProperties) : undefined}
+          className={hero ? 'career-hero-glass hero-photo' : 'career-hero-glass'}
+          style={hero ? ({ '--hero-image': `url('${hero}')`, backgroundImage: `url('${hero}')` } as React.CSSProperties) : undefined}
         >
           <div className="container">
             {!esCarrera && <span className="posgrado-badge">{tipoLegible(p)}</span>}

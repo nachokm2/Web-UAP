@@ -5,6 +5,9 @@
 //
 // Opciones:
 //   --solo=configuracion,taxonomias,programas,reglamentos,noticias,redirecciones
+//                               pasos a pedido (no van por defecto):
+//                                 galerias      completa las fotos de noticias ya importadas
+//                                 correcciones  aplica scripts/migracion/correcciones.json
 //   --noticias=listadas|todas   listadas = las 100 del sitio nuevo (por defecto); todas = los posts de WordPress:
 //                               se publican solo los de categorías de noticias; las páginas de programas
 //                               y los formularios (que en WordPress también son posts) quedan archivados
@@ -509,6 +512,135 @@ async function importarRedirecciones(payload: Payload) {
 }
 
 // ---------------------------------------------------------------------------
+// Pasos a pedido sobre contenido ya importado. Nunca pisan lo que editó una persona.
+
+async function editadoPorPersonas(payload: Payload, coleccion: string, id: number | string) {
+  const { totalDocs } = await payload.count({
+    collection: 'auditoria',
+    where: { and: [{ coleccion: { equals: coleccion } }, { documentoId: { equals: String(id) } }, { usuario: { exists: true } }] },
+    overrideAccess: true,
+  })
+  return totalDocs > 0
+}
+
+/**
+ * Fotos de las noticias según WordPress (incluidas las de slideshows de Elementor, que la
+ * primera importación no leía). Completa la galería de las noticias publicadas; la primera
+ * foto es la que el sitio muestra arriba de la nota, como en WordPress.
+ */
+async function completarGalerias(payload: Payload) {
+  for (const post of await postsDeWordpress()) {
+    const { docs } = await payload.find({ collection: 'noticias', where: { urlOriginal: { equals: post.link } }, draft: true, limit: 1, depth: 0, overrideAccess: true })
+    const n = docs[0] as { id: number; slug: string; titulo: string; estado?: string; galeria?: (number | { id: number })[] } | undefined
+    if (!n || n.estado !== 'publicado') continue
+    const destacada = post._embedded?.['wp:featuredmedia']?.[0]?.source_url
+    const deseadas = limpiarHtml(post.content.rendered).imagenes.filter((u) => u !== destacada)
+    const actuales = (n.galeria ?? []).map((g) => (typeof g === 'object' ? g.id : g))
+    if (!deseadas.length) continue
+    if (await editadoPorPersonas(payload, 'noticias', n.id)) {
+      reporte.pendientes.push({ tipo: 'galerias', clave: n.slug, detalle: 'editada por una persona: no se toca' })
+      continue
+    }
+    const ids: number[] = []
+    for (const url of deseadas) {
+      const id = await asegurarImagen(payload, url, n.titulo)
+      if (id) ids.push(id)
+    }
+    if (!APLICAR) {
+      if (deseadas.length !== actuales.length) reporte.creados.push({ tipo: 'galerias', clave: n.slug, detalle: `${actuales.length} → ${deseadas.length} fotos` })
+      continue
+    }
+    if (ids.length === actuales.length && ids.every((id, i) => id === actuales[i])) {
+      reporte.omitidos.push({ tipo: 'galerias', clave: n.slug, detalle: 'ya completa' })
+      continue
+    }
+    try {
+      await payload.update({
+        collection: 'noticias',
+        id: n.id,
+        draft: false,
+        data: { galeria: ids, _status: 'published' } as never,
+        overrideAccess: true,
+        context: contexto(),
+      })
+      reporte.creados.push({ tipo: 'galerias', clave: n.slug, detalle: `${actuales.length} → ${ids.length} fotos` })
+    } catch (e) {
+      reporte.errores.push({ tipo: 'galerias', clave: n.slug, detalle: detalle(e) })
+    }
+  }
+}
+
+type Correcciones = {
+  imagenesPrograma?: { coleccion: 'carreras' | 'posgrados'; slug: string; imagen: string; motivo: string }[]
+  redirecciones?: { desde: string; tipo: '301' | '410'; url?: string; motivo: string }[]
+}
+
+/** Decisiones de la revisión del equipo (scripts/migracion/correcciones.json). */
+async function aplicarCorrecciones(payload: Payload) {
+  const correcciones = JSON.parse(fs.readFileSync(path.join(DIR, 'correcciones.json'), 'utf8')) as Correcciones
+
+  for (const c of correcciones.imagenesPrograma ?? []) {
+    const { docs } = await payload.find({ collection: c.coleccion, where: { slug: { equals: c.slug } }, draft: true, limit: 1, depth: 1, overrideAccess: true })
+    const p = docs[0] as { id: number; nombre: string; _status?: string; imagenPrincipal?: { origen?: string } | null } | undefined
+    if (!p) {
+      reporte.errores.push({ tipo: 'correcciones', clave: c.slug, detalle: 'no existe el programa' })
+      continue
+    }
+    if (p.imagenPrincipal?.origen === c.imagen) {
+      reporte.omitidos.push({ tipo: 'correcciones', clave: c.slug, detalle: 'ya tiene esa imagen' })
+      continue
+    }
+    if (await editadoPorPersonas(payload, c.coleccion, p.id)) {
+      reporte.pendientes.push({ tipo: 'correcciones', clave: c.slug, detalle: 'editado por una persona: no se toca' })
+      continue
+    }
+    const imagen = await asegurarImagen(payload, c.imagen, p.nombre)
+    if (!APLICAR) {
+      reporte.creados.push({ tipo: 'correcciones', clave: c.slug, detalle: c.motivo })
+      continue
+    }
+    if (!imagen) continue
+    try {
+      await payload.update({
+        collection: c.coleccion,
+        id: p.id,
+        draft: false,
+        data: { imagenPrincipal: imagen, _status: p._status === 'published' ? 'published' : 'draft' } as never,
+        overrideAccess: true,
+        context: contexto(),
+      })
+      reporte.creados.push({ tipo: 'correcciones', clave: c.slug, detalle: c.motivo })
+    } catch (e) {
+      reporte.errores.push({ tipo: 'correcciones', clave: c.slug, detalle: detalle(e) })
+    }
+  }
+
+  for (const r of correcciones.redirecciones ?? []) {
+    const desde = normalizarRuta(r.desde)
+    const { docs } = await payload.find({ collection: 'redirecciones', where: { desde: { equals: desde } }, limit: 1, depth: 0, overrideAccess: true })
+    if (docs[0]) {
+      reporte.omitidos.push({ tipo: 'redirecciones', clave: desde, detalle: 'ya existe' })
+      continue
+    }
+    if (!APLICAR) {
+      reporte.creados.push({ tipo: 'redirecciones', clave: desde, detalle: r.motivo })
+      continue
+    }
+    try {
+      const doc = await payload.create({
+        collection: 'redirecciones',
+        data: { desde, tipo: r.tipo, ...(r.tipo === '410' ? {} : { destinoTipo: 'url', url: r.url }), origen: 'migracion' } as never,
+        overrideAccess: true,
+        context: contexto(),
+      })
+      registrarCreado('redirecciones', doc, desde)
+    } catch (e) {
+      reporte.errores.push({ tipo: 'redirecciones', clave: desde, detalle: detalle(e) })
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
 
 function imprimirReporte() {
   const porTipo = (lista: Entrada[]) =>
@@ -539,6 +671,8 @@ async function main() {
     ['reglamentos', importarReglamentos],
     ['noticias', importarNoticias],
     ['redirecciones', importarRedirecciones],
+    ['galerias', completarGalerias],
+    ['correcciones', aplicarCorrecciones],
   ]
   for (const [nombre, paso] of pasos) {
     if (!SOLO.has(nombre)) continue

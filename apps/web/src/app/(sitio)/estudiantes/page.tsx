@@ -23,6 +23,20 @@ function formatoWhatsapp(numero: string): string {
 const propsIcono = { xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 48 48', width: 32, height: 32, 'aria-hidden': true } as const
 const trazo = { fill: 'none', stroke: 'white', strokeWidth: 2 } as const
 
+/** Revista científica de la UAP (enlazada desde la página Estudiantes de WordPress). */
+const REVISTA_CIENTIFICA = 'https://paraguayoral.com.py/'
+
+/** Tarjeta de servicio: enlace cuando hay destino; los externos abren en otra pestaña. */
+function Servicio({ href, children }: { href?: string | null; children: React.ReactNode }) {
+  if (!href) return <div className="student-card">{children}</div>
+  const externo = /^https?:\/\//.test(href)
+  return (
+    <a href={href} className="student-card" {...(externo ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
+      {children}
+    </a>
+  )
+}
+
 export default async function PaginaEstudiantes() {
   const config = await obtenerConfiguracion()
 
@@ -39,7 +53,7 @@ export default async function PaginaEstudiantes() {
 
         <div className="container">
           <div className="student-grid">
-            <a href="https://uap.edu.py/biblioteca-virtual/" className="student-card" target="_blank" rel="noopener noreferrer">
+            <Servicio href="https://uap.edu.py/biblioteca-virtual/">
               <div className="student-icon">
                 <svg {...propsIcono}>
                   <path d="M8 12 C8 8, 14 8, 18 12 L18 38 C14 34, 8 34, 8 38 Z" {...trazo} strokeLinejoin="round" />
@@ -50,7 +64,7 @@ export default async function PaginaEstudiantes() {
               </div>
               <h3>Biblioteca Virtual</h3>
               <p>Accedé a recursos bibliográficos, libros electrónicos, revistas académicas y bases de datos científicas para tu formación.</p>
-            </a>
+            </Servicio>
 
             <div className="student-card">
               <div className="student-icon">
@@ -67,7 +81,7 @@ export default async function PaginaEstudiantes() {
               <p>Consultá las fechas importantes del período lectivo, exámenes, inscripciones y eventos institucionales.</p>
             </div>
 
-            <div className="student-card">
+            <Servicio href={`${SITIO.institucional}#reglamentos`}>
               <div className="student-icon">
                 <svg {...propsIcono}>
                   <rect x="8" y="4" width="32" height="40" rx="4" {...trazo} />
@@ -79,7 +93,7 @@ export default async function PaginaEstudiantes() {
               </div>
               <h3>Reglamentos</h3>
               <p>Conocé el reglamento de la universidad, normativas de evaluación, derechos y deberes del estudiante.</p>
-            </div>
+            </Servicio>
 
             <div className="student-card">
               <div className="student-icon">
@@ -112,7 +126,7 @@ export default async function PaginaEstudiantes() {
               <p>Accedé a programas de apoyo psicológico, orientación vocacional, actividades culturales y deportivas.</p>
             </div>
 
-            <div className="student-card">
+            <Servicio href={config.campusVirtualUrl}>
               <div className="student-icon">
                 <svg {...propsIcono}>
                   <rect x="4" y="8" width="40" height="28" rx="4" {...trazo} />
@@ -124,9 +138,35 @@ export default async function PaginaEstudiantes() {
                   <line x1="28" y1="28" x2="36" y2="28" stroke="white" strokeWidth="2" strokeLinecap="round" />
                 </svg>
               </div>
-              <h3>Plataforma Virtual</h3>
+              <h3>Campus Virtual</h3>
               <p>Accedé a tu aula virtual, materiales de clase, tareas y comunicación con docentes.</p>
-            </div>
+            </Servicio>
+
+            <Servicio href={REVISTA_CIENTIFICA}>
+              <div className="student-icon">
+                <svg {...propsIcono}>
+                  <path d="M10 6 H32 L38 12 V42 H10 Z" {...trazo} strokeLinejoin="round" />
+                  <path d="M32 6 V12 H38" {...trazo} strokeLinejoin="round" />
+                  <line x1="16" y1="20" x2="32" y2="20" stroke="white" strokeWidth="2" strokeLinecap="round" />
+                  <line x1="16" y1="27" x2="32" y2="27" stroke="white" strokeWidth="2" strokeLinecap="round" />
+                  <line x1="16" y1="34" x2="26" y2="34" stroke="white" strokeWidth="2" strokeLinecap="round" />
+                </svg>
+              </div>
+              <h3>Revista Científica</h3>
+              <p>Accedé a la revista científica y a sus publicaciones.</p>
+            </Servicio>
+
+            <Servicio href={config.whatsapp ? `https://wa.me/${config.whatsapp.replace(/\D/g, '')}` : null}>
+              <div className="student-icon">
+                <svg {...propsIcono}>
+                  <path d="M8 10 H40 V32 H22 L14 40 V32 H8 Z" {...trazo} strokeLinejoin="round" />
+                  <line x1="15" y1="18" x2="33" y2="18" stroke="white" strokeWidth="2" strokeLinecap="round" />
+                  <line x1="15" y1="25" x2="27" y2="25" stroke="white" strokeWidth="2" strokeLinecap="round" />
+                </svg>
+              </div>
+              <h3>Servicios de Atención</h3>
+              <p>Escribinos por WhatsApp para consultas académicas, trámites y atención al estudiante.</p>
+            </Servicio>
           </div>
 
           <section className="section">

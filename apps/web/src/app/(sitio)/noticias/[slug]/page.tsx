@@ -36,7 +36,11 @@ export default async function PaginaNoticia({ params }: Params) {
   const n = await obtenerNoticia((await params).slug)
   if (!n) notFound()
   const categoria = typeof n.categoria === 'object' && n.categoria ? (n.categoria as Categoria).nombre : null
-  const galeria = (n.galeria ?? []).filter(esMedio)
+  // Como en WordPress: dentro de la nota se ven las fotos de la nota (galería); la imagen
+  // destacada es la de listados y redes, y solo se muestra aquí si la nota no tiene fotos.
+  const fotos = (n.galeria ?? []).filter(esMedio)
+  const principal = fotos[0] ?? (esMedio(n.imagenDestacada) ? n.imagenDestacada : null)
+  const galeria = fotos.slice(1)
   const imagenOg = urlDeImagen(esMedio(n.imagenDestacada) ? n.imagenDestacada : null, 'og')
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -68,9 +72,7 @@ export default async function PaginaNoticia({ params }: Params) {
               {n.bajada && <p className="lead">{n.bajada}</p>}
               <p className="noticia__autor">{n.autor || 'Comunicación UAP'}</p>
             </header>
-            {esMedio(n.imagenDestacada) && (
-              <Imagen medio={n.imagenDestacada} tamano="hero" sizes="(max-width: 900px) 100vw, 860px" className="noticia__imagen" prioridad />
-            )}
+            {principal && <Imagen medio={principal} tamano="hero" sizes="(max-width: 900px) 100vw, 860px" className="noticia__imagen" prioridad />}
             <TextoCms data={n.contenido} />
             {galeria.length > 0 && (
               <section aria-label="Galería de fotos" className="galeria-cms noticia__galeria">
