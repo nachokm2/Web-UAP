@@ -14,6 +14,8 @@
 //   --estado=publicado|borrador estado con el que se crea el contenido (por defecto publicado, como hoy)
 //   --max-pdf-mb=N              no importa PDF más grandes (se informan); por defecto 200
 //   --sin-archivos              no descarga ni sube imágenes/PDF (prueba rápida de estructura)
+//   --guardar-instantanea=f.json  guarda posts y categorías de WordPress en f.json y termina
+//   --wp-instantanea=f.json     usa ese archivo en vez de la API (la API bloquea servidores de datacenter)
 //
 // Es idempotente: lo que ya existe (mismo slug, o mismo origen en archivos) se omite.
 // Cada ejecución con --aplicar guarda un lote en scripts/migracion/lotes/ para poder revertirla.
@@ -64,6 +66,9 @@ const SOLO = new Set((opcion('solo') ?? 'configuracion,taxonomias,programas,regl
 const NOTICIAS = (opcion('noticias') ?? 'listadas') as 'listadas' | 'todas'
 const ESTADO = (opcion('estado') ?? 'publicado') as 'publicado' | 'borrador'
 const MAX_PDF_MB = Number(opcion('max-pdf-mb') ?? 200)
+/** Posts y categorías de WordPress leídos de un archivo (--guardar-instantanea) en vez de la API. */
+const INSTANTANEA = opcion('wp-instantanea')
+const GUARDAR_INSTANTANEA = opcion('guardar-instantanea')
 
 // ---------------------------------------------------------------------------
 // Reporte y lote (para revertir)
@@ -121,9 +126,17 @@ async function descargar(url: string): Promise<Buffer> {
   throw new Error(`No se pudo descargar ${url}: ${ultimo}`)
 }
 
+class FinDePaginas extends Error {}
+
 async function wpJson<T>(ruta: string): Promise<T> {
   const res = await fetch(`${WP}${ruta}`, { signal: AbortSignal.timeout(60_000) })
+  // WordPress responde 400 rest_post_invalid_page_number al pasar la última página.
+  if (res.status === 400 && /[?&]page=/.test(ruta)) throw new FinDePaginas()
   if (!res.ok) throw new Error(`WordPress ${ruta} → HTTP ${res.status}`)
+  if (!(res.headers.get('content-type') ?? '').includes('json')) {
+    // Pasa desde servidores de datacenter (Railway): el anti-bots del hosting responde una página HTML.
+    throw new Error(`WordPress ${ruta} respondió HTML en lugar de JSON (¿bloqueo anti-bots?). Use --wp-instantanea.`)
+  }
   return res.json() as Promise<T>
 }
 
@@ -374,10 +387,21 @@ let categoriasWp: CategoriaWp[] = []
 async function postsDeWordpress(): Promise<PostWp[]> {
   const campos = '_fields=id,slug,date_gmt,link,categories,title,excerpt,content,_links,_embedded&_embed=wp:featuredmedia,wp:term'
   if (NOTICIAS === 'todas') {
+    if (INSTANTANEA) {
+      const guardada = JSON.parse(fs.readFileSync(INSTANTANEA, 'utf8')) as { categorias: CategoriaWp[]; posts: PostWp[] }
+      categoriasWp = guardada.categorias
+      return guardada.posts
+    }
     categoriasWp = await wpJson<CategoriaWp[]>('/categories?per_page=100&_fields=id,slug,parent')
     const todos: PostWp[] = []
     for (let pagina = 1; ; pagina++) {
-      const lote = await wpJson<PostWp[]>(`/posts?per_page=50&page=${pagina}&${campos}`).catch(() => [])
+      let lote: PostWp[]
+      try {
+        lote = await wpJson<PostWp[]>(`/posts?per_page=50&page=${pagina}&${campos}`)
+      } catch (e) {
+        if (e instanceof FinDePaginas) break
+        throw e
+      }
       if (!lote.length) break
       todos.push(...lote)
     }
@@ -663,6 +687,12 @@ function imprimirReporte() {
 }
 
 async function main() {
+  if (GUARDAR_INSTANTANEA) {
+    const posts = await postsDeWordpress()
+    fs.writeFileSync(GUARDAR_INSTANTANEA, JSON.stringify({ categorias: categoriasWp, posts }))
+    console.log(`Instantánea de WordPress: ${posts.length} posts, ${categoriasWp.length} categorías → ${GUARDAR_INSTANTANEA}`)
+    process.exit(0)
+  }
   const payload = await getPayload({ config })
   console.log(`Base: ${(process.env.DATABASE_URL ?? '').replace(/\/\/[^@]*@/, '//***@')} · ${APLICAR ? 'APLICANDO' : 'simulación'}`)
   const pasos: [string, (p: Payload) => Promise<void>][] = [
