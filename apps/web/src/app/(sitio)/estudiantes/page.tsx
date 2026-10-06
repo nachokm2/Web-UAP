@@ -53,7 +53,7 @@ export default async function PaginaEstudiantes() {
 
         <div className="container">
           <div className="student-grid">
-            <Servicio href="https://uap.edu.py/biblioteca-virtual/">
+            <Servicio href={SITIO.biblioteca}>
               <div className="student-icon">
                 <svg {...propsIcono}>
                   <path d="M8 12 C8 8, 14 8, 18 12 L18 38 C14 34, 8 34, 8 38 Z" {...trazo} strokeLinejoin="round" />

@@ -75,6 +75,7 @@ export interface Config {
     documentos: Documento;
     facultades: Facultad;
     sedes: Sede;
+    autoridades: Autoridad;
     redirecciones: Redireccion;
     usuarios: Usuario;
     auditoria: Auditoria;
@@ -93,6 +94,7 @@ export interface Config {
     documentos: DocumentosSelect<false> | DocumentosSelect<true>;
     facultades: FacultadesSelect<false> | FacultadesSelect<true>;
     sedes: SedesSelect<false> | SedesSelect<true>;
+    autoridades: AutoridadesSelect<false> | AutoridadesSelect<true>;
     redirecciones: RedireccionesSelect<false> | RedireccionesSelect<true>;
     usuarios: UsuariosSelect<false> | UsuariosSelect<true>;
     auditoria: AuditoriaSelect<false> | AuditoriaSelect<true>;
@@ -813,6 +815,29 @@ export interface Categoria {
   createdAt: string;
 }
 /**
+ * Personas que se muestran en /autoridades/ y en Institucional. Cuando alguien deja el cargo, desmarque "Se muestra en el sitio" en lugar de borrarlo: queda el historial.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "autoridades".
+ */
+export interface Autoridad {
+  id: number;
+  /**
+   * Con el título, como se publica (p. ej. "Abg. Carlos …").
+   */
+  nombre: string;
+  cargo: string;
+  grupo: 'consejo' | 'directivos' | 'carreras' | 'posgrado';
+  foto?: (number | null) | Medio;
+  /**
+   * Menor primero, dentro de su grupo.
+   */
+  orden?: number | null;
+  activo?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * Envía a los visitantes de una URL antigua a la nueva. Se crean solas al cambiar la dirección web de un contenido publicado.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -958,6 +983,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'sedes';
         value: number | Sede;
+      } | null)
+    | ({
+        relationTo: 'autoridades';
+        value: number | Autoridad;
       } | null)
     | ({
         relationTo: 'redirecciones';
@@ -1308,6 +1337,20 @@ export interface SedesSelect<T extends boolean = true> {
   nombre?: T;
   direccion?: T;
   ciudad?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "autoridades_select".
+ */
+export interface AutoridadesSelect<T extends boolean = true> {
+  nombre?: T;
+  cargo?: T;
+  grupo?: T;
+  foto?: T;
+  orden?: T;
+  activo?: T;
   updatedAt?: T;
   createdAt?: T;
 }

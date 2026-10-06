@@ -9,6 +9,7 @@ import { es } from '@payloadcms/translations/languages/es'
 import { buildConfig } from 'payload'
 import sharp from 'sharp'
 
+import { Autoridades } from './collections/Autoridades'
 import { Carreras } from './collections/Carreras'
 import { Documentos, LIMITE_PDF_MB, Medios } from './collections/archivos'
 import { Noticias } from './collections/Noticias'
@@ -52,6 +53,7 @@ export default buildConfig({
     Documentos,
     Facultades,
     Sedes,
+    Autoridades,
     Redirecciones,
     Usuarios,
     Auditoria,

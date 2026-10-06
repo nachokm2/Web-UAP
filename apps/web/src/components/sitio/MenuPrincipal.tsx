@@ -133,7 +133,7 @@ export function MenuPrincipal({ carrerasPorFacultad, campusVirtualUrl }: Props) 
             </Link>
             <div className="dropdown-content">
               <Link href={`${SITIO.institucional}#mision`}>Misión, Visión y Valores</Link>
-              <Link href={`${SITIO.institucional}#autoridades`}>Autoridades</Link>
+              <Link href={SITIO.autoridades}>Autoridades</Link>
               <Link href={`${SITIO.institucional}#convenios`}>Convenios</Link>
               <Link href={`${SITIO.institucional}#reglamentos`}>Reglamentos</Link>
             </div>

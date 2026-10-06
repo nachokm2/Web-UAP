@@ -33,6 +33,12 @@
       "motivo": "Revisión 6-oct: Campus Virtual es Canvas de la UAP (enlace del menú de WordPress y del sitio estático)."
     },
     {
+      "desde": "/autoridades-del-c-s-u/",
+      "tipo": "301",
+      "url": "/autoridades/",
+      "motivo": "Revisión 6-oct: \"no existe la url de autoridades, se debe crear\". La página nueva es /autoridades/, editable desde el CMS."
+    },
+    {
       "desde": "/codigo-de-etica/",
       "tipo": "410",
       "motivo": "Revisión 6-oct: \"No considerar\". En WordPress es una página de demostración del tema (texto lorem ipsum)."

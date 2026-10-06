@@ -71,7 +71,7 @@ export async function Footer() {
             <h2 className="pie__titulo">Institucional</h2>
             <ul className="pie__lista">
               <li><Link href={SITIO.institucional}>Sobre la UAP</Link></li>
-              <li><Link href={`${SITIO.institucional}#autoridades`}>Autoridades</Link></li>
+              <li><Link href={SITIO.autoridades}>Autoridades</Link></li>
               <li><Link href={SITIO.investigacion}>Investigación</Link></li>
               <li><Link href={SITIO.estudiantes}>Estudiantes</Link></li>
               <li><Link href={SITIO.contacto}>Contacto</Link></li>

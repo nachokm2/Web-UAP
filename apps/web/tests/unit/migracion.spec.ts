@@ -16,6 +16,7 @@ import {
   mapearSecciones,
   similitud,
 } from '../../scripts/migracion/extraer'
+import { extraerAutoridades } from '../../scripts/migracion/autoridades'
 import { clasificarPostWp, type CategoriaWp } from '../../scripts/migracion/clasificar'
 import { limpiarHtml, textoPlano } from '../../scripts/migracion/html'
 
@@ -147,6 +148,35 @@ describe('Clasificación de posts de WordPress', () => {
     expect(clasificarPostWp({ slug: 'formulario-de-postulacion-uap-tamara', categories: [1] }, categorias).tipo).toBe('formulario')
     expect(clasificarPostWp({ slug: 'derecho-2', categories: [1] }, categorias).tipo).toBe('otro')
     expect(clasificarPostWp({ slug: 'sin-datos' }, categorias).tipo).toBe('otro')
+  })
+})
+
+describe('Autoridades de WordPress', () => {
+  // Misma estructura de widgets de Elementor que /autoridades-del-c-s-u/.
+  const titulo = (t: string) => `<div data-widget_type="heading.default"><h2>${t}</h2></div>`
+  const foto = (src: string, nombre: string) =>
+    `<div data-widget_type="image.default"><figure><img src="${src}"><figcaption>${nombre}</figcaption></figure></div>`
+  const html = [
+    titulo('Consejo Superior Universitario'),
+    titulo('Rector'),
+    foto('https://uap.edu.py/rector.jpg', 'Abg. Carlos Ruffinelli'),
+    '<div data-widget_type="divider.default"></div>',
+    titulo('Directivos UAP'),
+    titulo('Director Académico​'),
+    foto('https://uap.edu.py/va.jpg', 'Víctor Salazar Parra'),
+    titulo('Dirección de Carrera'),
+    titulo('Odontología'),
+    titulo('Dra. Claudia Díaz de Vivar'),
+    '<div data-widget_type="spacer.default"></div>',
+    titulo('Coordinación de programas de Postgrado'),
+  ].join('')
+
+  it('arma grupo, cargo, nombre y foto en el orden de la página', () => {
+    expect(extraerAutoridades(html)).toEqual([
+      { grupo: 'consejo', cargo: 'Rector', nombre: 'Abg. Carlos Ruffinelli', foto: 'https://uap.edu.py/rector.jpg' },
+      { grupo: 'directivos', cargo: 'Director Académico', nombre: 'Víctor Salazar Parra', foto: 'https://uap.edu.py/va.jpg' },
+      { grupo: 'carreras', cargo: 'Odontología', nombre: 'Dra. Claudia Díaz de Vivar' },
+    ])
   })
 })
 

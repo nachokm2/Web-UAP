@@ -4,7 +4,7 @@
 import config from '@payload-config'
 import { getPayload } from 'payload'
 
-import type { Carrera, Configuracion, Documento, Facultad, Noticia, Posgrado } from '@/payload-types'
+import type { Autoridad, Carrera, Configuracion, Documento, Facultad, Noticia, Posgrado } from '@/payload-types'
 
 import { enCache } from './cache'
 
@@ -76,6 +76,19 @@ export const obtenerNoticia = (slug: string) =>
     },
     60 * 1000,
   )
+
+export const listarAutoridades = () =>
+  enCache('autoridades', ['autoridades', 'medios'], async () => {
+    const { docs } = await (await payload()).find({
+      collection: 'autoridades',
+      where: { activo: { equals: true } },
+      depth: 1,
+      limit: 300,
+      sort: 'orden',
+      overrideAccess: false,
+    })
+    return docs as Autoridad[]
+  })
 
 export const listarReglamentos = () =>
   enCache('reglamentos', ['documentos'], async () => {

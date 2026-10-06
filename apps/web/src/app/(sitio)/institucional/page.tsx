@@ -2,9 +2,11 @@
 // colección Documentos (tipo "reglamento"); el resto es el texto del sitio estático.
 
 import type { Metadata } from 'next'
+import Link from 'next/link'
 
 import { Breadcrumb } from '@/components/sitio/Breadcrumb'
-import { listarReglamentos } from '@/lib/datos'
+import { ListaAutoridades } from '@/components/sitio/ListaAutoridades'
+import { listarAutoridades, listarReglamentos } from '@/lib/datos'
 import { SITIO, urlAbsoluta } from '@/lib/urls'
 
 export const metadata: Metadata = {
@@ -15,44 +17,8 @@ export const metadata: Metadata = {
 
 const VALORES = ['Excelencia académica', 'Integridad', 'Compromiso social', 'Innovación', 'Solidaridad', 'Responsabilidad']
 
-const CONSEJO_SUPERIOR = [
-  { nombre: 'Abg. Carlos Darío Pedro Ruffinelli Céspedes', cargo: 'Rector' },
-  { nombre: 'Ing. Enrique Rodolfo Corthorn Silva', cargo: 'Secretario General' },
-  { nombre: 'Abg. Ignacio Javier Ribera Concha', cargo: 'Miembro Asesor' },
-  { nombre: 'Lic. Francisco Espínola Marín', cargo: 'Director Administrativo y Financiero' },
-  { nombre: 'Lic. Felipe Orellana Riquelme', cargo: 'Director Comercial y Marketing' },
-  { nombre: 'Lic. Zeneida Cáceres Saguier', cargo: 'Directora Gestión y Calidad' },
-]
-
-const DIRECTORES_DE_CARRERA = [
-  { nombre: 'Dra. Claudia Díaz de Vivar Silguero', cargo: 'Odontología' },
-  { nombre: 'Lic. Franca La Carrubba Abbate', cargo: 'Psicología' },
-  { nombre: 'Lic. Gissel Benítez Vargas', cargo: 'Fonoaudiología' },
-  { nombre: 'Lic. Nilda Quiñonez Adorno', cargo: 'Podología y Fisioterapia' },
-  { nombre: 'Mg. Rossana Servín Cardozo', cargo: 'Educación' },
-  { nombre: 'Lic. Laura Aquino de Bordón', cargo: 'Trabajo Social' },
-  { nombre: 'Lic. Carlos Rojas Candia', cargo: 'Periodismo' },
-  { nombre: 'Mg. Alfredo González Palacios', cargo: 'Derecho' },
-  { nombre: 'Dr. Luis Eduardo Tapia Rodríguez', cargo: 'Informática' },
-  { nombre: 'Dra. Graciela Villalba Cabrera', cargo: 'Administración de Empresas, Administración Pública, Ingeniería Comercial' },
-  { nombre: 'Dr. Jorge Muñoz Maldonado', cargo: 'Ciencias Contables, Comercio Internacional, Marketing y Publicidad' },
-]
-
-function Autoridades({ personas }: { personas: { nombre: string; cargo: string }[] }) {
-  return (
-    <div className="authorities-grid">
-      {personas.map((p) => (
-        <div key={p.nombre} className="authority-card">
-          <h3>{p.nombre}</h3>
-          <p>{p.cargo}</p>
-        </div>
-      ))}
-    </div>
-  )
-}
-
 export default async function PaginaInstitucional() {
-  const reglamentos = await listarReglamentos()
+  const [reglamentos, autoridades] = await Promise.all([listarReglamentos(), listarAutoridades()])
 
   return (
     <>
@@ -106,11 +72,11 @@ export default async function PaginaInstitucional() {
 
           {/* Autoridades */}
           <section id="autoridades">
-            <h2>Autoridades – Consejo Superior Universitario</h2>
-            <Autoridades personas={CONSEJO_SUPERIOR} />
-
-            <h3 className="institucional-subtitulo">Directores de Carrera</h3>
-            <Autoridades personas={DIRECTORES_DE_CARRERA} />
+            <h2>Autoridades</h2>
+            <ListaAutoridades autoridades={autoridades} nivel="h3" />
+            <p>
+              <Link href={SITIO.autoridades}>Ver la página de Autoridades →</Link>
+            </p>
           </section>
 
           {/* Convenios */}

@@ -4,7 +4,7 @@
 //   npx tsx scripts/migracion/importar.ts --aplicar       → escribe en la base de DATABASE_URL
 //
 // Opciones:
-//   --solo=configuracion,taxonomias,programas,reglamentos,noticias,redirecciones
+//   --solo=configuracion,taxonomias,programas,reglamentos,autoridades,noticias,redirecciones
 //                               pasos a pedido (no van por defecto):
 //                                 galerias      completa las fotos de noticias ya importadas
 //                                 correcciones  aplica scripts/migracion/correcciones.json
@@ -39,6 +39,7 @@ import { OMITIR_LIMITE_TAMANO } from '../../src/collections/archivos'
 import { normalizarRuta } from '../../src/collections/sistema'
 import { normalizarSlug } from '../../src/fields/slug'
 import { CONTEXTO_TRANSICION } from '../../src/workflow/hooks'
+import { extraerAutoridades } from './autoridades'
 import { clasificarPostWp, type CategoriaWp } from './clasificar'
 import {
   RAIZ_SITIO,
@@ -64,13 +65,15 @@ const args = process.argv.slice(2)
 const opcion = (nombre: string) => args.find((a) => a.startsWith(`--${nombre}=`))?.split('=')[1]
 const APLICAR = args.includes('--aplicar')
 const SIN_ARCHIVOS = args.includes('--sin-archivos')
-const SOLO = new Set((opcion('solo') ?? 'configuracion,taxonomias,programas,reglamentos,noticias,redirecciones').split(','))
+const SOLO = new Set((opcion('solo') ?? 'configuracion,taxonomias,programas,reglamentos,autoridades,noticias,redirecciones').split(','))
 const NOTICIAS = (opcion('noticias') ?? 'listadas') as 'listadas' | 'todas'
 const ESTADO = (opcion('estado') ?? 'publicado') as 'publicado' | 'borrador'
 const MAX_PDF_MB = Number(opcion('max-pdf-mb') ?? 200)
 /** Posts y categorías de WordPress leídos de un archivo (--guardar-instantanea) en vez de la API. */
 const INSTANTANEA = opcion('wp-instantanea')
 const GUARDAR_INSTANTANEA = opcion('guardar-instantanea')
+/** Páginas de WordPress que se migran a partir de su HTML (van también en la instantánea). */
+const PAGINAS_WP = ['autoridades-del-c-s-u']
 
 // ---------------------------------------------------------------------------
 // Reporte y lote (para revertir)
@@ -390,6 +393,16 @@ type PostWp = {
 
 let categoriasWp: CategoriaWp[] = []
 
+/** HTML de una página de WordPress (de la instantánea si se indicó, si no de la API). */
+async function paginaWp(slug: string): Promise<string | null> {
+  if (INSTANTANEA) {
+    const guardada = JSON.parse(fs.readFileSync(INSTANTANEA, 'utf8')) as { paginas?: Record<string, string> }
+    return guardada.paginas?.[slug] ?? null
+  }
+  const [p] = await wpJson<{ content: { rendered: string } }[]>(`/pages?slug=${slug}&_fields=content`)
+  return p?.content.rendered ?? null
+}
+
 async function postsDeWordpress(): Promise<PostWp[]> {
   const campos = '_fields=id,slug,date_gmt,link,categories,title,excerpt,content,_links,_embedded&_embed=wp:featuredmedia,wp:term'
   if (NOTICIAS === 'todas') {
@@ -600,6 +613,46 @@ async function completarGalerias(payload: Payload) {
   }
 }
 
+/** Autoridades según la página de WordPress (la nómina vigente; el sitio estático estaba desactualizado). */
+async function importarAutoridades(payload: Payload) {
+  const html = await paginaWp('autoridades-del-c-s-u')
+  if (!html) {
+    reporte.errores.push({ tipo: 'autoridades', clave: 'autoridades-del-c-s-u', detalle: 'no se encontró la página en WordPress' })
+    return
+  }
+  const autoridades = extraerAutoridades(html)
+  for (const [i, a] of autoridades.entries()) {
+    const clave = `${a.cargo} · ${a.nombre}`
+    const { docs } = await payload.find({
+      collection: 'autoridades',
+      where: { and: [{ grupo: { equals: a.grupo } }, { cargo: { equals: a.cargo } }, { nombre: { equals: a.nombre } }] },
+      limit: 1,
+      depth: 0,
+      overrideAccess: true,
+    })
+    if (docs[0]) {
+      reporte.omitidos.push({ tipo: 'autoridades', clave, detalle: 'ya existe' })
+      continue
+    }
+    const foto = a.foto ? await asegurarImagen(payload, a.foto, a.nombre) : null
+    if (!APLICAR) {
+      reporte.creados.push({ tipo: 'autoridades', clave })
+      continue
+    }
+    try {
+      const doc = await payload.create({
+        collection: 'autoridades',
+        data: { nombre: a.nombre, cargo: a.cargo, grupo: a.grupo, foto, orden: (i + 1) * 10, activo: true },
+        overrideAccess: true,
+        context: contexto(),
+      })
+      registrarCreado('autoridades', doc, clave)
+    } catch (e) {
+      reporte.errores.push({ tipo: 'autoridades', clave, detalle: detalle(e) })
+    }
+  }
+}
+
 type Correcciones = {
   imagenesPrograma?: { coleccion: 'carreras' | 'posgrados'; slug: string; imagen: string; motivo: string }[]
   redirecciones?: { desde: string; tipo: '301' | '410'; url?: string; motivo: string }[]
@@ -718,7 +771,12 @@ async function main() {
   }
   if (GUARDAR_INSTANTANEA) {
     const posts = await postsDeWordpress()
-    fs.writeFileSync(GUARDAR_INSTANTANEA, JSON.stringify({ categorias: categoriasWp, posts }))
+    const paginas: Record<string, string> = {}
+    for (const slug of PAGINAS_WP) {
+      const [p] = await wpJson<{ content: { rendered: string } }[]>(`/pages?slug=${slug}&_fields=content`)
+      if (p) paginas[slug] = p.content.rendered
+    }
+    fs.writeFileSync(GUARDAR_INSTANTANEA, JSON.stringify({ categorias: categoriasWp, posts, paginas }))
     console.log(`Instantánea de WordPress: ${posts.length} posts, ${categoriasWp.length} categorías → ${GUARDAR_INSTANTANEA}`)
     process.exit(0)
   }
@@ -728,6 +786,7 @@ async function main() {
     ['configuracion', importarConfiguracion],
     ['programas', importarProgramas],
     ['reglamentos', importarReglamentos],
+    ['autoridades', importarAutoridades],
     ['noticias', importarNoticias],
     ['redirecciones', importarRedirecciones],
     ['galerias', completarGalerias],
