@@ -40,11 +40,8 @@ const nextConfig: NextConfig = {
   // páginas sin tocar /admin ni /api.
   skipTrailingSlashRedirect: true,
   poweredByHeader: false,
-  experimental: {
-    // El CSS va dentro del HTML: el primer pintado no espera a descargar la hoja de estilos
-    // (en celulares eran ~0,4–1 s según Lighthouse). La CSP ya permite estilos en línea.
-    inlineCss: true,
-  },
+  // Probado y descartado (8-oct): experimental.inlineCss. Con una hoja de estilos de ~97 KB el
+  // HTML se duplicaba y el trabajo de estilos en celulares subía ~0,7–0,9 s (Lighthouse).
   images: {
     localPatterns: [{ pathname: '/api/medios/file/**' }],
     // Las imágenes del CMS no cambian de nombre al reemplazarse (Payload crea un archivo nuevo).
