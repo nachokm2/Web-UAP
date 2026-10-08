@@ -22,6 +22,14 @@
   overflow: hidden;
   background-color: #003366;
 }
+/* El video (o su imagen fija) cubre todo el encabezado. Antes quedaba con su tamaño
+   propio y centrado: franjas azules a los costados en escritorio y arriba/abajo en celular. */
+.hero-clean .hero-video-container {
+  position: absolute;
+  inset: 0;
+}
+/* La imagen fija y el video, uno encima del otro (el video sólo se carga en pantallas anchas). */
+.hero-clean .hero-video-bg { position: absolute; inset: 0; display: block; }
 .hero-clean .carousel-slide {
   position: absolute;
   top: 0;

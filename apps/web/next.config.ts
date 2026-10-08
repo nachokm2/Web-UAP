@@ -43,7 +43,7 @@ const nextConfig: NextConfig = {
   // Probado y descartado (8-oct): experimental.inlineCss. Con una hoja de estilos de ~97 KB el
   // HTML se duplicaba y el trabajo de estilos en celulares subía ~0,7–0,9 s (Lighthouse).
   images: {
-    localPatterns: [{ pathname: '/api/medios/file/**' }],
+    localPatterns: [{ pathname: '/api/medios/file/**' }, { pathname: '/images/**' }, { pathname: '/videos/portada-poster.webp' }],
     // Las imágenes del CMS no cambian de nombre al reemplazarse (Payload crea un archivo nuevo).
     minimumCacheTTL: 60 * 60 * 24 * 7,
   },

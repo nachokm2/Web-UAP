@@ -1754,6 +1754,8 @@ h4 {
     background-repeat: no-repeat;
     background-blend-mode: normal;
 }
+/* La foto es un <img> (next/image con fill) debajo del degradado (::before, z-raised). */
+.career-hero-glass__foto { object-fit: cover; object-position: center; z-index: 0; }
 .career-hero-glass.hero-photo::before {
     background:
         linear-gradient(90deg, rgba(0,20,45,0.62) 0%, rgba(0,20,45,0.32) 42%, rgba(0,20,45,0.12) 74%, rgba(0,20,45,0.04) 100%),

@@ -2,8 +2,8 @@
 // y las alianzas siguen escritos acá hasta que exista la global "Portada".
 
 import type { Metadata } from 'next'
+import NextImage from 'next/image'
 import Link from 'next/link'
-import { preload } from 'react-dom'
 
 import { CarruselPortada, type Diapositiva } from '@/components/sitio/CarruselPortada'
 import { ContadorEstadistica } from '@/components/sitio/ContadorEstadistica'
@@ -140,10 +140,8 @@ function TarjetaAlianza({ alianza: a, duplicado = false }: { alianza: Alianza; d
       tabIndex={duplicado ? -1 : undefined}
     >
       {a.logo ? (
-        <>
-          {/* eslint-disable-next-line @next/next/no-img-element -- recurso estático */}
-          <img src={a.logo.src} alt="" width={a.logo.ancho} height={a.logo.alto} loading="lazy" />
-        </>
+        // Se ven a 180 px como máximo (100 px en celulares): el optimizador los achica.
+        <NextImage src={a.logo.src} alt="" width={a.logo.ancho} height={a.logo.alto} sizes="(max-width: 480px) 100px, (max-width: 768px) 130px, 180px" />
       ) : (
         <svg width="120" height="26" viewBox="0 0 120 26" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <rect x="0" y="0" width="12" height="12" fill="#f25022" />
@@ -161,8 +159,6 @@ function TarjetaAlianza({ alianza: a, duplicado = false }: { alianza: Alianza; d
 }
 
 export default async function Inicio() {
-  // La imagen fija del encabezado es lo primero que se pinta: se pide de entrada y con prioridad.
-  preload(POSTER_ENCABEZADO, { as: 'image', fetchPriority: 'high' })
   const [config, carreras, noticias] = await Promise.all([obtenerConfiguracion(), listarCarreras(), listarNoticias(1)])
   const ultimasNoticias = (noticias.docs as Noticia[]).slice(0, 3)
   const redes = config.redes ?? {}
@@ -184,7 +180,10 @@ export default async function Inicio() {
       <main id="main-content">
         <CarruselPortada diapositivas={DIAPOSITIVAS}>
           <div className="hero-video-container">
-            <VideoFondo fuentes={VIDEO_ENCABEZADO} poster={POSTER_ENCABEZADO} className="hero-video-bg" />
+            {/* La imagen fija va como <img> optimizado (cada pantalla baja la versión de su ancho);
+                el video, cuando se carga, se dibuja encima. */}
+            <NextImage src={POSTER_ENCABEZADO} alt="" fill sizes="(max-width: 480px) 500px, (max-width: 768px) 768px, 100vw" preload fetchPriority="high" className="hero-video-bg" />
+            <VideoFondo fuentes={VIDEO_ENCABEZADO} className="hero-video-bg" />
             <div className="hero-video-overlay"></div>
           </div>
         </CarruselPortada>

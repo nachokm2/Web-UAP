@@ -35,6 +35,15 @@ const accesoArchivos: CollectionConfig['access'] = {
   delete: eliminacionDefinitiva,
 }
 
+// Sin esta cabecera el navegador volvía a pedir cada imagen en cada visita (y cada pedido
+// pasa por la base y por el bucket: ~0,7 s). Un día en caché y, después, una semana
+// mostrando la copia guardada mientras revalida con el ETag. No se marca "immutable":
+// mover el punto focal regenera los recortes con el mismo nombre de archivo.
+const cacheDeArchivos = ({ headers }: { headers: Headers }) => {
+  headers.set('Cache-Control', 'public, max-age=86400, stale-while-revalidate=604800')
+  return headers
+}
+
 export const Medios: CollectionConfig = {
   slug: 'medios',
   labels: { singular: 'Imagen', plural: 'Imágenes' },
@@ -52,6 +61,7 @@ export const Medios: CollectionConfig = {
   },
   upload: {
     mimeTypes: ['image/jpeg', 'image/png', 'image/webp'],
+    modifyResponseHeaders: cacheDeArchivos,
     focalPoint: true,
     adminThumbnail: 'miniatura',
     imageSizes: [
@@ -104,6 +114,7 @@ export const Documentos: CollectionConfig = {
   },
   upload: {
     mimeTypes: ['application/pdf'],
+    modifyResponseHeaders: cacheDeArchivos,
   },
   fields: [
     { name: 'titulo', label: 'Título', type: 'text', required: true },

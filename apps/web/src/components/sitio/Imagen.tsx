@@ -54,7 +54,8 @@ export function Imagen({ medio, tamano = 'tarjeta', sizes = '(max-width: 768px) 
       height={height}
       sizes={sizes}
       className={className}
-      priority={prioridad}
+      // "priority" quedó obsoleto en Next 16; "preload" hace lo mismo (pide la imagen de entrada).
+      preload={prioridad}
       loading={prioridad ? undefined : 'lazy'}
     />
   )

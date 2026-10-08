@@ -2,8 +2,8 @@
 // espacio viven los formularios de postulación por asesor (/formulario-de-postulacion-uap-…/).
 
 import type { Metadata } from 'next'
+import NextImage from 'next/image'
 import { notFound, redirect } from 'next/navigation'
-import { preload } from 'react-dom'
 
 import { Breadcrumb } from '@/components/sitio/Breadcrumb'
 import { FormularioBitrix } from '@/components/sitio/FormularioBitrix'
@@ -125,8 +125,6 @@ export default async function PaginaPrograma({ params }: Params) {
 
   const esCarrera = p.coleccion === 'carreras'
   const hero = urlDeImagen(esMedio(p.imagenPrincipal) ? p.imagenPrincipal : null, 'hero')
-  // El banner es un fondo CSS (el navegador lo descubría tarde): se pide de entrada.
-  if (hero) preload(hero, { as: 'image', fetchPriority: 'high' })
   const brochure = typeof p.brochure === 'object' && p.brochure ? (p.brochure as Documento) : null
   const sedes = (p.sedes ?? []).filter((s): s is Sede => typeof s === 'object').map((s) => s.nombre)
   const modalidad = etiqueta(MODALIDADES, p.modalidad)
@@ -160,10 +158,12 @@ export default async function PaginaPrograma({ params }: Params) {
       />
       <main id="main-content">
         {/* Con foto: la foto se ve (degradado solo detrás del texto). Sin foto: fondo institucional. */}
-        <section
-          className={hero ? 'career-hero-glass hero-photo' : 'career-hero-glass'}
-          style={hero ? ({ '--hero-image': `url('${hero}')`, backgroundImage: `url('${hero}')` } as React.CSSProperties) : undefined}
-        >
+        <section className={hero ? 'career-hero-glass hero-photo' : 'career-hero-glass'}>
+          {hero && (
+            // Foto como <img> y no como fondo CSS: se pide apenas llega el HTML y cada pantalla
+            // baja la versión de su ancho (antes el celular bajaba la de 1200 px o más).
+            <NextImage src={hero} alt="" fill sizes="100vw" preload fetchPriority="high" className="career-hero-glass__foto" />
+          )}
           <div className="container">
             {!esCarrera && <span className="posgrado-badge">{tipoLegible(p)}</span>}
             <h1>{p.nombre}</h1>
