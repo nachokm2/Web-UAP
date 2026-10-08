@@ -40,14 +40,26 @@ const nextConfig: NextConfig = {
   // páginas sin tocar /admin ni /api.
   skipTrailingSlashRedirect: true,
   poweredByHeader: false,
+  experimental: {
+    // El CSS va dentro del HTML: el primer pintado no espera a descargar la hoja de estilos
+    // (en celulares eran ~0,4–1 s según Lighthouse). La CSP ya permite estilos en línea.
+    inlineCss: true,
+  },
   images: {
     localPatterns: [{ pathname: '/api/medios/file/**' }],
+    // Las imágenes del CMS no cambian de nombre al reemplazarse (Payload crea un archivo nuevo).
+    minimumCacheTTL: 60 * 60 * 24 * 7,
   },
   async headers() {
     return [
       { source: '/:path*', headers: cabecerasDeSeguridad },
       // Todo menos el panel y la API lleva la CSP del sitio.
       { source: '/((?!admin(?:/|$)|api/).*)', headers: [{ key: 'Content-Security-Policy', value: cspSitio }] },
+      // Imágenes, íconos y videos fijos del sitio: una semana en caché del navegador.
+      ...['/images/:path*', '/icons/:path*', '/videos/:path*'].map((source) => ({
+        source,
+        headers: [{ key: 'Cache-Control', value: 'public, max-age=604800, stale-while-revalidate=86400' }],
+      })),
     ]
   },
   webpack: (webpackConfig) => {

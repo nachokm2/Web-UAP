@@ -3,6 +3,7 @@
 
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { preload } from 'react-dom'
 
 import { CarruselPortada, type Diapositiva } from '@/components/sitio/CarruselPortada'
 import { ContadorEstadistica } from '@/components/sitio/ContadorEstadistica'
@@ -49,7 +50,12 @@ const DIAPOSITIVAS: Diapositiva[] = [
 ]
 
 // P1: mover a la global "Portada" del CMS
-const VIDEO_ENCABEZADO = '/videos/shutterstock.mp4'
+// Versión web del video (720p, sin audio; antes 4K de 21 MB) y su imagen fija.
+const VIDEO_ENCABEZADO = [
+  { src: '/videos/portada-720.webm', type: 'video/webm' },
+  { src: '/videos/portada-720.mp4', type: 'video/mp4' },
+]
+const POSTER_ENCABEZADO = '/videos/portada-poster.webp'
 
 // P1: mover a la global "Portada" del CMS
 const CIFRAS = [
@@ -155,6 +161,8 @@ function TarjetaAlianza({ alianza: a, duplicado = false }: { alianza: Alianza; d
 }
 
 export default async function Inicio() {
+  // La imagen fija del encabezado es lo primero que se pinta: se pide de entrada y con prioridad.
+  preload(POSTER_ENCABEZADO, { as: 'image', fetchPriority: 'high' })
   const [config, carreras, noticias] = await Promise.all([obtenerConfiguracion(), listarCarreras(), listarNoticias(1)])
   const ultimasNoticias = (noticias.docs as Noticia[]).slice(0, 3)
   const redes = config.redes ?? {}
@@ -176,7 +184,7 @@ export default async function Inicio() {
       <main id="main-content">
         <CarruselPortada diapositivas={DIAPOSITIVAS}>
           <div className="hero-video-container">
-            <VideoFondo src={VIDEO_ENCABEZADO} className="hero-video-bg" />
+            <VideoFondo fuentes={VIDEO_ENCABEZADO} poster={POSTER_ENCABEZADO} className="hero-video-bg" />
             <div className="hero-video-overlay"></div>
           </div>
         </CarruselPortada>

@@ -1,43 +1,58 @@
 'use client'
 
 // Video de fondo del encabezado de la portada: silenciado, en bucle y en línea, como en
-// el sitio estático. Se reproduce desde aquí en lugar de con el atributo autoplay para
-// que quede quieto si el usuario pidió reducir el movimiento (y se detenga o reanude si
-// cambia esa preferencia con la página abierta).
+// el sitio estático. Siempre se ve primero la imagen fija (poster), que es lo que pinta la
+// página; el video se carga después y solo si vale la pena: pantalla ancha, sin "reducir
+// movimiento" y sin ahorro de datos. En celulares queda la imagen (el video pesaba 13 MB).
 
 import { useEffect, useRef } from 'react'
 
+type Fuente = { src: string; type: string }
+
 type Props = {
-  src: string
+  fuentes: Fuente[]
+  poster: string
   className?: string
 }
 
-export function VideoFondo({ src, className }: Props) {
+const ANCHO_MINIMO = '(min-width: 768px)'
+
+export function VideoFondo({ fuentes, poster, className }: Props) {
   const video = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
     const v = video.current
     if (!v) return
-    const consulta = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const reducir = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const ahorroDeDatos = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData === true
+    if (!window.matchMedia(ANCHO_MINIMO).matches || ahorroDeDatos) return
+
+    let cargado = false
     const aplicar = () => {
-      if (consulta.matches) {
+      if (reducir.matches) {
         v.pause()
         return
+      }
+      if (!cargado) {
+        for (const f of fuentes) {
+          const s = document.createElement('source')
+          s.src = f.src
+          s.type = f.type
+          v.appendChild(s)
+        }
+        v.load()
+        cargado = true
       }
       // Los navegadores sólo permiten reproducir sin interacción un video silenciado.
       v.muted = true
       v.play().catch(() => {
-        /* reproducción bloqueada por el navegador: queda el primer cuadro */
+        /* reproducción bloqueada por el navegador: queda la imagen fija */
       })
     }
     aplicar()
-    consulta.addEventListener('change', aplicar)
-    return () => consulta.removeEventListener('change', aplicar)
-  }, [])
+    reducir.addEventListener('change', aplicar)
+    return () => reducir.removeEventListener('change', aplicar)
+  }, [fuentes])
 
-  return (
-    <video ref={video} className={className} muted loop playsInline preload="metadata">
-      <source src={src} type="video/mp4" />
-    </video>
-  )
+  return <video ref={video} className={className} poster={poster} muted loop playsInline preload="none" aria-hidden="true" />
 }

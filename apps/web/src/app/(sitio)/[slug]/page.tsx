@@ -3,6 +3,7 @@
 
 import type { Metadata } from 'next'
 import { notFound, redirect } from 'next/navigation'
+import { preload } from 'react-dom'
 
 import { Breadcrumb } from '@/components/sitio/Breadcrumb'
 import { FormularioBitrix } from '@/components/sitio/FormularioBitrix'
@@ -124,6 +125,8 @@ export default async function PaginaPrograma({ params }: Params) {
 
   const esCarrera = p.coleccion === 'carreras'
   const hero = urlDeImagen(esMedio(p.imagenPrincipal) ? p.imagenPrincipal : null, 'hero')
+  // El banner es un fondo CSS (el navegador lo descubría tarde): se pide de entrada.
+  if (hero) preload(hero, { as: 'image', fetchPriority: 'high' })
   const brochure = typeof p.brochure === 'object' && p.brochure ? (p.brochure as Documento) : null
   const sedes = (p.sedes ?? []).filter((s): s is Sede => typeof s === 'object').map((s) => s.nombre)
   const modalidad = etiqueta(MODALIDADES, p.modalidad)
@@ -214,7 +217,7 @@ export default async function PaginaPrograma({ params }: Params) {
               <h2>Solicita información</h2>
               <p>Completa el formulario y un asesor se contactará contigo.</p>
               <div className="cta-formulario__caja">
-                <FormularioBitrix formulario={formulario} loaderUrl={config.bitrixLoaderUrl} campana={p.slug} />
+                <FormularioBitrix formulario={formulario} loaderUrl={config.bitrixLoaderUrl} campana={p.slug} diferido />
               </div>
             </div>
           </section>

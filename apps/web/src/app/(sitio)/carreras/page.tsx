@@ -23,6 +23,9 @@ export default async function PaginaCarreras() {
   }
   const ordenados = [...grupos.entries()].sort((a, b) => (a[1].facultad?.orden ?? 999) - (b[1].facultad?.orden ?? 999))
 
+  // Las primeras tarjetas se ven sin desplazarse: sus fotos se piden de entrada.
+  const prioritarias = new Set(ordenados.flatMap(([, g]) => g.carreras).slice(0, 3).map((c) => c.id))
+
   return (
     <>
       <Breadcrumb items={[{ nombre: 'Inicio', href: SITIO.inicio }, { nombre: 'Carreras' }]} />
@@ -42,7 +45,7 @@ export default async function PaginaCarreras() {
                 <h2 className="faculty-title">{nombre}</h2>
                 <div className="careers-grid">
                   {g.carreras.map((c) => (
-                    <TarjetaPrograma key={c.id} programa={c} tipo="carrera" />
+                    <TarjetaPrograma key={c.id} programa={c} tipo="carrera" prioridad={prioritarias.has(c.id)} />
                   ))}
                 </div>
               </div>

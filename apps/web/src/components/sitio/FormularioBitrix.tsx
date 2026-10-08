@@ -4,7 +4,7 @@
 // <script data-b24-form> y dibuja el formulario en su lugar; se crea al montar
 // para que funcione también al navegar entre páginas sin recargar.
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 type Props = {
   /** Código del formulario, ej. "inline/61/hi7fex". */
@@ -13,14 +13,38 @@ type Props = {
   loaderUrl: string
   /** Se envía como utm_campaign para atribuir el lead al programa. */
   campana?: string
+  /**
+   * Carga el formulario recién cuando el visitante se acerca (al final de las páginas de
+   * programa). El script de Bitrix pesa ~100 KB y bloqueaba la página ~0,6 s en celulares.
+   * Donde el formulario es lo principal (inscripción, formularios por asesor) va sin diferir.
+   */
+  diferido?: boolean
 }
 
-export function FormularioBitrix({ formulario, loaderUrl, campana }: Props) {
+export function FormularioBitrix({ formulario, loaderUrl, campana, diferido = false }: Props) {
   const contenedor = useRef<HTMLDivElement>(null)
+  const [visible, setVisible] = useState(!diferido)
+
+  useEffect(() => {
+    if (visible) return
+    const destino = contenedor.current
+    if (!destino) return
+    const observador = new IntersectionObserver(
+      (entradas) => {
+        if (entradas.some((e) => e.isIntersecting)) {
+          setVisible(true)
+          observador.disconnect()
+        }
+      },
+      { rootMargin: '800px 0px' },
+    )
+    observador.observe(destino)
+    return () => observador.disconnect()
+  }, [visible])
 
   useEffect(() => {
     const destino = contenedor.current
-    if (!destino) return
+    if (!destino || !visible) return
 
     // Atribución: solo si la visita no trae ya sus UTM (no pisar campañas pagas).
     const params = new URLSearchParams(window.location.search)
@@ -45,7 +69,7 @@ export function FormularioBitrix({ formulario, loaderUrl, campana }: Props) {
       destino.innerHTML = ''
       loader.remove()
     }
-  }, [formulario, loaderUrl, campana])
+  }, [formulario, loaderUrl, campana, visible])
 
   return <div ref={contenedor} className="formulario-bitrix" />
 }

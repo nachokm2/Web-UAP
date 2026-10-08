@@ -35,6 +35,13 @@ function porArea(programas: Posgrado[]) {
 export default async function PaginaPosgrados() {
   const posgrados = (await listarPosgrados()) as Posgrado[]
 
+  // Las primeras tarjetas se ven sin desplazarse: sus fotos se piden de entrada.
+  const prioritarias = new Set(
+    SECCIONES.flatMap((s) => porArea(posgrados.filter((p) => s.tipos.includes(p.tipo))).flatMap(([, g]) => g.programas))
+      .slice(0, 3)
+      .map((p) => p.id),
+  )
+
   return (
     <>
       <Breadcrumb items={[{ nombre: 'Inicio', href: SITIO.inicio }, { nombre: 'Posgrados' }]} />
@@ -58,7 +65,7 @@ export default async function PaginaPosgrados() {
                       {area && <h3 className="posgrado-subtitle">{area}</h3>}
                       <div className="careers-grid">
                         {g.programas.map((p) => (
-                          <TarjetaPrograma key={p.id} programa={p} tipo="posgrado" />
+                          <TarjetaPrograma key={p.id} programa={p} tipo="posgrado" prioridad={prioritarias.has(p.id)} />
                         ))}
                       </div>
                     </div>

@@ -7,12 +7,17 @@ import { urlPrograma } from '@/lib/urls'
 
 import { Imagen, esMedio } from './Imagen'
 
-type Props = { programa: Carrera | Posgrado; tipo: 'carrera' | 'posgrado' }
+type Props = {
+  programa: Carrera | Posgrado
+  tipo: 'carrera' | 'posgrado'
+  /** Tarjetas visibles sin desplazarse: la foto se pide de entrada (mejora el LCP). */
+  prioridad?: boolean
+}
 
 const etiqueta = (lista: { value: string; label: string }[], v?: string | null) => lista.find((o) => o.value === v)?.label
 
 /** Tarjeta de los listados (mismo formato que el sitio estático). */
-export function TarjetaPrograma({ programa: p, tipo }: Props) {
+export function TarjetaPrograma({ programa: p, tipo, prioridad = false }: Props) {
   const tipoPosgrado = tipo === 'posgrado' ? (p as Posgrado).tipo : null
   const badge = tipo === 'carrera' ? 'Carrera' : (etiqueta(TIPOS_POSGRADO, tipoPosgrado) ?? 'Posgrado')
   const sedes = (p.sedes ?? []).filter((s): s is Sede => typeof s === 'object').map((s) => s.nombre)
@@ -23,7 +28,7 @@ export function TarjetaPrograma({ programa: p, tipo }: Props) {
     <div className="career-card">
       {esMedio(p.imagenPrincipal) && (
         <Link href={urlPrograma(p.slug)} className="career-card__imagen" tabIndex={-1} aria-hidden="true">
-          <Imagen medio={p.imagenPrincipal} tamano="tarjeta" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 380px" />
+          <Imagen medio={p.imagenPrincipal} tamano="tarjeta" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 380px" prioridad={prioridad} />
         </Link>
       )}
       <div className={`posgrado-badge${tipoPosgrado ? ` badge-${tipoPosgrado}` : ''}`}>{badge}</div>
