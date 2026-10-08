@@ -100,5 +100,20 @@ npm run build && npm run test:e2e   # navegador contra el build de producción (
 
 ## Despliegue (Railway)
 
-GitHub → Railway. Build `npm run build`, pre-deploy `npm run migrate`, start `npm start`, health check `/api/health`.
-La infraestructura se describe en `.railway/railway.ts` (raíz del repositorio).
+1. Push a `feat/cms-payload` (o PR).
+2. GitHub Actions (`.github/workflows/cms.yml`) verifica: tipos, lint, tests, build y E2E.
+3. Railway espera esa verificación (*Wait for CI*): si pasa, despliega `web-cms`; si falla, no despliega.
+4. En Railway: build `npm run build`, pre-deploy `npm run migrate` (si falla, no se despliega), start `npm start`, health check `/api/health`.
+
+La infraestructura del CMS se describe en `apps/web/.railway/railway.ts` (partial `cms`): cambiarla ahí y aplicar con
+`railway config plan` → revisar → `railway config apply` (desde `apps/web`; en Windows ver la nota del archivo).
+
+**Si un despliegue queda trabado** en "failed to fetch snapshot" (falla de infraestructura de Railway, no del código):
+cancelarlo y usar *Deploy Latest Commit*. Si se repite, desplegar un paquete chico con la CLI:
+
+```bash
+git archive HEAD apps/web package.json package-lock.json | tar -x -C /tmp/web-cms
+cd /tmp/web-cms && railway up --service web-cms --environment production --detach
+```
+
+Respaldos y restauración: ver `infra/respaldo/README.md`.

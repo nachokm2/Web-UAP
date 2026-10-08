@@ -8,12 +8,15 @@
 //   railway config plan     → muestra los cambios (no aplica nada)
 //   railway config apply    → aplica tras confirmar
 //
+// En Windows el SDK busca la CLI en la variable "_": correr desde PowerShell con
+//   $env:_ = "$env:APPDATA\npm\node_modules\@railway\cli\bin\railway.exe"
+//
 // Secretos: PAYLOAD_SECRET se carga una vez con la CLI (sellado) y acá queda como
 // preserve() para que el apply no lo borre. Nunca escribir secretos en este archivo.
 //
-// watchPatterns: solo cambios en apps/web redespliegan este servicio (las rutas se
-// escriben desde la raíz del repositorio). `railway config migrate` no las traduce desde
-// railway.json, pero el DSL las admite en la forma de objeto de `build`.
+// Despliegue: cada push a la rama despliega, pero solo si pasa la verificación de GitHub
+// Actions (.github/workflows/cms.yml) gracias a checkSuites. Sin watchPatterns: Railway
+// salteaba ("no changes detected in watch paths") commits que sí cambiaban apps/web.
 
 import { bucket, defineRailway, github, postgres, preserve, project, ref, service } from 'railway/iac'
 
@@ -27,8 +30,8 @@ export default defineRailway(() => {
 
   const cms = service('web-cms', {
     // Mientras el CMS no esté en main, despliega desde su rama.
-    source: github('nachokm2/Web-UAP', { branch: 'feat/cms-payload', rootDirectory: 'apps/web', checkSuites: false }),
-    build: { buildCommand: 'npm run build', builder: 'RAILPACK', watchPatterns: ['/apps/web/**'] },
+    source: github('nachokm2/Web-UAP', { branch: 'feat/cms-payload', rootDirectory: 'apps/web', checkSuites: true }),
+    build: { buildCommand: 'npm run build', builder: 'RAILPACK', watchPatterns: [] },
     preDeploy: 'npm run migrate',
     start: 'npm start',
     healthcheck: '/api/health',
