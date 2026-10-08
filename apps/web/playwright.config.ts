@@ -28,7 +28,8 @@ export default defineConfig({
   fullyParallel: false,
   workers: 1,
   retries: process.env.CI ? 1 : 0,
-  reporter: [['list']],
+  // En CI, además, cada fallo queda como anotación de GitHub (visible sin entrar al log).
+  reporter: process.env.CI ? [['list'], ['github']] : [['list']],
   timeout: 90_000,
   use: {
     baseURL: URL_E2E,

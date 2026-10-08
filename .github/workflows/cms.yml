@@ -68,7 +68,16 @@ jobs:
         run: npx playwright install --with-deps chromium
 
       - name: Tests de punta a punta
-        run: npm run test:e2e
+        run: |
+          set -o pipefail
+          npm run test:e2e 2>&1 | tee /tmp/e2e.log
+
+      - name: Resumen del fallo de E2E
+        if: failure()
+        run: |
+          # Las últimas líneas como anotación: se leen sin permisos sobre el log completo.
+          resumen=$(tail -60 /tmp/e2e.log 2>/dev/null | sed -e 's/%/%25/g' -e 's/\r/%0D/g' | sed ':a;N;$!ba;s/\n/%0A/g')
+          echo "::error title=E2E::${resumen:-sin salida}"
 
       - name: Evidencia de E2E fallidos
         if: failure()
