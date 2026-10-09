@@ -23,6 +23,15 @@ export function urlDeDocumento(coleccion: string, slug: string): string {
   return coleccion === 'noticias' ? urlNoticia(slug) : urlPrograma(slug)
 }
 
+/**
+ * Dominio al que hay que redirigir un pedido, o null si ya llegó al correcto. Como el sitio
+ * anterior, www.uap.edu.py va a uap.edu.py (una sola dirección para buscadores y enlaces).
+ */
+export function dominioCanonico(host: string | null, oficial: string | null): string | null {
+  if (!host || !oficial) return null
+  return host.toLowerCase() === `www.${oficial.toLowerCase()}` ? oficial : null
+}
+
 /** URL absoluta canónica (siempre el dominio oficial, nunca el de pruebas). */
 export function urlAbsoluta(ruta: string): string {
   const base = (process.env.SITE_URL || 'https://uap.edu.py').replace(/\/$/, '')

@@ -13,6 +13,7 @@ import {
 import { diffDocumentos, textoDeRichText } from '@/audit/diff'
 import { esRutaDelSistema, normalizarRuta } from '@/collections/sistema'
 import { normalizarSlug } from '@/fields/slug'
+import { dominioCanonico } from '@/lib/urls'
 import { transicionesDisponibles, validarTransicion } from '@/workflow/estados'
 
 const u = (...roles: Rol[]) => ({ roles, activo: true })
@@ -146,5 +147,16 @@ describe('Slugs y rutas', () => {
     expect(esRutaDelSistema('/administracion-de-empresas/')).toBe(false)
     expect(esRutaDelSistema('/administracion-publica/')).toBe(false)
     expect(esRutaDelSistema('/apicultura/')).toBe(false)
+  })
+})
+
+describe('Dominio canónico', () => {
+  it('www.uap.edu.py redirige a uap.edu.py y el resto queda como está', () => {
+    expect(dominioCanonico('www.uap.edu.py', 'uap.edu.py')).toBe('uap.edu.py')
+    expect(dominioCanonico('WWW.UAP.EDU.PY', 'uap.edu.py')).toBe('uap.edu.py')
+    expect(dominioCanonico('uap.edu.py', 'uap.edu.py')).toBeNull()
+    expect(dominioCanonico('web-cms-production-fd17.up.railway.app', 'uap.edu.py')).toBeNull()
+    expect(dominioCanonico('www.uap.edu.py', null)).toBeNull()
+    expect(dominioCanonico(null, 'uap.edu.py')).toBeNull()
   })
 })

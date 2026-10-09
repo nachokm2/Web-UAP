@@ -117,3 +117,7 @@ cd /tmp/web-cms && railway up --service web-cms --environment production --detac
 ```
 
 Respaldos y restauración: ver `infra/respaldo/README.md`.
+
+Paso a producción (apuntar `uap.edu.py` a este servicio, con vuelta atrás): ver `docs/cambio-de-dominio.md`.
+Para comprobar que ninguna URL del WordPress anterior se pierde:
+`bash scripts/migracion/verificar-urls.sh <sitio> resultado.tsv`.

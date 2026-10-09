@@ -1,4 +1,5 @@
 // Proxy (antes "middleware"; en Next 16 corre en Node.js):
+// 0. www.uap.edu.py → uap.edu.py (como el sitio anterior).
 // 1. Redirecciones del CMS (301/302) y páginas eliminadas (410), incluidas las URL del WordPress anterior.
 // 2. Barra final en las páginas, como el sitio anterior (/periodismo/).
 // 3. noindex en cualquier dominio que no sea el oficial, o en todo el sitio si NOINDEX=true
@@ -7,6 +8,7 @@
 import { NextResponse, type NextRequest } from 'next/server'
 
 import { buscarRedireccion } from '@/lib/redirecciones'
+import { dominioCanonico } from '@/lib/urls'
 
 const TIENE_EXTENSION = /\.[a-z0-9]{2,5}$/i
 
@@ -22,6 +24,9 @@ function dominioOficial(): string | null {
 
 export async function proxy(req: NextRequest) {
   const { pathname, search } = req.nextUrl
+
+  const canonico = dominioCanonico(req.headers.get('host'), dominioOficial())
+  if (canonico) return NextResponse.redirect(`https://${canonico}${pathname}${search}`, 301)
 
   const destino = await buscarRedireccion(pathname).catch(() => null)
   if (destino?.tipo === '410') {
