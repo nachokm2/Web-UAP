@@ -1,7 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="#003366" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <circle cx="32" cy="32" r="22"/>
-  <path d="M20 32h24"/>
-  <path d="M32 20v24"/>
-  <path d="M24 24l16 16"/>
-  <path d="M40 24L24 40"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#003366" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><!-- Tabler Icons world (MIT) --> <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" /><path d="M3.6 9h16.8" /><path d="M3.6 15h16.8" /><path d="M11.5 3a17 17 0 0 0 0 18" /><path d="M12.5 3a17 17 0 0 1 0 18" /></svg>

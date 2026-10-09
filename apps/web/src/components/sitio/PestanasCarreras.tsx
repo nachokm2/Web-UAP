@@ -83,8 +83,9 @@ export function PestanasCarreras({ facultades }: { facultades: FacultadDePortada
               <Link key={c.slug} href={urlPrograma(c.slug)} className="career-card">
                 {c.icono && (
                   <div className="career-icon">
+                    {/* Decorativo: el nombre ya está en el título de la tarjeta. */}
                     {/* eslint-disable-next-line @next/next/no-img-element -- recurso estático */}
-                    <img src={c.icono} alt={c.nombre} width={28} height={28} loading="lazy" />
+                    <img src={c.icono} alt="" width={28} height={28} loading="lazy" />
                   </div>
                 )}
                 <h3>{c.nombre}</h3>

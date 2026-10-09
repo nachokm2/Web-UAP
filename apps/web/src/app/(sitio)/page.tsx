@@ -79,7 +79,12 @@ const ALIANZAS: Alianza[] = [
   { href: 'https://www.microsoft.com', nombre: 'Microsoft', logo: null },
 ]
 
-/** Íconos de las tarjetas de carrera (public/images). Las carreras sin ícono copiado se muestran sin él. */
+/**
+ * Íconos de las tarjetas de carrera (public/images, de Tabler Icons, licencia MIT). Las
+ * carreras sin ícono se muestran sin él. Al cambiar los archivos, subir VERSION_ICONOS: el
+ * navegador guarda /images una semana y si no seguiría mostrando los anteriores.
+ */
+const VERSION_ICONOS = 2
 const ICONOS: Record<string, string> = {
   odontologia: '/images/icon-odontologia.svg',
   psicologia: '/images/icon-psicologia.svg',
@@ -120,7 +125,7 @@ function facultadesDePortada(carreras: Carrera[]): FacultadDePortada[] {
     grupos.get(id)!.carreras.push({
       slug: c.slug,
       nombre: c.nombre,
-      icono: ICONOS[c.slug] ?? null,
+      icono: ICONOS[c.slug] ? `${ICONOS[c.slug]}?v=${VERSION_ICONOS}` : null,
       meta: [c.duracion, c.gradoAcademico || c.tituloOtorgado].filter(Boolean).join(' • '),
       descripcion: c.descripcionCorta ?? null,
     })

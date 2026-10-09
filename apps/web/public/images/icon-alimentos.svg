@@ -1,5 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="#003366" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M32 8c-8 0-20 8-20 20 0 12 8 20 20 28 12-8 20-16 20-28 0-12-12-20-20-20z"/>
-  <path d="M32 20v12"/>
-  <circle cx="32" cy="36" r="4"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#003366" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><!-- Tabler Icons flask (MIT) --> <path d="M9 3l6 0" /><path d="M10 9l4 0" /><path d="M10 3v6l-4 11a.7 .7 0 0 0 .5 1h11a.7 .7 0 0 0 .5 -1l-4 -11v-6" /></svg>

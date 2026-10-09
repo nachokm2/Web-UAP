@@ -1,6 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="#003366" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M8 48V16l24-8 24 8v32"/>
-  <path d="M8 16l24 8 24-8"/>
-  <path d="M32 24v16"/>
-  <circle cx="32" cy="12" r="4"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#003366" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><!-- Tabler Icons school (MIT) --> <path d="M22 9l-10 -4l-10 4l10 4l10 -4v6" /><path d="M6 10.6v5.4a6 3 0 0 0 12 0v-5.4" /></svg>
