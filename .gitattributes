@@ -1,0 +1,2 @@
+infra/respaldo/*.sh text eol=lf
+apps/web/scripts/migracion/*.sh text eol=lf

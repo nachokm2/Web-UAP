@@ -1,0 +1,88 @@
+# Verificación del CMS (apps/web) en cada push o PR que lo toque. Railway espera a que
+# esta verificación pase antes de desplegar web-cms ("Wait for CI"), así que una versión
+# que no compila o rompe los tests no llega al sitio.
+name: CMS
+
+on:
+  push:
+    branches: [feat/cms-payload, main]
+    paths: ['apps/web/**', '.github/workflows/cms.yml']
+  pull_request:
+    paths: ['apps/web/**', '.github/workflows/cms.yml']
+
+concurrency:
+  group: cms-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verificar:
+    name: Tipos, lint, tests, build y E2E
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: apps/web
+    services:
+      postgres:
+        image: postgres:18-alpine
+        env:
+          POSTGRES_USER: payload
+          POSTGRES_PASSWORD: payload
+          POSTGRES_DB: postgres
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U payload"
+          --health-interval 5s --health-timeout 5s --health-retries 12
+    env:
+      # Servidor PostgreSQL de los tests (crean y borran sus propias bases).
+      TEST_PG_URL: postgresql://payload:payload@localhost:5432/postgres
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: apps/web/package-lock.json
+
+      - run: npm ci
+
+      - name: Tipos
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Tests unitarios y de integración
+        run: npm run test:int
+
+      - name: Build de producción
+        run: npm run build
+        env:
+          # Valores solo para compilar: el build no guarda secretos ni datos.
+          PAYLOAD_SECRET: solo-para-el-build-de-ci
+          DATABASE_URL: postgresql://payload:payload@localhost:5432/postgres
+          SITE_URL: http://localhost:3100
+
+      - name: Navegador para E2E
+        run: npx playwright install --with-deps chromium
+
+      - name: Tests de punta a punta
+        run: |
+          set -o pipefail
+          npm run test:e2e 2>&1 | tee /tmp/e2e.log
+
+      - name: Resumen del fallo de E2E
+        if: failure()
+        run: |
+          # Las últimas líneas como anotación: se leen sin permisos sobre el log completo.
+          resumen=$(tail -60 /tmp/e2e.log 2>/dev/null | sed -e 's/%/%25/g' -e 's/\r/%0D/g' | sed ':a;N;$!ba;s/\n/%0A/g')
+          echo "::error title=E2E::${resumen:-sin salida}"
+
+      - name: Evidencia de E2E fallidos
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-resultados
+          path: apps/web/test-results
+          retention-days: 7
