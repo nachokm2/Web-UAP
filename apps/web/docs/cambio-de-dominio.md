@@ -74,6 +74,9 @@ servidores DNS habituales (BIND, Windows DNS) no lo hacen.
    - Enviar un formulario de prueba (inscripción y un formulario de asesor) y confirmar que
      llega a Bitrix24.
    - Iniciar sesión en `https://uap.edu.py/admin`.
+   - Medición: en Google Analytics 4 (G-WK32BB1JK5) → Tiempo real aparecen visitas, y en Meta
+     Business el dominio sigue verificado. Tag Manager (GTM-MMNLDBHC) se activa solo con
+     `SITE_URL=https://uap.edu.py` y sin `NOINDEX` (ver `medicionActiva()` en `src/lib/urls.ts`).
 5. **Google Search Console**: enviar `https://uap.edu.py/sitemap.xml` e inspeccionar la
    portada y dos carreras.
 

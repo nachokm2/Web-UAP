@@ -32,6 +32,20 @@ export function dominioCanonico(host: string | null, oficial: string | null): st
   return host.toLowerCase() === `www.${oficial.toLowerCase()}` ? oficial : null
 }
 
+/**
+ * La medición (Tag Manager: Analytics y píxel de Meta) corre solo en el sitio oficial. En el
+ * dominio de pruebas, en local y en los E2E del CI las visitas falsas se mezclarían con las
+ * estadísticas reales. Se activa sola el día del cambio de dominio (SITE_URL=uap.edu.py, sin NOINDEX).
+ */
+export function medicionActiva(siteUrl: string | undefined, noindex: string | undefined): boolean {
+  if (noindex === 'true') return false
+  try {
+    return new URL(siteUrl || '').host === 'uap.edu.py'
+  } catch {
+    return false
+  }
+}
+
 /** URL absoluta canónica (siempre el dominio oficial, nunca el de pruebas). */
 export function urlAbsoluta(ruta: string): string {
   const base = (process.env.SITE_URL || 'https://uap.edu.py').replace(/\/$/, '')

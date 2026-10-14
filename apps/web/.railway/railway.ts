@@ -29,8 +29,8 @@ export default defineRailway(() => {
   const db = postgres('Postgres')
 
   const cms = service('web-cms', {
-    // Mientras el CMS no esté en main, despliega desde su rama.
-    source: github('nachokm2/Web-UAP', { branch: 'feat/cms-payload', rootDirectory: 'apps/web', checkSuites: true }),
+    // Despliega desde main (el CMS se unió en el PR #2). Los cambios llegan a main por PR.
+    source: github('nachokm2/Web-UAP', { branch: 'main', rootDirectory: 'apps/web', checkSuites: true }),
     build: { buildCommand: 'npm run build', builder: 'RAILPACK', watchPatterns: [] },
     preDeploy: 'npm run migrate',
     start: 'npm start',
