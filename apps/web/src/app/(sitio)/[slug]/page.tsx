@@ -217,7 +217,7 @@ export default async function PaginaPrograma({ params }: Params) {
               <h2>Solicita información</h2>
               <p>Completa el formulario y un asesor se contactará contigo.</p>
               <div className="cta-formulario__caja">
-                <FormularioBitrix formulario={formulario} loaderUrl={config.bitrixLoaderUrl} campana={p.slug} diferido />
+                <FormularioBitrix formulario={formulario} loaderUrl={config.bitrixLoaderUrl} diferido />
               </div>
             </div>
           </section>

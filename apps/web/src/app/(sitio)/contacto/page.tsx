@@ -106,7 +106,7 @@ export default async function PaginaContacto() {
               </div>
               {config.bitrixFormulario && config.bitrixLoaderUrl && (
                 <div className="contacto-formulario">
-                  <FormularioBitrix formulario={config.bitrixFormulario} loaderUrl={config.bitrixLoaderUrl} campana="contacto-general" />
+                  <FormularioBitrix formulario={config.bitrixFormulario} loaderUrl={config.bitrixLoaderUrl} />
                 </div>
               )}
             </div>
