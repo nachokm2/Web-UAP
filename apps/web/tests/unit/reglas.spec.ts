@@ -13,7 +13,7 @@ import {
 import { diffDocumentos, textoDeRichText } from '@/audit/diff'
 import { esRutaDelSistema, normalizarRuta } from '@/collections/sistema'
 import { normalizarSlug } from '@/fields/slug'
-import { dominioCanonico } from '@/lib/urls'
+import { dominioCanonico, medicionActiva } from '@/lib/urls'
 import { transicionesDisponibles, validarTransicion } from '@/workflow/estados'
 
 const u = (...roles: Rol[]) => ({ roles, activo: true })
@@ -158,5 +158,16 @@ describe('Dominio canónico', () => {
     expect(dominioCanonico('web-cms-production-fd17.up.railway.app', 'uap.edu.py')).toBeNull()
     expect(dominioCanonico('www.uap.edu.py', null)).toBeNull()
     expect(dominioCanonico(null, 'uap.edu.py')).toBeNull()
+  })
+})
+
+describe('Medición (Tag Manager)', () => {
+  it('solo corre en el sitio oficial y nunca con NOINDEX', () => {
+    expect(medicionActiva('https://uap.edu.py', undefined)).toBe(true)
+    expect(medicionActiva('https://uap.edu.py/', 'false')).toBe(true)
+    expect(medicionActiva('https://uap.edu.py', 'true')).toBe(false)
+    expect(medicionActiva('https://web-cms-production-fd17.up.railway.app', undefined)).toBe(false)
+    expect(medicionActiva('http://localhost:3100', undefined)).toBe(false)
+    expect(medicionActiva(undefined, undefined)).toBe(false)
   })
 })

@@ -3,6 +3,7 @@ import React from 'react'
 
 import { Footer } from '@/components/sitio/Footer'
 import { Header } from '@/components/sitio/Header'
+import { Medicion } from '@/components/sitio/Medicion'
 import { WhatsApp } from '@/components/sitio/WhatsApp'
 import { obtenerConfiguracion } from '@/lib/datos'
 import { urlAbsoluta } from '@/lib/urls'
@@ -24,6 +25,9 @@ export async function generateMetadata(): Promise<Metadata> {
     description: config.seoDescripcion || undefined,
     icons: { icon: '/images/favicon.svg' },
     openGraph: { siteName: titulo, locale: 'es_PY', type: 'website' },
+    // Verificación del dominio en Meta Business (la misma que tenía el WordPress): sin ella
+    // las campañas pierden el dominio verificado al cambiar de sitio.
+    other: { 'facebook-domain-verification': 't23s1a78svhareme90yr3efilasobl' },
   }
 }
 
@@ -31,6 +35,7 @@ export default function LayoutSitio({ children }: { children: React.ReactNode })
   return (
     <html lang="es">
       <body>
+        <Medicion />
         <a href="#main-content" className="skip-link">
           Saltar al contenido principal
         </a>
