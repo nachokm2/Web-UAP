@@ -100,7 +100,7 @@ npm run build && npm run test:e2e   # navegador contra el build de producción (
 
 ## Despliegue (Railway)
 
-1. Push a `feat/cms-payload` (o PR).
+1. Los cambios llegan a `main` por PR (desde `feat/cms-payload` u otra rama). `web-cms` despliega desde `main`.
 2. GitHub Actions (`.github/workflows/cms.yml`) verifica: tipos, lint, tests, build y E2E.
 3. Railway espera esa verificación (*Wait for CI*): si pasa, despliega `web-cms`; si falla, no despliega.
 4. En Railway: build `npm run build`, pre-deploy `npm run migrate` (si falla, no se despliega), start `npm start`, health check `/api/health`.
