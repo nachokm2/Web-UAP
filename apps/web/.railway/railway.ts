@@ -37,15 +37,25 @@ export default defineRailway(() => {
     start: 'npm start',
     healthcheck: '/api/health',
     healthcheckTimeout: 120,
+    // Una réplica: el sitio guarda contenido en memoria (lib/cache.ts) y con dos una de ellas
+    // podría mostrar ediciones del panel con minutos de retraso.
     replicas: { sfo: 1 },
+    deploy: {
+      // Topes, no reservas: Railway cobra lo usado. Medido con ~50 páginas/s: 0,5 vCPU y
+      // 0,6 GB. Los valores son los que se fijaron en el panel (4 vCPU, 4 GB): margen de sobra
+      // para procesar imágenes subidas sin reinicios por memoria. No bajar de 2 GB.
+      limitOverride: { containers: { cpu: 4, memoryBytes: 4_000_000_000 } },
+    },
     env: {
       NODE_ENV: 'production',
       DATABASE_URL: db.env.DATABASE_URL,
       PAYLOAD_SECRET: preserve(),
-      // Dominio de pruebas hasta el cambio de DNS; luego https://uap.edu.py
-      SITE_URL: 'https://web-cms-production-fd17.up.railway.app',
-      // Entorno de pruebas: no indexar. Quitar al apuntar uap.edu.py a este servicio.
-      NOINDEX: 'true',
+      // Sitio oficial (lanzamiento, docs/cambio-de-dominio.md). Con este valor: canonical,
+      // sitemap y robots apuntan a uap.edu.py, el panel solo acepta sesiones desde
+      // https://uap.edu.py/admin (CSRF) y se activa la medición (Tag Manager). Sin NOINDEX:
+      // el sitio se indexa. El dominio de Railway sigue respondiendo, pero con noindex.
+      // Vuelta atrás: SITE_URL 'https://web-cms-production-fd17.up.railway.app' y NOINDEX: 'true'.
+      SITE_URL: 'https://uap.edu.py',
       S3_BUCKET: ref(archivos, 'BUCKET'),
       S3_ENDPOINT: ref(archivos, 'ENDPOINT'),
       S3_REGION: ref(archivos, 'REGION'),
