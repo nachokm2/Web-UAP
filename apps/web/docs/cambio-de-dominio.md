@@ -4,35 +4,24 @@ Procedimiento para que `uap.edu.py` deje de mostrar el WordPress de SiteGround y
 servicio `web-cms` de Railway, con vuelta atrás en minutos. El WordPress **no se toca ni se
 da de baja** hasta 30 días después de un cambio estable.
 
-## Situación al 14 de octubre de 2026
+## Situación al 16 de octubre de 2026
 
 | | Hoy |
 |---|---|
-| DNS de `uap.edu.py` | Servidores propios de la UAP (BIND en Linux): `tcadnse.uap.edu.py` y `alerce.uap.edu.py`, sin DNSSEC. Contacto: Fernando Fajardo (TI) |
-| `uap.edu.py` y `www.uap.edu.py` | Registro A → `34.174.80.21` (WordPress en SiteGround) |
+| DNS de `uap.edu.py` | **Cloudflare** (plan Free) desde el 16-oct, 16:43 (hora de Paraguay): servidores `arya.ns.cloudflare.com` y `fred.ns.cloudflare.com`, cambiados en NIC.py por Fernando Fajardo (TI). Los anteriores eran `tcadnse` y `alerce` (BIND de la UAP). |
+| Zona en Cloudflare | 29 registros, todos en "DNS only": sitio, Microsoft 365 de `uap.edu.py` y de `cloud.uap.edu.py`, Canvas, Brevo, `tcadnse`, `alerce` y los dos TXT de Railway. SSL/TLS **Full**; Email Address Obfuscation y Rocket Loader **desactivados**. |
+| DNSSEC | Activado en Cloudflare, **pendiente**: el DS todavía no se cargó en NIC.py (ver más abajo). |
+| `uap.edu.py` y `www.uap.edu.py` | Registro A → `34.174.80.21` (WordPress en SiteGround), "DNS only", TTL Auto (5 min) |
 | Dirección principal | `https://uap.edu.py` (sin www; `www` redirige con 301, igual que hará el sitio nuevo) |
-| Railway | `uap.edu.py` y `www.uap.edu.py` agregados a `web-cms` (sin verificar: faltan los TXT de TI). `web-cms` despliega desde `main`. |
+| Railway | `uap.edu.py` y `www.uap.edu.py` agregados a `web-cms`; Railway todavía no los marca como verificados aunque los TXT ya se ven. `web-cms` despliega desde `main`. |
 | Sitio nuevo | `https://web-cms-production-fd17.up.railway.app` con `NOINDEX=true` (no se indexa) |
 | URLs del WordPress (380) | 279 responden, 29 retiradas a propósito (410), 72 sin decisión (404) |
 
-## Decisión pendiente: cómo apuntar el dominio raíz
-
-Railway **no entrega una IP fija**. Para un dominio raíz como `uap.edu.py` pide un registro
-CNAME hacia `xxxx.up.railway.app` más un TXT de verificación (`_railway-verify`). Un CNAME en la
-raíz solo es posible si el DNS admite *CNAME flattening* o registros *ALIAS/ANAME*; los
-servidores DNS habituales (BIND, Windows DNS) no lo hacen.
-
-- **A. Recomendada: delegar la zona `uap.edu.py` en Cloudflare (plan gratuito).** Admite el
-  CNAME en la raíz y, además, guarda imágenes, CSS y JS en servidores de Asunción y São Paulo,
-  la mayor mejora de velocidad pendiente para Paraguay. Requiere exportar la zona actual
-  **completa**, recrearla en Cloudflare y cambiar los servidores de nombre en NIC.py. La zona
-  incluye el correo de Microsoft 365 (MX y SPF, y DKIM si está configurado), `canvas.uap.edu.py`
-  y los demás subdominios. Si la zona
-  queda idéntica, el cambio de servidores de nombre no corta nada.
-- **B. Mantener el DNS de la UAP** solo si su software admite ALIAS/ANAME. Debe confirmarlo TI.
-- **C. No recomendada: usar `www.uap.edu.py` como dirección principal** (CNAME normal) y que
-  `uap.edu.py` redirija a `www`. Cambia el dominio de todas las URLs: funciona con 301, pero
-  pierde la ventaja de mantener exactamente las direcciones actuales.
+**Incidente del 16-oct (lección):** la zona se armó con los registros visibles desde internet.
+`cloud.uap.edu.py` (un dominio aparte de Microsoft 365: correo, Teams y registro de equipos)
+solo existía en el BIND y no se vio. Desde el cambio en NIC.py (16:43) hasta que se cargaron
+sus 9 registros (17:03) no resolvía en Cloudflare. **Ningún cambio de DNS sin comparar antes
+contra el archivo de zona completo.**
 
 ## Antes del día del cambio (no afecta al sitio actual)
 
@@ -40,32 +29,38 @@ servidores DNS habituales (BIND, Windows DNS) no lo hacen.
    de carreras habilitadas y destino de "Consultas Académicas".
 2. **Usuarios**: crear las cuentas reales con su rol y cambiar la contraseña del Super Admin
    de pruebas (panel → cuenta propia).
-3. **Código en `main`**: hecho el 14-oct-2026 (PR #2 y #3); `web-cms` despliega desde `main`.
-4. **Dominio en Railway**: hecho el 9-oct-2026. `uap.edu.py` y `www.uap.edu.py` están en
-   `web-cms` (Settings → Networking → Show DNS records muestra el CNAME y el TXT de cada uno).
-   No borrarlos: Railway generaría valores nuevos y TI tendría que cambiar los registros.
-5. **TI crea los TXT `_railway-verify`** con anticipación (no cambian el tráfico) y **baja el
-   TTL** de `uap.edu.py` y `www` a 300 s al menos 24 h antes.
-6. **Respaldo**: respaldo manual bloqueado de Postgres en Railway (Postgres → Backups) el mismo día.
+3. **DNS**: comparar la zona de Cloudflare con el listado completo del BIND que mande TI.
+4. **Railway**: confirmar en *web-cms → Settings → Networking* si `uap.edu.py` y `www` ya figuran
+   verificados. Sin verificación (TXT), Railway responde 404 aunque el CNAME apunte bien.
+5. **Respaldo**: respaldo manual bloqueado de Postgres en Railway (Postgres → Backups) el mismo día.
+
+Hechos: código en `main` (PR #2 a #4), dominios agregados en Railway (9-oct), zona en
+Cloudflare y cambio de servidores de nombre en NIC.py (16-oct).
 
 ## Día del cambio (horario de baja actividad, sin cargar contenido durante la ventana)
 
-1. **Variables de producción** en `apps/web/.railway/railway.ts`:
-   `SITE_URL: 'https://uap.edu.py'` y borrar la línea `NOINDEX`. Luego `railway config plan`
-   y `railway config apply` (despliega solo; esperar SUCCESS).
+1. **Variables de producción**: unir el PR de lanzamiento, que deja en
+   `apps/web/.railway/railway.ts` `SITE_URL: 'https://uap.edu.py'` y sin `NOINDEX`. Desde
+   `apps/web`: `railway config plan` (debe mostrar **solo** "Update variable SITE_URL" y
+   "Delete variable NOINDEX") y `railway config apply --confirm-destructive` (lo "destructivo"
+   es borrar `NOINDEX`). Despliega solo; esperar SUCCESS.
    - Va **antes** del DNS a propósito: si `uap.edu.py` llegara a recibir tráfico con
      `NOINDEX=true`, Google podría guardar hasta 24 h un `robots.txt` que prohíbe todo.
    - Desde este paso el panel se usa en `https://uap.edu.py/admin`: la protección CSRF solo
      acepta `SITE_URL`, así que en el dominio de Railway ya no se puede iniciar sesión.
    - El dominio de Railway sigue respondiendo, con `noindex` (lo agrega `proxy.ts` a todo
      dominio que no sea el oficial).
-2. **TI cambia los registros**: `uap.edu.py` y `www` pasan a los CNAME que dio Railway (con
-   flattening en la raíz).
-3. **Certificado**: Railway lo emite al ver el CNAME (minutos). Seguir el estado en el
-   servicio → Settings → Networking.
+2. **Cloudflare (DNS → Records)**: cambiar solo dos registros, con **proxy activado** (nube
+   naranja), según la guía de Railway para Cloudflare:
+   - `uap.edu.py`: borrar el A `34.174.80.21` y crear CNAME `@` → `rau3h7lr.up.railway.app`.
+   - `www`: borrar el A `34.174.80.21` y crear CNAME `www` → `bhanuyjy.up.railway.app`.
+   - No tocar ningún otro registro (correo, Teams, Canvas, `cloud`, Brevo). Deben seguir siendo 29.
+3. **Railway**: debe mostrar "Cloudflare proxy detected" en ambos dominios. Con proxy, el
+   certificado que ve el público es el de Cloudflare (modo SSL **Full**, no Full strict).
 4. **Verificación** (en este orden):
    - `curl -I https://uap.edu.py/` → 200 y sin cabecera `X-Robots-Tag`.
-   - `https://uap.edu.py/robots.txt` → `Allow: /` y la línea `Sitemap:`.
+   - `https://uap.edu.py/robots.txt` → `Allow: /` y la línea `Sitemap:`. Revisar que Cloudflare
+     (Bot Management / AI Crawl Control) no le haya agregado reglas que no queremos.
    - `https://www.uap.edu.py/carreras/` → 301 a `https://uap.edu.py/carreras/`.
    - `bash scripts/migracion/verificar-urls.sh https://uap.edu.py resultado.tsv` → mismos
      números que en el dominio de Railway (ningún 404 nuevo).
@@ -75,18 +70,26 @@ servidores DNS habituales (BIND, Windows DNS) no lo hacen.
    - Medición: en Google Analytics 4 (G-WK32BB1JK5) → Tiempo real aparecen visitas, y en Meta
      Business el dominio sigue verificado. Tag Manager (GTM-MMNLDBHC) se activa solo con
      `SITE_URL=https://uap.edu.py` y sin `NOINDEX` (ver `medicionActiva()` en `src/lib/urls.ts`).
+   - Correo, Teams y Canvas siguen respondiendo (sus registros no se tocan, pero se verifica).
 5. **Google Search Console**: enviar `https://uap.edu.py/sitemap.xml` e inspeccionar la
    portada y dos carreras.
 
 ## Vuelta atrás
 
-- **DNS**: volver `uap.edu.py` y `www` al registro A `34.174.80.21`. Con TTL de 300 s el
-  WordPress vuelve en 5–10 minutos. Con Cloudflare se cambia el registro desde su panel, sin
-  tocar los servidores de nombre.
+- **DNS (Cloudflare)**: borrar los dos CNAME y volver a crear A `@` y A `www` → `34.174.80.21`,
+  "DNS only". Con TTL de 5 min el WordPress vuelve en 5–10 minutos.
 - **Variables**: volver `SITE_URL` al dominio de Railway y `NOINDEX: 'true'` (plan y apply)
   para seguir probando.
+- **Servidores de nombre**: volver a `tcadnse`/`alerce` en NIC.py solo como último recurso
+  (tarda más y, con DNSSEC activo, primero hay que quitar el DS).
 - El contenido del CMS no se pierde: base con respaldo diario, semanal y mensual, PITR y la
   copia nocturna en el bucket `respaldos-uap` (`infra/respaldo/README.md`).
+
+## DNSSEC (después de comparar con el BIND y 1–2 días estables)
+
+TI carga en NIC.py el DS que publica Cloudflare (verificado contra su clave KSK):
+`uap.edu.py. 3600 IN DS 2371 13 2 57F546E27765ADFF2B57786ABEC2DBE05F8E5EF5A46B246C08D52760778DA3EF`.
+Antes de cualquier cambio de servidores de nombre, quitar primero el DS en NIC.py.
 
 ## Las dos semanas siguientes
 
