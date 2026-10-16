@@ -4,14 +4,14 @@ Procedimiento para que `uap.edu.py` deje de mostrar el WordPress de SiteGround y
 servicio `web-cms` de Railway, con vuelta atrás en minutos. El WordPress **no se toca ni se
 da de baja** hasta 30 días después de un cambio estable.
 
-## Situación al 9 de octubre de 2026
+## Situación al 14 de octubre de 2026
 
 | | Hoy |
 |---|---|
-| DNS de `uap.edu.py` | Servidores propios de la UAP: `tcadnse.uap.edu.py` y `alerce.uap.edu.py` |
+| DNS de `uap.edu.py` | Servidores propios de la UAP (BIND en Linux): `tcadnse.uap.edu.py` y `alerce.uap.edu.py`, sin DNSSEC. Contacto: Fernando Fajardo (TI) |
 | `uap.edu.py` y `www.uap.edu.py` | Registro A → `34.174.80.21` (WordPress en SiteGround) |
 | Dirección principal | `https://uap.edu.py` (sin www; `www` redirige con 301, igual que hará el sitio nuevo) |
-| Railway | `uap.edu.py` está agregado al servicio **estático** `Web-UAP` (sin verificar, nunca recibió tráfico). Hay que pasarlo a `web-cms`. |
+| Railway | `uap.edu.py` y `www.uap.edu.py` agregados a `web-cms` (sin verificar: faltan los TXT de TI). `web-cms` despliega desde `main`. |
 | Sitio nuevo | `https://web-cms-production-fd17.up.railway.app` con `NOINDEX=true` (no se indexa) |
 | URLs del WordPress (380) | 279 responden, 29 retiradas a propósito (410), 72 sin decisión (404) |
 
@@ -40,12 +40,10 @@ servidores DNS habituales (BIND, Windows DNS) no lo hacen.
    de carreras habilitadas y destino de "Consultas Académicas".
 2. **Usuarios**: crear las cuentas reales con su rol y cambiar la contraseña del Super Admin
    de pruebas (panel → cuenta propia).
-3. **Código en `main`**: unir `feat/cms-payload` a `main`. Después, en
-   `apps/web/.railway/railway.ts` cambiar `branch: 'feat/cms-payload'` por `branch: 'main'`,
-   y correr `railway config plan` (revisar) y luego `railway config apply`.
-4. **Dominio en Railway**: quitar `uap.edu.py` del servicio `Web-UAP` y agregar `uap.edu.py` y
-   `www.uap.edu.py` a `web-cms`. Railway entrega, para cada uno, el CNAME de destino y el TXT
-   `_railway-verify`.
+3. **Código en `main`**: hecho el 14-oct-2026 (PR #2 y #3); `web-cms` despliega desde `main`.
+4. **Dominio en Railway**: hecho el 9-oct-2026. `uap.edu.py` y `www.uap.edu.py` están en
+   `web-cms` (Settings → Networking → Show DNS records muestra el CNAME y el TXT de cada uno).
+   No borrarlos: Railway generaría valores nuevos y TI tendría que cambiar los registros.
 5. **TI crea los TXT `_railway-verify`** con anticipación (no cambian el tráfico) y **baja el
    TTL** de `uap.edu.py` y `www` a 300 s al menos 24 h antes.
 6. **Respaldo**: respaldo manual bloqueado de Postgres en Railway (Postgres → Backups) el mismo día.

@@ -31,7 +31,7 @@ export default async function PaginaInscripcion() {
           <div className="container">
             <div className="content inscripcion-contenido">
               {config.bitrixFormulario && config.bitrixLoaderUrl && (
-                <FormularioBitrix formulario={config.bitrixFormulario} loaderUrl={config.bitrixLoaderUrl} campana="inscripcion-general" />
+                <FormularioBitrix formulario={config.bitrixFormulario} loaderUrl={config.bitrixLoaderUrl} />
               )}
             </div>
           </div>

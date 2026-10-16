@@ -14,9 +14,10 @@
 // Secretos: PAYLOAD_SECRET se carga una vez con la CLI (sellado) y acá queda como
 // preserve() para que el apply no lo borre. Nunca escribir secretos en este archivo.
 //
-// Despliegue: cada push a la rama despliega, pero solo si pasa la verificación de GitHub
+// Despliegue: cada push a main despliega, pero solo si pasa la verificación de GitHub
 // Actions (.github/workflows/cms.yml) gracias a checkSuites. Sin watchPatterns: Railway
-// salteaba ("no changes detected in watch paths") commits que sí cambiaban apps/web.
+// salteaba ("no changes detected in watch paths") commits que sí cambiaban apps/web. No se
+// declaran acá: Railway guarda la lista vacía como null y el plan mostraba siempre un cambio.
 
 import { bucket, defineRailway, github, postgres, preserve, project, ref, service } from 'railway/iac'
 
@@ -31,7 +32,7 @@ export default defineRailway(() => {
   const cms = service('web-cms', {
     // Despliega desde main (el CMS se unió en el PR #2). Los cambios llegan a main por PR.
     source: github('nachokm2/Web-UAP', { branch: 'main', rootDirectory: 'apps/web', checkSuites: true }),
-    build: { buildCommand: 'npm run build', builder: 'RAILPACK', watchPatterns: [] },
+    build: { buildCommand: 'npm run build', builder: 'RAILPACK' },
     preDeploy: 'npm run migrate',
     start: 'npm start',
     healthcheck: '/api/health',
