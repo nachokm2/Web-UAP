@@ -80,11 +80,12 @@ const ALIANZAS: Alianza[] = [
 ]
 
 /**
- * Íconos de las tarjetas de carrera (public/images, de Tabler Icons, licencia MIT). Las
+ * Íconos de las tarjetas de carrera (public/images, de Tabler Icons, licencia MIT). Las de
+ * Ciencias Sociales usan los PNG de public/images/iconos-carreras (128×128, #003366). Las
  * carreras sin ícono se muestran sin él. Al cambiar los archivos, subir VERSION_ICONOS: el
  * navegador guarda /images una semana y si no seguiría mostrando los anteriores.
  */
-const VERSION_ICONOS = 2
+const VERSION_ICONOS = 3
 const ICONOS: Record<string, string> = {
   odontologia: '/images/icon-odontologia.svg',
   psicologia: '/images/icon-psicologia.svg',
@@ -95,16 +96,16 @@ const ICONOS: Record<string, string> = {
   'optica-y-contactologia': '/images/icon-optica.svg',
   'ingenieria-en-informatica': '/images/icon-informatica.svg',
   'ingenieria-en-tecnologia-de-alimentos': '/images/icon-alimentos.svg',
-  'administracion-de-empresas': '/images/icon-admin.svg',
-  'ingenieria-comercial': '/images/icon-comercial.svg',
-  'ingenieria-en-marketing': '/images/icon-marketing.svg',
-  'ingenieria-en-comercio-internacional': '/images/icon-comercio.svg',
-  'marketing-y-publicidad': '/images/icon-publicidad.svg',
-  'ciencias-contables': '/images/icon-contable.svg',
-  'contabilidad-y-auditoria': '/images/icon-auditoria.svg',
-  'contaduria-publica': '/images/icon-contaduria.svg',
-  derecho: '/images/icon-derecho.svg',
-  periodismo: '/images/icon-periodismo.svg',
+  'administracion-de-empresas': '/images/iconos-carreras/administracion-de-empresas.png',
+  'ingenieria-comercial': '/images/iconos-carreras/ingenieria-comercial.png',
+  'ingenieria-en-marketing': '/images/iconos-carreras/ingenieria-en-marketing.png',
+  'ingenieria-en-comercio-internacional': '/images/iconos-carreras/ingenieria-en-comercio-internacional.png',
+  'marketing-y-publicidad': '/images/iconos-carreras/marketing-y-publicidad.png',
+  'ciencias-contables': '/images/iconos-carreras/ciencias-contables.png',
+  'contabilidad-y-auditoria': '/images/iconos-carreras/contabilidad-y-auditoria.png',
+  'contaduria-publica': '/images/iconos-carreras/contaduria-publica.png',
+  derecho: '/images/iconos-carreras/derecho.png',
+  periodismo: '/images/iconos-carreras/periodismo.png',
   'trabajo-social': '/images/icon-trabajo-social.svg',
   'administracion-publica': '/images/icon-admin-publica.svg',
   'ciencias-de-la-educacion': '/images/icon-educacion.svg',
