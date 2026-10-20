@@ -85,17 +85,17 @@ const ALIANZAS: Alianza[] = [
  * carreras sin ícono se muestran sin él. Al cambiar los archivos, subir VERSION_ICONOS: el
  * navegador guarda /images una semana y si no seguiría mostrando los anteriores.
  */
-const VERSION_ICONOS = 3
+const VERSION_ICONOS = 4
 const ICONOS: Record<string, string> = {
-  odontologia: '/images/icon-odontologia.svg',
-  psicologia: '/images/icon-psicologia.svg',
-  nutricion: '/images/icon-nutricion.svg',
-  fisioterapia: '/images/icon-fisioterapia.svg',
-  fonoaudiologia: '/images/icon-fono.svg',
-  podologia: '/images/icon-podologia.svg',
-  'optica-y-contactologia': '/images/icon-optica.svg',
-  'ingenieria-en-informatica': '/images/icon-informatica.svg',
-  'ingenieria-en-tecnologia-de-alimentos': '/images/icon-alimentos.svg',
+  odontologia: '/images/iconos-carreras/odontologia.png',
+  psicologia: '/images/iconos-carreras/psicologia.png',
+  nutricion: '/images/iconos-carreras/nutricion.png',
+  fisioterapia: '/images/iconos-carreras/fisioterapia.png',
+  fonoaudiologia: '/images/iconos-carreras/fonoaudiologia.png',
+  podologia: '/images/iconos-carreras/podologia.png',
+  'optica-y-contactologia': '/images/iconos-carreras/optica-y-contactologia.png',
+  'ingenieria-en-informatica': '/images/iconos-carreras/ingenieria-en-informatica.png',
+  'ingenieria-en-tecnologia-de-alimentos': '/images/iconos-carreras/ingenieria-en-tecnologia-de-alimentos.png',
   'administracion-de-empresas': '/images/iconos-carreras/administracion-de-empresas.png',
   'ingenieria-comercial': '/images/iconos-carreras/ingenieria-comercial.png',
   'ingenieria-en-marketing': '/images/iconos-carreras/ingenieria-en-marketing.png',
@@ -106,16 +106,23 @@ const ICONOS: Record<string, string> = {
   'contaduria-publica': '/images/iconos-carreras/contaduria-publica.png',
   derecho: '/images/iconos-carreras/derecho.png',
   periodismo: '/images/iconos-carreras/periodismo.png',
-  'trabajo-social': '/images/icon-trabajo-social.svg',
-  'administracion-publica': '/images/icon-admin-publica.svg',
-  'ciencias-de-la-educacion': '/images/icon-educacion.svg',
-  'educacion-parvularia': '/images/icon-parvularia.svg',
+  'trabajo-social': '/images/iconos-carreras/trabajo-social.png',
 }
+
+// Slugs autorizados para la portada; cualquier carrera fuera de esta lista se omite.
+const CARRERAS_PORTADA = new Set([
+  'odontologia', 'psicologia', 'nutricion', 'fisioterapia', 'fonoaudiologia', 'podologia',
+  'optica-y-contactologia', 'ingenieria-en-informatica', 'ingenieria-en-tecnologia-de-alimentos',
+  'administracion-de-empresas', 'ingenieria-comercial', 'ingenieria-en-marketing',
+  'ingenieria-en-comercio-internacional', 'marketing-y-publicidad', 'ciencias-contables',
+  'contabilidad-y-auditoria', 'contaduria-publica', 'derecho', 'periodismo', 'trabajo-social',
+])
 
 /** Carreras publicadas agrupadas por facultad (una pestaña por facultad, en su orden). */
 function facultadesDePortada(carreras: Carrera[]): FacultadDePortada[] {
   const grupos = new Map<string, FacultadDePortada & { orden: number }>()
   for (const c of carreras) {
+    if (!CARRERAS_PORTADA.has(c.slug)) continue
     const f = typeof c.facultad === 'object' && c.facultad ? (c.facultad as Facultad) : null
     const id = f?.slug ?? 'otras-carreras'
     if (!grupos.has(id)) {

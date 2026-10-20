@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Preview Íconos de Carreras</title>
+<style>
+  :root {
+    --bg: #f5f6f8;
+    --surface: #ffffff;
+    --fg: #1a1d23;
+    --fg-muted: #5a6070;
+    --accent: #003366;
+    --accent-light: #e8eef5;
+    --border: #e2e5ea;
+    --badge-bg: #003366;
+    --badge-fg: #ffffff;
+    --radius: 10px;
+    --font-ui: 'Inter', system-ui, sans-serif;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #12151c;
+      --surface: #1e2230;
+      --fg: #e8eaf0;
+      --fg-muted: #8890a4;
+      --accent: #4a8fd4;
+      --accent-light: #1a2540;
+      --border: #2a3045;
+      --badge-bg: #1e4a8a;
+      --badge-fg: #c8daf2;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #12151c;
+    --surface: #1e2230;
+    --fg: #e8eaf0;
+    --fg-muted: #8890a4;
+    --accent: #4a8fd4;
+    --accent-light: #1a2540;
+    --border: #2a3045;
+    --badge-bg: #1e4a8a;
+    --badge-fg: #c8daf2;
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-ui);
+    font-size: 14px;
+    line-height: 1.5;
+    padding: 32px max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
+
+  header {
+    margin-bottom: 36px;
+  }
+  header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--fg);
+    margin-bottom: 4px;
+  }
+  header p {
+    color: var(--fg-muted);
+    font-size: 13px;
+  }
+
+  .facultad {
+    margin-bottom: 32px;
+  }
+
+  .facultad-titulo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+  .facultad-titulo h2 {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--fg-muted);
+  }
+  .facultad-titulo::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 14px 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+    transition: box-shadow .15s, border-color .15s;
+  }
+  .card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 2px 12px rgba(0,0,0,.08);
+  }
+
+  .icon-wrap {
+    width: 56px;
+    height: 56px;
+    background: var(--accent-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+  .icon-wrap img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+  }
+  .icon-wrap .error-icon {
+    font-size: 20px;
+    opacity: .4;
+  }
+
+  .card-nombre {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--fg);
+    line-height: 1.3;
+    max-width: 100%;
+  }
+
+  .tag-nuevo {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    background: var(--badge-bg);
+    color: var(--badge-fg);
+    padding: 2px 7px;
+    border-radius: 20px;
+  }
+
+  .nota {
+    margin-top: 32px;
+    padding: 14px 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: var(--radius);
+    font-size: 12.5px;
+    color: var(--fg-muted);
+  }
+  .nota strong { color: var(--fg); }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Íconos de Carreras — Preview local</h1>
+  <p>Rama <code>update-csh-icons</code> · <code>VERSION_ICONOS = 4</code> · Abrí este archivo desde <code>apps/web/public/</code></p>
+</header>
+
+<div class="facultad">
+  <div class="facultad-titulo"><h2>Ciencias de la Salud</h2></div>
+  <div class="grid" id="salud"></div>
+</div>
+
+<div class="facultad">
+  <div class="facultad-titulo"><h2>Ingenierías y Tecnologías</h2></div>
+  <div class="grid" id="ing"></div>
+</div>
+
+<div class="facultad">
+  <div class="facultad-titulo"><h2>Ciencias Sociales y Humanas</h2></div>
+  <div class="grid" id="csh"></div>
+</div>
+
+<div class="nota">
+  <strong>¿Ícono no carga?</strong> Verificá que el archivo PNG exista en <code>images/iconos-carreras/</code> junto a este HTML. Los íconos marcados como <strong>Nuevo</strong> son los agregados en esta rama.
+</div>
+
+<script>
+const CARRERAS = {
+  salud: [
+    { slug: 'odontologia',                nombre: 'Odontología',                    nuevo: true  },
+    { slug: 'psicologia',                 nombre: 'Psicología',                     nuevo: true  },
+    { slug: 'nutricion',                  nombre: 'Nutrición',                      nuevo: true  },
+    { slug: 'fisioterapia',               nombre: 'Fisioterapia',                   nuevo: true  },
+    { slug: 'fonoaudiologia',             nombre: 'Fonoaudiología',                 nuevo: true  },
+    { slug: 'podologia',                  nombre: 'Podología',                      nuevo: true  },
+    { slug: 'optica-y-contactologia',     nombre: 'Óptica y Contactología',         nuevo: true  },
+  ],
+  ing: [
+    { slug: 'ingenieria-en-informatica',            nombre: 'Ingeniería en Informática',            nuevo: true },
+    { slug: 'ingenieria-en-tecnologia-de-alimentos',nombre: 'Ing. en Tecnología de Alimentos',      nuevo: true },
+  ],
+  csh: [
+    { slug: 'administracion-de-empresas',           nombre: 'Administración de Empresas',           nuevo: true },
+    { slug: 'ingenieria-comercial',                 nombre: 'Ingeniería Comercial',                 nuevo: true },
+    { slug: 'ingenieria-en-marketing',              nombre: 'Ingeniería en Marketing',              nuevo: true },
+    { slug: 'ingenieria-en-comercio-internacional', nombre: 'Ing. en Comercio Internacional',       nuevo: true },
+    { slug: 'marketing-y-publicidad',               nombre: 'Marketing y Publicidad',               nuevo: true },
+    { slug: 'ciencias-contables',                   nombre: 'Ciencias Contables',                   nuevo: true },
+    { slug: 'contabilidad-y-auditoria',             nombre: 'Contabilidad y Auditoría',             nuevo: true },
+    { slug: 'contaduria-publica',                   nombre: 'Contaduría Pública',                   nuevo: true },
+    { slug: 'derecho',                              nombre: 'Derecho',                              nuevo: true },
+    { slug: 'periodismo',                           nombre: 'Periodismo',                           nuevo: true },
+    { slug: 'trabajo-social',                       nombre: 'Trabajo Social',                       nuevo: true },
+  ]
+}
+
+function renderCard({ slug, nombre, nuevo }) {
+  const card = document.createElement('div')
+  card.className = 'card'
+
+  const wrap = document.createElement('div')
+  wrap.className = 'icon-wrap'
+
+  const img = document.createElement('img')
+  img.src = `images/iconos-carreras/${slug}.png`
+  img.alt = nombre
+  img.width = 32
+  img.height = 32
+  img.onerror = () => {
+    wrap.innerHTML = '<span class="error-icon">✕</span>'
+    wrap.title = 'No encontrado'
+  }
+  wrap.appendChild(img)
+
+  const label = document.createElement('span')
+  label.className = 'card-nombre'
+  label.textContent = nombre
+
+  card.appendChild(wrap)
+  card.appendChild(label)
+  if (nuevo) {
+    const tag = document.createElement('span')
+    tag.className = 'tag-nuevo'
+    tag.textContent = 'Nuevo'
+    card.appendChild(tag)
+  }
+  return card
+}
+
+for (const [grupo, lista] of Object.entries(CARRERAS)) {
+  const container = document.getElementById(grupo)
+  lista.forEach(c => container.appendChild(renderCard(c)))
+}
+</script>
+
+</body>
+</html>

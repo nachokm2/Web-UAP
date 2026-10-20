@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 const LINEAS = [
   {
     titulo: 'Ciencias de la Salud',
-    icono: '/images/icon-odontologia.png',
+    icono: '/images/iconos-carreras/odontologia.png',
     texto: 'Investigación en salud pública, epidemiología y ciencias médicas aplicadas.',
   },
   {
@@ -24,7 +24,7 @@ const LINEAS = [
   },
   {
     titulo: 'Ciencias Sociales y Humanas',
-    icono: '/images/icon-psicologia.png',
+    icono: '/images/iconos-carreras/psicologia.png',
     texto: 'Investigación en psicología, educación y desarrollo social.',
   },
 ]
