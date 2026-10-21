@@ -27,6 +27,8 @@ function seccionActual(ruta: string): string {
 export function MenuPrincipal({ carrerasPorFacultad, campusVirtualUrl }: Props) {
   const [abierto, setAbierto] = useState(false)
   const [desplegado, setDesplegado] = useState<string | null>(null)
+  // Facultad cuyas carreras se muestran en el submenú de Carreras (null = la primera, en PC).
+  const [facultadAbierta, setFacultadAbierta] = useState<string | null>(null)
   const ruta = usePathname()
   const [rutaAnterior, setRutaAnterior] = useState(ruta)
   const boton = useRef<HTMLButtonElement>(null)
@@ -37,6 +39,7 @@ export function MenuPrincipal({ carrerasPorFacultad, campusVirtualUrl }: Props) 
     setRutaAnterior(ruta)
     setAbierto(false)
     setDesplegado(null)
+    setFacultadAbierta(null)
   }
 
   useEffect(() => {
@@ -74,6 +77,10 @@ export function MenuPrincipal({ carrerasPorFacultad, campusVirtualUrl }: Props) 
   }
   const claseDesplegable = (id: string) => ['dropdown', desplegado === id ? 'active' : ''].filter(Boolean).join(' ')
 
+  // Submenú de facultades: en PC se abre al pasar el mouse; tocando (o con teclado) se alterna.
+  const conMouse = () => window.matchMedia('(hover: hover) and (pointer: fine)').matches
+  const alternarFacultad = (f: string) => setFacultadAbierta((a) => (a === f ? null : f))
+
   return (
     <>
       <button
@@ -98,17 +105,41 @@ export function MenuPrincipal({ carrerasPorFacultad, campusVirtualUrl }: Props) 
             <Link href={SITIO.carreras} className={clase('carreras')} onClick={alternar('carreras')}>
               Carreras
             </Link>
-            <div className="dropdown-content">
-              {carrerasPorFacultad.map((g) => (
-                <div key={g.facultad} role="group" aria-label={g.facultad}>
-                  <div className="dropdown-faculty">{g.facultad}</div>
-                  {g.carreras.map((c) => (
-                    <Link key={c.slug} href={urlPrograma(c.slug)}>
-                      {c.nombre}
-                    </Link>
-                  ))}
-                </div>
-              ))}
+            {/* Antes las 23 carreras en una columna (más alta que la pantalla): ahora las
+                facultades y, al lado, las carreras de la elegida. */}
+            <div className="dropdown-content dropdown-facultades">
+              {carrerasPorFacultad.map((g, i) => {
+                const abierta = facultadAbierta === g.facultad
+                const idPanel = `submenu-facultad-${i}`
+                return (
+                  <div
+                    key={g.facultad}
+                    className={abierta ? 'submenu-facultad abierta' : 'submenu-facultad'}
+                    onMouseEnter={() => conMouse() && setFacultadAbierta(g.facultad)}
+                  >
+                    <button
+                      type="button"
+                      className="submenu-facultad__titulo"
+                      aria-expanded={abierta}
+                      aria-controls={idPanel}
+                      onClick={() => !conMouse() && alternarFacultad(g.facultad)}
+                      onFocus={() => conMouse() && setFacultadAbierta(g.facultad)}
+                    >
+                      {g.facultad}
+                    </button>
+                    <div id={idPanel} className="submenu-facultad__carreras" role="group" aria-label={g.facultad}>
+                      {g.carreras.map((c) => (
+                        <Link key={c.slug} href={urlPrograma(c.slug)}>
+                          {c.nombre}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                )
+              })}
+              <Link href={SITIO.carreras} className="dropdown-ver-todas">
+                Ver todas las carreras →
+              </Link>
             </div>
           </li>
           <li className={claseDesplegable('posgrados')}>

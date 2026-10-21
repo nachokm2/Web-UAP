@@ -532,3 +532,29 @@ h2:has(+ .contacto-datos), .contacto-datos .contact-row { color: var(--color-pri
   .pestanas-nav .tab-btn { padding: 10px 8px; font-size: 0.7rem; letter-spacing: 0.02em; }
   .pestanas-flecha { width: 32px; height: 32px; }
 }
+
+/* ========================================
+   Zonas táctiles de al menos 24 px (WCAG 2.5.8). Se amplía el área que responde al
+   toque con relleno; el aspecto queda igual.
+   ======================================== */
+/* Puntos del carrusel: botón de 24 px con el punto de 12 px dibujado adentro. */
+.carousel-indicators { gap: 0; }
+.carousel-indicators .indicator,
+.carousel-indicators .indicator.active,
+.carousel-indicators .indicator:hover { width: 24px; height: 24px; background: transparent; position: relative; }
+.carousel-indicators .indicator::before {
+  content: ''; position: absolute; inset: 6px; border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4); transition: background 0.3s;
+}
+.carousel-indicators .indicator.active::before,
+.carousel-indicators .indicator:hover::before { background: white; }
+/* Breadcrumb: mismo alto total (el relleno pasa del contenedor a los enlaces). */
+.breadcrumb-nav { padding: var(--space-2) 0; }
+.breadcrumb a { display: inline-block; padding-block: 4px; }
+/* Datos de contacto. */
+.contacto-valor a { display: inline-block; padding-block: 2px; }
+/* Títulos de las tarjetas, enlaces del pie inferior y enlaces sueltos de Institucional. */
+.career-card h3 a,
+.pie__base a,
+.institucional-contenido a:not(.btn) { display: inline-block; padding-block: 2px; }
+.career-card h3 a { padding-block: 3px; }
