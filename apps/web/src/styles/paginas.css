@@ -20,7 +20,7 @@
   margin: 0 auto;
   height: 600px;
   overflow: hidden;
-  background-color: #003366;
+  background-color: var(--color-primary);
 }
 /* El video (o su imagen fija) cubre todo el encabezado. Antes quedaba con su tamaño
    propio y centrado: franjas azules a los costados en escritorio y arriba/abajo en celular. */
@@ -61,7 +61,7 @@
   color: white;
 }
 .hero-slide-content h1 {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-primary);
   font-size: 2.8rem;
   font-weight: 700;
   margin: 0 0 12px 0;
@@ -69,7 +69,7 @@
   text-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
 .hero-slide-content h2 {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-primary);
   font-size: 2.2rem;
   font-weight: 600;
   margin: 0 0 12px 0;
@@ -104,7 +104,7 @@
 .hero-slide-badge {
   display: inline-block;
   padding: 6px 16px;
-  background: #0066cc;
+  background: var(--color-primary-light);
   color: white;
   font-size: 0.85rem;
   font-weight: 600;
@@ -114,8 +114,8 @@
   text-transform: uppercase;
 }
 /* Antes style="background: ..." en las insignias de la 2.ª y 3.ª diapositiva */
-.hero-slide-badge.inicio-insignia--matriculas { background: #c0392b; }
-.hero-slide-badge.inicio-insignia--posgrados { background: #2c3e50; }
+.hero-slide-badge.inicio-insignia--matriculas { background: var(--color-cta-accent); }
+.hero-slide-badge.inicio-insignia--posgrados { background: var(--color-primary-dark); }
 @media (max-width: 768px) {
   .hero-slide-content {
     padding: 0 24px;
@@ -280,13 +280,13 @@
 /* Mismas reglas que .content de uap-refined.css, pero 800px de ancho. Se repiten porque
    en el sitio estático venían después de la hoja global y ganaban, por ejemplo, a
    .authority-card p. */
-.institucional-contenido { max-width: 800px; margin: 0 auto; }
+.institucional-contenido { max-width: 760px; margin: 0 auto; }
 .institucional-contenido h2 { margin-top: var(--space-12); margin-bottom: var(--space-4); color: var(--color-primary); }
 .institucional-contenido p { margin-bottom: var(--space-4); color: var(--color-text-secondary); line-height: 1.8; }
 .institucional-contenido ul { margin-bottom: var(--space-4); padding-left: var(--space-6); }
 .institucional-contenido li { margin-bottom: var(--space-2); color: var(--color-text-secondary); }
-.institucional-contenido a { color: var(--color-primary-light); font-weight: var(--weight-semibold); text-decoration: none; }
-.institucional-contenido a:hover { color: var(--color-primary); text-decoration: underline; }
+.institucional-contenido a:not(.btn) { color: var(--color-primary-light); font-weight: var(--weight-semibold); text-decoration: none; }
+.institucional-contenido a:not(.btn):hover { color: var(--color-primary); text-decoration: underline; }
 /* minmax(0, 1fr): las columnas no se ensanchan por palabras largas (antes desbordaba en celular). */
 .values-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-4); margin-top: var(--space-6); }
 @media (max-width: 640px) { .values-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3); } }
@@ -307,23 +307,28 @@
 .contacto-valor a { color: inherit; text-decoration: none; border-bottom: 1px solid currentColor; }
 .contacto-horario { white-space: pre-line; }
 .contacto-formulario { grid-column: span 2; }
+/* Títulos en azul institucional, como el resto del sitio (antes negro). */
+h2:has(+ .contacto-datos), .contacto-datos .contact-row { color: var(--color-primary); }
 
 /* ========================================
    Estudiantes (pages/estudiantes.html)
    ======================================== */
+/* Misma tarjeta con ícono que la portada e Investigación: borde, sombra suave e ícono azul sobre fondo claro. */
 .student-card {
   background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: var(--space-6);
   box-shadow: var(--shadow-sm);
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
   text-decoration: none;
   color: inherit;
   display: block;
 }
 .student-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-2px);
   box-shadow: var(--shadow-md);
+  border-color: var(--color-primary-light);
 }
 .student-card h3 {
   color: var(--color-primary);
@@ -336,7 +341,7 @@
 .student-icon {
   width: 48px;
   height: 48px;
-  background: var(--color-primary);
+  background: var(--color-background);
   border-radius: var(--radius-md);
   display: flex;
   align-items: center;
@@ -372,21 +377,53 @@
    Privacidad (pages/privacidad.html)
    Las reglas sueltas de tabla del original (table, th, td) quedan acotadas al texto.
    ======================================== */
-.privacy-container { max-width: 860px; margin: 0 auto; }
-.privacy-container h2 { font-size: 1.3rem; color: #003366; margin: 36px 0 12px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; }
-.privacy-container h3 { font-size: 1.05rem; color: #003366; margin: 24px 0 8px; }
-.privacy-container p, .privacy-container li { color: #374151; line-height: 1.8; font-size: 0.97rem; }
+.privacy-container { max-width: 760px; margin: 0 auto; }
+.privacy-container h2 { font-size: 1.3rem; color: var(--color-primary); margin: 36px 0 12px; padding-bottom: 8px; border-bottom: 2px solid var(--color-border-tint); }
+.privacy-container h3 { font-size: 1.05rem; color: var(--color-primary); margin: 24px 0 8px; }
+.privacy-container p, .privacy-container li { color: var(--color-text-strong); line-height: 1.8; font-size: 0.97rem; }
 .privacy-container ul { padding-left: 22px; margin-bottom: 16px; }
 .privacy-container ul li { margin-bottom: 6px; }
-.privacy-container a { color: #0066cc; }
-.privacy-container .last-update { display: inline-block; background: #f0f4f8; border-radius: 6px; padding: 6px 14px; font-size: 0.82rem; color: var(--color-text-secondary); margin-bottom: 28px; }
-.privacy-container .highlight-box { background: #f0f7ff; border-left: 4px solid #0066cc; border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 20px 0; }
+.privacy-container a { color: var(--color-primary-light); }
+.privacy-container .last-update { display: inline-block; background: var(--color-surface-tint); border-radius: 6px; padding: 6px 14px; font-size: 0.82rem; color: var(--color-text-secondary); margin-bottom: 28px; }
+.privacy-container .highlight-box { background: #f0f7ff; border-left: 4px solid var(--color-primary-light); border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 20px 0; }
 .privacy-container .highlight-box p { margin: 0; font-size: 0.93rem; }
-.privacy-container .contact-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px 24px; margin-top: 12px; }
+.privacy-container .contact-card { background: var(--color-surface-subtle); border: 1px solid var(--color-border-tint); border-radius: 12px; padding: 20px 24px; margin-top: 12px; }
 .privacy-container .contact-card p { margin: 4px 0; font-size: 0.93rem; }
 .privacy-container table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.9rem; }
-.privacy-container th { background: #003366; color: white; padding: 10px 14px; text-align: left; }
-.privacy-container td { padding: 10px 14px; border-bottom: 1px solid #e2e8f0; color: #374151; }
-.privacy-container tr:nth-child(even) td { background: #f8fafc; }
+.privacy-container th { background: var(--color-primary); color: white; padding: 10px 14px; text-align: left; }
+.privacy-container td { padding: 10px 14px; border-bottom: 1px solid var(--color-border-tint); color: var(--color-text-strong); }
+.privacy-container tr:nth-child(even) td { background: var(--color-surface-subtle); }
 /* Antes style="margin-top: 16px;" en el último párrafo */
 .privacy-container .privacidad-nota { margin-top: 16px; }
+
+/* Íconos de Estudiantes: el SVG trae el trazo blanco; con fondo claro van en azul. */
+.student-icon svg [stroke] { stroke: var(--color-primary); }
+.student-icon svg [fill="white"] { fill: var(--color-primary); }
+
+/* Página no encontrada: los botones eran blancos sobre fondo claro (casi invisibles). */
+.no-encontrada .btn-outline {
+  display: inline-flex; align-items: center; padding: var(--space-3) var(--space-6); border-radius: var(--radius-sm);
+  font-size: var(--text-sm); font-weight: var(--weight-semibold); text-decoration: none;
+  color: var(--color-primary); border: 1px solid var(--color-primary); background: var(--color-surface);
+}
+.no-encontrada .btn-outline:hover { background: var(--color-primary); color: white; }
+.no-encontrada h1 { color: var(--color-primary); }
+
+/* Formularios de Bitrix24 con la tipografía y colores del sitio (el botón venía negro).
+   No se aplica al formulario de la página de cada programa (.cta-formulario__caja). */
+.formulario-bitrix:not(.cta-formulario__caja *) .b24-form-wrapper {
+  --b24-primary-color: var(--color-cta-accent);
+  --b24-primary-hover-color: var(--color-cta-accent-hover);
+  --b24-text-color: var(--color-text);
+  --b24-field-background-color: var(--color-surface);
+  --b24-field-border-color: var(--color-border-strong);
+  font-family: 'Inter', var(--font-system);
+}
+.formulario-bitrix:not(.cta-formulario__caja *) .b24-form-wrapper :is(input, textarea, select, button) { font-family: inherit; }
+.formulario-bitrix:not(.cta-formulario__caja *) .b24-form-control { border-radius: var(--radius-md); }
+.formulario-bitrix:not(.cta-formulario__caja *) .b24-form-header-title { font-family: var(--font-primary); color: var(--color-primary); }
+
+/* Encabezado de páginas internas en celular: altura mínima menor. */
+@media (max-width: 768px) {
+  .page-hero { min-height: 200px; padding: var(--space-12) 0; }
+}

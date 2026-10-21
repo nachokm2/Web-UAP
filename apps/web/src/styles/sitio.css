@@ -2,7 +2,7 @@
    (footer) más piezas nuevas para contenido del CMS. Usan los tokens de uap-refined.css. */
 
 /* Pie de página: mismos valores que el footer estático */
-.pie { background: #002244; color: #fff; padding: 56px 0 0; }
+.pie { background: var(--color-primary-dark); color: #fff; padding: 56px 0 0; }
 .pie__grilla { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
 .pie__logo { height: 45px; width: auto; margin-bottom: 20px; display: block; }
 .pie__leyenda { opacity: 0.75; line-height: 1.7; margin-bottom: 20px; font-size: 14px; max-width: none; }
@@ -39,7 +39,7 @@
 
 /* Paginación de noticias */
 .paginacion { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 40px; }
-.paginacion a, .paginacion span { min-width: 40px; padding: 8px 12px; border-radius: 8px; text-align: center; border: 1px solid var(--color-border, #dce3ec); text-decoration: none; }
+.paginacion a, .paginacion span { min-width: 40px; padding: 8px 12px; border-radius: 8px; text-align: center; border: 1px solid var(--color-border); text-decoration: none; }
 .paginacion [aria-current="page"] { background: var(--color-primary); color: #fff; border-color: var(--color-primary); }
 
 .formulario-bitrix { min-height: 320px; }

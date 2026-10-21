@@ -63,6 +63,8 @@
     --color-border-light: #F3F4F6;
     --color-border-strong: #d1d5db;
     --color-hover-subtle: #e8edf2;
+    --color-surface-tint: #f0f4f8;
+    --color-border-tint: #e2e8f0;
     
     /* Estados */
     --color-success: #15803D; /* antes #16A34A, ~3.3:1 con texto blanco — fallaba WCAG AA; ahora ~5:1 */
@@ -334,6 +336,14 @@ h4 {
     padding: var(--space-16) 0;
     position: relative;
     overflow: hidden;
+    /* Misma altura en todas las páginas internas, con el texto centrado verticalmente. */
+    min-height: 280px;
+    display: flex;
+    align-items: center;
+}
+
+.page-hero > .container {
+    width: 100%;
 }
 
 .page-hero h1 {
@@ -342,6 +352,8 @@ h4 {
     font-size: var(--text-3xl);
 }
 
+/* Todos los subtítulos con el mismo estilo (algunas páginas no usaban .lead). */
+.page-hero p,
 .page-hero .lead {
     color: rgba(255, 255, 255, 0.8);
     font-size: var(--text-lg);
@@ -400,13 +412,15 @@ h4 {
     letter-spacing: 0.02em;
 }
 
+/* Tres niveles de botón: .btn-accent (rojo) = inscribirse / pedir información; .btn-primary
+   y .btn-dark (azul institucional) = navegar; enlace = acciones menores. */
 .btn-primary {
-    background-color: var(--color-primary-light);
+    background-color: var(--color-primary);
     color: white;
 }
 
 .btn-primary:hover {
-    background-color: var(--color-accent);
+    background-color: var(--color-primary-dark);
     transform: translateY(-1px);
     box-shadow: var(--shadow-md);
 }
@@ -465,7 +479,7 @@ h4 {
     transition: all 0.25s;
 }
 .btn-glass:hover {
-    background: #f0f4f8;
+    background: var(--color-surface-tint);
     transform: translateY(-1px);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
@@ -487,7 +501,7 @@ h4 {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 .brochure-btn-glass:hover {
-    background: #f0f4f8;
+    background: var(--color-surface-tint);
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
 }
@@ -939,7 +953,7 @@ h4 {
    Content Styles (for article pages)
    ======================================== */
 .content {
-    max-width: 720px;
+    max-width: 760px;
     margin: 0 auto;
 }
 
@@ -1694,7 +1708,7 @@ h4 {
 }
 
 .whatsapp-float:focus-visible {
-    outline: 3px solid #003366;
+    outline: 3px solid var(--color-primary);
     outline-offset: 3px;
 }
 
