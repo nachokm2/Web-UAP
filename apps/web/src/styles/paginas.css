@@ -133,6 +133,7 @@
     margin-bottom: 16px;
     display: -webkit-box;
     -webkit-line-clamp: 3;
+    line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
@@ -195,15 +196,44 @@
    dando max-width/max-height de uap-refined.css, como en el sitio estático. */
 .inicio-socios .partner-slide img { width: auto; height: auto; }
 
-/* Carreras por facultad */
+/* Carreras por facultad: 4 columnas (antes 5 angostas, con textos de hasta 20 líneas),
+   3 en pantallas medianas, 2 en tablet y 1 en celular. Texto alineado a la izquierda,
+   como las tarjetas de Investigación y Estudiantes. Con flex (y no grid) la última fila,
+   si queda incompleta, se centra. */
 .careers-grid-20 {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: var(--space-6);
+  --columnas: 4;
+  --separacion: var(--space-6);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--separacion);
 }
+.careers-grid-20 > * {
+  flex: 0 0 calc((100% - (var(--columnas) - 1) * var(--separacion)) / var(--columnas));
+  min-width: 0;
+}
+@media (max-width: 1100px) { .careers-grid-20 { --columnas: 3; } }
+@media (max-width: 768px) { .careers-grid-20 { --columnas: 2; --separacion: var(--space-4); } }
+@media (max-width: 480px) { .careers-grid-20 { --columnas: 1; } }
 .careers-grid-20 .career-card {
-  text-align: center;
+  text-align: left;
 }
+
+/* Descripciones cortadas a 4 líneas: las tarjetas de una misma fila quedan parejas
+   (portada y listados de Carreras y Posgrados). */
+.careers-grid-20 .career-card-desc,
+.careers-grid .career-card > p:not(.posgrado-meta) {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  /* Sin estirarse: si crece, asoma la 5.ª línea bajo el "…". El espacio sobrante va antes del enlace. */
+  flex-grow: 0;
+}
+.careers-grid-20 .career-card-cta { margin-top: auto; padding-top: var(--space-3); }
+.careers-grid .career-card > p.posgrado-meta,
+.careers-grid-20 .career-card p.inicio-carrera-meta { flex-grow: 0; }
 .tab-buttons {
   display: flex;
   gap: 0;
@@ -245,6 +275,10 @@
   .tab-btn { scroll-snap-align: center; }
   .tab-buttons--pista .tab-btn { animation: pista-pestanas 0.6s ease-in-out 0.2s 2 alternate both; }
 }
+/* PC: pestañas centradas bajo el título de la sección (en celular la fila se desliza). */
+@media (min-width: 769px) {
+  .tab-buttons { justify-content: center; }
+}
 @keyframes pista-pestanas {
   to { transform: translateX(-56px); }
 }
@@ -255,7 +289,7 @@
 }
 /* Antes style="padding: var(--space-8) 0;" en cada panel */
 .tab-content.inicio-pestana { padding: var(--space-8) 0; }
-.careers-grid-20 .career-icon { width: 48px; height: 48px; background: var(--color-background); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; margin: 0 auto var(--space-4); }
+.careers-grid-20 .career-icon { width: 48px; height: 48px; background: var(--color-background); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; margin: 0 0 var(--space-4); }
 .careers-grid-20 .career-icon img { width: 28px; height: 28px; object-fit: contain; }
 /* Antes style="" en la línea de duración y título de cada tarjeta */
 .career-card p.inicio-carrera-meta { font-size: var(--text-xs); color: var(--color-text-muted); margin-top: var(--space-1); }
