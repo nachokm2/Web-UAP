@@ -461,3 +461,74 @@ h2:has(+ .contacto-datos), .contacto-datos .contact-row { color: var(--color-pri
 @media (max-width: 768px) {
   .page-hero { min-height: 200px; padding: var(--space-12) 0; }
 }
+
+/* Pestañas de facultades: flechas ‹ › a los costados (PestanasCarreras). La línea inferior
+   pasa del tablist al contenedor para abarcar también las flechas. */
+.pestanas-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  border-bottom: 2px solid var(--color-border-light);
+  margin-bottom: var(--space-8);
+}
+.pestanas-nav .tab-buttons { flex: 0 1 auto; min-width: 0; border-bottom: 0; margin-bottom: 0; }
+.pestanas-flecha {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-primary);
+  font-size: 1.4rem;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
+}
+.pestanas-flecha span { margin-top: -2px; }
+.pestanas-flecha:hover { background: var(--color-primary); border-color: var(--color-primary); color: white; }
+.pestanas-flecha:focus-visible { outline: 2px solid var(--color-primary-light); outline-offset: 2px; }
+
+/* Al cambiar de facultad, las tarjetas entran desde el lado hacia el que se avanzó. */
+.inicio-pestana--desde-derecha { animation: pestana-desde-derecha 0.35s ease-out; }
+.inicio-pestana--desde-izquierda { animation: pestana-desde-izquierda 0.35s ease-out; }
+@keyframes pestana-desde-derecha { from { opacity: 0; transform: translateX(40px); } to { opacity: 1; transform: none; } }
+@keyframes pestana-desde-izquierda { from { opacity: 0; transform: translateX(-40px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .inicio-pestana--desde-derecha, .inicio-pestana--desde-izquierda { animation: none; }
+}
+
+/* Anterior / siguiente al pie de la lista: no hace falta volver a subir a las pestañas. */
+.pestanas-pie {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-top: var(--space-8);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border-light);
+}
+.pestanas-pie__boton {
+  background: none;
+  border: 0;
+  padding: var(--space-3) 0;
+  font: inherit;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--color-primary-light);
+  cursor: pointer;
+  text-align: left;
+  transition: color var(--transition-fast);
+}
+.pestanas-pie__boton--siguiente { text-align: right; margin-left: auto; }
+.pestanas-pie__boton:hover { color: var(--color-primary); text-decoration: underline; }
+/* Celular: con las flechas a los costados, la pestaña activa entra completa. */
+@media (max-width: 480px) {
+  .pestanas-nav { gap: var(--space-1); }
+  .pestanas-nav .tab-btn { padding: 10px 8px; font-size: 0.7rem; letter-spacing: 0.02em; }
+  .pestanas-flecha { width: 32px; height: 32px; }
+}
