@@ -1259,10 +1259,15 @@ h4 {
     display: inline-block;
 }
 
-.dropdown > a::after {
-    content: ' ▾';
-    font-size: 10px;
-    opacity: 0.7;
+/* La flecha va como imagen de fondo: el ::after de .nav a ya es la línea de subrayado
+   (antes compartían el pseudo-elemento y la flecha caía debajo del texto). */
+.dropdown > a {
+    padding-right: 14px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%234B5563' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right center / 9px 6px;
+}
+.dropdown > a:hover::after,
+.dropdown > a.nav-active::after {
+    width: calc(100% - 14px);
 }
 
 .dropdown-content {
@@ -1467,21 +1472,24 @@ h4 {
         width: 100%;
         position: relative;
     }
-    
+
+    /* En bloque: todos los ítems miden lo mismo (antes los que no tienen submenú eran más bajos). */
+    .nav a {
+        display: block;
+    }
+
     .dropdown > a {
         display: flex;
         justify-content: space-between;
         align-items: center;
     }
     
-    .dropdown > a::after {
-        content: '▼';
-        font-size: 10px;
-        margin-left: 8px;
+    .dropdown > a {
+        background-size: 11px 7px;
     }
-    
-    .dropdown.active > a::after {
-        content: '▲';
+
+    .dropdown.active > a {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath d='M1 5l4-4 4 4' fill='none' stroke='%23003366' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
     }
     
     .dropdown-content {
@@ -1878,7 +1886,14 @@ h4 {
     border-radius: var(--card-radius, var(--radius-md));
 }
 .value-card {
-    --card-bg: var(--color-background);
+    /* Antes --color-background: el mismo gris que el fondo de la página, la tarjeta no se veía. */
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-sm);
+    /* Texto centrado en ambos ejes: los valores de 1 y 2 líneas quedan parejos. */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 72px;
     text-align: center;
     font-weight: var(--weight-semibold);
     color: var(--color-primary);

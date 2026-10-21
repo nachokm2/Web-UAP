@@ -5,7 +5,7 @@
 // de pestañas, como en el plan de estudios (Malla): flechas, Inicio y Fin mueven el foco.
 
 import Link from 'next/link'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { urlPrograma } from '@/lib/urls'
 
@@ -24,12 +24,34 @@ export type FacultadDePortada = { id: string; etiqueta: string; carreras: Carrer
 export function PestanasCarreras({ facultades }: { facultades: FacultadDePortada[] }) {
   const [activa, setActiva] = useState(0)
   const pestanas = useRef<(HTMLButtonElement | null)[]>([])
+  const lista = useRef<HTMLDivElement>(null)
+  const [pista, setPista] = useState(false)
+
+  // En celular las pestañas no entran a lo ancho: la primera vez que la fila se ve, hace
+  // un vaivén corto para mostrar que se puede deslizar (no con movimiento reducido).
+  useEffect(() => {
+    const el = lista.current
+    if (!el || el.scrollWidth <= el.clientWidth || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const observador = new IntersectionObserver(
+      ([entrada]) => {
+        if (!entrada.isIntersecting) return
+        setPista(true)
+        observador.disconnect()
+      },
+      { threshold: 0.6 },
+    )
+    observador.observe(el)
+    return () => observador.disconnect()
+  }, [])
 
   if (!facultades.length) return null
 
   const activar = (i: number, foco = false) => {
     setActiva(i)
     if (foco) pestanas.current[i]?.focus()
+    // La pestaña elegida queda centrada en la fila (solo se nota cuando la fila se desliza).
+    const suave = !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    pestanas.current[i]?.scrollIntoView({ behavior: suave ? 'smooth' : 'auto', block: 'nearest', inline: 'center' })
   }
   const alTeclear = (e: React.KeyboardEvent, i: number) => {
     const ultimo = facultades.length - 1
@@ -47,7 +69,13 @@ export function PestanasCarreras({ facultades }: { facultades: FacultadDePortada
 
   return (
     <>
-      <div className="tab-buttons" role="tablist" aria-label="Carreras por facultad">
+      <div
+        ref={lista}
+        className={pista ? 'tab-buttons tab-buttons--pista' : 'tab-buttons'}
+        role="tablist"
+        aria-label="Carreras por facultad"
+        onAnimationEnd={() => setPista(false)}
+      >
         {facultades.map((f, i) => (
           <button
             key={f.id}
