@@ -58,20 +58,36 @@
 .cta-formulario h2 { color: #fff; text-align: center; border: none; }
 .cta-formulario > p { color: rgba(255,255,255,0.85); text-align: center; margin-bottom: 28px; }
 .cta-formulario__caja { background: rgba(255,255,255,0.95); border-radius: 16px; padding: 8px; }
-.career-hero-glass .posgrado-badge { display: inline-block; margin-bottom: 12px; }
 
-/* Listados de carreras y posgrados (antes en un <style> dentro de cada página) */
-.posgrado-badge { display: inline-block; font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.05em; padding: var(--space-1) var(--space-3); background-color: var(--color-primary); color: white; border-radius: var(--radius-sm); margin-bottom: var(--space-4); }
-.badge-especializacion { background-color: var(--color-warning); }
-.badge-doctorado { background-color: var(--color-success); }
-.badge-maestria, .badge-maestria_doctorado { background-color: #6d28d9; }
-.faculty-section { margin-bottom: var(--space-16); scroll-margin-top: 96px; }
-.faculty-title { font-family: var(--font-primary); font-size: var(--text-2xl); color: var(--color-primary); margin-bottom: var(--space-6); padding-bottom: var(--space-3); border-bottom: 2px solid var(--color-border); }
-.posgrado-subtitle { font-size: var(--text-lg); color: var(--color-text-secondary, #4B5563); margin: var(--space-8) 0 var(--space-4); text-transform: uppercase; letter-spacing: 0.05em; }
-.posgrado-meta { font-size: var(--text-sm); color: var(--color-primary); font-weight: 600; margin-bottom: var(--space-2); }
-.posgrado-brochure-link { display: inline-block; margin-top: var(--space-3); font-size: var(--text-sm); font-weight: 700; color: var(--color-cta-accent); text-decoration: none; }
-.posgrado-brochure-link:hover { text-decoration: underline; }
+/* Listados de carreras y posgrados (antes en un <style> dentro de cada página).
+   Títulos centrados como .section-header y subnivel con el lenguaje de las pestañas de la portada. */
+.posgrado-badge {
+  display: inline-block; align-self: flex-start; font-size: var(--text-xs); font-weight: var(--weight-semibold);
+  text-transform: uppercase; letter-spacing: 0.05em; padding: var(--space-1) var(--space-3);
+  background-color: rgba(0, 102, 204, 0.1); color: var(--color-primary); border-radius: 999px; margin-bottom: var(--space-4);
+}
+.badge-especializacion { background-color: #FEF3C7; color: var(--color-warning); }
+.badge-doctorado { background-color: #DCFCE7; color: var(--color-success); }
+.badge-maestria, .badge-maestria_doctorado { background-color: #EDE9FE; color: #5B21B6; }
+/* En el encabezado de cada programa la etiqueta conserva su formato anterior. */
+.career-hero-glass .posgrado-badge { background-color: var(--color-primary); color: white; font-weight: var(--weight-normal); border-radius: var(--radius-sm); margin-bottom: 12px; }
+.faculty-section { margin-bottom: var(--space-20); scroll-margin-top: 96px; }
+.faculty-title { font-family: var(--font-primary); font-size: var(--text-3xl); color: var(--color-primary); text-align: center; margin-bottom: var(--space-12); }
+.posgrado-subtitle {
+  font-family: inherit; font-size: var(--text-sm); font-weight: var(--weight-semibold); color: var(--color-primary);
+  text-transform: uppercase; letter-spacing: 0.05em; margin: var(--space-10) 0 var(--space-6);
+  padding-bottom: var(--space-3); border-bottom: 2px solid var(--color-border-light);
+}
+.posgrado-meta { font-size: var(--text-xs); color: var(--color-text-muted); font-weight: var(--weight-medium); margin-bottom: var(--space-2); }
+.posgrado-brochure-link { display: inline-block; margin-top: var(--space-3); font-size: var(--text-xs); font-weight: var(--weight-semibold); color: var(--color-primary-light); text-decoration: none; transition: color var(--transition-fast); }
+.posgrado-brochure-link:hover { color: var(--color-primary); text-decoration: underline; }
 .career-card h3 a { color: inherit; text-decoration: none; }
+.careers-grid .career-card { --relleno-tarjeta: var(--space-6); padding: var(--relleno-tarjeta); box-shadow: var(--shadow-sm); }
+
+@media (max-width: 768px) {
+  .faculty-title { font-size: var(--text-2xl); margin-bottom: var(--space-8); }
+  .careers-grid .career-card { --relleno-tarjeta: var(--space-4); }
+}
 /* Autoridades (/autoridades/ e Institucional). */
 .authority-card { display: flex; flex-direction: column; align-items: center; gap: var(--space-2); }
 .authority-card__foto { width: 132px; height: 132px; border-radius: 50%; object-fit: cover; object-position: top center; margin-bottom: var(--space-2); }
@@ -97,7 +113,7 @@
 /* Foto del programa a sangre en el borde superior de la tarjeta. */
 .career-card__imagen {
   display: block;
-  margin: calc(var(--space-8) * -1) calc(var(--space-8) * -1) var(--space-5);
+  margin: calc(var(--relleno-tarjeta, var(--space-8)) * -1) calc(var(--relleno-tarjeta, var(--space-8)) * -1) var(--space-5);
   aspect-ratio: 16 / 9;
   overflow: hidden;
   background-color: var(--color-primary);
@@ -105,7 +121,11 @@
 .career-card__imagen img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform var(--transition-base); }
 .career-card:hover .career-card__imagen img { transform: scale(1.03); }
 @media (prefers-reduced-motion: reduce) { .career-card__imagen img { transition: none; } .career-card:hover .career-card__imagen img { transform: none; } }
-.career-card__acciones { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; margin-top: var(--space-3); }
+/* Acciones al pie: las tarjetas de una misma fila quedan alineadas. */
+.career-card__acciones {
+  display: flex; gap: 16px; flex-wrap: wrap; align-items: center;
+  margin-top: auto; padding-top: var(--space-4); border-top: 1px solid var(--color-border-light);
+}
 .career-card__acciones .posgrado-brochure-link { margin-top: 0; }
 
 /* Detalle de noticia */
