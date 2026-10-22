@@ -417,7 +417,7 @@ h2:has(+ .contacto-datos), .contacto-datos .contact-row { color: var(--color-pri
 /* ========================================
    Inscripción (pages/inscripcion.html)
    ======================================== */
-.inscripcion-contenido { max-width: 600px; margin: 0 auto; }
+.inscripcion-contenido { max-width: 700px; margin: 0 auto; }
 
 /* ========================================
    Privacidad (pages/privacidad.html)
@@ -468,6 +468,14 @@ h2:has(+ .contacto-datos), .contacto-datos .contact-row { color: var(--color-pri
 .formulario-bitrix:not(.cta-formulario__caja *) .b24-form-wrapper :is(input, textarea, select, button) { font-family: inherit; }
 .formulario-bitrix:not(.cta-formulario__caja *) .b24-form-control { border-radius: var(--radius-md); }
 .formulario-bitrix:not(.cta-formulario__caja *) .b24-form-header-title { font-family: var(--font-primary); color: var(--color-primary); }
+/* Bitrix pone "Helvetica Neue" en etiquetas, ayudas, avisos, enlace de abuso y consentimiento: se pasan a la fuente del sitio. */
+.formulario-bitrix:not(.cta-formulario__caja *) .b24-form-wrapper :is(.b24-form-control-label, .b24-form-control-required, .b24-form-control-alert-message, .b24-form-control-comment, .b24-form-sign-abuse-link, .b24-form-btn) { font-family: inherit; }
+/* Asterisco: el rojo puro de Bitrix (#f00) da 4,0:1 sobre blanco; el rojo de error del sitio pasa el 4,5:1. */
+.formulario-bitrix:not(.cta-formulario__caja *) .b24-form-control-required { color: var(--color-danger); }
+/* Texto de ayuda ("Ej.: ...") con el tono secundario del sitio, no negro. */
+.formulario-bitrix:not(.cta-formulario__caja *) .b24-form-control-comment { color: var(--color-text-secondary); font-size: var(--text-xs); }
+/* "Reportar un abuso": zona táctil de al menos 24 px y texto legible. */
+.formulario-bitrix:not(.cta-formulario__caja *) .b24-form-sign-abuse-link { display: inline-flex; align-items: center; min-height: 24px; color: var(--color-text-secondary); font-size: var(--text-xs); opacity: 1; }
 
 /* Encabezado de páginas internas en celular: altura mínima menor. */
 @media (max-width: 768px) {
