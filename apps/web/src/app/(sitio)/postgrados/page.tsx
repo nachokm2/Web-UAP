@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 
+import { AbrirSegunAncla } from '@/components/sitio/AbrirSegunAncla'
 import { Breadcrumb } from '@/components/sitio/Breadcrumb'
 import { TarjetaPrograma } from '@/components/sitio/TarjetaPrograma'
 import type { Facultad, Posgrado } from '@/payload-types'
@@ -35,13 +36,8 @@ function porArea(programas: Posgrado[]) {
 export default async function PaginaPosgrados() {
   const posgrados = (await listarPosgrados()) as Posgrado[]
 
-  // Las primeras tarjetas se ven sin desplazarse: sus fotos se piden de entrada.
-  const prioritarias = new Set(
-    SECCIONES.flatMap((s) => porArea(posgrados.filter((p) => s.tipos.includes(p.tipo))).flatMap(([, g]) => g.programas))
-      .slice(0, 3)
-      .map((p) => p.id),
-  )
-
+  // Cada tipo es un desplegable cerrado y, adentro, uno por área: las fotos no se piden de
+  // entrada (antes las 3 primeras tarjetas, que ahora arrancan ocultas).
   return (
     <>
       <Breadcrumb items={[{ nombre: 'Inicio', href: SITIO.inicio }, { nombre: 'Posgrados' }]} />
@@ -58,22 +54,36 @@ export default async function PaginaPosgrados() {
               const programas = posgrados.filter((p) => s.tipos.includes(p.tipo))
               if (!programas.length) return null
               return (
-                <div key={s.id} className="faculty-section" id={s.id}>
-                  <h2 className="faculty-title">{s.titulo}</h2>
-                  {porArea(programas).map(([area, g]) => (
-                    <div key={area || 'sin-area'}>
-                      {area && <h3 className="posgrado-subtitle">{area}</h3>}
-                      <div className="careers-grid">
-                        {g.programas.map((p) => (
-                          <TarjetaPrograma key={p.id} programa={p} tipo="posgrado" prioridad={prioritarias.has(p.id)} />
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                <details key={s.id} className="faculty-section desplegable" id={s.id}>
+                  <summary className="desplegable__titulo">
+                    <h2 className="faculty-title">{s.titulo}</h2>
+                  </summary>
+                  <div className="desplegable__contenido">
+                    {porArea(programas).map(([area, g]) => {
+                      const grilla = (
+                        <div className="careers-grid">
+                          {g.programas.map((p) => (
+                            <TarjetaPrograma key={p.id} programa={p} tipo="posgrado" />
+                          ))}
+                        </div>
+                      )
+                      // Programas sin área: directo bajo el tipo, sin un desplegable sin nombre.
+                      if (!area) return <div key="sin-area">{grilla}</div>
+                      return (
+                        <details key={area} className="desplegable desplegable--area" id={g.area?.slug ? `${s.id}-${g.area.slug}` : undefined}>
+                          <summary className="desplegable__titulo">
+                            <h3 className="posgrado-subtitle">{area}</h3>
+                          </summary>
+                          <div className="desplegable__contenido">{grilla}</div>
+                        </details>
+                      )
+                    })}
+                  </div>
+                </details>
               )
             })}
           </div>
+          <AbrirSegunAncla />
         </section>
       </main>
     </>

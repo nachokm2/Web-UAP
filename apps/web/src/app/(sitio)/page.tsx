@@ -62,7 +62,7 @@ const CIFRAS = [
   { valor: 50, etiqueta: 'Convenios internacionales' },
   { valor: 10, etiqueta: 'Mil egresados' },
   { valor: 5, etiqueta: 'Mil volúmenes biblioteca' },
-  { valor: 20, etiqueta: 'Carreras profesionales' },
+  { valor: 23, etiqueta: 'Carreras profesionales' },
 ]
 
 type Alianza = { href: string; nombre: string; logo: { src: string; ancho: number; alto: number } | null }
@@ -85,8 +85,11 @@ const ALIANZAS: Alianza[] = [
  * carreras sin ícono se muestran sin él. Al cambiar los archivos, subir VERSION_ICONOS: el
  * navegador guarda /images una semana y si no seguiría mostrando los anteriores.
  */
-const VERSION_ICONOS = 4
+const VERSION_ICONOS = 5
 const ICONOS: Record<string, string> = {
+  'administracion-publica': '/images/iconos-carreras/administracion-publica.png',
+  'ciencias-de-la-educacion': '/images/iconos-carreras/ciencias-de-la-educacion.png',
+  'educacion-parvularia': '/images/iconos-carreras/educacion-parvularia.png',
   odontologia: '/images/iconos-carreras/odontologia.png',
   psicologia: '/images/iconos-carreras/psicologia.png',
   nutricion: '/images/iconos-carreras/nutricion.png',
@@ -109,20 +112,10 @@ const ICONOS: Record<string, string> = {
   'trabajo-social': '/images/iconos-carreras/trabajo-social.png',
 }
 
-// Slugs autorizados para la portada; cualquier carrera fuera de esta lista se omite.
-const CARRERAS_PORTADA = new Set([
-  'odontologia', 'psicologia', 'nutricion', 'fisioterapia', 'fonoaudiologia', 'podologia',
-  'optica-y-contactologia', 'ingenieria-en-informatica', 'ingenieria-en-tecnologia-de-alimentos',
-  'administracion-de-empresas', 'ingenieria-comercial', 'ingenieria-en-marketing',
-  'ingenieria-en-comercio-internacional', 'marketing-y-publicidad', 'ciencias-contables',
-  'contabilidad-y-auditoria', 'contaduria-publica', 'derecho', 'periodismo', 'trabajo-social',
-])
-
 /** Carreras publicadas agrupadas por facultad (una pestaña por facultad, en su orden). */
 function facultadesDePortada(carreras: Carrera[]): FacultadDePortada[] {
   const grupos = new Map<string, FacultadDePortada & { orden: number }>()
   for (const c of carreras) {
-    if (!CARRERAS_PORTADA.has(c.slug)) continue
     const f = typeof c.facultad === 'object' && c.facultad ? (c.facultad as Facultad) : null
     const id = f?.slug ?? 'otras-carreras'
     if (!grupos.has(id)) {

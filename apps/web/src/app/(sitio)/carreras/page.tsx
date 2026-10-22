@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 
+import { AbrirSegunAncla } from '@/components/sitio/AbrirSegunAncla'
 import { Breadcrumb } from '@/components/sitio/Breadcrumb'
 import { TarjetaPrograma } from '@/components/sitio/TarjetaPrograma'
 import type { Carrera, Facultad } from '@/payload-types'
@@ -23,8 +24,8 @@ export default async function PaginaCarreras() {
   }
   const ordenados = [...grupos.entries()].sort((a, b) => (a[1].facultad?.orden ?? 999) - (b[1].facultad?.orden ?? 999))
 
-  // Las primeras tarjetas se ven sin desplazarse: sus fotos se piden de entrada.
-  const prioritarias = new Set(ordenados.flatMap(([, g]) => g.carreras).slice(0, 3).map((c) => c.id))
+  // Cada facultad es un desplegable cerrado: las fotos no se piden de entrada (antes las 3
+  // primeras tarjetas, que ahora arrancan ocultas).
 
   return (
     <>
@@ -41,16 +42,21 @@ export default async function PaginaCarreras() {
         <section className="section section-alt">
           <div className="container">
             {ordenados.map(([nombre, g]) => (
-              <div key={nombre} className="faculty-section" id={g.facultad?.slug ?? undefined}>
-                <h2 className="faculty-title">{nombre}</h2>
-                <div className="careers-grid">
-                  {g.carreras.map((c) => (
-                    <TarjetaPrograma key={c.id} programa={c} tipo="carrera" prioridad={prioritarias.has(c.id)} />
-                  ))}
+              <details key={nombre} className="faculty-section desplegable" id={g.facultad?.slug ?? undefined}>
+                <summary className="desplegable__titulo">
+                  <h2 className="faculty-title">{nombre}</h2>
+                </summary>
+                <div className="desplegable__contenido">
+                  <div className="careers-grid">
+                    {g.carreras.map((c) => (
+                      <TarjetaPrograma key={c.id} programa={c} tipo="carrera" />
+                    ))}
+                  </div>
                 </div>
-              </div>
+              </details>
             ))}
           </div>
+          <AbrirSegunAncla />
         </section>
       </main>
     </>

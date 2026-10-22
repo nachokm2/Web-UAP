@@ -126,6 +126,41 @@
   .faculty-title { font-size: var(--text-2xl); margin-bottom: var(--space-8); }
   .careers-grid .career-card { --relleno-tarjeta: var(--space-4); }
 }
+/* Listados /carreras/ y /postgrados/: cada facultad o tipo es un desplegable cerrado (<details>);
+   en Posgrados, adentro, uno por área. La flecha gira al abrir. */
+.desplegable.faculty-section {
+  margin-bottom: var(--space-4); background: var(--color-surface); border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); overflow: clip;
+}
+.desplegable__titulo {
+  display: flex; align-items: center; gap: var(--space-3); padding: var(--space-5) var(--space-6);
+  cursor: pointer; list-style: none; transition: background-color var(--transition-fast);
+}
+.desplegable__titulo::-webkit-details-marker { display: none; }
+.desplegable__titulo:hover { background-color: var(--color-surface-tint); }
+.desplegable__titulo:focus-visible { outline: 2px solid var(--color-primary-light); outline-offset: -2px; }
+.desplegable__titulo::after {
+  content: ''; flex-shrink: 0; width: 10px; height: 10px; margin: 0 var(--space-1) 4px var(--space-2);
+  border-right: 2px solid var(--color-primary); border-bottom: 2px solid var(--color-primary);
+  transform: rotate(45deg); transition: transform var(--transition-fast);
+}
+.desplegable[open] > .desplegable__titulo::after { transform: rotate(225deg); margin-bottom: -4px; }
+.desplegable__titulo .faculty-title { flex: 1; margin: 0; font-size: var(--text-xl); text-align: left; }
+.desplegable__titulo .posgrado-subtitle { flex: 1; margin: 0; padding: 0; border: 0; }
+.desplegable[open] > .desplegable__titulo { border-bottom: 1px solid var(--color-border); }
+.desplegable__contenido { padding: var(--space-6); }
+/* Áreas dentro de un tipo de posgrado: filas separadas por una línea, sin tarjeta propia. */
+.desplegable--area { border: 1px solid var(--color-border); border-radius: var(--radius-md); scroll-margin-top: 96px; }
+.desplegable--area + .desplegable--area { margin-top: var(--space-3); }
+.desplegable--area > .desplegable__titulo { padding: var(--space-4) var(--space-5); }
+.desplegable--area > .desplegable__contenido { padding: var(--space-5); background: var(--color-background); }
+.desplegable__contenido > div + .desplegable--area { margin-top: var(--space-5); }
+@media (max-width: 768px) {
+  .desplegable__titulo { padding: var(--space-4); }
+  .desplegable__titulo .faculty-title { font-size: var(--text-lg); }
+  .desplegable__contenido, .desplegable--area > .desplegable__contenido { padding: var(--space-4); }
+  .desplegable--area > .desplegable__titulo { padding: var(--space-3) var(--space-4); }
+}
 /* Autoridades (/autoridades/ e Institucional). */
 .authority-card { display: flex; flex-direction: column; align-items: center; gap: var(--space-2); }
 .authority-card__foto { width: 132px; height: 132px; border-radius: 50%; object-fit: cover; object-position: top center; margin-bottom: var(--space-2); }
