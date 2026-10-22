@@ -1822,13 +1822,34 @@ h4 {
 .info-pill .pill-value { font-size: 1.15rem; font-weight: 700; }
 
 .malla-section { background: var(--color-surface-subtle); border-radius: 16px; padding: 32px; }
-.malla-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+/* flex + justify-content: center (no grid): con pocas pestañas o un solo módulo, el
+   contenido queda centrado bajo el título en vez de pegado al borde izquierdo. */
+.malla-tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 24px; }
 .malla-tab { padding: var(--space-3) var(--space-5); border: 1px solid var(--color-border-strong); background: white; color: var(--color-primary); border-radius: 50px; cursor: pointer; font-size: 0.85rem; font-weight: 600; transition: all 0.2s; }
 .malla-tab:hover { background: var(--color-hover-subtle); }
 .malla-tab.active { background: var(--color-primary); color: white; border-color: transparent; }
-.malla-panel ul { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--space-2); }
-.malla-panel li { padding: var(--space-3) var(--space-5); background: white; border-radius: 10px; font-size: 0.9rem; border-left: 3px solid var(--color-primary-light); box-shadow: 0 1px 3px rgba(0,0,0,0.06); transition: transform 0.15s; }
+/* Antes grid con auto-fill: con un solo tema dejaba columnas fantasma vacías y la
+   tarjeta quedaba pegada a la izquierda. Con flex + justify-content: center, cualquier
+   cantidad de temas queda centrada (incluida la última fila incompleta). */
+.malla-panel ul { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-3); }
+.malla-panel li { flex: 1 1 260px; max-width: 320px; padding: var(--space-3) var(--space-5); background: white; border-radius: 10px; font-size: 0.9rem; border-left: 3px solid var(--color-primary-light); box-shadow: 0 1px 3px rgba(0,0,0,0.06); transition: transform 0.15s; }
 .malla-panel li:hover { transform: translateX(4px); }
+/* Módulo con un único tema: antes era la misma píldora chica, perdida en el espacio
+   vacío de la grilla — ahora una tarjeta centrada con más presencia, acorde a ser el
+   único contenido del panel. */
+.malla-panel li:only-child {
+  flex: 0 1 420px;
+  max-width: 420px;
+  text-align: center;
+  padding: var(--space-6);
+  border-left: none;
+  border-top: 3px solid var(--color-primary-light);
+  box-shadow: var(--shadow-md);
+  font-size: 1rem;
+  font-weight: var(--weight-semibold);
+  color: var(--color-primary);
+}
+.malla-panel li:only-child:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
 
 .cta-section { background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 100%); border-radius: 20px; padding: 48px; color: white; text-align: center; margin: 48px 0; }
 .cta-section h2 { font-size: 2rem; margin-bottom: 8px; }
@@ -1869,8 +1890,8 @@ h4 {
     .cta-section { padding: var(--space-8) var(--space-5); }
     .malla-tabs { gap: var(--space-2); }
     .malla-tab { padding: var(--space-2) var(--space-4); font-size: 0.8rem; }
-    .malla-panel ul { grid-template-columns: 1fr; }
-    .malla-panel li { padding: var(--space-3) var(--space-4); font-size: 0.85rem; }
+    .malla-panel li { flex-basis: 100%; max-width: none; padding: var(--space-3) var(--space-4); font-size: 0.85rem; }
+    .malla-panel li:only-child { flex-basis: 100%; max-width: none; padding: var(--space-5) var(--space-4); font-size: 0.9rem; }
     .malla-section { padding: var(--space-5) var(--space-4); }
     .competencias-grid { grid-template-columns: 1fr; }
     .two-col-grid { grid-template-columns: 1fr; }
