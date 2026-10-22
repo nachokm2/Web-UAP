@@ -386,14 +386,26 @@ h2:has(+ .contacto-datos), .contacto-datos .contact-row { color: var(--color-pri
 }
 /* Antes style="display: block; margin: 0 auto;" en cada ícono */
 .student-icon svg { display: block; margin: 0 auto; }
+/* flex (no grid): la última fila, si queda incompleta, se centra (igual que .careers-grid-20). */
 .student-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: var(--space-6);
+  --columnas: 3;
+  --separacion: var(--space-6);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--separacion);
   margin-top: var(--space-8);
 }
+.student-grid > * {
+  flex: 0 0 calc((100% - (var(--columnas) - 1) * var(--separacion)) / var(--columnas));
+  min-width: 0;
+}
+@media (max-width: 960px) { .student-grid { --columnas: 2; } }
+@media (max-width: 640px) { .student-grid { --columnas: 1; } }
 /* Antes style="" en el recuadro de contacto y sus párrafos */
-.estudiantes-contacto { background: var(--color-surface); padding: var(--space-8); border-radius: var(--radius-lg); max-width: 600px; margin: 0 auto; }
+.estudiantes-contacto { background: var(--color-surface); padding: var(--space-8); border-radius: var(--radius-lg); max-width: 600px; }
+/* Título y recuadro alineados a la izquierda, con el borde de las tarjetas de arriba. */
+.section-header:has(+ .estudiantes-contacto) { text-align: left; }
 .estudiantes-contacto p:not(:last-child) { margin-bottom: var(--space-3); }
 
 /* ========================================
@@ -529,7 +541,7 @@ h2:has(+ .contacto-datos), .contacto-datos .contact-row { color: var(--color-pri
 /* Celular: con las flechas a los costados, la pestaña activa entra completa. */
 @media (max-width: 480px) {
   .pestanas-nav { gap: var(--space-1); }
-  .pestanas-nav .tab-btn { padding: 10px 8px; font-size: 0.7rem; letter-spacing: 0.02em; }
+  .pestanas-nav .tab-btn { padding: 10px 8px; font-size: 0.75rem; letter-spacing: 0.02em; }
   .pestanas-flecha { width: 32px; height: 32px; }
 }
 
