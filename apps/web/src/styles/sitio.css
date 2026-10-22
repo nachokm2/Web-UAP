@@ -47,10 +47,41 @@
 
 /* Landing de programa: antes eran style="" en cada página */
 .seccion-programa { padding: 48px 0; }
-.seccion-programa--degradado { background: linear-gradient(180deg, #f0f4f8, #fff); }
-.seccion-programa--gris { background: #f8fafc; }
-.glass-card--angosta { max-width: 900px; margin: 0 auto; }
-.glass-card--destacada { background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(240,244,248,0.9)); border-left: 5px solid #002244; }
+.seccion-programa--degradado { background: linear-gradient(180deg, var(--color-surface-tint), var(--color-surface)); }
+.seccion-programa--gris { background: var(--color-surface-subtle); }
+
+/* Tarjetas del programa: una sola grilla de 2 columnas que reparte por altura (cada tarjeta mide
+   lo que su contenido, sin huecos vacíos). La certificación —o la última tarjeta si queda suelta—
+   ocupa todo el ancho en formato banner: título a la izquierda, texto a la derecha. */
+.programa-tarjetas { columns: 2; column-gap: var(--space-6); }
+.programa-tarjetas .glass-card {
+  break-inside: avoid; margin-bottom: var(--space-6);
+  background: var(--color-surface); -webkit-backdrop-filter: none; backdrop-filter: none;
+  border: 1px solid var(--color-border-tint); box-shadow: var(--shadow-sm);
+}
+.programa-tarjetas .glass-card:hover { box-shadow: var(--shadow-md); }
+.programa-tarjetas .glass-card h2 { padding-bottom: var(--space-3); margin-bottom: var(--space-4); border-bottom: 1px solid var(--color-border-tint); }
+.programa-tarjetas .glass-card--ancha,
+.programa-tarjetas .glass-card:last-child:nth-child(odd) {
+  column-span: all; margin: var(--space-2) 0 0;
+  display: grid; grid-template-columns: minmax(200px, 26%) 1fr; column-gap: var(--space-8); align-items: start;
+}
+.programa-tarjetas .glass-card--ancha { border-left: 5px solid var(--color-primary-dark); background: linear-gradient(135deg, var(--color-surface), var(--color-surface-tint)); }
+.programa-tarjetas .glass-card--ancha > h2,
+.programa-tarjetas .glass-card:last-child:nth-child(odd) > h2 {
+  align-self: stretch; align-items: center; margin: 0; padding: 0 var(--space-6) 0 0;
+  border-bottom: 0; border-right: 1px solid var(--color-border-tint);
+}
+@media (max-width: 768px) {
+  .seccion-programa { padding: 32px 0; }
+  .programa-tarjetas { columns: 1; }
+  .programa-tarjetas .glass-card--ancha,
+  .programa-tarjetas .glass-card:last-child:nth-child(odd) { display: block; margin-top: 0; }
+  .programa-tarjetas .glass-card--ancha > h2,
+  .programa-tarjetas .glass-card:last-child:nth-child(odd) > h2 {
+    padding: 0 0 var(--space-3); margin-bottom: var(--space-4); border-right: 0; border-bottom: 1px solid var(--color-border-tint);
+  }
+}
 .malla-titulo { color: var(--color-primary); text-align: center; font-size: 1.6rem; margin-bottom: 24px; }
 .acciones-hero { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
 .acciones-hero .brochure-btn-glass { margin-top: 0; }

@@ -56,8 +56,6 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 
 type Tarjeta = { titulo: string; icono: TipoIcono; contenido: unknown }
 
-const FONDOS = ['degradado', undefined, 'gris', undefined] as const
-
 /** Secciones en orden de lectura; solo las que tienen contenido. */
 function tarjetasDe(p: Programa): Tarjeta[] {
   const comunes = (p.seccionesAdicionales ?? []).map((s) => ({ titulo: s.titulo, icono: 'texto' as const, contenido: s.contenido }))
@@ -84,28 +82,30 @@ function tarjetasDe(p: Programa): Tarjeta[] {
   return [...propias, ...comunes].filter((t) => t.contenido)
 }
 
-/** De a dos por fila, como el sitio estático. */
-function filasDeTarjetas(tarjetas: Tarjeta[]): Tarjeta[][] {
-  const filas: Tarjeta[][] = []
-  for (let i = 0; i < tarjetas.length; i += 2) filas.push(tarjetas.slice(i, i + 2))
-  return filas
-}
-
-function Tarjetas({ items, fondo }: { items: Tarjeta[]; fondo?: 'degradado' | 'gris' }) {
+/** Todas las tarjetas en una sola grilla (2 columnas, sin huecos); la certificación va al final, a todo el ancho. */
+function Tarjetas({ items, certificacion }: { items: Tarjeta[]; certificacion?: unknown }) {
   const visibles = items.filter((t) => t.contenido)
-  if (!visibles.length) return null
+  if (!visibles.length && !certificacion) return null
   return (
-    <section className={`seccion-programa${fondo ? ` seccion-programa--${fondo}` : ''}`}>
+    <section className="seccion-programa seccion-programa--degradado">
       <div className="container">
-        <div className={visibles.length > 1 ? 'two-col-grid' : undefined}>
+        <div className="programa-tarjetas">
           {visibles.map((t) => (
-            <div key={t.titulo} className={visibles.length > 1 ? 'glass-card' : 'glass-card glass-card--angosta'}>
+            <div key={t.titulo} className="glass-card">
               <h2>
                 <IconoSeccion tipo={t.icono} /> {t.titulo}
               </h2>
               <TextoCms data={t.contenido} />
             </div>
           ))}
+          {Boolean(certificacion) && (
+            <div className="glass-card glass-card--ancha">
+              <h2>
+                <IconoSeccion tipo="certificacion" /> Certificación
+              </h2>
+              <TextoCms data={certificacion} />
+            </div>
+          )}
         </div>
       </div>
     </section>
@@ -189,21 +189,7 @@ export default async function PaginaPrograma({ params }: Params) {
           </div>
         </section>
 
-        {filasDeTarjetas(tarjetasDe(p)).map((fila, i) => (
-          <Tarjetas key={fila.map((t) => t.titulo).join('|')} items={fila} fondo={FONDOS[i % FONDOS.length]} />
-        ))}
-        {!esCarrera && p.certificacion && (
-          <section className="seccion-programa">
-            <div className="container">
-              <div className="glass-card glass-card--angosta glass-card--destacada">
-                <h2>
-                  <IconoSeccion tipo="certificacion" /> Certificación
-                </h2>
-                <TextoCms data={p.certificacion} />
-              </div>
-            </div>
-          </section>
-        )}
+        <Tarjetas items={tarjetasDe(p)} certificacion={esCarrera ? undefined : p.certificacion} />
 
         {(p.malla?.length ?? 0) > 0 && (
           <section className="seccion-programa seccion-programa--gris">
