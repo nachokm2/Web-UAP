@@ -10,10 +10,77 @@ import { useEffect, useRef, useState } from 'react'
 import { SITIO, urlPrograma } from '@/lib/urls'
 
 export type GrupoDeCarreras = { facultad: string; carreras: { nombre: string; slug: string }[] }
+/** Un tipo de posgrado: sus primeros programas y el total (para "Ver los N …"). */
+export type GrupoDePosgrados = { titulo: string; href: string; total: number; programas: { nombre: string; slug: string }[] }
 
 type Props = {
   carrerasPorFacultad: GrupoDeCarreras[]
+  posgradosPorTipo: GrupoDePosgrados[]
   campusVirtualUrl?: string | null
+}
+
+/** Grupo del submenú: título (facultad o tipo), sus enlaces y, si hay más, "ver todos". */
+type GrupoDelSubmenu = { titulo: string; enlaces: { nombre: string; href: string }[]; verTodos?: { texto: string; href: string } }
+
+/**
+ * Desplegable en dos niveles (Carreras y Posgrados). PC: los grupos y, al costado, los
+ * enlaces del elegido en 2 columnas (sin elección, el primero). Celular: acordeón.
+ */
+function Submenu({
+  id,
+  grupos,
+  abierto,
+  alElegir,
+  verTodas,
+}: {
+  id: string
+  grupos: GrupoDelSubmenu[]
+  abierto: string | null
+  alElegir: (titulo: string, conMouse: boolean) => void
+  verTodas: { texto: string; href: string }
+}) {
+  const conMouse = () => window.matchMedia('(hover: hover) and (pointer: fine)').matches
+  return (
+    <div className={`dropdown-content dropdown-facultades dropdown-facultades--${id}`}>
+      {grupos.map((g, i) => {
+        const esAbierto = abierto === g.titulo
+        const idPanel = `submenu-${id}-${i}`
+        return (
+          <div
+            key={g.titulo}
+            className={esAbierto ? 'submenu-facultad abierta' : 'submenu-facultad'}
+            onMouseEnter={() => conMouse() && alElegir(g.titulo, true)}
+          >
+            <button
+              type="button"
+              className="submenu-facultad__titulo"
+              aria-expanded={esAbierto}
+              aria-controls={idPanel}
+              onClick={() => !conMouse() && alElegir(g.titulo, false)}
+              onFocus={() => conMouse() && alElegir(g.titulo, true)}
+            >
+              {g.titulo}
+            </button>
+            <div id={idPanel} className="submenu-facultad__carreras" role="group" aria-label={g.titulo}>
+              {g.enlaces.map((e) => (
+                <Link key={e.href} href={e.href}>
+                  {e.nombre}
+                </Link>
+              ))}
+              {g.verTodos && (
+                <Link href={g.verTodos.href} className="submenu-facultad__ver-todos">
+                  {g.verTodos.texto}
+                </Link>
+              )}
+            </div>
+          </div>
+        )
+      })}
+      <Link href={verTodas.href} className="dropdown-ver-todas">
+        {verTodas.texto}
+      </Link>
+    </div>
+  )
 }
 
 const ANCHO_MOVIL = 1200
@@ -24,11 +91,16 @@ function seccionActual(ruta: string): string {
   return primera
 }
 
-export function MenuPrincipal({ carrerasPorFacultad, campusVirtualUrl }: Props) {
+export function MenuPrincipal({ carrerasPorFacultad, posgradosPorTipo, campusVirtualUrl }: Props) {
   const [abierto, setAbierto] = useState(false)
   const [desplegado, setDesplegado] = useState<string | null>(null)
-  // Facultad cuyas carreras se muestran en el submenú de Carreras (null = la primera, en PC).
-  const [facultadAbierta, setFacultadAbierta] = useState<string | null>(null)
+  // Grupo abierto en cada submenú (Carreras: facultad; Posgrados: tipo). null = el primero, en PC.
+  const [submenuAbierto, setSubmenuAbierto] = useState<{ carreras: string | null; posgrados: string | null }>({ carreras: null, posgrados: null })
+  // En PC el desplegable se abre con :hover/:focus-within (CSS), que no se entera de que
+  // la ruta cambió: sin esto, tras hacer clic en un enlace el mouse sigue "encima" (no se
+  // movió) y el panel queda tapando la página nueva, pareciendo que no pasó nada.
+  // Se fuerza a cerrado hasta que el mouse realmente sale del ítem.
+  const [cerradoForzado, setCerradoForzado] = useState<Record<string, boolean>>({})
   const ruta = usePathname()
   const [rutaAnterior, setRutaAnterior] = useState(ruta)
   const boton = useRef<HTMLButtonElement>(null)
@@ -39,7 +111,8 @@ export function MenuPrincipal({ carrerasPorFacultad, campusVirtualUrl }: Props) 
     setRutaAnterior(ruta)
     setAbierto(false)
     setDesplegado(null)
-    setFacultadAbierta(null)
+    setSubmenuAbierto({ carreras: null, posgrados: null })
+    setCerradoForzado({ carreras: true, posgrados: true, institucional: true })
   }
 
   useEffect(() => {
@@ -75,11 +148,23 @@ export function MenuPrincipal({ carrerasPorFacultad, campusVirtualUrl }: Props) 
       setDesplegado((d) => (d === id ? null : id))
     }
   }
-  const claseDesplegable = (id: string) => ['dropdown', desplegado === id ? 'active' : ''].filter(Boolean).join(' ')
+  const claseDesplegable = (id: string) =>
+    ['dropdown', desplegado === id ? 'active' : '', cerradoForzado[id] ? 'dropdown--cerrado-forzado' : '']
+      .filter(Boolean)
+      .join(' ')
 
-  // Submenú de facultades: en PC se abre al pasar el mouse; tocando (o con teclado) se alterna.
-  const conMouse = () => window.matchMedia('(hover: hover) and (pointer: fine)').matches
-  const alternarFacultad = (f: string) => setFacultadAbierta((a) => (a === f ? null : f))
+  // Submenús: en PC el grupo se abre al pasar el mouse; tocando se abre y se cierra.
+  const elegirGrupo = (menu: 'carreras' | 'posgrados') => (titulo: string, conMouse: boolean) =>
+    setSubmenuAbierto((s) => ({ ...s, [menu]: conMouse ? titulo : s[menu] === titulo ? null : titulo }))
+
+  // Al entrar a un desplegable: ya pasó el "cierre forzado" tras navegar, y si el foco
+  // había quedado en otro desplegable (p. ej. se tocó un botón de facultad), se libera para
+  // que ese otro no siga abierto por :focus-within mientras se abre este (se superponían).
+  const alEntrarAlDesplegable = (id: string) => (e: React.MouseEvent<HTMLLIElement>) => {
+    setCerradoForzado((f) => (f[id] ? { ...f, [id]: false } : f))
+    const activo = document.activeElement
+    if (activo instanceof HTMLElement && !e.currentTarget.contains(activo)) activo.blur()
+  }
 
   return (
     <>
@@ -101,64 +186,46 @@ export function MenuPrincipal({ carrerasPorFacultad, campusVirtualUrl }: Props) 
               Inicio
             </Link>
           </li>
-          <li className={claseDesplegable('carreras')}>
+          <li className={claseDesplegable('carreras')} onMouseEnter={alEntrarAlDesplegable('carreras')}>
             <Link href={SITIO.carreras} className={clase('carreras')} onClick={alternar('carreras')}>
               Carreras
             </Link>
             {/* Antes las 23 carreras en una columna (más alta que la pantalla): ahora las
                 facultades y, al lado, las carreras de la elegida. */}
-            <div className="dropdown-content dropdown-facultades">
-              {carrerasPorFacultad.map((g, i) => {
-                const abierta = facultadAbierta === g.facultad
-                const idPanel = `submenu-facultad-${i}`
-                return (
-                  <div
-                    key={g.facultad}
-                    className={abierta ? 'submenu-facultad abierta' : 'submenu-facultad'}
-                    onMouseEnter={() => conMouse() && setFacultadAbierta(g.facultad)}
-                  >
-                    <button
-                      type="button"
-                      className="submenu-facultad__titulo"
-                      aria-expanded={abierta}
-                      aria-controls={idPanel}
-                      onClick={() => !conMouse() && alternarFacultad(g.facultad)}
-                      onFocus={() => conMouse() && setFacultadAbierta(g.facultad)}
-                    >
-                      {g.facultad}
-                    </button>
-                    <div id={idPanel} className="submenu-facultad__carreras" role="group" aria-label={g.facultad}>
-                      {g.carreras.map((c) => (
-                        <Link key={c.slug} href={urlPrograma(c.slug)}>
-                          {c.nombre}
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                )
-              })}
-              <Link href={SITIO.carreras} className="dropdown-ver-todas">
-                Ver todas las carreras →
-              </Link>
-            </div>
+            <Submenu
+              id="carreras"
+              grupos={carrerasPorFacultad.map((g) => ({
+                titulo: g.facultad,
+                enlaces: g.carreras.map((c) => ({ nombre: c.nombre, href: urlPrograma(c.slug) })),
+              }))}
+              abierto={submenuAbierto.carreras}
+              alElegir={elegirGrupo('carreras')}
+              verTodas={{ texto: 'Ver todas las carreras →', href: SITIO.carreras }}
+            />
           </li>
-          <li className={claseDesplegable('posgrados')}>
+          <li className={claseDesplegable('posgrados')} onMouseEnter={alEntrarAlDesplegable('posgrados')}>
             <Link href={SITIO.posgrados} className={clase('postgrados')} onClick={alternar('posgrados')}>
               Posgrados
             </Link>
-            <div className="dropdown-content">
-              <Link href={`${SITIO.posgrados}#diplomados`}>Diplomados</Link>
-              <Link href={`${SITIO.posgrados}#especializaciones`}>Especializaciones</Link>
-              <Link href={`${SITIO.posgrados}#maestrias`}>Maestrías</Link>
-              <Link href={`${SITIO.posgrados}#doctorados`}>Doctorados</Link>
-            </div>
+            {/* Igual que Carreras: los tipos y, al lado, sus primeros programas + "Ver los N …". */}
+            <Submenu
+              id="posgrados"
+              grupos={posgradosPorTipo.map((g) => ({
+                titulo: g.titulo,
+                enlaces: g.programas.map((p) => ({ nombre: p.nombre, href: urlPrograma(p.slug) })),
+                verTodos: g.total > g.programas.length ? { texto: `Ver los ${g.total} ${g.titulo.toLowerCase()} →`, href: g.href } : { texto: `Ver ${g.titulo.toLowerCase()} →`, href: g.href },
+              }))}
+              abierto={submenuAbierto.posgrados}
+              alElegir={elegirGrupo('posgrados')}
+              verTodas={{ texto: 'Ver todos los posgrados →', href: SITIO.posgrados }}
+            />
           </li>
           <li>
             <Link href={SITIO.noticias} className={clase('noticias')} aria-current={actual('noticias')}>
               Noticias
             </Link>
           </li>
-          <li className={claseDesplegable('institucional')}>
+          <li className={claseDesplegable('institucional')} onMouseEnter={alEntrarAlDesplegable('institucional')}>
             <Link href={SITIO.institucional} className={clase('institucional')} onClick={alternar('institucional')}>
               Institucional
             </Link>

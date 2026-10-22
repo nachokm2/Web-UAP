@@ -176,3 +176,16 @@
   .submenu-facultad__carreras { display: none; margin: 0 0 var(--space-2) var(--space-4); border-left: 2px solid var(--color-border); }
   .submenu-facultad.abierta .submenu-facultad__carreras { display: block; }
 }
+/* "Ver los N …" al pie del panel, a todo el ancho; y columna de tipos de Posgrados más angosta. */
+.submenu-facultad__carreras .submenu-facultad__ver-todos { color: var(--color-primary-light); font-weight: var(--weight-semibold); }
+.submenu-facultad__carreras .submenu-facultad__ver-todos:hover { color: var(--color-primary); }
+@media (min-width: 1201px) {
+  .submenu-facultad__carreras .submenu-facultad__ver-todos { grid-column: 1 / -1; margin-top: var(--space-1); border-top: 1px solid var(--color-border-light); border-radius: 0; }
+  .dropdown-facultades--posgrados { min-width: 260px; }
+}
+/* Nombres largos (posgrados) en varias líneas también en celular: .nav a no permite el salto. */
+.submenu-facultad__carreras a { white-space: normal; }
+
+/* Cierre forzado del desplegable tras navegar (ver MenuPrincipal): anula :hover y
+   :focus-within mientras el mouse no vuelve a entrar al ítem. */
+.dropdown--cerrado-forzado .dropdown-content { display: none !important; }

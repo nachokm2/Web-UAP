@@ -1,9 +1,34 @@
 import Link from 'next/link'
 
-import type { Carrera, Facultad } from '@/payload-types'
-import { listarCarreras, obtenerConfiguracion } from '@/lib/datos'
+import type { Carrera, Facultad, Posgrado } from '@/payload-types'
+import { listarCarreras, listarPosgrados, obtenerConfiguracion } from '@/lib/datos'
+import { SITIO } from '@/lib/urls'
 
-import { MenuPrincipal, type GrupoDeCarreras } from './MenuPrincipal'
+import { MenuPrincipal, type GrupoDeCarreras, type GrupoDePosgrados } from './MenuPrincipal'
+
+// Mismas secciones (y anclas) que la página /postgrados/.
+const TIPOS_DEL_MENU: { id: string; titulo: string; tipos: Posgrado['tipo'][] }[] = [
+  { id: 'diplomados', titulo: 'Diplomados', tipos: ['diplomado'] },
+  { id: 'especializaciones', titulo: 'Especializaciones', tipos: ['especializacion'] },
+  { id: 'maestrias', titulo: 'Maestrías', tipos: ['maestria', 'maestria_doctorado'] },
+  { id: 'doctorados', titulo: 'Doctorados', tipos: ['doctorado'] },
+  { id: 'otros', titulo: 'Otros programas', tipos: ['otro'] },
+]
+/** Programas que se muestran por tipo en el menú; el resto, con "Ver los N …". */
+const PROGRAMAS_POR_TIPO = 8
+
+/** Posgrados publicados por tipo (con su total) y los primeros de cada uno. */
+function agruparPorTipo(posgrados: Posgrado[]): GrupoDePosgrados[] {
+  return TIPOS_DEL_MENU.map((t) => {
+    const del_tipo = posgrados.filter((p) => t.tipos.includes(p.tipo))
+    return {
+      titulo: t.titulo,
+      href: `${SITIO.posgrados}#${t.id}`,
+      total: del_tipo.length,
+      programas: del_tipo.slice(0, PROGRAMAS_POR_TIPO).map((p) => ({ nombre: p.nombreCorto || p.nombre, slug: p.slug })),
+    }
+  }).filter((g) => g.total > 0)
+}
 
 /** Carreras publicadas agrupadas por facultad, en el orden de las facultades. */
 function agruparPorFacultad(carreras: Carrera[]): GrupoDeCarreras[] {
@@ -18,7 +43,7 @@ function agruparPorFacultad(carreras: Carrera[]): GrupoDeCarreras[] {
 }
 
 export async function Header() {
-  const [carreras, config] = await Promise.all([listarCarreras(), obtenerConfiguracion()])
+  const [carreras, posgrados, config] = await Promise.all([listarCarreras(), listarPosgrados(), obtenerConfiguracion()])
   return (
     <header className="header">
       <div className="container header-inner">
@@ -26,7 +51,11 @@ export async function Header() {
           {/* eslint-disable-next-line @next/next/no-img-element -- logo liviano (8 KB), sin optimización */}
           <img src="/images/logo-uap.png" alt="UAP – Universidad Autónoma del Paraguay" className="logo-img" width={300} height={61} />
         </Link>
-        <MenuPrincipal carrerasPorFacultad={agruparPorFacultad(carreras as Carrera[])} campusVirtualUrl={config.campusVirtualUrl} />
+        <MenuPrincipal
+          carrerasPorFacultad={agruparPorFacultad(carreras as Carrera[])}
+          posgradosPorTipo={agruparPorTipo(posgrados as Posgrado[])}
+          campusVirtualUrl={config.campusVirtualUrl}
+        />
       </div>
     </header>
   )

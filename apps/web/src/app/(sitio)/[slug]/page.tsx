@@ -68,18 +68,18 @@ function tarjetasDe(p: Programa): Tarjeta[] {
           { titulo: 'Objetivo', icono: 'objetivo', contenido: p.objetivo },
           { titulo: 'Campo Laboral', icono: 'campoLaboral', contenido: p.campoLaboral },
           { titulo: 'Perfil del Graduado', icono: 'perfil', contenido: p.perfilEgreso },
-          { titulo: 'Perfil de Ingreso', icono: 'perfil', contenido: p.perfilIngreso },
+          { titulo: 'Perfil de Ingreso', icono: 'perfilIngreso', contenido: p.perfilIngreso },
           { titulo: 'Requisitos de Admisión', icono: 'requisitos', contenido: p.requisitos },
         ]
       : [
-          { titulo: 'Sobre el Programa', icono: 'objetivo', contenido: p.descripcion },
+          { titulo: 'Sobre el Programa', icono: 'texto', contenido: p.descripcion },
           { titulo: 'Objetivos Generales', icono: 'objetivo', contenido: p.objetivo },
           { titulo: 'Dirigido a', icono: 'dirigidoA', contenido: p.dirigidoA },
           { titulo: 'Objetivos Específicos', icono: 'objetivosEspecificos', contenido: p.objetivosEspecificos },
           { titulo: 'Requisitos de Postulación', icono: 'requisitos', contenido: p.requisitos },
           { titulo: 'Perfil de Egreso', icono: 'perfil', contenido: p.perfilEgreso },
           { titulo: 'Campo Laboral', icono: 'campoLaboral', contenido: p.campoLaboral },
-          { titulo: 'Perfil de Ingreso', icono: 'perfil', contenido: p.perfilIngreso },
+          { titulo: 'Perfil de Ingreso', icono: 'perfilIngreso', contenido: p.perfilIngreso },
         ]
   return [...propias, ...comunes].filter((t) => t.contenido)
 }
@@ -129,7 +129,9 @@ export default async function PaginaPrograma({ params }: Params) {
   const sedes = (p.sedes ?? []).filter((s): s is Sede => typeof s === 'object').map((s) => s.nombre)
   const modalidad = etiqueta(MODALIDADES, p.modalidad)
   const pills = [
-    { label: esCarrera ? 'Título' : 'Título otorgado', valor: p.tituloOtorgado },
+    // Carreras: "Carrera" (el dato no siempre es el título exacto, ej. "Derecho" y no
+    // "Licenciado en Derecho"). Posgrados: "Título obtenido".
+    { label: esCarrera ? 'Carrera' : 'Título obtenido', valor: p.tituloOtorgado },
     { label: 'Duración', valor: p.duracion },
     { label: 'Modalidad', valor: modalidad },
     { label: 'Sede', valor: sedes.join(', ') || null },

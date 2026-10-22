@@ -1475,6 +1475,8 @@ h4 {
         z-index: var(--z-mobile-nav);
         max-height: calc(100vh - 72px);
         overflow-y: auto;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
         border-radius: 0 0 var(--radius-lg) var(--radius-lg);
     }
 
@@ -1759,10 +1761,14 @@ h4 {
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: linear-gradient(135deg, rgba(0,51,102,0.92) 0%, rgba(0,102,204,0.78) 50%, rgba(0,51,102,0.88) 100%);
+    /* Azul institucional, como el encabezado de las demás páginas (antes un degradado
+       con azul brillante #0066cc, fuera de la paleta). */
+    background: linear-gradient(135deg, rgba(0,34,68,0.96) 0%, rgba(0,51,102,0.92) 55%, rgba(0,51,102,0.86) 100%);
     z-index: var(--z-raised);
 }
-.career-hero-glass .container { position: relative; z-index: var(--z-elevated); }
+/* width: 100%: alineado a la izquierda como el resto del sitio (en carreras quedaba
+   centrado a mitad de pantalla porque el contenedor se encogía dentro del flex). */
+.career-hero-glass .container { position: relative; z-index: var(--z-elevated); width: 100%; }
 .career-hero-glass h1 { font-size: 2.8rem; font-weight: 800; margin-bottom: 12px; letter-spacing: -0.5px; }
 .career-hero-glass .hero-subtitle { font-size: 1.1rem; line-height: 1.7; max-width: 700px; opacity: 0.92; }
 
@@ -1817,7 +1823,8 @@ h4 {
 .section-dark .glass-card h2 { color: white; }
 .section-dark .glass-card p, .section-dark .glass-card ul { color: rgba(255,255,255,0.9); }
 
-.info-pills { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 32px; }
+/* Hasta 4 datos (título, duración, modalidad, sede) del mismo ancho, sin que el 4.º quede solo. */
+.info-pills { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 32px; max-width: 880px; }
 .info-pill { background: rgba(255,255,255,0.12); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 16px 20px; text-align: center; }
 .info-pill .pill-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; opacity: 0.7; margin-bottom: 4px; }
 .info-pill .pill-value { font-size: 1.15rem; font-weight: 700; }
@@ -1826,12 +1833,12 @@ h4 {
 .malla-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
 .malla-tab { padding: var(--space-3) var(--space-5); border: 1px solid var(--color-border-strong); background: white; color: var(--color-primary); border-radius: 50px; cursor: pointer; font-size: 0.85rem; font-weight: 600; transition: all 0.2s; }
 .malla-tab:hover { background: var(--color-hover-subtle); }
-.malla-tab.active { background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light)); color: white; border-color: transparent; }
+.malla-tab.active { background: var(--color-primary); color: white; border-color: transparent; }
 .malla-panel ul { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--space-2); }
 .malla-panel li { padding: var(--space-3) var(--space-5); background: white; border-radius: 10px; font-size: 0.9rem; border-left: 3px solid var(--color-primary-light); box-shadow: 0 1px 3px rgba(0,0,0,0.06); transition: transform 0.15s; }
 .malla-panel li:hover { transform: translateX(4px); }
 
-.cta-section { background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%); border-radius: 20px; padding: 48px; color: white; text-align: center; margin: 48px 0; }
+.cta-section { background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 100%); border-radius: 20px; padding: 48px; color: white; text-align: center; margin: 48px 0; }
 .cta-section h2 { font-size: 2rem; margin-bottom: 8px; }
 .cta-section p { opacity: 0.85; margin-bottom: 28px; }
 
@@ -1880,7 +1887,7 @@ h4 {
 @media (max-width: 480px) {
     .career-hero-glass h1 { font-size: 1.4rem; }
     .career-hero-glass .hero-subtitle { font-size: 0.85rem; }
-    .info-pill .pill-label { font-size: 0.7rem; }
+    .info-pill .pill-label { font-size: 0.75rem; }
     .info-pill .pill-value { font-size: 0.9rem; }
     .glass-card h2 { font-size: 1.15rem; }
     .glass-card p, .glass-card ul { font-size: 0.88rem; }
@@ -1954,4 +1961,10 @@ h4 {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+@media (max-width: 1200px) {
+    /* Oculta la barra de scroll del menú móvil (ahora más alto, con los submenús de
+       Carreras y Posgrados abiertos); el desplazamiento con el dedo sigue funcionando. */
+    .nav::-webkit-scrollbar { display: none; }
 }
