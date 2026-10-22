@@ -289,8 +289,9 @@
 }
 /* Antes style="padding: var(--space-8) 0;" en cada panel */
 .tab-content.inicio-pestana { padding: var(--space-8) 0; }
-.careers-grid-20 .career-icon { width: 48px; height: 48px; background: var(--color-background); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; margin: 0 0 var(--space-4); }
-.careers-grid-20 .career-icon img { width: 28px; height: 28px; object-fit: contain; }
+.careers-grid-20 .career-icon { width: 48px; height: 48px; background: var(--color-primary); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; margin: 0 0 var(--space-4); }
+/* PNG azul #003366 → blanco sobre el recuadro azul (mismo criterio que los íconos de programa). */
+.careers-grid-20 .career-icon img { width: 28px; height: 28px; object-fit: contain; filter: brightness(0) invert(1); }
 /* Antes style="" en la línea de duración y título de cada tarjeta */
 .career-card p.inicio-carrera-meta { font-size: var(--text-xs); color: var(--color-text-muted); margin-top: var(--space-1); }
 
@@ -375,7 +376,7 @@ h2:has(+ .contacto-datos), .contacto-datos .contact-row { color: var(--color-pri
 .student-icon {
   width: 48px;
   height: 48px;
-  background: var(--color-background);
+  background: var(--color-primary);
   border-radius: var(--radius-md);
   display: flex;
   align-items: center;
@@ -411,8 +412,8 @@ h2:has(+ .contacto-datos), .contacto-datos .contact-row { color: var(--color-pri
 /* ========================================
    Investigación (pages/investigacion.html)
    ======================================== */
-.investigacion-lineas .career-icon { display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; background: var(--color-background); border-radius: var(--radius-md); margin-bottom: var(--space-4); }
-.investigacion-lineas .career-icon img { width: 28px; height: 28px; object-fit: contain; }
+.investigacion-lineas .career-icon { display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; background: var(--color-primary); border-radius: var(--radius-md); margin-bottom: var(--space-4); }
+.investigacion-lineas .career-icon img { width: 28px; height: 28px; object-fit: contain; filter: brightness(0) invert(1); }
 
 /* ========================================
    Inscripción (pages/inscripcion.html)
@@ -442,9 +443,6 @@ h2:has(+ .contacto-datos), .contacto-datos .contact-row { color: var(--color-pri
 /* Antes style="margin-top: 16px;" en el último párrafo */
 .privacy-container .privacidad-nota { margin-top: 16px; }
 
-/* Íconos de Estudiantes: el SVG trae el trazo blanco; con fondo claro van en azul. */
-.student-icon svg [stroke] { stroke: var(--color-primary); }
-.student-icon svg [fill="white"] { fill: var(--color-primary); }
 
 /* Página no encontrada: los botones eran blancos sobre fondo claro (casi invisibles). */
 .no-encontrada .btn-outline {

@@ -47,8 +47,10 @@
 
 /* Landing de programa: antes eran style="" en cada página */
 .seccion-programa { padding: 48px 0; }
-.seccion-programa--degradado { background: linear-gradient(180deg, var(--color-surface-tint), var(--color-surface)); }
-.seccion-programa--gris { background: var(--color-surface-subtle); }
+/* Fondos planos de la paleta (antes 2 degradados y 3 grises casi iguales): tarjetas blancas sobre
+   --color-background; la malla en sección blanca con su caja en --color-background. */
+.seccion-programa--degradado { background: var(--color-background); }
+.seccion-programa--gris { background: var(--color-surface); }
 
 /* Tarjetas del programa: una sola grilla de 2 columnas que reparte por altura (cada tarjeta mide
    lo que su contenido, sin huecos vacíos). La certificación —o la última tarjeta si queda suelta—
@@ -71,7 +73,7 @@
   column-span: all; margin: var(--space-2) 0 0;
   display: grid; grid-template-columns: minmax(200px, 26%) 1fr; column-gap: var(--space-8); align-items: start;
 }
-.programa-tarjetas .glass-card--ancha { border-left: 5px solid var(--color-primary-dark); background: linear-gradient(135deg, var(--color-surface), var(--color-surface-tint)); }
+.programa-tarjetas .glass-card--ancha { border-left: 5px solid var(--color-primary-dark); background: var(--color-surface); }
 .programa-tarjetas .glass-card--ancha > h2,
 .programa-tarjetas .glass-card:last-child:nth-child(odd) > h2 {
   align-self: stretch; align-items: center; margin: 0; padding: 0 var(--space-6) 0 0;
@@ -193,18 +195,21 @@
 @media (min-width: 1201px) {
   .dropdown-facultades { min-width: 360px; }
   .submenu-facultad__titulo { padding: var(--space-3) var(--space-5); transition: background-color var(--transition-fast), color var(--transition-fast); }
-  .submenu-facultad.abierta .submenu-facultad__titulo,
-  .dropdown-facultades:not(:has(.abierta)) .submenu-facultad:first-of-type .submenu-facultad__titulo { background: var(--color-background); color: var(--color-primary); }
-  .submenu-facultad.abierta .submenu-facultad__titulo::after,
-  .dropdown-facultades:not(:has(.abierta)) .submenu-facultad:first-of-type .submenu-facultad__titulo::after { color: var(--color-primary); }
+  /* Al abrir el desplegable se ve solo la lista de grupos; el panel de un grupo aparece recién al pasar el
+     mouse por él (o al enfocarlo con teclado, si el mouse no está sobre el desplegable). Antes el primer
+     grupo se abría solo y la clase .abierta (estado de React) dejaba abierto el último grupo visitado. */
+  .submenu-facultad:hover > .submenu-facultad__titulo,
+  .dropdown-facultades:not(:hover) .submenu-facultad:focus-within > .submenu-facultad__titulo { background: var(--color-background); color: var(--color-primary); }
+  .submenu-facultad:hover > .submenu-facultad__titulo::after,
+  .dropdown-facultades:not(:hover) .submenu-facultad:focus-within > .submenu-facultad__titulo::after { color: var(--color-primary); }
   .submenu-facultad__carreras {
     display: none; position: absolute; top: -1px; left: calc(100% - 1px); width: 480px; min-height: calc(100% + 2px);
     grid-template-columns: repeat(2, minmax(0, 1fr)); align-content: start; gap: 0 var(--space-2);
     padding: var(--space-2); background: var(--color-surface); border: 1px solid var(--color-border);
     border-radius: 0 var(--radius-md) var(--radius-md) 0; box-shadow: var(--shadow-lg);
   }
-  .submenu-facultad.abierta .submenu-facultad__carreras,
-  .dropdown-facultades:not(:has(.abierta)) .submenu-facultad:first-of-type .submenu-facultad__carreras { display: grid; }
+  .submenu-facultad:hover > .submenu-facultad__carreras,
+  .dropdown-facultades:not(:hover) .submenu-facultad:focus-within > .submenu-facultad__carreras { display: grid; }
   .submenu-facultad__carreras a { padding: var(--space-2) var(--space-3); border-radius: var(--radius-sm); white-space: normal; }
 }
 

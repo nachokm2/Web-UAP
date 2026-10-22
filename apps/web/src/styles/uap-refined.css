@@ -655,7 +655,7 @@ h4 {
 .career-icon {
     width: 48px;
     height: 48px;
-    background-color: var(--color-background);
+    background-color: var(--color-primary);
     border-radius: var(--radius-md);
     display: flex;
     align-items: center;
@@ -1821,8 +1821,11 @@ h4 {
 }
 .glass-card:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,51,102,0.12); }
 .glass-card h2 { font-size: 1.35rem; color: var(--color-primary); margin-bottom: var(--space-3); display: flex; align-items: center; gap: var(--space-2); }
-.glass-card h2 .section-icon { width: 32px; height: 32px; background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light)); border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.glass-card h2 .section-icon img { width: 18px; height: 18px; object-fit: contain; }
+/* Mismo recuadro de ícono que el resto del sitio (Home, Estudiantes, Investigación): azul institucional
+   sólido con el ícono en blanco. Antes, degradado con #0066cc (fuera de la paleta). */
+.glass-card h2 .section-icon { width: 32px; height: 32px; background: var(--color-primary); border-radius: var(--radius-md); display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+/* Los PNG de íconos son azul #003366; el filtro los muestra en blanco sobre el recuadro azul. */
+.glass-card h2 .section-icon img { width: 18px; height: 18px; object-fit: contain; filter: brightness(0) invert(1); }
 .glass-card p, .glass-card ul { color: var(--color-text-strong); line-height: 1.75; font-size: 0.95rem; }
 
 .section-dark { background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-darker) 100%); color: white; }
@@ -1831,12 +1834,16 @@ h4 {
 .section-dark .glass-card p, .section-dark .glass-card ul { color: rgba(255,255,255,0.9); }
 
 /* Hasta 4 datos (título, duración, modalidad, sede) del mismo ancho, sin que el 4.º quede solo. */
-.info-pills { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 32px; max-width: 880px; }
-.info-pill { background: rgba(255,255,255,0.12); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 16px 20px; text-align: center; }
+.info-pills { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 32px; }
+/* Todos los bloques del mismo ancho Y del mismo alto (el del más alto), ocupando todo el ancho de la
+   grilla de tarjetas de abajo; el contenido va centrado dentro de cada uno. */
+.info-pills { grid-auto-rows: 1fr; }
+.info-pill { background: rgba(255,255,255,0.12); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 16px 20px; text-align: center; display: flex; flex-direction: column; align-items: center; }
 .info-pill .pill-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; opacity: 0.7; margin-bottom: 4px; }
-.info-pill .pill-value { font-size: 1.15rem; font-weight: 700; }
+/* Etiqueta arriba (alineada entre bloques) y valor centrado en el espacio que queda debajo. */
+.info-pill .pill-value { font-size: 1.15rem; font-weight: 700; flex: 1; display: flex; align-items: center; justify-content: center; }
 
-.malla-section { background: var(--color-surface-subtle); border-radius: 16px; padding: 32px; }
+.malla-section { background: var(--color-background); border-radius: 16px; padding: 32px; }
 /* flex + justify-content: center (no grid): con pocas pestañas o un solo módulo, el
    contenido queda centrado bajo el título en vez de pegado al borde izquierdo. */
 .malla-tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 24px; }
