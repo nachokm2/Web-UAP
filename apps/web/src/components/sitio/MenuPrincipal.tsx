@@ -10,7 +10,7 @@ import { useEffect, useRef, useState } from 'react'
 import { SITIO, urlPrograma } from '@/lib/urls'
 
 export type GrupoDeCarreras = { facultad: string; carreras: { nombre: string; slug: string }[] }
-/** Un tipo de posgrado: sus primeros programas y el total (para "Ver los N …"). */
+/** Un tipo de posgrado: sus primeros programas y el total (los que hay publicados). */
 export type GrupoDePosgrados = { titulo: string; href: string; total: number; programas: { nombre: string; slug: string }[] }
 
 type Props = {
@@ -207,13 +207,13 @@ export function MenuPrincipal({ carrerasPorFacultad, posgradosPorTipo, campusVir
             <Link href={SITIO.posgrados} className={clase('postgrados')} onClick={alternar('posgrados')}>
               Posgrados
             </Link>
-            {/* Igual que Carreras: los tipos y, al lado, sus primeros programas + "Ver los N …". */}
+            {/* Igual que Carreras: los tipos y, al lado, sus primeros programas + "Ver <tipo>". */}
             <Submenu
               id="posgrados"
               grupos={posgradosPorTipo.map((g) => ({
                 titulo: g.titulo,
                 enlaces: g.programas.map((p) => ({ nombre: p.nombre, href: urlPrograma(p.slug) })),
-                verTodos: g.total > g.programas.length ? { texto: `Ver los ${g.total} ${g.titulo.toLowerCase()} →`, href: g.href } : { texto: `Ver ${g.titulo.toLowerCase()} →`, href: g.href },
+                verTodos: { texto: `Ver ${g.titulo.toLowerCase()} →`, href: g.href },
               }))}
               abierto={submenuAbierto.posgrados}
               alElegir={elegirGrupo('posgrados')}

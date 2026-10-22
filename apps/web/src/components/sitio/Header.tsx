@@ -14,7 +14,7 @@ const TIPOS_DEL_MENU: { id: string; titulo: string; tipos: Posgrado['tipo'][] }[
   { id: 'doctorados', titulo: 'Doctorados', tipos: ['doctorado'] },
   { id: 'otros', titulo: 'Otros programas', tipos: ['otro'] },
 ]
-/** Programas que se muestran por tipo en el menú; el resto, con "Ver los N …". */
+/** Programas que se muestran por tipo en el menú; el resto, con "Ver <tipo>". */
 const PROGRAMAS_POR_TIPO = 8
 
 /** Posgrados publicados por tipo (con su total) y los primeros de cada uno. */
