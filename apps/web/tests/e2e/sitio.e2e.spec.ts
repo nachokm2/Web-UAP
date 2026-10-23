@@ -68,7 +68,9 @@ test.describe.serial('Sitio público', () => {
     const jsonLd = JSON.parse((await page.locator('script[type="application/ld+json"]').first().textContent()) ?? '{}')
     expect(jsonLd).toMatchObject({ '@type': 'Course', name: NOMBRE, educationalCredentialAwarded: 'Ingeniero de Prueba' })
 
+    // Cada facultad es un desplegable cerrado: se abre la suya, como haría una persona.
     await page.goto('/carreras/')
+    await page.locator('main summary', { hasText: `Facultad de Prueba ${sufijo}` }).click()
     await expect(page.locator('main').getByRole('link', { name: NOMBRE, exact: true })).toHaveAttribute('href', `/${SLUG}/`)
 
     const sitemap = await (await request.get('/sitemap.xml')).text()

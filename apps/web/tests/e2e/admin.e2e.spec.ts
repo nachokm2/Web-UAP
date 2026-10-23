@@ -6,11 +6,23 @@ const SUPER = { nombre: 'Rodrigo Prueba', email: 'superadmin@uap.test', password
 const EDITOR = { nombre: 'Editora Carreras', email: 'editora@uap.test', password: 'clave-editora-segura-1' }
 const CARRERA = `Carrera E2E ${Date.now()}`
 
+/**
+ * Payload valida el formulario en el servidor 250 ms después del último cambio y deshabilita el
+ * botón mientras tanto. Si se hace clic antes de que arranque esa validación, el envío y la
+ * validación se cruzan y el formulario queda trabado con el botón en gris (pasaba en el CI, que
+ * escribe y hace clic en ~10 ms). Se espera a que la validación arranque y termine.
+ */
+async function enviar(page: Page, boton: string) {
+  await page.waitForTimeout(400)
+  await expect(page.locator(boton)).toBeEnabled({ timeout: 15_000 })
+  await page.click(boton)
+}
+
 async function login(page: Page, user: { email: string; password: string }) {
   await page.goto('/admin/login')
   await page.fill('#field-email', user.email)
   await page.fill('#field-password', user.password)
-  await page.click('button[type="submit"]')
+  await enviar(page, 'button[type="submit"]')
   await page.waitForURL(/\/admin(\/)?$/)
 }
 
@@ -49,7 +61,7 @@ test.describe.serial('Panel de administración', () => {
     await page.fill('#field-email', SUPER.email)
     await page.fill('#field-password', SUPER.password)
     await page.fill('#field-confirm-password', SUPER.password)
-    await page.click('button[type="submit"]')
+    await enviar(page, 'button[type="submit"]')
     await page.waitForURL(/\/admin(\/)?$/, { timeout: 30_000 })
 
     await expect(page.getByText('Contenido académico').first()).toBeVisible()
@@ -61,7 +73,7 @@ test.describe.serial('Panel de administración', () => {
     await login(page, SUPER)
     await page.goto('/admin/collections/carreras/create')
     await page.fill('#field-nombre', CARRERA)
-    await page.click('#action-save-draft')
+    await enviar(page, '#action-save-draft')
     await page.waitForURL(/\/admin\/collections\/carreras\/\d+/)
     carreraUrl = page.url()
 
