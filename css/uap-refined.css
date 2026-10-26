@@ -1722,14 +1722,23 @@ h4 {
    pages/carreras/*.html (ver K-06 de la auditoría UX/UI). La única variación real
    entre páginas es la imagen del hero, que ahora se pasa vía --hero-image en el
    propio elemento: style="--hero-image: url('...')".
+   Carreras y posgrados comparten el mismo tratamiento de foto: la imagen con sus
+   colores reales y un overlay ligero, más oscuro a la izquierda (texto) y hacia abajo
+   (info-pills). Antes las carreras llevaban un azul casi opaco que tapaba la foto
+   (en auditoría se reportó como "sin foto").
+   Los posgrados (.hero-photo) pasan la imagen con background-image inline, por eso
+   el fondo va en propiedades sueltas y no en el shorthand.
    ======================================== */
 .career-hero-glass {
     position: relative;
     min-height: 420px;
     display: flex;
     align-items: center;
-    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-darker) 60%), var(--hero-image) center/cover no-repeat;
-    background-blend-mode: overlay;
+    background-color: var(--color-primary-darker);
+    background-image: var(--hero-image);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     color: white;
     overflow: hidden;
 }
@@ -1737,32 +1746,16 @@ h4 {
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: linear-gradient(135deg, rgba(0,51,102,0.92) 0%, rgba(0,102,204,0.78) 50%, rgba(0,51,102,0.88) 100%);
-    z-index: var(--z-raised);
-}
-.career-hero-glass .container { position: relative; z-index: var(--z-elevated); }
-.career-hero-glass h1 { font-size: 2.8rem; font-weight: 800; margin-bottom: 12px; letter-spacing: -0.5px; }
-.career-hero-glass .hero-subtitle { font-size: 1.1rem; line-height: 1.7; max-width: 700px; opacity: 0.92; }
-
-/* Variante ".hero-photo": hero de programas de posgrado con foto de fondo visible.
-   El overlay es más ligero que el de las carreras para que la imagen SE NOTE detrás
-   del título, manteniéndolo legible (más oscuro a la izquierda, donde va el texto,
-   y hacia abajo, donde están las info-pills). No afecta a las páginas de carreras. */
-.career-hero-glass.hero-photo {
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-blend-mode: normal;
-}
-.career-hero-glass.hero-photo::before {
     background:
         linear-gradient(90deg, rgba(0,20,45,0.62) 0%, rgba(0,20,45,0.32) 42%, rgba(0,20,45,0.12) 74%, rgba(0,20,45,0.04) 100%),
         linear-gradient(180deg, rgba(0,20,45,0) 45%, rgba(0,20,45,0.42) 100%);
+    z-index: var(--z-raised);
 }
+.career-hero-glass .container { position: relative; z-index: var(--z-elevated); }
 /* Sombra fuerte en el texto: hace el trabajo de contraste para que el título se lea
    aunque el overlay sea ligero y la foto quede bien visible. */
-.career-hero-glass.hero-photo h1 { text-shadow: 0 2px 4px rgba(0,10,25,0.9), 0 4px 22px rgba(0,10,25,0.75); }
-.career-hero-glass.hero-photo .hero-subtitle { text-shadow: 0 1px 3px rgba(0,10,25,0.95), 0 2px 12px rgba(0,10,25,0.8); }
+.career-hero-glass h1 { font-size: 2.8rem; font-weight: 800; margin-bottom: 12px; letter-spacing: -0.5px; text-shadow: 0 2px 4px rgba(0,10,25,0.9), 0 4px 22px rgba(0,10,25,0.75); }
+.career-hero-glass .hero-subtitle { font-size: 1.1rem; line-height: 1.7; max-width: 700px; opacity: 0.92; text-shadow: 0 1px 3px rgba(0,10,25,0.95), 0 2px 12px rgba(0,10,25,0.8); }
 
 /* Familia "glass card" — .glass-card, .competencia-card y .valor-card comparten el mismo
    patrón visual (fondo translúcido + backdrop-filter); antes eran 3 reglas separadas con los
@@ -1836,8 +1829,7 @@ h4 {
 .valor-card span { font-size: 0.85rem; color: var(--color-text-secondary); line-height: 1.5; }
 
 @media (max-width: 768px) {
-    .career-hero-glass { min-height: 320px; padding: 40px 0; }
-    .career-hero-glass h1 { font-size: 1.75rem; }
+    .career-hero-glass { min-height: 320px; padding: 40px 0; }    .career-hero-glass h1 { font-size: 1.75rem; }
     .career-hero-glass .hero-subtitle { font-size: 0.9rem; line-height: 1.5; }
     .info-pills { grid-template-columns: 1fr; gap: var(--space-3); }
     .info-pill { padding: var(--space-3) var(--space-4); }
