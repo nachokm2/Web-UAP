@@ -30,16 +30,13 @@ const SERVICIOS = [
 /** "Links de interés" de WordPress, en el mismo orden. */
 const RECURSOS = [
   { nombre: 'SciELO Paraguay', url: 'http://scielo.iics.una.py/scielo.php/script_sci_home/lng_es/nrm_iso' },
-  { nombre: 'Biblioteca Virtual en Salud (BVS)', url: 'http://regional.bvsalud.org/php/index.php' },
   { nombre: 'ERIC', url: 'https://eric.ed.gov' },
-  { nombre: 'Paraguay Oral', url: 'https://paraguayoral.com.py' },
   { nombre: 'BASE', url: 'https://www.base-search.net' },
   { nombre: 'Google Libros', url: 'https://books.google.es/?hl=es' },
   { nombre: 'CICCO (CONACYT)', url: 'https://cicco.conacyt.gov.py' },
   { nombre: 'Dialnet', url: 'https://dialnet.unirioja.es' },
   { nombre: 'RefSeek', url: 'https://www.refseek.com' },
   { nombre: 'Redalyc', url: 'https://www.redalyc.org' },
-  { nombre: 'WorldWideScience', url: 'https://worldwidescience.org' },
 ]
 
 const dominio = (url: string) => new URL(url).hostname.replace(/^www\./, '')
