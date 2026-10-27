@@ -17,8 +17,9 @@ export type Diapositiva = {
   titulo: string
   texto: string
   accion: string
-  /** Banner propio: la diapositiva muestra solo esta imagen (con su texto incluido) y tapa el video. */
-  imagen?: { src: string; alt: string }
+  /** Banner propio: la diapositiva muestra solo esta imagen (con su texto incluido) y tapa el video.
+   *  `movil` es la versión vertical para pantallas angostas (hasta 640 px). */
+  imagen?: { src: string; alt: string; movil?: string }
 }
 
 const INTERVALO_MS = 5000
@@ -65,8 +66,11 @@ export function CarruselPortada({ diapositivas, children }: Props) {
             onFocus={() => setActual(i)}
           >
             {d.imagen ? (
-              <Link href={d.href} className="hero-slide-banner">
-                <Image src={d.imagen.src} alt={d.imagen.alt} fill sizes="(max-width: 1920px) 100vw, 1920px" className="hero-slide-banner__foto" />
+              <Link href={d.href} className={d.imagen.movil ? 'hero-slide-banner hero-slide-banner--con-movil' : 'hero-slide-banner'}>
+                <Image src={d.imagen.src} alt={d.imagen.alt} fill sizes="(max-width: 1920px) 100vw, 1920px" className="hero-slide-banner__foto hero-slide-banner__foto--escritorio" />
+                {d.imagen.movil && (
+                  <Image src={d.imagen.movil} alt={d.imagen.alt} fill sizes="640px" className="hero-slide-banner__foto hero-slide-banner__foto--movil" />
+                )}
               </Link>
             ) : (
               <Link href={d.href}>
