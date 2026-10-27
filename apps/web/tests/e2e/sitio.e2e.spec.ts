@@ -142,6 +142,28 @@ test.describe.serial('Sitio público', () => {
     expect(eventos).toContain('formulario_no_disponible')
   })
 
+  test('un formulario deshabilitado en Bitrix24 también muestra el aviso; uno con campos, no', async ({ page }) => {
+    test.setTimeout(120_000)
+    // Imita lo que dibuja Bitrix24 (visto en producción el 27-oct): deshabilitado = botón Enviar,
+    // un <select> oculto propio y el mensaje, sin campos. El configurado en la prueba anterior es el 61.
+    const dibujar = (html: string) =>
+      `document.querySelectorAll('script[data-b24-form]').forEach(function (s) { var d = document.createElement('div'); d.className = 'b24-form'; d.innerHTML = ${JSON.stringify(html)}; s.after(d) })`
+    const deshabilitado = '<button type="submit">Enviar</button><select style="display:none"></select><p>El formulario está deshabilitado</p>'
+    const conCampos = '<input type="string" name="name"><button type="submit">Enviar</button><select style="display:none"></select>'
+
+    await page.route('https://cdn.bitrix24.es/**', (r) => r.fulfill({ contentType: 'application/javascript', body: dibujar(deshabilitado) }))
+    await page.goto('/contacto/')
+    await expect(page.getByText('El formulario está deshabilitado')).toBeVisible()
+    await expect(page.locator('.formulario-respaldo')).toBeVisible({ timeout: 25_000 })
+
+    await page.unroute('https://cdn.bitrix24.es/**')
+    await page.route('https://cdn.bitrix24.es/**', (r) => r.fulfill({ contentType: 'application/javascript', body: dibujar(conCampos) }))
+    await page.goto('/inscripcion/')
+    await expect(page.locator('input[name="name"]')).toBeVisible()
+    await page.waitForTimeout(16_000)
+    await expect(page.locator('.formulario-respaldo')).toHaveCount(0)
+  })
+
   test('la portada permite pausar el carrusel y la cinta de logos (WCAG 2.2.2)', async ({ page }) => {
     await page.goto('/')
     await page.getByRole('button', { name: 'Pausar la presentación' }).click()
