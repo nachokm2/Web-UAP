@@ -38,6 +38,11 @@ const DIAPOSITIVAS: Diapositiva[] = [
     titulo: 'Matrículas Abiertas 2026',
     texto: 'Inscribite ahora y beneficiate con la primera cuota exonerada. Cupos limitados para ingresantes.',
     accion: 'Inscribite Ahora',
+    // Mientras dure la convocatoria, esta diapositiva muestra el banner en lugar del video.
+    imagen: {
+      src: '/images/portada/banner-convocatoria-marzo-2027.webp',
+      alt: 'Convocatoria marzo 2027. 18 carreras habilitadas. www.uap.edu.py',
+    },
   },
   {
     href: SITIO.posgrados,

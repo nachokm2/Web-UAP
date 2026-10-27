@@ -5,6 +5,7 @@
 // No avanza solo si el usuario pidió reducir el movimiento, ni mientras el puntero o el
 // foco del teclado están dentro (así no cambia lo que se está por leer o activar).
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState, type ReactNode } from 'react'
 
@@ -16,6 +17,8 @@ export type Diapositiva = {
   titulo: string
   texto: string
   accion: string
+  /** Banner propio: la diapositiva muestra solo esta imagen (con su texto incluido) y tapa el video. */
+  imagen?: { src: string; alt: string }
 }
 
 const INTERVALO_MS = 5000
@@ -61,14 +64,20 @@ export function CarruselPortada({ diapositivas, children }: Props) {
             // Con teclado, la diapositiva que recibe el foco pasa a ser la visible.
             onFocus={() => setActual(i)}
           >
-            <Link href={d.href}>
-              <div className="hero-slide-content">
-                <span className={d.claseInsignia ? `hero-slide-badge ${d.claseInsignia}` : 'hero-slide-badge'}>{d.insignia}</span>
-                <Titulo>{d.titulo}</Titulo>
-                <p>{d.texto}</p>
-                <span className="hero-slide-cta">{d.accion}</span>
-              </div>
-            </Link>
+            {d.imagen ? (
+              <Link href={d.href} className="hero-slide-banner">
+                <Image src={d.imagen.src} alt={d.imagen.alt} fill sizes="(max-width: 1920px) 100vw, 1920px" className="hero-slide-banner__foto" />
+              </Link>
+            ) : (
+              <Link href={d.href}>
+                <div className="hero-slide-content">
+                  <span className={d.claseInsignia ? `hero-slide-badge ${d.claseInsignia}` : 'hero-slide-badge'}>{d.insignia}</span>
+                  <Titulo>{d.titulo}</Titulo>
+                  <p>{d.texto}</p>
+                  <span className="hero-slide-cta">{d.accion}</span>
+                </div>
+              </Link>
+            )}
           </div>
         )
       })}
