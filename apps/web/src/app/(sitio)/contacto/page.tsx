@@ -6,7 +6,7 @@ import type { Metadata } from 'next'
 import { Breadcrumb } from '@/components/sitio/Breadcrumb'
 import { FormularioBitrix } from '@/components/sitio/FormularioBitrix'
 import { contactoDe, obtenerConfiguracion } from '@/lib/datos'
-import { SITIO, urlAbsoluta } from '@/lib/urls'
+import { MAPA_SEDE_CENTRAL, SITIO, urlAbsoluta } from '@/lib/urls'
 
 export const metadata: Metadata = {
   title: 'Contacto e Información de Admisión',
@@ -29,7 +29,7 @@ const propsIcono = {
 export default async function PaginaContacto() {
   const config = await obtenerConfiguracion()
   // P1: mover a Configuración (cargar "Enlace al mapa"); mientras esté vacío se usa el enlace del sitio estático.
-  const mapa = config.mapaUrl || 'https://maps.google.com/?q=Colón+658+Haedo+Asunción+Paraguay'
+  const mapa = config.mapaUrl || MAPA_SEDE_CENTRAL
   // P1: mover a Configuración (cargar "Horario de atención"); mientras esté vacío se usa el texto del sitio estático.
   const horario = config.horario || 'Lunes a Viernes: 08:00 - 18:00'
 

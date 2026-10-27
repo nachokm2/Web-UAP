@@ -16,6 +16,9 @@ export const SITIO = {
   privacidad: '/privacidad/',
 } as const
 
+/** Enlace al mapa de la sede central, mientras "Enlace al mapa" no esté cargado en Configuración. */
+export const MAPA_SEDE_CENTRAL = 'https://maps.google.com/?q=Colón+658+Haedo+Asunción+Paraguay'
+
 export const urlPrograma = (slug: string) => `/${slug}/`
 export const urlNoticia = (slug: string) => `/noticias/${slug}/`
 

@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
 import { listarCarreras, obtenerConfiguracion } from '@/lib/datos'
-import { SITIO, urlPrograma } from '@/lib/urls'
+import { MAPA_SEDE_CENTRAL, SITIO, urlPrograma } from '@/lib/urls'
 
 import { IconoFacebook, IconoInstagram, IconoLinkedin, IconoYoutube } from './Iconos'
 
@@ -28,9 +28,24 @@ export async function Footer() {
             </Link>
             {config.leyendaInstitucional && <p className="pie__leyenda">{config.leyendaInstitucional}</p>}
             <div className="pie__contacto">
-              {config.direccion && <span>📍 {config.direccion}</span>}
-              {config.telefono && <span>📞 {config.telefono}</span>}
-              {config.email && <span>✉️ {config.email}</span>}
+              {config.direccion && (
+                <span>
+                  📍{' '}
+                  <a href={config.mapaUrl || MAPA_SEDE_CENTRAL} target="_blank" rel="noopener noreferrer">
+                    {config.direccion}
+                  </a>
+                </span>
+              )}
+              {config.telefono && (
+                <span>
+                  📞 <a href={`tel:${config.telefono.replace(/[^\d+]/g, '')}`}>{config.telefono}</a>
+                </span>
+              )}
+              {config.email && (
+                <span>
+                  ✉️ <a href={`mailto:${config.email}`}>{config.email}</a>
+                </span>
+              )}
             </div>
             <div className="pie__sellos">
               <span>MEC Habilitada</span>
