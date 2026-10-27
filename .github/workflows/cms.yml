@@ -10,6 +10,10 @@ on:
   pull_request:
     paths: ['apps/web/**', '.github/workflows/cms.yml']
 
+# El job solo lee el repositorio: el token de GitHub no necesita más permisos.
+permissions:
+  contents: read
+
 concurrency:
   group: cms-${{ github.ref }}
   cancel-in-progress: true

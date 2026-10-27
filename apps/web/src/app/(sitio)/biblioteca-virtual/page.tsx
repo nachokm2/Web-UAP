@@ -29,7 +29,7 @@ const SERVICIOS = [
 
 /** "Links de interés" de WordPress, en el mismo orden. */
 const RECURSOS = [
-  { nombre: 'SciELO Paraguay', url: 'http://scielo.iics.una.py/scielo.php/script_sci_home/lng_es/nrm_iso' },
+  { nombre: 'SciELO Paraguay', url: 'https://scielo.iics.una.py/scielo.php/script_sci_home/lng_es/nrm_iso' },
   { nombre: 'ERIC', url: 'https://eric.ed.gov' },
   { nombre: 'BASE', url: 'https://www.base-search.net' },
   { nombre: 'Google Libros', url: 'https://books.google.es/?hl=es' },
