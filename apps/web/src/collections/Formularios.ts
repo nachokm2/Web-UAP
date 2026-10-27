@@ -4,7 +4,7 @@
 
 import type { CollectionBeforeChangeHook, CollectionConfig } from 'payload'
 
-import { eliminacionDefinitiva, gestionDelSitio } from '../access'
+import { campoInterno, eliminacionDefinitiva, gestionDelSitio } from '../access'
 import { auditarCambios, auditarEliminacion } from '../audit/hooks'
 import { campoSlug, ESPACIO_URL_PROGRAMAS } from '../fields/slug'
 import { leerCodigoBitrix } from '../lib/bitrix'
@@ -42,7 +42,13 @@ export const Formularios: CollectionConfig = {
       required: true,
       admin: { description: 'Se muestra en la página, p. ej. "Formulario de Postulación UAP – Tamara".' },
     },
-    { name: 'asesor', label: 'Asesor o campaña', type: 'text', admin: { description: 'Para encontrarlo en el panel; no se muestra en el sitio.' } },
+    {
+      name: 'asesor',
+      label: 'Asesor o campaña',
+      type: 'text',
+      access: { read: campoInterno },
+      admin: { description: 'Para encontrarlo en el panel; no se muestra en el sitio.' },
+    },
     campoSlug({
       desde: 'titulo',
       espacioCompartido: ESPACIO_URL_PROGRAMAS,

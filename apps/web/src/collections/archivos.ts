@@ -4,7 +4,7 @@
 
 import { APIError, type CollectionBeforeOperationHook, type CollectionConfig } from 'payload'
 
-import { eliminacionDefinitiva, subidaDeArchivos } from '../access'
+import { campoInterno, eliminacionDefinitiva, subidaDeArchivos } from '../access'
 import { auditarCambios, auditarEliminacion } from '../audit/hooks'
 
 const MB = 1024 * 1024
@@ -85,6 +85,7 @@ export const Medios: CollectionConfig = {
       label: 'Origen',
       type: 'text',
       index: true,
+      access: { read: campoInterno },
       admin: { readOnly: true, position: 'sidebar', description: 'URL o ruta de donde se importó el archivo (migración del sitio anterior).' },
     },
   ],
@@ -125,6 +126,7 @@ export const Documentos: CollectionConfig = {
       label: 'Origen',
       type: 'text',
       index: true,
+      access: { read: campoInterno },
       admin: { readOnly: true, position: 'sidebar', description: 'URL o ruta de donde se importó el archivo (migración del sitio anterior).' },
     },
   ],
