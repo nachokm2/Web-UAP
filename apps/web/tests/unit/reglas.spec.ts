@@ -13,6 +13,8 @@ import {
 import { diffDocumentos, textoDeRichText } from '@/audit/diff'
 import { esRutaDelSistema, normalizarRuta } from '@/collections/sistema'
 import { normalizarSlug } from '@/fields/slug'
+import robots from '@/app/robots'
+import { cantidadEnCache, enCache, limpiarCacheCompleta, MAX_ENTRADAS } from '@/lib/cache'
 import { dominioCanonico, medicionActiva } from '@/lib/urls'
 import { transicionesDisponibles, validarTransicion } from '@/workflow/estados'
 
@@ -158,6 +160,53 @@ describe('Dominio canónico', () => {
     expect(dominioCanonico('web-cms-production-fd17.up.railway.app', 'uap.edu.py')).toBeNull()
     expect(dominioCanonico('www.uap.edu.py', null)).toBeNull()
     expect(dominioCanonico(null, 'uap.edu.py')).toBeNull()
+  })
+})
+
+describe('robots.txt', () => {
+  // Como Google: las reglas son prefijos, "$" ancla el final, gana la regla más larga y ante empate gana Allow.
+  const lista = (v?: string | string[]) => (v === undefined ? [] : Array.isArray(v) ? v : [v])
+  const permitido = (ruta: string) => {
+    const [regla] = lista(robots().rules as never)
+    const { allow, disallow } = regla as { allow?: string | string[]; disallow?: string | string[] }
+    const coincide = (p: string) => (p.endsWith('$') ? ruta === p.slice(0, -1) : ruta.startsWith(p))
+    const largo = (v?: string | string[]) => Math.max(-1, ...lista(v).filter(coincide).map((p) => p.length))
+    return largo(allow) >= largo(disallow)
+  }
+
+  it('deja rastrear las carreras que empiezan como /admin y las imágenes del CMS', () => {
+    expect(permitido('/administracion-de-empresas/')).toBe(true)
+    expect(permitido('/administracion-publica/')).toBe(true)
+    expect(permitido('/derecho/')).toBe(true)
+    expect(permitido('/api/medios/file/administracion-1-1200x630.jpg')).toBe(true)
+  })
+
+  it('bloquea el panel y el resto de la API', () => {
+    expect(permitido('/admin')).toBe(false)
+    expect(permitido('/admin/login')).toBe(false)
+    expect(permitido('/api/carreras')).toBe(false)
+    expect(permitido('/api/usuarios/me')).toBe(false)
+  })
+})
+
+describe('Caché del sitio', () => {
+  it('no crece sin límite con direcciones inventadas', async () => {
+    limpiarCacheCompleta()
+    for (let i = 0; i < MAX_ENTRADAS + 500; i++) await enCache(`programa:inventado-${i}`, ['carreras'], async () => null)
+    expect(cantidadEnCache()).toBeLessThanOrEqual(MAX_ENTRADAS)
+    // Lo más reciente sigue en caché: no se vuelve a cargar.
+    let cargas = 0
+    await enCache(`programa:inventado-${MAX_ENTRADAS + 499}`, ['carreras'], async () => ++cargas)
+    expect(cargas).toBe(0)
+    limpiarCacheCompleta()
+  })
+
+  it('al llenarse, primero descarta lo vencido', async () => {
+    limpiarCacheCompleta()
+    for (let i = 0; i < MAX_ENTRADAS; i++) await enCache(`vencida-${i}`, ['x'], async () => i, -1)
+    await enCache('nueva', ['x'], async () => 'ok')
+    expect(cantidadEnCache()).toBe(1)
+    limpiarCacheCompleta()
   })
 })
 
