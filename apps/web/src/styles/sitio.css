@@ -7,6 +7,8 @@
 .pie__logo { height: 45px; width: auto; margin-bottom: 20px; display: block; }
 .pie__leyenda { opacity: 0.75; line-height: 1.7; margin-bottom: 20px; font-size: 14px; max-width: none; }
 .pie__contacto { display: flex; flex-direction: column; gap: 8px; font-size: 13px; opacity: 0.65; margin-bottom: 20px; }
+.pie__contacto a { color: inherit; text-decoration: none; }
+.pie__contacto a:hover { color: #fff; text-decoration: underline; }
 .pie__sellos { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
 .pie__sellos span { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; padding: 6px 12px; font-size: 12px; font-weight: 600; }
 .pie__redes { display: flex; gap: 12px; }
