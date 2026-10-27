@@ -470,6 +470,9 @@ h2:has(+ .contacto-datos), .contacto-datos .contact-row { color: var(--color-pri
 .formulario-bitrix:not(.cta-formulario__caja *) .b24-form-wrapper :is(input, textarea, select, button) { font-family: inherit; }
 .formulario-bitrix:not(.cta-formulario__caja *) .b24-form-control { border-radius: var(--radius-md); }
 .formulario-bitrix:not(.cta-formulario__caja *) .b24-form-header-title { font-family: var(--font-primary); color: var(--color-primary); }
+/* Bitrix desvanece el enlace "Reportar un abuso" con opacity .4 (2,5:1 sobre blanco): era la
+   única falla de axe en el sitio. Con opacidad completa y el gris de textos secundarios, 4,8:1. */
+.formulario-bitrix .b24-form .b24-form-sign-abuse-link { opacity: 1; color: var(--color-text-muted); }
 
 /* Encabezado de páginas internas en celular: altura mínima menor. */
 @media (max-width: 768px) {

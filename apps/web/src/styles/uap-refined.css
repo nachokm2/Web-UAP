@@ -126,7 +126,7 @@
     --z-whatsapp: 900;
     --z-mobile-nav: 999;
     --z-mobile-header: 1000;
-    --z-skip-link: 1000;
+    --z-skip-link: 1100; /* por encima de la cabecera móvil (1000): con el mismo valor quedaba tapado */
 }
 
 * {

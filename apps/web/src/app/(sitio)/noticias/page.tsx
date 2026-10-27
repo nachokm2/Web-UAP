@@ -42,8 +42,8 @@ export default async function PaginaNoticias({ searchParams }: Props) {
           <div className="container">
             {resultado.docs.length ? (
               <div className="news-grid">
-                {(resultado.docs as Noticia[]).map((n) => (
-                  <TarjetaNoticia key={n.id} noticia={n} nivelTitulo="h2" />
+                {(resultado.docs as Noticia[]).map((n, i) => (
+                  <TarjetaNoticia key={n.id} noticia={n} nivelTitulo="h2" prioridad={i === 0} />
                 ))}
               </div>
             ) : (
