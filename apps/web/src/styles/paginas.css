@@ -55,6 +55,20 @@
   text-decoration: none;
   background: linear-gradient(135deg, rgba(0,51,102,0.85) 0%, rgba(0,26,51,0.7) 50%, rgba(0,51,102,0.4) 100%);
 }
+/* Diapositiva con banner propio (imagen de 1920x600 con su texto): tapa el video y se recorta
+   igual que él. En pantallas angostas se muestra completa, sobre el mismo azul del banner,
+   para que el texto no quede cortado. */
+.hero-clean .carousel-slide a.hero-slide-banner {
+  position: relative;
+  background: #07122c;
+}
+.hero-clean .carousel-slide a.hero-slide-banner .hero-slide-banner__foto {
+  object-fit: cover;
+  object-position: center;
+}
+@media (max-width: 900px) {
+  .hero-clean .carousel-slide a.hero-slide-banner .hero-slide-banner__foto { object-fit: contain; }
+}
 .hero-slide-content {
   max-width: 700px;
   padding: 0 60px;
