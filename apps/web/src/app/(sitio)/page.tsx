@@ -6,6 +6,7 @@ import NextImage from 'next/image'
 import Link from 'next/link'
 
 import { CarruselPortada, type Diapositiva } from '@/components/sitio/CarruselPortada'
+import { CintaAlianzas } from '@/components/sitio/CintaAlianzas'
 import { ContadorEstadistica } from '@/components/sitio/ContadorEstadistica'
 import { PestanasCarreras, type FacultadDePortada } from '@/components/sitio/PestanasCarreras'
 import { TarjetaNoticia } from '@/components/sitio/TarjetaNoticia'
@@ -218,17 +219,15 @@ export default async function Inicio() {
               <h2 className="section-title">Alianzas Estratégicas</h2>
               <p className="section-subtitle">Colaboramos con líderes mundiales para brindar la mejor experiencia educativa</p>
             </div>
-            <div className="partners-marquee">
-              <div className="partners-track">
-                {ALIANZAS.map((a) => (
-                  <TarjetaAlianza key={a.href} alianza={a} />
-                ))}
-                {/* Duplicados para loop infinito */}
-                {ALIANZAS.map((a) => (
-                  <TarjetaAlianza key={`${a.href}-copia`} alianza={a} duplicado />
-                ))}
-              </div>
-            </div>
+            <CintaAlianzas>
+              {ALIANZAS.map((a) => (
+                <TarjetaAlianza key={a.href} alianza={a} />
+              ))}
+              {/* Duplicados para loop infinito */}
+              {ALIANZAS.map((a) => (
+                <TarjetaAlianza key={`${a.href}-copia`} alianza={a} duplicado />
+              ))}
+            </CintaAlianzas>
           </div>
         </section>
 

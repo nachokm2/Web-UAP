@@ -1,0 +1,27 @@
+# Revisión diaria de los formularios de Bitrix24 del sitio publicado
+# (apps/web/scripts/monitor-formularios.mjs). Si un formulario en uso queda deshabilitado
+# en Bitrix24, este workflow falla y GitHub avisa por correo.
+name: Formularios
+
+on:
+  schedule:
+    - cron: '0 11 * * *' # 08:00 en Paraguay
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  revisar:
+    name: Formularios de Bitrix24 en uso
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Revisar formularios
+        run: node apps/web/scripts/monitor-formularios.mjs https://uap.edu.py

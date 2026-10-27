@@ -2,7 +2,7 @@
 
 import type { CollectionConfig, TextFieldSingleValidation } from 'payload'
 
-import { gestionDelSitio, lecturaAuditoria, nadie } from '../access'
+import { conAcceso, gestionDelSitio, lecturaAuditoria, nadie } from '../access'
 import { ACCIONES, auditarCambios, auditarEliminacion } from '../audit/hooks'
 
 /** "/Psicologia" → "/psicologia/". Las URLs del sitio llevan barra final, como el WordPress anterior. */
@@ -42,7 +42,8 @@ export const Redirecciones: CollectionConfig = {
     description:
       'Envía a los visitantes de una URL antigua a la nueva. Se crean solas al cambiar la dirección web de un contenido publicado.',
   },
-  access: { read: () => true, create: gestionDelSitio, update: gestionDelSitio, delete: gestionDelSitio },
+  // El proxy lee el mapa con overrideAccess: la API pública no necesita listar las redirecciones.
+  access: { read: conAcceso, create: gestionDelSitio, update: gestionDelSitio, delete: gestionDelSitio },
   hooks: {
     afterChange: [auditarCambios],
     afterDelete: [auditarEliminacion],
@@ -99,6 +100,8 @@ export const Redirecciones: CollectionConfig = {
       validate: (value: string | null | undefined, { siblingData }: { siblingData: Record<string, unknown> }) => {
         if (siblingData?.tipo === '410' || siblingData?.destinoTipo !== 'url') return true
         if (!value) return 'Indique la URL de destino.'
+        // "//otro.com" o "/\otro.com" empiezan con "/" pero el navegador los lleva a otro dominio.
+        if (/^\/[/\\]/.test(value)) return 'Una ruta interna empieza con una sola "/" (por ejemplo /postgrados/).'
         return value.startsWith('/') || /^https:\/\//.test(value) ? true : 'Use una ruta que empiece con "/" o una URL https://'
       },
     },

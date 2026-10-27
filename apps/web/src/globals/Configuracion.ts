@@ -2,6 +2,7 @@ import type { GlobalConfig } from 'payload'
 
 import { campoIntegraciones, gestionDelSitio } from '../access'
 import { auditarGlobal } from '../audit/hooks'
+import { problemaFormularioBitrix } from '../lib/bitrix'
 
 /** Datos que hoy están copiados en las 103 páginas del sitio estático. */
 export const Configuracion: GlobalConfig = {
@@ -88,6 +89,9 @@ export const Configuracion: GlobalConfig = {
               label: 'Formulario Bitrix24 (código)',
               type: 'text',
               access: { update: campoIntegraciones },
+              // Un error acá deja sin formulario a inscripción, contacto y todos los programas.
+              validate: (value: string | null | undefined, { siblingData }: { siblingData: Record<string, unknown> }) =>
+                problemaFormularioBitrix(value, siblingData?.bitrixLoaderUrl as string | undefined) ?? true,
               admin: { description: 'Ej.: inline/61/hi7fex' },
             },
             {
@@ -95,6 +99,9 @@ export const Configuracion: GlobalConfig = {
               label: 'Script del formulario Bitrix24',
               type: 'text',
               access: { update: campoIntegraciones },
+              validate: (value: string | null | undefined, { siblingData }: { siblingData: Record<string, unknown> }) =>
+                problemaFormularioBitrix(siblingData?.bitrixFormulario as string | undefined, value) ?? true,
+              admin: { description: 'Ej.: https://cdn.bitrix24.es/b23715511/crm/form/loader_61.js (del mismo formulario que el código).' },
             },
           ],
         },

@@ -75,4 +75,15 @@ const nextConfig: NextConfig = {
   },
 }
 
-export default withPayload(nextConfig, { devBundleServerPackages: false })
+const config = withPayload(nextConfig, { devBundleServerPackages: false })
+
+// withPayload pide a todo el sitio la preferencia de tema del sistema (Critical-CH), que
+// solo usa el panel. En el sitio público Chrome repetía el pedido de cada página en la
+// primera visita para mandar esa pista (~0,4–1 s más de LCP en celulares).
+const cabecerasConPayload = config.headers!
+config.headers = async () =>
+  (await cabecerasConPayload()).map((regla) =>
+    regla.headers.some((h) => h.key === 'Critical-CH') ? { ...regla, source: '/admin/:path*' } : regla,
+  )
+
+export default config

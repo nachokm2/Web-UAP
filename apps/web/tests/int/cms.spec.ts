@@ -341,6 +341,56 @@ describe('Resolución de redirecciones del sitio', () => {
       payload.create({ collection: 'redirecciones', data: { desde: `/${unico('x')}/`, tipo: '410' }, ...como(edCarreras) }),
     ).rejects.toThrow()
   })
+
+  it('una ruta que empieza con "//" o "/\\" no es interna: el navegador la llevaría a otro dominio', async () => {
+    for (const url of ['//ejemplo.com/', '/\\ejemplo.com/']) {
+      await esperarRechazo(
+        payload.create({ collection: 'redirecciones', data: { desde: `/${unico('x')}/`, tipo: '301', destinoTipo: 'url', url }, ...como(admin) }),
+        /una sola "\/"/,
+      )
+    }
+    const ok = await payload.create({
+      collection: 'redirecciones',
+      data: { desde: `/${unico('x')}/`, tipo: '301', destinoTipo: 'url', url: '/postgrados/' },
+      ...como(admin),
+    })
+    expect(ok.url).toBe('/postgrados/')
+  })
+
+  it('el público no lista las redirecciones; el proxy sí las resuelve', async () => {
+    const desde = `/${unico('pagina-vieja')}/`
+    await payload.create({ collection: 'redirecciones', data: { desde, tipo: '410' }, ...como(admin) })
+    await expect(payload.find({ collection: 'redirecciones', ...como(null) })).rejects.toThrow()
+    const { buscarRedireccion } = await import('@/lib/redirecciones')
+    expect(await buscarRedireccion(desde)).toEqual({ tipo: '410' })
+  })
+})
+
+describe('Configuración del sitio', () => {
+  it('rechaza un formulario general cuyo script es de otro formulario', async () => {
+    await esperarRechazo(
+      payload.updateGlobal({
+        slug: 'configuracion',
+        data: { bitrixFormulario: 'inline/61/hi7fex', bitrixLoaderUrl: 'https://cdn.bitrix24.es/b23715511/crm/form/loader_1537.js' },
+        ...como(superadmin),
+      }),
+      /tienen que ser del mismo/,
+    )
+  })
+})
+
+describe('Datos internos en la API pública', () => {
+  it('el asesor de un formulario solo lo ve el equipo', async () => {
+    const slug = unico('formulario-de-postulacion-uap-interno')
+    const codigo = `<script data-b24-form="inline/1251/9oeoyp" data-skip-moving="true">(function(w,d,u){})(window,document,'https://cdn.bitrix24.es/b23715511/crm/form/loader_1251.js');</script>`
+    await payload.create({ collection: 'formularios', data: { titulo: 'Interno', asesor: 'Nombre del asesor', slug, codigoBitrix: codigo }, ...como(admin) })
+    const where = { slug: { equals: slug } }
+    const [publico] = (await payload.find({ collection: 'formularios', where, ...como(null) })).docs
+    const [equipo] = (await payload.find({ collection: 'formularios', where, ...como(lectura) })).docs
+    expect(publico.bitrixFormulario).toBe('inline/1251/9oeoyp')
+    expect(publico).not.toHaveProperty('asesor')
+    expect(equipo.asesor).toBe('Nombre del asesor')
+  })
 })
 
 describe('Seguridad de cuentas', () => {

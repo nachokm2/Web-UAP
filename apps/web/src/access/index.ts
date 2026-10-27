@@ -60,6 +60,9 @@ export const edicionDeSeccion =
     return true
   }
 
+/** Datos internos de un documento público: el equipo los ve en el panel, la API pública no. */
+export const campoInterno: FieldAccess = ({ req }) => tieneAcceso(usuario(req.user))
+
 export const campoSoloAprobadores: FieldAccess = ({ req }) => esAprobador(usuario(req.user))
 
 export const campoSoloSuperAdmin: FieldAccess = ({ req }) => esSuperAdmin(usuario(req.user))

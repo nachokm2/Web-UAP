@@ -4,10 +4,11 @@
 // diapositiva siguiente cada 5 segundos y los indicadores llevan a cada una.
 // No avanza solo si el usuario pidió reducir el movimiento, ni mientras el puntero o el
 // foco del teclado están dentro (así no cambia lo que se está por leer o activar).
+// El botón de pausa detiene el avance y el video de fondo (WCAG 2.2.2).
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect, useState, type ReactNode } from 'react'
+import { useEffect, useRef, useState, type ReactNode } from 'react'
 
 export type Diapositiva = {
   href: string
@@ -32,17 +33,30 @@ type Props = {
 export function CarruselPortada({ diapositivas, children }: Props) {
   const [actual, setActual] = useState(0)
   const [pausado, setPausado] = useState(false)
+  // Pausa pedida con el botón: dura hasta que la persona la quite (el puntero y el foco no la cambian).
+  const [detenido, setDetenido] = useState(false)
+  const seccion = useRef<HTMLElement>(null)
   const total = diapositivas.length
 
   useEffect(() => {
-    if (pausado || total < 2) return
+    if (pausado || detenido || total < 2) return
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     const temporizador = setInterval(() => setActual((a) => (a + 1) % total), INTERVALO_MS)
     return () => clearInterval(temporizador)
-  }, [pausado, total])
+  }, [pausado, detenido, total])
+
+  // El video de fondo (VideoFondo) se pausa y se reanuda con el mismo botón.
+  useEffect(() => {
+    const video = seccion.current?.querySelector('video')
+    if (!video) return
+    if (detenido) video.pause()
+    // Solo si ya se cargó (en celulares, con ahorro de datos o reducir movimiento no se carga).
+    else if (video.currentSrc && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) video.play().catch(() => {})
+  }, [detenido])
 
   return (
     <section
+      ref={seccion}
       className="hero-clean"
       id="hero-carousel"
       onMouseEnter={() => setPausado(true)}
@@ -94,6 +108,22 @@ export function CarruselPortada({ diapositivas, children }: Props) {
               onClick={() => setActual(i)}
             />
           ))}
+          <button
+            type="button"
+            className="carousel-pausa"
+            aria-label={detenido ? 'Reanudar la presentación' : 'Pausar la presentación'}
+            onClick={() => setDetenido((d) => !d)}
+          >
+            {detenido ? (
+              <svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true">
+                <path d="M2 1l9 5-9 5z" fill="currentColor" />
+              </svg>
+            ) : (
+              <svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true">
+                <path d="M2 1h3v10H2zM7 1h3v10H7z" fill="currentColor" />
+              </svg>
+            )}
+          </button>
         </div>
       )}
     </section>

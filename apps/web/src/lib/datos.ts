@@ -4,6 +4,7 @@
 import config from '@payload-config'
 import { getPayload } from 'payload'
 
+import { normalizarSlug } from '@/fields/slug'
 import type { Autoridad, Carrera, Configuracion, Documento, Facultad, FormularioPostulacion, Noticia, Posgrado } from '@/payload-types'
 
 import { enCache } from './cache'
@@ -11,12 +12,19 @@ import { enCache } from './cache'
 const payload = () => getPayload({ config })
 const publico = { overrideAccess: false, draft: false } as const
 
+// El CMS solo guarda slugs normalizados: cualquier otra dirección no existe y no
+// merece una consulta a la base ni una entrada en la caché.
+const slugValido = (slug: string) => slug !== '' && slug === normalizarSlug(slug)
+
 export type Programa = (Carrera & { coleccion: 'carreras' }) | (Posgrado & { coleccion: 'posgrados' })
 
 export const obtenerConfiguracion = () =>
   enCache('configuracion', ['configuracion'], async () =>
     (await payload()).findGlobal({ slug: 'configuracion', depth: 1, overrideAccess: false }) as Promise<Configuracion>,
   )
+
+/** Teléfono, WhatsApp y email para el aviso de FormularioBitrix (solo esos datos van al navegador). */
+export const contactoDe = ({ telefono, whatsapp, email }: Configuracion) => ({ telefono, whatsapp, email })
 
 export const listarCarreras = () =>
   enCache('carreras:lista', ['carreras', 'facultades', 'medios'], async () => {
@@ -37,8 +45,8 @@ export const listarFacultades = () =>
   })
 
 /** Carrera o posgrado por slug (comparten el espacio de URL /{slug}/). */
-export const obtenerPrograma = (slug: string) =>
-  enCache(`programa:${slug}`, ['carreras', 'posgrados', 'facultades', 'medios', 'documentos', 'sedes'], async (): Promise<Programa | null> => {
+export const obtenerPrograma = async (slug: string): Promise<Programa | null> =>
+  !slugValido(slug) ? null : enCache(`programa:${slug}`, ['carreras', 'posgrados', 'facultades', 'medios', 'documentos', 'sedes'], async (): Promise<Programa | null> => {
     const p = await payload()
     for (const coleccion of ['carreras', 'posgrados'] as const) {
       const { docs } = await p.find({ collection: coleccion, where: { slug: { equals: slug } }, ...publico, depth: 2, limit: 1 })
@@ -48,8 +56,8 @@ export const obtenerPrograma = (slug: string) =>
   })
 
 /** Formulario de postulación de un asesor o campaña (también en /{slug}/). Incluye los inactivos. */
-export const obtenerFormulario = (slug: string) =>
-  enCache(`formulario:${slug}`, ['formularios'], async () => {
+export const obtenerFormulario = async (slug: string): Promise<FormularioPostulacion | null> =>
+  !slugValido(slug) ? null : enCache(`formulario:${slug}`, ['formularios'], async () => {
     const { docs } = await (await payload()).find({ collection: 'formularios', where: { slug: { equals: slug } }, depth: 0, limit: 1, overrideAccess: false })
     return (docs[0] as FormularioPostulacion | undefined) ?? null
   })
@@ -73,8 +81,8 @@ export const listarNoticias = (pagina = 1) =>
     60 * 1000,
   )
 
-export const obtenerNoticia = (slug: string) =>
-  enCache(
+export const obtenerNoticia = async (slug: string): Promise<Noticia | null> =>
+  !slugValido(slug) ? null : enCache(
     `noticia:${slug}`,
     ['noticias', 'categorias', 'medios'],
     async () => {

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { notFound } from 'next/navigation'
 
 import { Breadcrumb } from '@/components/sitio/Breadcrumb'
 import { TarjetaNoticia } from '@/components/sitio/TarjetaNoticia'
@@ -23,6 +24,8 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
 export default async function PaginaNoticias({ searchParams }: Props) {
   const pagina = paginaPedida((await searchParams).pagina)
   const resultado = await listarNoticias(pagina)
+  // Una página más allá de la última no existe (antes respondía 200 con la lista vacía).
+  if (pagina > 1 && pagina > resultado.totalPages) notFound()
   const enlace = (n: number) => (n === 1 ? SITIO.noticias : `${SITIO.noticias}?pagina=${n}`)
 
   return (
@@ -39,8 +42,8 @@ export default async function PaginaNoticias({ searchParams }: Props) {
           <div className="container">
             {resultado.docs.length ? (
               <div className="news-grid">
-                {(resultado.docs as Noticia[]).map((n) => (
-                  <TarjetaNoticia key={n.id} noticia={n} nivelTitulo="h2" />
+                {(resultado.docs as Noticia[]).map((n, i) => (
+                  <TarjetaNoticia key={n.id} noticia={n} nivelTitulo="h2" prioridad={i === 0} />
                 ))}
               </div>
             ) : (

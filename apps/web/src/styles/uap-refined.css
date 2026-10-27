@@ -126,7 +126,7 @@
     --z-whatsapp: 900;
     --z-mobile-nav: 999;
     --z-mobile-header: 1000;
-    --z-skip-link: 1000;
+    --z-skip-link: 1100; /* por encima de la cabecera móvil (1000): con el mismo valor quedaba tapado */
 }
 
 * {
@@ -1583,8 +1583,29 @@ h4 {
     width: max-content;
 }
 
-.partners-track:hover {
+.partners-track:hover,
+.partners-track--detenida,
+.partners-marquee:focus-within .partners-track {
     animation-play-state: paused;
+}
+
+/* Botón de pausa de la cinta (CintaAlianzas), discreto debajo de los logos. */
+.cinta-control {
+    margin-top: var(--space-3);
+    background: none;
+    border: 1px solid var(--color-border-strong);
+    border-radius: 50px;
+    color: var(--color-text-secondary);
+    font: inherit;
+    font-size: var(--text-sm);
+    padding: var(--space-1) var(--space-4);
+    cursor: pointer;
+    min-height: 32px;
+}
+.cinta-control:hover { color: var(--color-primary); border-color: var(--color-primary); }
+
+@media (prefers-reduced-motion: reduce) {
+    .cinta-control, .carousel-pausa { display: none; }
 }
 
 @keyframes marquee-scroll {
@@ -1791,11 +1812,13 @@ h4 {
 }
 /* La foto es un <img> (next/image con fill) debajo del degradado (::before, z-raised). */
 .career-hero-glass__foto { object-fit: cover; object-position: center; z-index: 0; }
+/* Velo de al menos 0,6 en todo el ancho: con él, el texto blanco cumple 4,5:1 (WCAG 1.4.3)
+   sobre cualquier foto, incluso un cielo blanco. El anterior bajaba a 0,04 a la derecha y el
+   título, la duración y la sede quedaban entre 2,1 y 3,7:1 (auditoría del 27-oct-2026). */
 .career-hero-glass.hero-photo::before {
-    background:
-        linear-gradient(90deg, rgba(0,20,45,0.62) 0%, rgba(0,20,45,0.32) 42%, rgba(0,20,45,0.12) 74%, rgba(0,20,45,0.04) 100%),
-        linear-gradient(180deg, rgba(0,20,45,0) 45%, rgba(0,20,45,0.42) 100%);
+    background: linear-gradient(90deg, rgba(0,20,45,0.80) 0%, rgba(0,20,45,0.68) 50%, rgba(0,20,45,0.60) 100%);
 }
+.career-hero-glass.hero-photo .info-pill { background: rgba(0,20,45,0.35); }
 /* Sombra fuerte en el texto: hace el trabajo de contraste para que el título se lea
    aunque el overlay sea ligero y la foto quede bien visible. */
 .career-hero-glass.hero-photo h1 { text-shadow: 0 2px 4px rgba(0,10,25,0.9), 0 4px 22px rgba(0,10,25,0.75); }
@@ -1839,7 +1862,7 @@ h4 {
    grilla de tarjetas de abajo; el contenido va centrado dentro de cada uno. */
 .info-pills { grid-auto-rows: 1fr; }
 .info-pill { background: rgba(255,255,255,0.12); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 16px 20px; text-align: center; display: flex; flex-direction: column; align-items: center; }
-.info-pill .pill-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; opacity: 0.7; margin-bottom: 4px; }
+.info-pill .pill-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.85); margin-bottom: 4px; }
 /* Etiqueta arriba (alineada entre bloques) y valor centrado en el espacio que queda debajo. */
 .info-pill .pill-value { font-size: 1.15rem; font-weight: 700; flex: 1; display: flex; align-items: center; justify-content: center; }
 

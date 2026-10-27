@@ -12,6 +12,8 @@ import { dominioCanonico } from '@/lib/urls'
 
 const TIENE_EXTENSION = /\.[a-z0-9]{2,5}$/i
 
+const conBarraFinal = (ruta: string) => (ruta.endsWith('/') || TIENE_EXTENSION.test(ruta) ? ruta : `${ruta}/`)
+
 const PAGINA_410 = `<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Página eliminada | UAP</title></head><body style="font-family:system-ui,sans-serif;max-width:560px;margin:80px auto;padding:0 16px;line-height:1.6"><h1>Esta página ya no existe</h1><p>El contenido fue retirado del sitio de la Universidad Autónoma del Paraguay.</p><p><a href="/">Ir al inicio</a></p></body></html>`
 
 function dominioOficial(): string | null {
@@ -26,9 +28,14 @@ export async function proxy(req: NextRequest) {
   const { pathname, search } = req.nextUrl
 
   const canonico = dominioCanonico(req.headers.get('host'), dominioOficial())
-  if (canonico) return NextResponse.redirect(`https://${canonico}${pathname}${search}`, 301)
+  // Con la barra final ya puesta: un solo salto en vez de dos (www → apex → barra).
+  if (canonico) return NextResponse.redirect(`https://${canonico}${conBarraFinal(pathname)}${search}`, 301)
 
-  const destino = await buscarRedireccion(pathname).catch(() => null)
+  const destino = await buscarRedireccion(pathname).catch((e) => {
+    // Sin la base, las redirecciones dejan de funcionar: que quede en los logs de Railway.
+    console.error('[proxy] no se pudieron leer las redirecciones:', e)
+    return null
+  })
   if (destino?.tipo === '410') {
     return new NextResponse(PAGINA_410, { status: 410, headers: { 'Content-Type': 'text/html; charset=utf-8', 'X-Robots-Tag': 'noindex' } })
   }
@@ -41,7 +48,7 @@ export async function proxy(req: NextRequest) {
     return NextResponse.redirect(new URL(`/postgrados/${search}`, req.url), 301)
   }
 
-  if (!pathname.endsWith('/') && !TIENE_EXTENSION.test(pathname)) {
+  if (conBarraFinal(pathname) !== pathname) {
     return NextResponse.redirect(new URL(`${pathname}/${search}`, req.url), 301)
   }
 
