@@ -366,6 +366,19 @@ describe('Resolución de redirecciones del sitio', () => {
   })
 })
 
+describe('Configuración del sitio', () => {
+  it('rechaza un formulario general cuyo script es de otro formulario', async () => {
+    await esperarRechazo(
+      payload.updateGlobal({
+        slug: 'configuracion',
+        data: { bitrixFormulario: 'inline/61/hi7fex', bitrixLoaderUrl: 'https://cdn.bitrix24.es/b23715511/crm/form/loader_1537.js' },
+        ...como(superadmin),
+      }),
+      /tienen que ser del mismo/,
+    )
+  })
+})
+
 describe('Datos internos en la API pública', () => {
   it('el asesor de un formulario solo lo ve el equipo', async () => {
     const slug = unico('formulario-de-postulacion-uap-interno')

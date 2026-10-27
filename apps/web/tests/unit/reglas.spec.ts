@@ -14,6 +14,7 @@ import { diffDocumentos, textoDeRichText } from '@/audit/diff'
 import { esRutaDelSistema, normalizarRuta } from '@/collections/sistema'
 import { normalizarSlug } from '@/fields/slug'
 import robots from '@/app/robots'
+import { loaderDelFormulario, problemaFormularioBitrix } from '@/lib/bitrix'
 import { cantidadEnCache, enCache, limpiarCacheCompleta, MAX_ENTRADAS } from '@/lib/cache'
 import { dominioCanonico, medicionActiva } from '@/lib/urls'
 import { transicionesDisponibles, validarTransicion } from '@/workflow/estados'
@@ -186,6 +187,27 @@ describe('robots.txt', () => {
     expect(permitido('/admin/login')).toBe(false)
     expect(permitido('/api/carreras')).toBe(false)
     expect(permitido('/api/usuarios/me')).toBe(false)
+  })
+})
+
+describe('Formularios de Bitrix24 cargados a mano', () => {
+  const LOADER_61 = 'https://cdn.bitrix24.es/b23715511/crm/form/loader_61.js'
+
+  it('acepta un código y su script del mismo formulario, o vacíos', () => {
+    expect(problemaFormularioBitrix('inline/61/hi7fex', LOADER_61)).toBeNull()
+    expect(problemaFormularioBitrix('inline/1251/9oeoyp')).toBeNull()
+    expect(problemaFormularioBitrix(null, null)).toBeNull()
+  })
+
+  it('rechaza números distintos, otro dominio o el código de inserción entero', () => {
+    expect(problemaFormularioBitrix('inline/61/hi7fex', LOADER_61.replace('61', '1537'))).toMatch(/mismo/)
+    expect(problemaFormularioBitrix('inline/61/hi7fex', 'https://otro.example/crm/form/loader_61.js')).toMatch(/script/)
+    expect(problemaFormularioBitrix('<script data-b24-form="inline/61/hi7fex">', null)).toMatch(/forma/)
+  })
+
+  it('el formulario propio de un programa usa su propio script', () => {
+    expect(loaderDelFormulario('inline/1251/9oeoyp', LOADER_61)).toBe('https://cdn.bitrix24.es/b23715511/crm/form/loader_1251.js')
+    expect(loaderDelFormulario('inline/61/hi7fex', LOADER_61)).toBe(LOADER_61)
   })
 })
 

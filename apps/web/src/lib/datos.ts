@@ -23,6 +23,9 @@ export const obtenerConfiguracion = () =>
     (await payload()).findGlobal({ slug: 'configuracion', depth: 1, overrideAccess: false }) as Promise<Configuracion>,
   )
 
+/** Teléfono, WhatsApp y email para el aviso de FormularioBitrix (solo esos datos van al navegador). */
+export const contactoDe = ({ telefono, whatsapp, email }: Configuracion) => ({ telefono, whatsapp, email })
+
 export const listarCarreras = () =>
   enCache('carreras:lista', ['carreras', 'facultades', 'medios'], async () => {
     const { docs } = await (await payload()).find({ collection: 'carreras', ...publico, depth: 1, limit: 500, sort: 'orden' })

@@ -5,7 +5,7 @@ import type { Metadata } from 'next'
 
 import { Breadcrumb } from '@/components/sitio/Breadcrumb'
 import { FormularioBitrix } from '@/components/sitio/FormularioBitrix'
-import { obtenerConfiguracion } from '@/lib/datos'
+import { contactoDe, obtenerConfiguracion } from '@/lib/datos'
 import { SITIO, urlAbsoluta } from '@/lib/urls'
 
 export const metadata: Metadata = {
@@ -30,9 +30,7 @@ export default async function PaginaInscripcion() {
         <section className="section section-alt">
           <div className="container">
             <div className="content inscripcion-contenido">
-              {config.bitrixFormulario && config.bitrixLoaderUrl && (
-                <FormularioBitrix formulario={config.bitrixFormulario} loaderUrl={config.bitrixLoaderUrl} />
-              )}
+              <FormularioBitrix formulario={config.bitrixFormulario} loaderUrl={config.bitrixLoaderUrl} contacto={contactoDe(config)} />
             </div>
           </div>
         </section>

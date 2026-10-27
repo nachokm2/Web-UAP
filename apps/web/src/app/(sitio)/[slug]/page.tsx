@@ -15,7 +15,8 @@ import { MODALIDADES } from '@/fields/programa'
 import { TIPOS_POSGRADO } from '@/collections/Posgrados'
 import type { Documento, Medio, Sede } from '@/payload-types'
 import { PaginaFormulario } from '@/components/sitio/PaginaFormulario'
-import { obtenerConfiguracion, obtenerFormulario, obtenerPrograma, type Programa } from '@/lib/datos'
+import { loaderDelFormulario } from '@/lib/bitrix'
+import { contactoDe, obtenerConfiguracion, obtenerFormulario, obtenerPrograma, type Programa } from '@/lib/datos'
 import { SITIO, urlAbsoluta, urlPrograma } from '@/lib/urls'
 
 type Params = { params: Promise<{ slug: string }> }
@@ -120,7 +121,7 @@ export default async function PaginaPrograma({ params }: Params) {
     if (!f) notFound()
     // Formulario dado de baja (p. ej. el asesor ya no está): nadie queda sin poder postular.
     if (!f.activo) redirect(SITIO.inscripcion)
-    return <PaginaFormulario formulario={f} />
+    return <PaginaFormulario formulario={f} contacto={contactoDe(config)} />
   }
 
   const esCarrera = p.coleccion === 'carreras'
@@ -199,17 +200,20 @@ export default async function PaginaPrograma({ params }: Params) {
           </section>
         )}
 
-        {formulario && config.bitrixLoaderUrl && (
-          <section className="cta-section">
-            <div className="container cta-formulario">
-              <h2>Solicita información</h2>
-              <p>Completa el formulario y un asesor se contactará contigo.</p>
-              <div className="cta-formulario__caja">
-                <FormularioBitrix formulario={formulario} loaderUrl={config.bitrixLoaderUrl} diferido />
-              </div>
+        <section className="cta-section">
+          <div className="container cta-formulario">
+            <h2>Solicita información</h2>
+            <p>Completa el formulario y un asesor se contactará contigo.</p>
+            <div className="cta-formulario__caja">
+              <FormularioBitrix
+                formulario={formulario}
+                loaderUrl={formulario && config.bitrixLoaderUrl ? loaderDelFormulario(formulario, config.bitrixLoaderUrl) : null}
+                contacto={contactoDe(config)}
+                diferido
+              />
             </div>
-          </section>
-        )}
+          </div>
+        </section>
       </main>
     </>
   )

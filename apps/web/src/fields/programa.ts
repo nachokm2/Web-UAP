@@ -4,6 +4,7 @@
 import type { Field, Tab } from 'payload'
 
 import { campoSoloAprobadores } from '../access'
+import { problemaFormularioBitrix } from '../lib/bitrix'
 
 export const MODALIDADES = [
   { value: 'presencial', label: 'Presencial' },
@@ -168,6 +169,7 @@ export const pestanaContacto: Tab = {
       label: 'Formulario Bitrix propio',
       type: 'text',
       access: { update: campoSoloAprobadores },
+      validate: (value: string | null | undefined) => problemaFormularioBitrix(value) ?? true,
       admin: { description: 'Código del formulario (ej.: inline/61/hi7fex). Vacío = el formulario general.' },
     },
   ],
