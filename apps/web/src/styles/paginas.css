@@ -573,6 +573,13 @@ h2:has(+ .contacto-datos), .contacto-datos .contact-row { color: var(--color-pri
 }
 .carousel-indicators .indicator.active::before,
 .carousel-indicators .indicator:hover::before { background: white; }
+/* Pausa del carrusel y del video (CarruselPortada): mismo tamaño de toque que los puntos. */
+.carousel-indicators .carousel-pausa {
+  width: 24px; height: 24px; margin-left: 8px; padding: 0; border: 0; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: rgba(0, 20, 45, 0.55); color: white; cursor: pointer;
+}
+.carousel-indicators .carousel-pausa:hover { background: rgba(0, 20, 45, 0.8); }
 /* Breadcrumb: mismo alto total (el relleno pasa del contenedor a los enlaces). */
 .breadcrumb-nav { padding: var(--space-2) 0; }
 .breadcrumb a { display: inline-block; padding-block: 4px; }

@@ -117,4 +117,45 @@ test.describe.serial('Sitio público', () => {
     expect(r.status()).toBe(410)
     expect(r.headers()['x-robots-tag']).toContain('noindex')
   })
+
+  test('si el formulario de Bitrix24 no carga, se ofrecen otras formas de contacto', async ({ page }) => {
+    await sesionSuperAdmin(page)
+    const config = await api(page, '/api/globals/configuracion', {
+      method: 'POST',
+      body: {
+        email: 'admision@uap.test',
+        bitrixFormulario: 'inline/61/hi7fex',
+        bitrixLoaderUrl: 'https://cdn.bitrix24.es/b23715511/crm/form/loader_61.js',
+      },
+    })
+    expect(config.status).toBe(200)
+    // Como si el CDN de Bitrix24 fallara (o lo bloqueara una extensión del navegador).
+    await page.route('https://cdn.bitrix24.es/**', (r) => r.abort())
+    await page.addInitScript(() => {
+      ;(window as unknown as { dataLayer: unknown[] }).dataLayer = []
+    })
+    await page.goto('/contacto/')
+    const aviso = page.locator('.formulario-respaldo')
+    await expect(aviso).toContainText('No pudimos cargar el formulario')
+    await expect(aviso.getByRole('link', { name: 'admision@uap.test' })).toBeVisible()
+    const eventos = await page.evaluate(() => (window as unknown as { dataLayer: { event?: string }[] }).dataLayer.map((e) => e.event))
+    expect(eventos).toContain('formulario_no_disponible')
+  })
+
+  test('la portada permite pausar el carrusel y la cinta de logos (WCAG 2.2.2)', async ({ page }) => {
+    await page.goto('/')
+    await page.getByRole('button', { name: 'Pausar la presentación' }).click()
+    await expect(page.getByRole('button', { name: 'Reanudar la presentación' })).toBeVisible()
+    // Sin el puntero ni el foco dentro del carrusel: solo el botón lo mantiene quieto.
+    await page.mouse.move(0, 0)
+    await page.evaluate(() => (document.activeElement as HTMLElement | null)?.blur())
+    const indice = () => page.locator('.carousel-slide').evaluateAll((els) => els.findIndex((e) => e.classList.contains('carousel-active')))
+    const antes = await indice()
+    await page.waitForTimeout(6500)
+    expect(await indice()).toBe(antes)
+
+    await page.getByRole('button', { name: 'Pausar el desplazamiento de los logos' }).click()
+    await expect(page.locator('.partners-track')).toHaveCSS('animation-play-state', 'paused')
+    await expect(page.getByRole('button', { name: 'Reanudar el desplazamiento de los logos' })).toBeVisible()
+  })
 })
