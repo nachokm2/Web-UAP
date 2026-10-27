@@ -42,6 +42,7 @@ const DIAPOSITIVAS: Diapositiva[] = [
     // Mientras dure la convocatoria, esta diapositiva muestra el banner en lugar del video.
     imagen: {
       src: '/images/portada/banner-convocatoria-marzo-2027.webp',
+      movil: '/images/portada/banner-convocatoria-marzo-2027-movil.webp',
       alt: 'Convocatoria marzo 2027. 18 carreras habilitadas. www.uap.edu.py',
     },
   },
