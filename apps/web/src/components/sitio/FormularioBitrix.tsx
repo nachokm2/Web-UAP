@@ -13,6 +13,7 @@ import { useEffect, useRef, useState } from 'react'
 
 /** Si a los 15 s no hay ningún campo, el formulario no va a aparecer (o Bitrix lo tiene deshabilitado). */
 const ESPERA_MS = 15000
+const CAMPOS = 'input:not([type="hidden"]):not([type="submit"]):not([type="button"]), textarea, select'
 
 type Contacto = { telefono?: string | null; whatsapp?: string | null; email?: string | null }
 
@@ -85,7 +86,10 @@ export function FormularioBitrix({ formulario, loaderUrl, contacto, diferido = f
       avisado = true
       avisarFalla(formulario)
     }
-    const tieneCampos = () => destino.querySelector('input:not([type="hidden"]), textarea, select') !== null
+    // Solo campos visibles: un formulario deshabilitado en Bitrix dibuja igual el botón Enviar
+    // y un <select> oculto propio, sin ningún campo para completar.
+    const tieneCampos = () =>
+      [...destino.querySelectorAll<HTMLElement>(CAMPOS)].some((e) => e.getClientRects().length > 0 && getComputedStyle(e).visibility !== 'hidden')
     loader.onerror = fallar
     const espera = setTimeout(() => {
       if (!tieneCampos()) fallar()
