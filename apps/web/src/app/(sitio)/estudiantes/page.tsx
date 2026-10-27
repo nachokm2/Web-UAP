@@ -10,7 +10,7 @@ import { SITIO, urlAbsoluta } from '@/lib/urls'
 
 export const metadata: Metadata = {
   title: 'Estudiantes',
-  description: 'Portal del estudiante UAP: Campus Virtual, Biblioteca Virtual, consultas académicas, revista científica y servicios de atención.',
+  description: 'Portal del estudiante UAP: Campus Virtual, Biblioteca Virtual, consultas académicas y servicios de atención.',
   alternates: { canonical: urlAbsoluta(SITIO.estudiantes) },
 }
 
@@ -20,9 +20,6 @@ function formatoWhatsapp(numero: string): string {
   const partes = /^(595)(\d{3})(\d{3})(\d{3})$/.exec(digitos)
   return partes ? `+${partes[1]} ${partes[2]} ${partes[3]} ${partes[4]}` : `+${digitos}`
 }
-
-/** Revista científica enlazada desde la página Estudiantes de WordPress. */
-const REVISTA_CIENTIFICA = 'https://paraguayoral.com.py/'
 
 const propsIcono = { xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 48 48', width: 32, height: 32, 'aria-hidden': true } as const
 const trazo = { fill: 'none', stroke: 'white', strokeWidth: 2 } as const
@@ -53,15 +50,6 @@ const ICONOS = {
       <circle cx="24" cy="24" r="18" {...trazo} />
       <path d="M18 19 C18 15, 21 13, 24 13 C27 13, 30 15, 30 19 C30 23, 24 23, 24 28" {...trazo} strokeLinecap="round" />
       <circle cx="24" cy="34" r="1.5" fill="white" />
-    </svg>
-  ),
-  revista: (
-    <svg {...propsIcono}>
-      <path d="M10 6 H32 L38 12 V42 H10 Z" {...trazo} strokeLinejoin="round" />
-      <path d="M32 6 V12 H38" {...trazo} strokeLinejoin="round" />
-      <line x1="16" y1="20" x2="32" y2="20" {...linea} />
-      <line x1="16" y1="27" x2="32" y2="27" {...linea} />
-      <line x1="16" y1="34" x2="26" y2="34" {...linea} />
     </svg>
   ),
   atencion: (
@@ -126,7 +114,6 @@ export default async function PaginaEstudiantes() {
               titulo="Consultas Académicas"
               texto="Escribinos tu consulta y te respondemos a la brevedad."
             />
-            <Servicio href={REVISTA_CIENTIFICA} icono={ICONOS.revista} titulo="Revista Científica" texto="Accedé a la revista científica y a sus publicaciones." />
             <Servicio
               href={whatsapp}
               icono={ICONOS.atencion}
