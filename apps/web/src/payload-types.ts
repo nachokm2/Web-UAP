@@ -77,6 +77,7 @@ export interface Config {
     sedes: Sede;
     autoridades: Autoridad;
     formularios: FormularioPostulacion;
+    'inscripciones-summit': InscripcionSummit;
     redirecciones: Redireccion;
     usuarios: Usuario;
     auditoria: Auditoria;
@@ -97,6 +98,7 @@ export interface Config {
     sedes: SedesSelect<false> | SedesSelect<true>;
     autoridades: AutoridadesSelect<false> | AutoridadesSelect<true>;
     formularios: FormulariosSelect<false> | FormulariosSelect<true>;
+    'inscripciones-summit': InscripcionesSummitSelect<false> | InscripcionesSummitSelect<true>;
     redirecciones: RedireccionesSelect<false> | RedireccionesSelect<true>;
     usuarios: UsuariosSelect<false> | UsuariosSelect<true>;
     auditoria: AuditoriaSelect<false> | AuditoriaSelect<true>;
@@ -873,6 +875,26 @@ export interface FormularioPostulacion {
   createdAt: string;
 }
 /**
+ * Personas que se inscribieron para asistir al V Summit Internacional UAP 2026 desde el formulario de la landing. Solo lectura: las inscripciones llegan desde el sitio.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "inscripciones-summit".
+ */
+export interface InscripcionSummit {
+  id: number;
+  nombre: string;
+  apellido: string;
+  empresa?: string | null;
+  /**
+   * Único: una misma persona no se inscribe dos veces.
+   */
+  email: string;
+  telefono?: string | null;
+  pais: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * Envía a los visitantes de una URL antigua a la nueva. Se crean solas al cambiar la dirección web de un contenido publicado.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1026,6 +1048,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'formularios';
         value: number | FormularioPostulacion;
+      } | null)
+    | ({
+        relationTo: 'inscripciones-summit';
+        value: number | InscripcionSummit;
       } | null)
     | ({
         relationTo: 'redirecciones';
@@ -1410,6 +1436,20 @@ export interface FormulariosSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "inscripciones-summit_select".
+ */
+export interface InscripcionesSummitSelect<T extends boolean = true> {
+  nombre?: T;
+  apellido?: T;
+  empresa?: T;
+  email?: T;
+  telefono?: T;
+  pais?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirecciones_select".
  */
 export interface RedireccionesSelect<T extends boolean = true> {
@@ -1544,6 +1584,9 @@ export interface Configuracion {
    * Ej.: inline/61/hi7fex
    */
   bitrixFormulario?: string | null;
+  /**
+   * Ej.: https://cdn.bitrix24.es/b23715511/crm/form/loader_61.js (del mismo formulario que el código).
+   */
   bitrixLoaderUrl?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
