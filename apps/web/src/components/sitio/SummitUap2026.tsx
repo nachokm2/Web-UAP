@@ -282,15 +282,23 @@ export function datosEstructurados(urlPagina: string) {
 export function SummitUap2026({ formulario }: { formulario: ReactNode }) {
   return (
     <div className="summit">
-      {/* 1. Encabezado */}
-      <section className="page-hero summit-hero">
-        <div className="container">
-          <p className="summit-hero__etiqueta">{SUMMIT.nombre}</p>
-          <h1>{SUMMIT.titulo}</h1>
-          <ul className="summit-hero__datos">
-            <li>{SUMMIT.fecha}</li>
-            <li>{SUMMIT.lugar}, Asunción</li>
-          </ul>
+      {/* 1. Banner de portada: imagen con fecha, lugar y botón encima (el título viene en la imagen) */}
+      <section className="summit-banner" aria-label={SUMMIT.nombre}>
+        <h1 className="sr-only">
+          {SUMMIT.nombre}: {SUMMIT.titulo}
+        </h1>
+        {/* eslint-disable-next-line @next/next/no-img-element -- recurso estático de /public */}
+        <img
+          src={`${IMG}/banner-escritorio.jpg`}
+          alt=""
+          width={1920}
+          height={600}
+          fetchPriority="high"
+          className="summit-banner__img"
+        />
+        <div className="summit-banner__info">
+          <p className="summit-banner__fecha">{SUMMIT.fecha}</p>
+          <p className="summit-banner__lugar">{SUMMIT.lugar}, Asunción</p>
           <BotonInscripcion grande />
         </div>
       </section>
