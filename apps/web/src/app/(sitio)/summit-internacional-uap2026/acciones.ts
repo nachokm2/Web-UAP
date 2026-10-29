@@ -3,18 +3,24 @@
 // Guardado de la inscripción al Summit: valida en el servidor (nunca se confía en el navegador),
 // frena el spam (campo trampa, tiempo mínimo y límite por visitante) y guarda una fila en la
 // tabla inscripciones-summit. Se escribe con la API local de Payload (sin pasar por la API
-// pública, que tiene la creación cerrada).
+// pública, que tiene la creación cerrada). Después avisa por correo al equipo del evento.
 
 import config from '@payload-config'
 import { headers } from 'next/headers'
-import { getPayload } from 'payload'
+import { after } from 'next/server'
+import { getPayload, type Payload } from 'payload'
 
+import { SUMMIT } from '@/components/sitio/SummitUap2026'
+import { correoConfigurado, listaDeCorreos } from '@/lib/correo'
 import {
+  avisoDeInscripcion,
   crearLimitador,
   validarInscripcion,
   type CampoInscripcion,
   type EstadoInscripcion,
+  type FilaInscripcion,
 } from '@/lib/inscripcionSummit'
+import { urlAbsoluta } from '@/lib/urls'
 
 /** 5 envíos cada 10 minutos por visitante. */
 const puedeEnviar = crearLimitador(5, 10 * 60 * 1000)
@@ -70,7 +76,7 @@ export async function inscribirse(
     })
     // Ya inscripta con ese correo: se confirma igual y no se duplica (tampoco se revela que el correo ya existía).
     if (totalDocs === 0) {
-      await payload.create({
+      const inscripcion = await payload.create({
         collection: 'inscripciones-summit',
         data: {
           ...datos,
@@ -78,6 +84,8 @@ export async function inscribirse(
           telefono: datos.telefono || undefined,
         },
       })
+      // El aviso sale después de responder: la persona no espera al servidor de correo.
+      after(() => avisarAlEquipo(payload, inscripcion))
     }
     return { estado: 'ok', nombre: datos.nombre }
   } catch (error) {
@@ -90,5 +98,32 @@ export async function inscribirse(
     if (ya && ya.totalDocs > 0) return { estado: 'ok', nombre: datos.nombre }
     console.error('[summit] no se pudo guardar la inscripción:', error)
     return { estado: 'error', mensaje: MENSAJE_GENERAL, valores: datos }
+  }
+}
+
+/**
+ * Correo al equipo del evento: a SUMMIT_AVISO_PARA (correos separados por coma) o, si no está, al
+ * correo del Summit. Si falla, la inscripción ya quedó guardada: se registra solo el motivo.
+ */
+async function avisarAlEquipo(payload: Payload, inscripcion: FilaInscripcion) {
+  if (!correoConfigurado()) return
+  const para = listaDeCorreos(process.env.SUMMIT_AVISO_PARA)
+  try {
+    const { totalDocs } = await payload.count({ collection: 'inscripciones-summit' })
+    await payload.sendEmail({
+      to: para.length ? para : SUMMIT.correo,
+      replyTo: { name: `${inscripcion.nombre} ${inscripcion.apellido}`, address: inscripcion.email },
+      ...avisoDeInscripcion(
+        inscripcion,
+        totalDocs,
+        SUMMIT.nombre,
+        urlAbsoluta('/admin/collections/inscripciones-summit'),
+      ),
+    })
+  } catch (error) {
+    console.error(
+      '[summit] no se pudo enviar el aviso de inscripción:',
+      error instanceof Error ? error.message : error,
+    )
   }
 }

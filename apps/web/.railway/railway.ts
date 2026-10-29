@@ -61,6 +61,15 @@ export default defineRailway(() => {
       S3_REGION: ref(archivos, 'REGION'),
       S3_ACCESS_KEY_ID: ref(archivos, 'ACCESS_KEY_ID'),
       S3_SECRET_ACCESS_KEY: ref(archivos, 'SECRET_ACCESS_KEY'),
+      // Correo saliente (lib/correo.ts y .env.example). Se cargan en el panel o con la CLI; acá
+      // quedan como preserve() para que el apply no los borre.
+      SMTP_HOST: preserve(),
+      SMTP_PORT: preserve(),
+      SMTP_USER: preserve(),
+      SMTP_PASS: preserve(),
+      CORREO_REMITENTE: preserve(),
+      CORREO_REMITENTE_NOMBRE: preserve(),
+      SUMMIT_AVISO_PARA: preserve(),
     },
   })
 
