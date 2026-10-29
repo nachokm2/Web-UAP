@@ -1,0 +1,162 @@
+/* V Summit Internacional UAP 2026 (/summit-internacional-uap2026/).
+   Usa solo los tokens y clases del sistema de diseño del sitio (uap-refined.css): colores
+   institucionales, Playfair Display / Inter, .page-hero, .section, .btn, .desplegable.
+   Todo lo propio de la landing lleva el prefijo .summit para no afectar otras páginas. */
+
+/* ---- Encabezado ---- */
+.summit-hero .container { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-4); }
+.summit-hero h1 { margin: 0; }
+.summit-hero__etiqueta {
+  margin: 0; font-size: var(--text-sm); font-weight: var(--weight-semibold);
+  letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255, 255, 255, 0.75);
+}
+.summit-hero__datos {
+  list-style: none; display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-6);
+  font-size: var(--text-lg); color: rgba(255, 255, 255, 0.9);
+}
+.summit-hero__datos li + li::before { content: '•'; margin-right: var(--space-6); color: rgba(255, 255, 255, 0.5); }
+.summit-hero .btn { margin-top: var(--space-2); }
+
+/* ---- Presentación ---- */
+.summit-intro { display: grid; grid-template-columns: 1fr 1.4fr; gap: var(--space-12); align-items: start; }
+.summit-intro h2 { font-size: var(--text-2xl); color: var(--color-primary); }
+.summit-intro__texto p { color: var(--color-text-secondary); margin-bottom: var(--space-4); }
+.summit-intro__texto .btn { margin-top: var(--space-4); }
+
+/* ---- Fecha, lugar y certificación ---- */
+.summit-info { display: grid; grid-template-columns: 1.1fr 1fr; gap: var(--space-12); align-items: center; }
+.summit-info__datos { display: flex; flex-direction: column; gap: var(--space-6); }
+.summit-dato { display: flex; align-items: flex-start; gap: var(--space-4); }
+.summit-dato__icono {
+  flex-shrink: 0; display: grid; place-items: center; width: 56px; height: 56px;
+  border-radius: var(--radius-lg); background: var(--color-surface-tint); color: var(--color-primary);
+}
+.summit-dato h3 { margin: 0 0 var(--space-1); font-size: var(--text-xl); color: var(--color-primary); }
+.summit-dato p { margin: 0; color: var(--color-text-secondary); }
+.summit-dato strong { color: var(--color-text); }
+.summit-info__foto img {
+  display: block; width: 100%; height: auto; border-radius: var(--radius-lg); box-shadow: var(--shadow-md);
+}
+.summit-redes { padding-top: var(--space-4); border-top: 1px solid var(--color-border); }
+.summit-redes p { margin: 0 0 var(--space-3); color: var(--color-text-secondary); }
+.summit-redes ul { list-style: none; display: flex; gap: var(--space-3); }
+.summit-redes a {
+  display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+.summit-redes a:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.summit-redes a:focus-visible { outline: 2px solid var(--color-primary-light); outline-offset: 2px; }
+.summit-redes__instagram { background: #9d0b8f; }
+.summit-redes__linkedin { background: #0077b5; }
+.summit-redes__x { background: #000; }
+
+/* ---- Organiza y colaboran ---- */
+.summit-alianzas__fila { display: flex; flex-direction: column; align-items: center; gap: var(--space-5); text-align: center; }
+.summit-alianzas__fila + .summit-alianzas__fila { margin-top: var(--space-10); padding-top: var(--space-10); border-top: 1px solid var(--color-border); }
+.summit-alianzas h2 { font-size: var(--text-2xl); color: var(--color-primary); }
+.summit-alianzas__fila > img { height: 72px; width: auto; max-width: 100%; object-fit: contain; }
+.summit-logos { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: var(--space-6) var(--space-12); }
+.summit-logos img { height: 72px; width: auto; max-width: 100%; object-fit: contain; display: block; }
+.summit-logos a { display: block; transition: transform var(--transition-fast); }
+.summit-logos a:hover { transform: scale(1.04); }
+.summit-logos a:focus-visible { outline: 2px solid var(--color-primary-light); outline-offset: 4px; }
+
+/* ---- Expositores ---- */
+.summit-expositores {
+  list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-6);
+}
+.summit-expositor { flex: 0 1 calc((100% - 3 * var(--space-6)) / 4); }
+.summit-expositor__institucion { margin: 0; text-align: center; }
+.summit-expositor__logo { margin-top: auto; padding-top: var(--space-4); height: 56px; width: auto; max-width: 100%; object-fit: contain; }
+
+/* ---- Programa ---- */
+.summit-programa { list-style: none; max-width: 880px; margin: 0 auto; border-left: 2px solid var(--color-border-strong); padding-left: var(--space-8); }
+.summit-sesion {
+  position: relative; display: grid; grid-template-columns: 110px 1fr; gap: var(--space-4);
+  padding: var(--space-5) 0;
+}
+.summit-sesion + .summit-sesion { border-top: 1px solid var(--color-border); }
+.summit-sesion::before {
+  content: ''; position: absolute; left: calc(var(--space-8) * -1 - 7px); top: calc(var(--space-5) + 6px);
+  width: 12px; height: 12px; border-radius: 50%; background: var(--color-cta-accent); border: 2px solid var(--color-surface);
+  box-shadow: 0 0 0 1px var(--color-cta-accent);
+}
+.summit-sesion__hora { font-weight: var(--weight-bold); color: var(--color-cta-accent); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.summit-sesion h3 { margin: 0; font-size: var(--text-lg); font-weight: var(--weight-semibold); color: var(--color-primary); }
+.summit-sesion__nota, .summit-sesion__rol { margin: var(--space-2) 0 0; font-size: var(--text-sm); color: var(--color-text-secondary); }
+.summit-sesion__rol { font-weight: var(--weight-semibold); text-transform: uppercase; letter-spacing: 0.06em; font-size: var(--text-xs); color: var(--color-text-muted); }
+.summit-sesion__personas { list-style: none; display: flex; flex-direction: column; gap: var(--space-3); margin-top: var(--space-3); }
+.summit-sesion__personas li { display: flex; align-items: center; gap: var(--space-3); }
+.summit-sesion__foto { flex-shrink: 0; width: 64px; height: 64px; border-radius: 50%; object-fit: cover; object-position: top center; }
+.summit-sesion__personas li > span { display: flex; flex-direction: column; font-size: var(--text-sm); color: var(--color-text-secondary); }
+.summit-sesion__personas strong { color: var(--color-text); font-size: var(--text-base); }
+
+/* ---- Formulario ---- */
+.summit-formulario { max-width: 760px; }
+.summit-formulario__caja {
+  padding: var(--space-8); background: var(--color-surface);
+  border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);
+}
+
+/* ---- Campos del formulario ---- */
+.summit-form { display: flex; flex-direction: column; gap: var(--space-5); }
+.summit-form__fila { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); }
+.summit-campo { display: flex; flex-direction: column; gap: var(--space-2); min-width: 0; }
+.summit-campo label { font-size: var(--text-sm); font-weight: var(--weight-semibold); color: var(--color-text-strong); }
+.summit-campo :is(input, select) {
+  width: 100%; padding: var(--space-3) var(--space-4); font: inherit; font-size: var(--text-base); color: var(--color-text);
+  background: var(--color-surface); border: 1px solid var(--color-border-strong); border-radius: var(--radius-md);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+.summit-campo :is(input, select):focus-visible { outline: none; border-color: var(--color-primary-light); box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.2); }
+.summit-campo [aria-invalid='true'] { border-color: var(--color-danger); }
+.summit-campo__error { margin: 0; font-size: var(--text-sm); color: var(--color-danger); }
+.summit-form__aviso {
+  margin: 0; padding: var(--space-3) var(--space-4); border-radius: var(--radius-md);
+  background: #fef2f2; border: 1px solid #fecaca; color: #991b1b; font-size: var(--text-sm);
+}
+.summit-form__nota { margin: 0; font-size: var(--text-sm); color: var(--color-text-muted); }
+.summit-form .btn { align-self: flex-start; }
+.summit-form .btn:disabled { opacity: 0.7; cursor: progress; transform: none; box-shadow: none; }
+/* Campo trampa anti-robots: fuera de pantalla, sin ocupar lugar. */
+.summit-form__trampa { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.summit-confirmacion { text-align: center; padding: var(--space-6) var(--space-2); }
+.summit-confirmacion h3 { color: var(--color-success); margin-bottom: var(--space-3); }
+.summit-confirmacion p { margin: 0 0 var(--space-2); color: var(--color-text-secondary); }
+
+/* ---- Lugar ---- */
+.summit-lugar { text-align: center; display: flex; flex-direction: column; align-items: center; }
+.summit-lugar__texto h2 { color: var(--color-primary); font-size: var(--text-2xl); margin-bottom: var(--space-2); }
+.summit-lugar__texto p { color: var(--color-text-secondary); margin-bottom: var(--space-5); }
+
+/* ---- Comités ---- */
+.summit-comites { max-width: 960px; }
+.summit-comite__imagen { display: block; width: 100%; height: auto; margin: 0 auto; }
+
+/* Los anclas (#inscripcion, #programa…) no quedan tapados por la cabecera fija. */
+.summit [id] { scroll-margin-top: 96px; }
+
+/* ---- Pantallas medianas y celulares ---- */
+@media (max-width: 1024px) {
+  .summit-expositor { flex-basis: calc((100% - 2 * var(--space-6)) / 3); }
+}
+@media (max-width: 900px) {
+  .summit-intro, .summit-info { grid-template-columns: 1fr; gap: var(--space-8); }
+  .summit-expositor { flex-basis: calc((100% - var(--space-6)) / 2); }
+}
+@media (max-width: 640px) {
+  .summit-hero__datos { flex-direction: column; gap: var(--space-1); font-size: var(--text-base); }
+  .summit-hero__datos li + li::before { content: none; }
+  .summit-expositor { flex-basis: 100%; }
+  .summit-programa { padding-left: var(--space-5); }
+  .summit-sesion { grid-template-columns: 1fr; gap: var(--space-1); }
+  .summit-sesion::before { left: calc(var(--space-5) * -1 - 7px); }
+  .summit-formulario__caja { padding: var(--space-4); }
+  .summit-form__fila { grid-template-columns: 1fr; }
+  .summit-logos img, .summit-alianzas__fila > img { height: 56px; }
+  .summit-intro h2 { font-size: var(--text-xl); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .summit-redes a, .summit-logos a { transition: none; }
+  .summit-redes a:hover, .summit-logos a:hover { transform: none; }
+}

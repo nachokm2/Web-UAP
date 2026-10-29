@@ -13,6 +13,7 @@ import { Autoridades } from './collections/Autoridades'
 import { Carreras } from './collections/Carreras'
 import { Documentos, LIMITE_PDF_MB, Medios } from './collections/archivos'
 import { Formularios } from './collections/Formularios'
+import { InscripcionesSummit } from './collections/InscripcionesSummit'
 import { Noticias } from './collections/Noticias'
 import { Posgrados } from './collections/Posgrados'
 import { Auditoria, Redirecciones } from './collections/sistema'
@@ -56,6 +57,7 @@ export default buildConfig({
     Sedes,
     Autoridades,
     Formularios,
+    InscripcionesSummit,
     Redirecciones,
     Usuarios,
     Auditoria,
