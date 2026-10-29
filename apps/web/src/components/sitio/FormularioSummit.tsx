@@ -32,6 +32,13 @@ export function FormularioSummit({ paises, detalle }: Props) {
     datos.set('dibujado_en', String(dibujadoEn.current))
     accion(datos)
   }
+  // Inscripción confirmada: evento para Tag Manager (GA4 y Meta). Sin datos personales.
+  useEffect(() => {
+    if (estado.estado !== 'ok') return
+    const w = window as Window & { dataLayer?: Record<string, unknown>[] }
+    w.dataLayer = w.dataLayer ?? []
+    w.dataLayer.push({ event: 'inscripcion_summit' })
+  }, [estado.estado])
 
   if (estado.estado === 'ok') {
     return (

@@ -1,17 +1,36 @@
-// Inscripciones al Summit contra PostgreSQL real: permisos de la tabla y acción del servidor.
+// Inscripciones al Summit contra PostgreSQL real: permisos de la tabla, acción del servidor,
+// aviso por correo al equipo y exportación a Excel.
 
-import type { Payload } from 'payload'
-import { beforeAll, describe, expect, it, vi } from 'vitest'
+import type { Endpoint, Payload } from 'payload'
+import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest'
 
 import type { Usuario } from '@/payload-types'
 
-import { asegurarSuperAdminInicial, crearUsuario, esperarRechazo, payloadDeTest } from '../helpers'
+import {
+  asegurarSuperAdminInicial,
+  crearUsuario,
+  esperarRechazo,
+  payloadDeTest,
+  reqDe,
+} from '../helpers'
 
 // La acción lee el encabezado x-forwarded-for; en el test cada caso elige su "visitante".
 let visitante = '10.0.0.1'
 vi.mock('next/headers', () => ({
   headers: async () => new Headers({ 'x-forwarded-for': visitante }),
 }))
+
+// after() de Next corre la tarea al terminar la respuesta; acá se guarda para esperarla.
+const pendientes: Promise<unknown>[] = []
+vi.mock('next/server', async (original) => ({
+  ...(await original<typeof import('next/server')>()),
+  after: (tarea: (() => unknown) | Promise<unknown>) => {
+    pendientes.push(Promise.resolve(typeof tarea === 'function' ? tarea() : tarea))
+  },
+}))
+const terminarPendientes = async () => {
+  await Promise.all(pendientes.splice(0))
+}
 
 let payload: Payload
 let admin: Usuario
@@ -164,5 +183,107 @@ describe('Acción inscribirse', () => {
       estados.push((await inscribirse({ estado: 'inicial' }, formulario())).estado)
     expect(estados.slice(0, 5).every((e) => e === 'ok')).toBe(true)
     expect(estados.slice(5)).toEqual(['error', 'error'])
+  })
+})
+
+describe('Aviso por correo al equipo', () => {
+  const SMTP = {
+    SMTP_HOST: 'smtp.ejemplo.test',
+    CORREO_REMITENTE: 'no-responder@uap.edu.py',
+    SUMMIT_AVISO_PARA: 'eventos@uap.edu.py, marketing@uap.edu.py',
+  }
+  const configurarSmtp = (valores: Partial<typeof SMTP>) => Object.assign(process.env, valores)
+
+  afterEach(() => {
+    for (const k of Object.keys(SMTP)) delete process.env[k]
+    vi.restoreAllMocks()
+  })
+
+  it('sin SMTP configurado no intenta enviar nada', async () => {
+    const { inscribirse } = await import('@/app/(sitio)/summit-internacional-uap2026/acciones')
+    const envio = vi.spyOn(payload, 'sendEmail')
+    visitante = '10.0.6.1'
+    expect((await inscribirse({ estado: 'inicial' }, formulario())).estado).toBe('ok')
+    await terminarPendientes()
+    expect(envio).not.toHaveBeenCalled()
+  })
+
+  it('con SMTP avisa a SUMMIT_AVISO_PARA con los datos, y la respuesta va a la persona', async () => {
+    const { inscribirse } = await import('@/app/(sitio)/summit-internacional-uap2026/acciones')
+    configurarSmtp(SMTP)
+    const envio = vi.spyOn(payload, 'sendEmail').mockResolvedValue(undefined)
+    visitante = '10.0.6.2'
+    expect(
+      (await inscribirse({ estado: 'inicial' }, formulario({ email: 'Aviso@Ejemplo.com' }))).estado,
+    ).toBe('ok')
+    await terminarPendientes()
+    expect(envio).toHaveBeenCalledTimes(1)
+    const mensaje = envio.mock.calls[0][0]
+    expect(mensaje.to).toEqual(['eventos@uap.edu.py', 'marketing@uap.edu.py'])
+    expect(mensaje.replyTo).toEqual({ name: 'Ana Gómez', address: 'aviso@ejemplo.com' })
+    expect(mensaje.subject).toBe('Nueva inscripción al V Summit Internacional UAP 2026: Ana Gómez')
+    expect(mensaje.text).toContain('aviso@ejemplo.com')
+    expect(mensaje.text).toContain('/admin/collections/inscripciones-summit')
+  })
+
+  it('sin SUMMIT_AVISO_PARA va al correo del Summit, y no repite el aviso si el correo ya estaba', async () => {
+    const { inscribirse } = await import('@/app/(sitio)/summit-internacional-uap2026/acciones')
+    configurarSmtp({ SMTP_HOST: SMTP.SMTP_HOST, CORREO_REMITENTE: SMTP.CORREO_REMITENTE })
+    const envio = vi.spyOn(payload, 'sendEmail').mockResolvedValue(undefined)
+    visitante = '10.0.6.3'
+    await inscribirse({ estado: 'inicial' }, formulario({ email: 'una-vez@ejemplo.com' }))
+    await inscribirse({ estado: 'inicial' }, formulario({ email: 'una-vez@ejemplo.com' }))
+    await terminarPendientes()
+    expect(envio).toHaveBeenCalledTimes(1)
+    expect(envio.mock.calls[0][0].to).toBe('marketing@uap.edu.py')
+  })
+
+  it('si el correo falla, la inscripción queda guardada y el registro no lleva datos personales', async () => {
+    const { inscribirse } = await import('@/app/(sitio)/summit-internacional-uap2026/acciones')
+    configurarSmtp(SMTP)
+    vi.spyOn(payload, 'sendEmail').mockRejectedValue(new Error('SMTP caído'))
+    const registro = vi.spyOn(console, 'error').mockImplementation(() => {})
+    visitante = '10.0.6.4'
+    const r = await inscribirse({ estado: 'inicial' }, formulario({ email: 'falla@ejemplo.com' }))
+    await terminarPendientes()
+    expect(r.estado).toBe('ok')
+    expect(await cantidad('falla@ejemplo.com')).toBe(1)
+    expect(registro).toHaveBeenCalledWith(
+      '[summit] no se pudo enviar el aviso de inscripción:',
+      'SMTP caído',
+    )
+    expect(JSON.stringify(registro.mock.calls)).not.toContain('falla@ejemplo.com')
+  })
+})
+
+describe('Exportación a Excel (GET /api/inscripciones-summit/exportar)', () => {
+  const exportar = async (usuario: Usuario | null): Promise<Response> => {
+    const endpoints = payload.collections['inscripciones-summit'].config.endpoints || []
+    const endpoint = endpoints.find((e: Endpoint) => e.path === '/exportar')
+    if (!endpoint) throw new Error('falta el endpoint /exportar')
+    return endpoint.handler(await reqDe(payload, usuario))
+  }
+
+  it('el público y un editor reciben 403 y ningún dato', async () => {
+    for (const usuario of [null, editor]) {
+      const r = await exportar(usuario)
+      expect(r.status).toBe(403)
+      expect(await r.text()).not.toContain('@ejemplo.com')
+    }
+  })
+
+  it('un administrador descarga la planilla con todas las inscripciones', async () => {
+    const r = await exportar(admin)
+    expect(r.status).toBe(200)
+    expect(r.headers.get('content-type')).toBe('text/csv; charset=utf-8')
+    expect(r.headers.get('content-disposition')).toMatch(
+      /^attachment; filename="inscripciones-summit-\d{4}-\d{2}-\d{2}\.csv"$/,
+    )
+    expect(r.headers.get('cache-control')).toBe('no-store')
+    const csv = await r.text()
+    const total = (await payload.count({ collection: 'inscripciones-summit' })).totalDocs
+    expect(total).toBeGreaterThan(0)
+    expect(csv.trim().split('\r\n')).toHaveLength(total + 1)
+    expect(csv).toContain('completa@ejemplo.com')
   })
 })

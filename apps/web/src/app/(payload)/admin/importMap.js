@@ -31,6 +31,7 @@ import { BotonPublicar as BotonPublicar_95ff6efbee45f8312f974e2be8a0b9a2 } from 
 import { BotonDespublicar as BotonDespublicar_95ff6efbee45f8312f974e2be8a0b9a2 } from '@/components/admin/BotonesWorkflow'
 import { FixedToolbarFeatureClient as FixedToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { BlocksFeatureClient as BlocksFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
+import { ExportarInscripciones as ExportarInscripciones_95b73dc5c3d75e05486e962282a38164 } from '@/components/admin/ExportarInscripciones'
 import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
 import { S3ClientUploadHandler as S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24 } from '@payloadcms/storage-s3/client'
 
@@ -69,6 +70,7 @@ export const importMap = {
   "@/components/admin/BotonesWorkflow#BotonDespublicar": BotonDespublicar_95ff6efbee45f8312f974e2be8a0b9a2,
   "@payloadcms/richtext-lexical/client#FixedToolbarFeatureClient": FixedToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@payloadcms/richtext-lexical/client#BlocksFeatureClient": BlocksFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "@/components/admin/ExportarInscripciones#ExportarInscripciones": ExportarInscripciones_95b73dc5c3d75e05486e962282a38164,
   "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1,
   "@payloadcms/storage-s3/client#S3ClientUploadHandler": S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24
 }

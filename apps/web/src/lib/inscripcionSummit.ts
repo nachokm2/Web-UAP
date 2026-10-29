@@ -1,5 +1,6 @@
 // Reglas de la inscripción al V Summit Internacional UAP 2026: lista de países, validación de los
-// datos del formulario y límite de envíos. Sin dependencias del servidor, para poder probarlo solo.
+// datos del formulario, límite de envíos, correo de aviso al equipo y planilla para Excel. Sin
+// dependencias del servidor, para poder probarlo solo.
 
 /** Códigos ISO 3166-1 de los países; el nombre en español sale de Intl.DisplayNames. */
 const CODIGOS_PAIS = (
@@ -117,4 +118,91 @@ export function crearLimitador(maximo: number, ventanaMs: number) {
       for (const [k, v] of registro) if (v.every((t) => ahora - t >= ventanaMs)) registro.delete(k)
     return true
   }
+}
+
+/** Una inscripción guardada: lo que hace falta para avisar y para exportar. */
+export type FilaInscripcion = {
+  nombre: string
+  apellido: string
+  empresa?: string | null
+  email: string
+  telefono?: string | null
+  pais: string
+  createdAt: string
+}
+
+/** Fecha y hora de Asunción, como "29/10/2026 10:15". */
+export function fechaHoraAsuncion(iso: string): string {
+  const fecha = new Date(iso)
+  if (Number.isNaN(fecha.getTime())) return ''
+  const p = Object.fromEntries(
+    new Intl.DateTimeFormat('es-PY', {
+      timeZone: 'America/Asuncion',
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      hourCycle: 'h23',
+    })
+      .formatToParts(fecha)
+      .map((x) => [x.type, x.value]),
+  )
+  return `${p.day}/${p.month}/${p.year} ${p.hour}:${p.minute}`
+}
+
+/** Correo de aviso al equipo por una inscripción nueva (texto plano). */
+export function avisoDeInscripcion(
+  f: FilaInscripcion,
+  total: number,
+  evento: string,
+  urlPanel: string,
+): { subject: string; text: string } {
+  const nombre = `${f.nombre} ${f.apellido}`
+  return {
+    subject: `Nueva inscripción al ${evento}: ${nombre}`,
+    text: [
+      `Se inscribió una persona al ${evento}.`,
+      '',
+      `Nombre: ${nombre}`,
+      `Empresa / Institución: ${f.empresa || '—'}`,
+      `Correo: ${f.email}`,
+      `Teléfono: ${f.telefono || '—'}`,
+      `País: ${f.pais}`,
+      `Fecha: ${fechaHoraAsuncion(f.createdAt)} (hora de Asunción)`,
+      '',
+      `Inscripciones hasta ahora: ${total}`,
+      `Verlas todas o descargarlas en Excel: ${urlPanel}`,
+      '',
+      'Si respondés este correo, la respuesta le llega a la persona inscripta.',
+    ].join('\n'),
+  }
+}
+
+const COLUMNAS_CSV: [string, (f: FilaInscripcion) => string][] = [
+  ['Nombre', (f) => f.nombre],
+  ['Apellido', (f) => f.apellido],
+  ['Empresa / Institución', (f) => f.empresa ?? ''],
+  ['Correo electrónico', (f) => f.email],
+  ['Teléfono', (f) => f.telefono ?? ''],
+  ['País', (f) => f.pais],
+  ['Fecha de inscripción', (f) => fechaHoraAsuncion(f.createdAt)],
+]
+
+/**
+ * Celda de CSV. Un texto que empieza con =, +, - o @ Excel lo toma como fórmula: se le antepone un
+ * apóstrofo (por eso un teléfono "+595…" sale "'+595…"). Comillas, ";" y saltos van entre comillas.
+ */
+function celdaCsv(valor: string): string {
+  const seguro = /^[=+\-@\t\r]/.test(valor) ? `'${valor}` : valor
+  return /[";\r\n]/.test(seguro) ? `"${seguro.replace(/"/g, '""')}"` : seguro
+}
+
+/** Planilla de inscripciones para Excel en español: separador ";" y BOM para que respete los acentos. */
+export function inscripcionesACsv(filas: FilaInscripcion[]): string {
+  const lineas = [
+    COLUMNAS_CSV.map(([titulo]) => titulo),
+    ...filas.map((f) => COLUMNAS_CSV.map(([, valor]) => valor(f))),
+  ]
+  return `﻿${lineas.map((l) => l.map(celdaCsv).join(';')).join('\r\n')}\r\n`
 }

@@ -20,6 +20,7 @@ import { Auditoria, Redirecciones } from './collections/sistema'
 import { Categorias, Facultades, Sedes } from './collections/taxonomias'
 import { Usuarios } from './collections/Usuarios'
 import { Configuracion } from './globals/Configuracion'
+import { adaptadorDeCorreo } from './lib/correo'
 import { invalidarCacheAlCambiar } from './lib/pluginCache'
 
 const filename = fileURLToPath(import.meta.url)
@@ -73,6 +74,8 @@ export default buildConfig({
     push: process.env.NODE_ENV !== 'production' && process.env.PAYLOAD_DB_PUSH !== 'false',
   }),
   sharp,
+  // Solo con SMTP configurado (lib/correo.ts): avisos de inscripción y recuperación de contraseña.
+  email: adaptadorDeCorreo(),
   graphQL: { disable: true },
   // Las cookies de sesión solo se aceptan desde el propio sitio.
   csrf: [siteUrl],
