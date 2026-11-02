@@ -38,7 +38,14 @@ const DIAPOSITIVAS: Diapositiva[] = [
     titulo: 'La nueva era del trabajo y el talento',
     texto: '19 de noviembre de 2026 · Hotel Sheraton Asunción',
     accion: 'Conocé el Summit e inscribite',
-    // Reutiliza el banner de la landing del Summit; toda la imagen enlaza al evento.
+    // La fecha, el lugar y el botón se dibujan sobre el banner, igual que en la landing.
+    superposicion: {
+      fecha: '19 de noviembre de 2026',
+      lugar: 'Hotel Sheraton Asunción, Asunción',
+      accion: 'Inscríbete para asistir al evento',
+      href: '/summit-internacional-uap2026/#inscripcion',
+    },
+    // Reutiliza el banner de la landing del Summit; la imagen enlaza al evento.
     imagen: {
       src: '/images/summit-2026/banner-escritorio.jpg',
       alt: 'V Summit Internacional UAP 2026: La nueva era del trabajo y el talento. 19 de noviembre de 2026, Hotel Sheraton Asunción.',

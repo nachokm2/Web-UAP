@@ -21,6 +21,8 @@ export type Diapositiva = {
   /** Banner propio: la diapositiva muestra solo esta imagen (con su texto incluido) y tapa el video.
    *  `movil` es la versión vertical para pantallas angostas (hasta 640 px). */
   imagen?: { src: string; alt: string; movil?: string }
+  /** Datos y llamada a la acción sobre un banner de evento (sin modificar la imagen). */
+  superposicion?: { fecha: string; lugar: string; accion: string; href: string }
 }
 
 const INTERVALO_MS = 5000
@@ -80,12 +82,27 @@ export function CarruselPortada({ diapositivas, children }: Props) {
             onFocus={() => setActual(i)}
           >
             {d.imagen ? (
-              <Link href={d.href} className={d.imagen.movil ? 'hero-slide-banner hero-slide-banner--con-movil' : 'hero-slide-banner'}>
-                <Image src={d.imagen.src} alt={d.imagen.alt} fill sizes="(max-width: 1920px) 100vw, 1920px" className="hero-slide-banner__foto hero-slide-banner__foto--escritorio" />
-                {d.imagen.movil && (
-                  <Image src={d.imagen.movil} alt={d.imagen.alt} fill sizes="640px" className="hero-slide-banner__foto hero-slide-banner__foto--movil" />
-                )}
-              </Link>
+              d.superposicion ? (
+                <div className="hero-slide-banner hero-slide-banner--con-info">
+                  <Link href={d.href} className="hero-slide-banner__imagen" aria-label={`Conocer ${d.insignia}`}>
+                    <Image src={d.imagen.src} alt={d.imagen.alt} fill sizes="(max-width: 1920px) 100vw, 1920px" className="hero-slide-banner__foto hero-slide-banner__foto--escritorio" />
+                  </Link>
+                  <div className="hero-slide-banner__info">
+                    <p className="hero-slide-banner__fecha">{d.superposicion.fecha}</p>
+                    <p className="hero-slide-banner__lugar">{d.superposicion.lugar}</p>
+                    <Link href={d.superposicion.href} className="hero-slide-banner__cta">
+                      {d.superposicion.accion}
+                    </Link>
+                  </div>
+                </div>
+              ) : (
+                <Link href={d.href} className={d.imagen.movil ? 'hero-slide-banner hero-slide-banner--con-movil' : 'hero-slide-banner'}>
+                  <Image src={d.imagen.src} alt={d.imagen.alt} fill sizes="(max-width: 1920px) 100vw, 1920px" className="hero-slide-banner__foto hero-slide-banner__foto--escritorio" />
+                  {d.imagen.movil && (
+                    <Image src={d.imagen.movil} alt={d.imagen.alt} fill sizes="640px" className="hero-slide-banner__foto hero-slide-banner__foto--movil" />
+                  )}
+                </Link>
+              )
             ) : (
               <Link href={d.href}>
                 <div className="hero-slide-content">
