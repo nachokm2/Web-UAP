@@ -33,6 +33,18 @@ const DIAPOSITIVAS: Diapositiva[] = [
     accion: 'Explorar Carreras',
   },
   {
+    href: '/summit-internacional-uap2026/',
+    insignia: 'V Summit Internacional UAP 2026',
+    titulo: 'La nueva era del trabajo y el talento',
+    texto: '19 de noviembre de 2026 · Hotel Sheraton Asunción',
+    accion: 'Conocé el Summit e inscribite',
+    // Reutiliza el banner de la landing del Summit; toda la imagen enlaza al evento.
+    imagen: {
+      src: '/images/summit-2026/banner-escritorio.jpg',
+      alt: 'V Summit Internacional UAP 2026: La nueva era del trabajo y el talento. 19 de noviembre de 2026, Hotel Sheraton Asunción.',
+    },
+  },
+  {
     href: SITIO.inscripcion,
     insignia: 'Matrículas 2026',
     claseInsignia: 'inicio-insignia--matriculas',
