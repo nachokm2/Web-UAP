@@ -85,7 +85,8 @@ export function CarruselPortada({ diapositivas, children }: Props) {
               d.superposicion ? (
                 <div className="hero-slide-banner hero-slide-banner--con-info">
                   <Link href={d.href} className="hero-slide-banner__imagen" aria-label={`Conocer ${d.insignia}`}>
-                    <Image src={d.imagen.src} alt={d.imagen.alt} fill sizes="(max-width: 1920px) 100vw, 1920px" className="hero-slide-banner__foto hero-slide-banner__foto--escritorio" />
+                    {/* En móvil la foto se muestra corrida y a ~1350px de ancho: pedir siempre la versión de 1920px evita que se vea borrosa. */}
+                    <Image src={d.imagen.src} alt={d.imagen.alt} fill sizes="1920px" className="hero-slide-banner__foto hero-slide-banner__foto--escritorio" />
                   </Link>
                   <div className="hero-slide-banner__info">
                     <p className="hero-slide-banner__fecha">{d.superposicion.fecha}</p>
