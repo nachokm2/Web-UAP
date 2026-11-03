@@ -86,9 +86,10 @@
   display: block;
   background: transparent;
 }
+/* Alineada a la izquierda: el título dibujado en la imagen queda siempre fuera del texto superpuesto. */
 .hero-clean .carousel-slide .hero-slide-banner--con-info .hero-slide-banner__foto {
   object-fit: cover;
-  object-position: center;
+  object-position: left center;
 }
 .hero-clean .carousel-slide .hero-slide-banner__info {
   position: absolute;
@@ -161,28 +162,37 @@
   }
 }
 @media (max-width: 768px) {
-  /* En móvil, el texto sigue SUPERPUESTO sobre la foto, con degradado para leerlo. */
+  /* En móvil el texto sigue SUPERPUESTO sobre la foto: fecha y lugar arriba del título dibujado
+     y el botón justo debajo. La foto se corre para que el recuadro del título quede a 16px del borde
+     (el alto del carrusel es 440px y la imagen mide 1920x600, así que el título empieza en 567px * 440/600). */
   .hero-clean .carousel-slide .hero-slide-banner__imagen {
     inset: 0;
     height: 100%;
   }
   .hero-clean .carousel-slide .hero-slide-banner--con-info .hero-slide-banner__foto {
     object-fit: cover;
-    object-position: 60% center;
+    object-position: -400px center;
   }
   .hero-clean .carousel-slide .hero-slide-banner__info {
-    inset: auto 0 0;
+    inset: 0;
     width: 100%;
-    padding: 56px 18px 47px;
-    gap: 5px;
-    background: linear-gradient(to bottom, transparent, rgba(2, 33, 66, .92) 40%);
+    padding: 16px 16px 40px;
+    gap: 2px;
+    justify-content: flex-start;
+    background: linear-gradient(to bottom, rgba(2, 33, 66, .55), transparent 90px);
   }
-  .hero-clean .carousel-slide .hero-slide-banner__fecha { font-size: 1.15rem; }
-  .hero-clean .carousel-slide .hero-slide-banner__lugar { font-size: .9rem; }
+  .hero-clean .carousel-slide .hero-slide-banner__fecha { font-size: 1.1rem; }
+  .hero-clean .carousel-slide .hero-slide-banner__lugar { font-size: .85rem; }
   .hero-clean .carousel-slide a.hero-slide-banner__cta {
     padding: 10px 14px;
-    margin-top: 8px;
+    margin-top: auto;
     font-size: .85rem;
+  }
+}
+@media (max-width: 480px) {
+  /* Con 420px de alto (567px * 420/600) el título empieza 19px antes. */
+  .hero-clean .carousel-slide .hero-slide-banner--con-info .hero-slide-banner__foto {
+    object-position: -381px center;
   }
 }
 .hero-slide-content {
