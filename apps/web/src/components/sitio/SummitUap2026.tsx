@@ -70,7 +70,7 @@ const EXPOSITORES: Record<string, Expositor> = {
   },
   battistoni: {
     id: 'battistoni',
-    nombre: 'Mariano Battistoni',
+    nombre: 'Mariano Battistotti',
     cargo: 'Regional HR Director',
     institucion: 'SkyTel',
     pais: 'Argentina',
