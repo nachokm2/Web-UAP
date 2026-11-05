@@ -21,7 +21,7 @@ concurrency:
 jobs:
   verificar:
     name: Tipos, lint, tests, build y E2E
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04  # Playwright aún no soporta ubuntu-26.04 (ubuntu-latest desde nov-2026)
     timeout-minutes: 30
     defaults:
       run:
