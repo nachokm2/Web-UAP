@@ -4,6 +4,7 @@ import * as migration_20261005_230949_campos_almacenamiento_s3 from './20261005_
 import * as migration_20261006_171954_autoridades from './20261006_171954_autoridades';
 import * as migration_20261006_205213_formularios from './20261006_205213_formularios';
 import * as migration_20261028_205732_inscripciones_summit from './20261028_205732_inscripciones_summit';
+import * as migration_20261110_150631_eventos from './20261110_150631_eventos';
 
 export const migrations = [
   {
@@ -34,6 +35,11 @@ export const migrations = [
   {
     up: migration_20261028_205732_inscripciones_summit.up,
     down: migration_20261028_205732_inscripciones_summit.down,
-    name: '20261028_205732_inscripciones_summit'
+    name: '20261028_205732_inscripciones_summit',
+  },
+  {
+    up: migration_20261110_150631_eventos.up,
+    down: migration_20261110_150631_eventos.down,
+    name: '20261110_150631_eventos'
   },
 ];

@@ -5,7 +5,7 @@ import config from '@payload-config'
 import { getPayload } from 'payload'
 
 import { normalizarSlug } from '@/fields/slug'
-import type { Autoridad, Carrera, Configuracion, Documento, Facultad, FormularioPostulacion, Noticia, Posgrado } from '@/payload-types'
+import type { Autoridad, Carrera, Configuracion, Documento, Evento, Facultad, FormularioPostulacion, Noticia, Posgrado } from '@/payload-types'
 
 import { enCache } from './cache'
 
@@ -117,6 +117,25 @@ export const listarReglamentos = () =>
     })
     return docs as Documento[]
   })
+
+export type EventoPublicado =
+  | { estado: 'publicado'; evento: Evento }
+  /** Existe en el CMS pero no está publicado (borrador o retirado): la página no se muestra. */
+  | { estado: 'oculto'; evento: null }
+  /** Todavía no se cargó en el CMS: la página usa su contenido de respaldo. */
+  | { estado: 'sin_cargar'; evento: null }
+
+/** Evento por dirección, con expositores, programa e imágenes poblados. */
+export const obtenerEvento = async (slug: string): Promise<EventoPublicado> =>
+  !slugValido(slug)
+    ? { estado: 'sin_cargar', evento: null }
+    : enCache(`evento:${slug}`, ['eventos', 'expositores', 'medios'], async (): Promise<EventoPublicado> => {
+        const p = await payload()
+        const { docs } = await p.find({ collection: 'eventos', where: { slug: { equals: slug } }, ...publico, depth: 2, limit: 1 })
+        if (docs[0]) return { estado: 'publicado', evento: docs[0] as Evento }
+        const { totalDocs } = await p.count({ collection: 'eventos', where: { slug: { equals: slug } }, overrideAccess: true })
+        return { estado: totalDocs > 0 ? 'oculto' : 'sin_cargar', evento: null }
+      })
 
 /** Para el sitemap: todo lo publicado con su última modificación. */
 export const listarParaSitemap = () =>

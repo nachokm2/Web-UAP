@@ -12,6 +12,8 @@ import sharp from 'sharp'
 import { Autoridades } from './collections/Autoridades'
 import { Carreras } from './collections/Carreras'
 import { Documentos, LIMITE_PDF_MB, Medios } from './collections/archivos'
+import { Eventos } from './collections/Eventos'
+import { Expositores } from './collections/Expositores'
 import { Formularios } from './collections/Formularios'
 import { InscripcionesSummit } from './collections/InscripcionesSummit'
 import { Noticias } from './collections/Noticias'
@@ -58,6 +60,8 @@ export default buildConfig({
     Sedes,
     Autoridades,
     Formularios,
+    Eventos,
+    Expositores,
     InscripcionesSummit,
     Redirecciones,
     Usuarios,
