@@ -11,7 +11,7 @@ export async function register() {
 
   void (async () => {
     try {
-      const [{ getPayload }, { default: config }, { sembrarSummit }] = await Promise.all([
+      const [{ getPayload }, { default: config }, { repararImagenesSummit, sembrarSummit }] = await Promise.all([
         import('payload'),
         import('@payload-config'),
         import('@/lib/eventos/sembrar'),
@@ -19,6 +19,8 @@ export async function register() {
       const payload = await getPayload({ config })
       const resultado = await sembrarSummit(payload)
       if (resultado === 'creado') console.log('[eventos] Contenido inicial del Summit cargado en el CMS.')
+      const reparadas = await repararImagenesSummit(payload)
+      if (reparadas > 0) console.log(`[eventos] Se repararon ${reparadas} imágenes del Summit que habían quedado mal en el almacenamiento.`)
     } catch (error) {
       console.error(
         '[eventos] No se pudo cargar el contenido inicial del Summit:',

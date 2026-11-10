@@ -1,13 +1,17 @@
 // Eventos contra PostgreSQL real: carga inicial del Summit, permisos por rol, borradores
 // ocultos al público y que el contenido cargado en el CMS equivale al de respaldo en código.
 
+import crypto from 'node:crypto'
+import fs from 'node:fs'
+import path from 'node:path'
+
 import type { Payload } from 'payload'
 import { beforeAll, describe, expect, it } from 'vitest'
 
 import { limpiarCacheCompleta } from '@/lib/cache'
 import { obtenerEvento } from '@/lib/datos'
 import { CONTENIDO_SUMMIT, SLUG_SUMMIT } from '@/lib/eventos/contenidoSummit'
-import { sembrarSummit } from '@/lib/eventos/sembrar'
+import { repararImagenesSummit, sembrarSummit } from '@/lib/eventos/sembrar'
 import { vistaDesdeCms, vistaDesdeContenido, type EventoVista } from '@/lib/eventos/vista'
 import type { Evento, Usuario } from '@/payload-types'
 
@@ -68,6 +72,18 @@ describe('Carga inicial del Summit', () => {
       overrideAccess: true,
     })
     expect(medios.totalDocs).toBe(archivos.size)
+  })
+
+  it('las imágenes de la carga llevan la marca de versión corregida', async () => {
+    const medios = await payload.find({
+      collection: 'medios',
+      where: { origen: { like: '#v2' } },
+      limit: 100,
+      depth: 0,
+      overrideAccess: true,
+    })
+    expect(medios.totalDocs).toBeGreaterThan(0)
+    expect(await repararImagenesSummit(payload)).toBe(0)
   })
 
   it('es idempotente: una segunda carga no duplica nada', async () => {
@@ -191,5 +207,32 @@ describe('Visibilidad para el público', () => {
     expect((await obtenerEvento('evento-en-borrador')).estado).toBe('oculto')
     expect((await obtenerEvento('no-existe-este-evento')).estado).toBe('sin_cargar')
     expect((await obtenerEvento(SLUG_SUMMIT)).estado).toBe('publicado')
+  })
+})
+
+describe('Reparación de imágenes cargadas con el defecto anterior', () => {
+  const md5 = (b: Buffer) => crypto.createHash('md5').update(b).digest('hex')
+  const carpeta = path.join(process.cwd(), 'public', 'images', 'summit-2026')
+
+  it('vuelve a subir el original correcto, deja la marca y no se repite', async () => {
+    // Estado de producción antes del arreglo: una imagen cuyo contenido es OTRO archivo y sin marca.
+    const mala = await payload.create({
+      collection: 'medios',
+      data: { alt: 'Logo GAN (mal subido)', origen: 'semilla:summit-2026/logo-gan.jpg' },
+      filePath: path.join(carpeta, 'carlos-ruffinelli.jpg'),
+      overrideAccess: true,
+    })
+    const guardado = (filename: string) => md5(fs.readFileSync(path.join(process.cwd(), 'medios', filename)))
+    const original = md5(fs.readFileSync(path.join(carpeta, 'logo-gan.jpg')))
+    expect(guardado(mala.filename as string)).not.toBe(original)
+
+    expect(await repararImagenesSummit(payload)).toBe(1)
+
+    const reparada = await payload.findByID({ collection: 'medios', id: mala.id, depth: 0, overrideAccess: true })
+    expect(String(reparada.origen).endsWith('#v2')).toBe(true)
+    expect(guardado(reparada.filename as string)).toBe(original)
+    expect(reparada.alt).toBe('Logo GAN (mal subido)')
+
+    expect(await repararImagenesSummit(payload)).toBe(0)
   })
 })

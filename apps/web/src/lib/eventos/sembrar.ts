@@ -13,8 +13,13 @@ import { CONTEXTO_ACTOR } from '@/audit/hooks'
 import { CARPETA_IMAGENES_SUMMIT, CONTENIDO_SUMMIT, type ContenidoEvento } from './contenidoSummit'
 
 const ACTOR = 'Carga inicial del Summit'
-const contexto = { [CONTEXTO_ACTOR]: ACTOR }
+// Un objeto NUEVO por cada operación: Payload usa req.context para pasar datos entre sus hooks de
+// subida, y compartirlo entre varias subidas hacía que el almacenamiento S3 guardara el contenido de
+// la primera imagen para todas las demás (probado con un S3 falso local).
+const contexto = () => ({ [CONTEXTO_ACTOR]: ACTOR })
 const PREFIJO_ORIGEN = 'semilla:summit-2026/'
+/** Marca en `origen` de las imágenes subidas con el contexto corregido (las anteriores quedaron mal en S3). */
+const MARCA_OK = '#v2'
 
 export type ResultadoCarga = 'creado' | 'ya_existia'
 
@@ -35,6 +40,43 @@ function textoAlternativo(c: ContenidoEvento): Map<string, string> {
 
 const formatoCorto = (c: ContenidoEvento) => `${c.fechaIso.split('-').reverse().join('/')}, ${c.lugar}`
 
+const rutaDelArchivo = (raiz: string, archivo: string) =>
+  path.join(raiz, 'public', ...CARPETA_IMAGENES_SUMMIT.split('/').filter(Boolean), archivo)
+
+/**
+ * Repara las imágenes del Summit subidas con el defecto anterior (un único objeto de contexto
+ * compartido): en S3 quedaron todas con el contenido de la primera. Vuelve a subir el original desde
+ * /public y deja la marca para no repetirlo. Devuelve cuántas reparó; si no hay ninguna, no hace nada.
+ */
+export async function repararImagenesSummit(payload: Payload, raiz: string = process.cwd()): Promise<number> {
+  const { docs } = await payload.find({
+    collection: 'medios',
+    where: { origen: { like: PREFIJO_ORIGEN } },
+    limit: 200,
+    depth: 0,
+    overrideAccess: true,
+  })
+  let reparadas = 0
+  // El filtro se hace acá: `not_like` de Payload no excluye las ya marcadas.
+  for (const m of docs.filter((d) => !String(d.origen).endsWith(MARCA_OK))) {
+    const archivo = String(m.origen).slice(PREFIJO_ORIGEN.length)
+    try {
+      await payload.update({
+        collection: 'medios',
+        id: m.id,
+        data: { origen: `${m.origen}${MARCA_OK}` },
+        filePath: rutaDelArchivo(raiz, archivo),
+        overrideAccess: true,
+        context: contexto(),
+      })
+      reparadas += 1
+    } catch (error) {
+      console.error(`[eventos] No se pudo reparar la imagen ${archivo}:`, error instanceof Error ? error.message : error)
+    }
+  }
+  return reparadas
+}
+
 export async function sembrarSummit(payload: Payload, raiz: string = process.cwd()): Promise<ResultadoCarga> {
   const c = CONTENIDO_SUMMIT
   const existente = await payload.count({
@@ -49,7 +91,7 @@ export async function sembrarSummit(payload: Payload, raiz: string = process.cwd
   const subir = async (archivo: string): Promise<number> => {
     const ya = medios.get(archivo)
     if (ya) return ya
-    const origen = `${PREFIJO_ORIGEN}${archivo}`
+    const origen = `${PREFIJO_ORIGEN}${archivo}${MARCA_OK}`
     const previo = await payload.find({
       collection: 'medios',
       where: { origen: { equals: origen } },
@@ -63,9 +105,9 @@ export async function sembrarSummit(payload: Payload, raiz: string = process.cwd
         await payload.create({
           collection: 'medios',
           data: { alt: alts.get(archivo) ?? archivo, origen },
-          filePath: path.join(raiz, 'public', ...CARPETA_IMAGENES_SUMMIT.split('/').filter(Boolean), archivo),
+          filePath: rutaDelArchivo(raiz, archivo),
           overrideAccess: true,
-          context: contexto,
+          context: contexto(),
         })
       ).id
     medios.set(archivo, id)
@@ -95,7 +137,7 @@ export async function sembrarSummit(payload: Payload, raiz: string = process.cwd
             logo: await subir(e.logo),
           },
           overrideAccess: true,
-          context: contexto,
+          context: contexto(),
         })
       ).id
     expositores.set(e.id, id)
@@ -141,7 +183,7 @@ export async function sembrarSummit(payload: Payload, raiz: string = process.cwd
       _status: 'published',
     },
     overrideAccess: true,
-    context: contexto,
+    context: contexto(),
   })
   return 'creado'
 }
