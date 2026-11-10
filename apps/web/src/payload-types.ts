@@ -77,6 +77,8 @@ export interface Config {
     sedes: Sede;
     autoridades: Autoridad;
     formularios: FormularioPostulacion;
+    eventos: Evento;
+    expositores: Expositor;
     'inscripciones-summit': InscripcionSummit;
     redirecciones: Redireccion;
     usuarios: Usuario;
@@ -98,6 +100,8 @@ export interface Config {
     sedes: SedesSelect<false> | SedesSelect<true>;
     autoridades: AutoridadesSelect<false> | AutoridadesSelect<true>;
     formularios: FormulariosSelect<false> | FormulariosSelect<true>;
+    eventos: EventosSelect<false> | EventosSelect<true>;
+    expositores: ExpositoresSelect<false> | ExpositoresSelect<true>;
     'inscripciones-summit': InscripcionesSummitSelect<false> | InscripcionesSummitSelect<true>;
     redirecciones: RedireccionesSelect<false> | RedireccionesSelect<true>;
     usuarios: UsuariosSelect<false> | UsuariosSelect<true>;
@@ -875,6 +879,164 @@ export interface FormularioPostulacion {
   createdAt: string;
 }
 /**
+ * Contenido de la página de cada evento (textos, fecha, lugar, imágenes, expositores y programa). El diseño de la página y el formulario de inscripción no se editan acá.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "eventos".
+ */
+export interface Evento {
+  id: number;
+  nombre: string;
+  /**
+   * Ej.: "La nueva era del trabajo y el talento".
+   */
+  titulo: string;
+  /**
+   * Solo un Super Admin puede cambiarla: la landing del Summit vive en /summit-internacional-uap2026/ y cambiarla la dejaría sin página.
+   */
+  slug: string;
+  fecha: string;
+  /**
+   * 24 horas, p. ej. 08:00. Solo para los buscadores (Google Eventos).
+   */
+  horaInicio: string;
+  /**
+   * 24 horas, p. ej. 13:30.
+   */
+  horaFin: string;
+  /**
+   * Ej.: "Hotel Sheraton Asunción".
+   */
+  lugar: string;
+  ciudad: string;
+  direccion: string;
+  /**
+   * Enlace de Google Maps para el botón "Cómo llegar".
+   */
+  mapa: string;
+  /**
+   * Con el #. Ej.: #SummitParaguay2026.
+   */
+  hashtag?: string | null;
+  /**
+   * Correo de contacto y destino por defecto de los avisos de inscripción.
+   */
+  correo: string;
+  textoBoton: string;
+  /**
+   * Imagen de 1920 × 600 px con el título dibujado. La fecha, el lugar y el botón se escriben encima automáticamente: dejar libre el lado izquierdo.
+   */
+  banner: number | Medio;
+  tituloIntro: string;
+  parrafos?:
+    | {
+        texto: string;
+        id?: string | null;
+      }[]
+    | null;
+  certificacion?:
+    | {
+        nombre: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Se muestra al lado de la fecha y el lugar. Proporción de 4:3 (por ejemplo, 800 × 600 px).
+   */
+  imagenEvento?: (number | null) | Medio;
+  redes?:
+    | {
+        red: 'instagram' | 'linkedin' | 'x';
+        url: string;
+        id?: string | null;
+      }[]
+    | null;
+  organizador: {
+    nombre: string;
+    logo?: (number | null) | Medio;
+  };
+  colaboran?:
+    | {
+        nombre: string;
+        /**
+         * Opcional. A dónde lleva el logo.
+         */
+        url?: string | null;
+        logo: number | Medio;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Se muestran en este orden. Para agregar a alguien nuevo, cárguelo primero en Eventos → Expositores y elíjalo acá.
+   */
+  expositores?: (number | Expositor)[] | null;
+  /**
+   * En el orden en que se muestran. Se pueden arrastrar para reordenar.
+   */
+  programa?:
+    | {
+        /**
+         * 24 horas, p. ej. 09:15.
+         */
+        hora: string;
+        titulo: string;
+        /**
+         * Opcional. Ej.: "Modera" o "Panelistas".
+         */
+        rol?: string | null;
+        /**
+         * Opcional. Ej.: "Modera: Fundación Internacional ORP".
+         */
+        nota?: string | null;
+        personas?: (number | Expositor)[] | null;
+        id?: string | null;
+      }[]
+    | null;
+  comites?:
+    | {
+        titulo: string;
+        imagen: number | Medio;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Opcional. Es el texto que aparece bajo el título en Google. Si se deja vacío, se arma sola con el nombre, el lema, la fecha y el lugar.
+   */
+  descripcionSeo?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * Personas que participan en los eventos. Se cargan una sola vez y se eligen en cada evento (lista de expositores y programa).
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "expositores".
+ */
+export interface Expositor {
+  id: number;
+  /**
+   * Con el título, como se publica (p. ej. "Dr. Teodoro Ribera").
+   */
+  nombre: string;
+  cargo: string;
+  institucion: string;
+  /**
+   * Opcional. Si se deja vacío no se muestra.
+   */
+  pais?: string | null;
+  /**
+   * Foto cuadrada o casi cuadrada, de frente. Se muestra en círculo.
+   */
+  foto?: (number | null) | Medio;
+  /**
+   * Se muestra debajo de la tarjeta del expositor. Si se deja vacío no se muestra.
+   */
+  logo?: (number | null) | Medio;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * Personas que se inscribieron para asistir al V Summit Internacional UAP 2026 desde el formulario de la landing. Solo lectura: las inscripciones llegan desde el sitio.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1048,6 +1210,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'formularios';
         value: number | FormularioPostulacion;
+      } | null)
+    | ({
+        relationTo: 'eventos';
+        value: number | Evento;
+      } | null)
+    | ({
+        relationTo: 'expositores';
+        value: number | Expositor;
       } | null)
     | ({
         relationTo: 'inscripciones-summit';
@@ -1431,6 +1601,97 @@ export interface FormulariosSelect<T extends boolean = true> {
   bitrixFormulario?: T;
   bitrixLoaderUrl?: T;
   activo?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "eventos_select".
+ */
+export interface EventosSelect<T extends boolean = true> {
+  nombre?: T;
+  titulo?: T;
+  slug?: T;
+  fecha?: T;
+  horaInicio?: T;
+  horaFin?: T;
+  lugar?: T;
+  ciudad?: T;
+  direccion?: T;
+  mapa?: T;
+  hashtag?: T;
+  correo?: T;
+  textoBoton?: T;
+  banner?: T;
+  tituloIntro?: T;
+  parrafos?:
+    | T
+    | {
+        texto?: T;
+        id?: T;
+      };
+  certificacion?:
+    | T
+    | {
+        nombre?: T;
+        id?: T;
+      };
+  imagenEvento?: T;
+  redes?:
+    | T
+    | {
+        red?: T;
+        url?: T;
+        id?: T;
+      };
+  organizador?:
+    | T
+    | {
+        nombre?: T;
+        logo?: T;
+      };
+  colaboran?:
+    | T
+    | {
+        nombre?: T;
+        url?: T;
+        logo?: T;
+        id?: T;
+      };
+  expositores?: T;
+  programa?:
+    | T
+    | {
+        hora?: T;
+        titulo?: T;
+        rol?: T;
+        nota?: T;
+        personas?: T;
+        id?: T;
+      };
+  comites?:
+    | T
+    | {
+        titulo?: T;
+        imagen?: T;
+        id?: T;
+      };
+  descripcionSeo?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "expositores_select".
+ */
+export interface ExpositoresSelect<T extends boolean = true> {
+  nombre?: T;
+  cargo?: T;
+  institucion?: T;
+  pais?: T;
+  foto?: T;
+  logo?: T;
   updatedAt?: T;
   createdAt?: T;
 }

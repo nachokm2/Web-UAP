@@ -10,8 +10,9 @@ import { headers } from 'next/headers'
 import { after } from 'next/server'
 import { getPayload, type Payload } from 'payload'
 
-import { SUMMIT } from '@/components/sitio/SummitUap2026'
 import { correoConfigurado, listaDeCorreos } from '@/lib/correo'
+import { obtenerEvento } from '@/lib/datos'
+import { CONTENIDO_SUMMIT, SLUG_SUMMIT } from '@/lib/eventos/contenidoSummit'
 import {
   avisoDeInscripcion,
   crearLimitador,
@@ -101,6 +102,17 @@ export async function inscribirse(
   }
 }
 
+/** Nombre y correo del evento según el CMS; si no se pueden leer, los del contenido de respaldo. */
+async function datosDelEvento(): Promise<{ nombre: string; correo: string }> {
+  try {
+    const { evento } = await obtenerEvento(SLUG_SUMMIT)
+    if (evento) return { nombre: evento.nombre, correo: evento.correo }
+  } catch {
+    // Sin evento en el CMS: se usan los datos de respaldo.
+  }
+  return { nombre: CONTENIDO_SUMMIT.nombre, correo: CONTENIDO_SUMMIT.correo }
+}
+
 /**
  * Correo al equipo del evento: a SUMMIT_AVISO_PARA (correos separados por coma) o, si no está, al
  * correo del Summit. Si falla, la inscripción ya quedó guardada: se registra solo el motivo.
@@ -109,14 +121,15 @@ async function avisarAlEquipo(payload: Payload, inscripcion: FilaInscripcion) {
   if (!correoConfigurado()) return
   const para = listaDeCorreos(process.env.SUMMIT_AVISO_PARA)
   try {
+    const evento = await datosDelEvento()
     const { totalDocs } = await payload.count({ collection: 'inscripciones-summit' })
     await payload.sendEmail({
-      to: para.length ? para : SUMMIT.correo,
+      to: para.length ? para : evento.correo,
       replyTo: { name: `${inscripcion.nombre} ${inscripcion.apellido}`, address: inscripcion.email },
       ...avisoDeInscripcion(
         inscripcion,
         totalDocs,
-        SUMMIT.nombre,
+        evento.nombre,
         urlAbsoluta('/admin/collections/inscripciones-summit'),
       ),
     })

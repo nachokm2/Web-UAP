@@ -1,2 +1,5 @@
 infra/respaldo/*.sh text eol=lf
 apps/web/scripts/migracion/*.sh text eol=lf
+# Archivos que genera Payload solos: GitHub los pliega en los PR (se pueden desplegar con un clic).
+apps/web/src/migrations/*.json linguist-generated=true
+apps/web/src/payload-types.ts linguist-generated=true

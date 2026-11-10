@@ -38,6 +38,23 @@ Para cargar el contenido del sitio anterior, ver [Migración de contenido](#migr
 | `scripts/migracion/` | Importación del sitio anterior |
 | `tests/` | Unitarios, integración (PostgreSQL real) y E2E (navegador) |
 
+## Eventos (landing del Summit)
+
+El contenido de la landing del V Summit Internacional (`/summit-internacional-uap2026/`) se edita en el
+CMS, en el grupo **Eventos**: la ficha del evento (textos, fecha, lugar, imágenes, programa, comités) y los
+**Expositores** (se cargan una vez y se eligen en la lista de expositores y en el programa). Lo puede
+editar y publicar el rol Administrador; la dirección de la página solo la cambia un Super Admin.
+
+- Lo que **no** se edita en el CMS: la estructura y el diseño de la página (`SummitUap2026.tsx`, `summit-2026.css`)
+  y el formulario de inscripción (`FormularioSummit.tsx`, sus campos y los correos de aviso).
+- **Primera carga:** al iniciar el servidor, `instrumentation.ts` ejecuta `lib/eventos/sembrar.ts`, que sube las
+  imágenes de `public/images/summit-2026`, crea los expositores y el evento con el contenido de
+  `lib/eventos/contenidoSummit.ts`. Es idempotente (si el evento ya existe no hace nada) y corre en segundo plano.
+  Se puede desactivar con `SEMBRAR_EVENTOS=false` o ejecutar a mano desde un script.
+- **Respaldo:** mientras el evento no exista en el CMS (o si la consulta falla) la página usa
+  `contenidoSummit.ts`. Si el evento existe pero está despublicado, la página responde 404.
+- Un cambio en el panel se ve al instante: la caché de datos se invalida al guardar.
+
 ## Roles y workflow
 
 | | Super Admin | Administrador | Editor (Carreras / Postgrados / Noticias) | Solo lectura |
