@@ -2,11 +2,13 @@
 // 0. www.uap.edu.py → uap.edu.py (como el sitio anterior).
 // 1. Redirecciones del CMS (301/302) y páginas eliminadas (410), incluidas las URL del WordPress anterior.
 // 2. Barra final en las páginas, como el sitio anterior (/periodismo/).
-// 3. noindex en cualquier dominio que no sea el oficial, o en todo el sitio si NOINDEX=true
+// 3. noindex en cualquier dominio que no sea el oficial, o en todo el sitio si NOINDEX=true, y siempre
+//    en la página de agradecimiento de las campañas presenciales
 //    (entorno de pruebas: su SITE_URL es el dominio de Railway pero no debe indexarse).
 
 import { NextResponse, type NextRequest } from 'next/server'
 
+import { RUTA_GRACIAS } from '@/lib/gracias'
 import { buscarRedireccion } from '@/lib/redirecciones'
 import { dominioCanonico } from '@/lib/urls'
 
@@ -57,6 +59,8 @@ export async function proxy(req: NextRequest) {
   if (process.env.NOINDEX === 'true' || (oficial && req.headers.get('host') !== oficial)) {
     res.headers.set('X-Robots-Tag', 'noindex, nofollow')
   }
+  // Página de agradecimiento de las campañas presenciales: nunca se indexa (ver lib/gracias.ts).
+  if (pathname === RUTA_GRACIAS) res.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive')
   return res
 }
 

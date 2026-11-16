@@ -42,7 +42,8 @@ export type ErroresInscripcion = Partial<Record<CampoInscripcion, string>>
 /** Resultado del envío que usa el formulario (lo devuelve la acción del servidor). */
 export type EstadoInscripcion =
   | { estado: 'inicial' }
-  | { estado: 'ok'; nombre: string }
+  /** `nueva`: se guardó una inscripción nueva. Si falta, se descartó (robot, envío instantáneo) o el correo ya estaba. */
+  | { estado: 'ok'; nombre: string; nueva?: true }
   | {
       estado: 'error'
       mensaje?: string

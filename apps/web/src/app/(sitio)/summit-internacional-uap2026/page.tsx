@@ -12,25 +12,13 @@ import { notFound } from 'next/navigation'
 import { Breadcrumb } from '@/components/sitio/Breadcrumb'
 import { FormularioSummit } from '@/components/sitio/FormularioSummit'
 import { SummitUap2026 } from '@/components/sitio/SummitUap2026'
-import { CONTENIDO_SUMMIT, SLUG_SUMMIT } from '@/lib/eventos/contenidoSummit'
-import { datosEstructurados, descripcionDelEvento, vistaDesdeCms, vistaDesdeContenido, type EventoVista } from '@/lib/eventos/vista'
-import { obtenerEvento } from '@/lib/datos'
+import { cargarEventoSummit as cargarEvento } from '@/lib/eventos/cargar'
+import { datosEstructurados, descripcionDelEvento } from '@/lib/eventos/vista'
 import { listaDePaises } from '@/lib/inscripcionSummit'
 import { SITIO, urlAbsoluta } from '@/lib/urls'
 import '@/styles/summit-2026.css'
 
 const RUTA = '/summit-internacional-uap2026/'
-
-async function cargarEvento(): Promise<EventoVista | null> {
-  try {
-    const { estado, evento } = await obtenerEvento(SLUG_SUMMIT)
-    if (estado === 'publicado') return vistaDesdeCms(evento)
-    if (estado === 'oculto') return null
-  } catch (error) {
-    console.error('[summit] no se pudo leer el evento del CMS; se usa el contenido de respaldo:', error instanceof Error ? error.message : error)
-  }
-  return vistaDesdeContenido(CONTENIDO_SUMMIT)
-}
 
 export async function generateMetadata(): Promise<Metadata> {
   const evento = await cargarEvento()

@@ -113,7 +113,8 @@ describe('Acción inscribirse', () => {
     visitante = '10.0.1.1'
     const fd = formulario({ email: 'Completa@Ejemplo.com' })
     const r = await inscribirse({ estado: 'inicial' }, fd)
-    expect(r).toEqual({ estado: 'ok', nombre: 'Ana' })
+    // `nueva` marca una inscripción realmente guardada: el formulario redirige y cuenta la conversión solo así.
+    expect(r).toEqual({ estado: 'ok', nombre: 'Ana', nueva: true })
     const { docs } = await payload.find({
       collection: 'inscripciones-summit',
       where: { email: { equals: 'completa@ejemplo.com' } },
@@ -133,11 +134,11 @@ describe('Acción inscribirse', () => {
     const { inscribirse } = await import('@/app/(sitio)/summit-internacional-uap2026/acciones')
     visitante = '10.0.2.1'
     const fd = formulario({ email: 'repetida@ejemplo.com' })
-    expect((await inscribirse({ estado: 'inicial' }, fd)).estado).toBe('ok')
-    expect(
-      (await inscribirse({ estado: 'inicial' }, formulario({ email: 'repetida@ejemplo.com' })))
-        .estado,
-    ).toBe('ok')
+    expect(await inscribirse({ estado: 'inicial' }, fd)).toMatchObject({ estado: 'ok', nueva: true })
+    // El correo repetido se confirma igual, pero no es una inscripción nueva (no redirige ni cuenta).
+    const repetida = await inscribirse({ estado: 'inicial' }, formulario({ email: 'repetida@ejemplo.com' }))
+    expect(repetida.estado).toBe('ok')
+    expect(repetida).not.toHaveProperty('nueva')
     expect(await cantidad('repetida@ejemplo.com')).toBe(1)
   })
 
@@ -155,22 +156,19 @@ describe('Acción inscribirse', () => {
   it('los robots (campo trampa o envío instantáneo) reciben "ok" pero no se guarda nada', async () => {
     const { inscribirse } = await import('@/app/(sitio)/summit-internacional-uap2026/acciones')
     visitante = '10.0.4.1'
-    expect(
-      (
-        await inscribirse(
-          { estado: 'inicial' },
-          formulario({ email: 'bot1@ejemplo.com', sitio_web: 'http://spam' }),
-        )
-      ).estado,
-    ).toBe('ok')
-    expect(
-      (
-        await inscribirse(
-          { estado: 'inicial' },
-          formulario({ email: 'bot2@ejemplo.com', dibujado_en: String(Date.now()) }),
-        )
-      ).estado,
-    ).toBe('ok')
+    const bot1 = await inscribirse(
+      { estado: 'inicial' },
+      formulario({ email: 'bot1@ejemplo.com', sitio_web: 'http://spam' }),
+    )
+    const bot2 = await inscribirse(
+      { estado: 'inicial' },
+      formulario({ email: 'bot2@ejemplo.com', dibujado_en: String(Date.now()) }),
+    )
+    expect(bot1.estado).toBe('ok')
+    expect(bot2.estado).toBe('ok')
+    // Un descarte nunca es una conversión: sin `nueva` no hay redirección ni evento.
+    expect(bot1).not.toHaveProperty('nueva')
+    expect(bot2).not.toHaveProperty('nueva')
     expect(await cantidad('bot1@ejemplo.com')).toBe(0)
     expect(await cantidad('bot2@ejemplo.com')).toBe(0)
   })

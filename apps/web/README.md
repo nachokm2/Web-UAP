@@ -55,6 +55,24 @@ editar y publicar el rol Administrador; la dirección de la página solo la camb
   `contenidoSummit.ts`. Si el evento existe pero está despublicado, la página responde 404.
 - Un cambio en el panel se ve al instante: la caché de datos se invalida al guardar.
 
+## Página de gracias (campañas de eventos presenciales)
+
+`/gracias-evento-presencial-sb6j2g/` es la página a la que se redirige al completar la inscripción al
+Summit. Su carga es la señal de conversión para Meta (vía Google Tag Manager).
+
+- **No se indexa, no se enlaza y no está en el sitemap**: `noindex` en la página y en la cabecera
+  (`proxy.ts`), fuera del registro de rutas (`SITIO`). El sufijo de la dirección la hace difícil de adivinar.
+  No agregarla a `robots.txt` como `Disallow`: los buscadores tienen que poder leer el `noindex`.
+- **Cuándo cuenta una conversión** (`lib/gracias.ts`): solo si el formulario del Summit acaba de guardar una
+  inscripción **nueva** (marca en `sessionStorage`), o, para formularios externos como los de Bitrix24 que
+  redirijan acá, si el visitante viene de una página del sitio y no se había contado en la sesión. Los
+  envíos descartados (robot, envío instantáneo) y los correos repetidos no redirigen ni cuentan.
+- **Eventos para Tag Manager**: `lead_evento_presencial` (conversión, una vez) y `gracias_visita_directa`
+  (se abrió sin venir del formulario; no es una conversión). El evento `inscripcion_summit` del formulario
+  se mantiene tal cual.
+- El texto toma el nombre, la fecha y el lugar del evento en el CMS (si está despublicado, muestra un
+  agradecimiento general). La dirección está en `RUTA_GRACIAS`; si se cambia, actualizar también la prueba E2E.
+
 ## Roles y workflow
 
 | | Super Admin | Administrador | Editor (Carreras / Postgrados / Noticias) | Solo lectura |

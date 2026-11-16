@@ -1,0 +1,95 @@
+/* Página de agradecimiento de las campañas de eventos presenciales.
+   Usa la banda azul institucional (.page-hero), las tipografías y los colores del sitio;
+   solo agrega el ícono de confirmación y la tarjeta de contacto. */
+
+.gracias-hero {
+  text-align: center;
+  min-height: 0;
+  padding: var(--space-12) 0;
+}
+
+.gracias-hero .lead {
+  margin: var(--space-3) auto 0;
+  max-width: 560px;
+}
+
+.gracias-icono {
+  display: inline-grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  margin-bottom: var(--space-4);
+  border-radius: 50%;
+  background: #fff;
+  color: var(--color-primary);
+  box-shadow: var(--shadow-lg);
+}
+
+.gracias-tarjeta {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: var(--space-12) var(--space-8);
+  text-align: center;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.gracias-texto {
+  margin: 0 0 var(--space-8);
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+}
+
+.gracias-contacto {
+  margin: 0 0 var(--space-8);
+  padding: var(--space-6) var(--space-4);
+  background: var(--color-surface-tint);
+  border-radius: var(--radius-md);
+}
+
+.gracias-contacto h2 {
+  margin: 0 0 var(--space-3);
+  font-family: var(--font-primary);
+  font-size: 1.25rem;
+  color: var(--color-primary);
+}
+
+.gracias-contacto p {
+  margin: 0;
+  color: var(--color-text-secondary);
+}
+
+.gracias-contacto a {
+  color: var(--color-primary-light);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.gracias-contacto a:hover,
+.gracias-contacto a:focus-visible {
+  text-decoration: underline;
+}
+
+.gracias-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4) var(--space-6);
+}
+
+.gracias-enlace {
+  color: var(--color-primary);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 480px) {
+  .gracias-tarjeta {
+    padding: var(--space-8) var(--space-4);
+  }
+}

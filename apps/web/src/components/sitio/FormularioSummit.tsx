@@ -6,6 +6,7 @@
 import { useActionState, useEffect, useRef } from 'react'
 
 import { inscribirse } from '@/app/(sitio)/summit-internacional-uap2026/acciones'
+import { CLAVE_PENDIENTE, RUTA_GRACIAS } from '@/lib/gracias'
 import {
   PAIS_PREDETERMINADO,
   type CampoInscripcion,
@@ -32,13 +33,24 @@ export function FormularioSummit({ paises, detalle }: Props) {
     datos.set('dibujado_en', String(dibujadoEn.current))
     accion(datos)
   }
-  // Inscripción confirmada: evento para Tag Manager (GA4 y Meta). Sin datos personales.
+  // Inscripción nueva guardada: evento para Tag Manager (GA4 y Meta, sin datos personales) y
+  // redirección a la página de gracias, donde se dispara la conversión (lib/gracias.ts). Un descarte
+  // (robot, envío instantáneo) o un correo ya inscripto se confirma acá, sin evento ni redirección.
+  const nueva = estado.estado === 'ok' && estado.nueva === true
   useEffect(() => {
-    if (estado.estado !== 'ok') return
+    if (!nueva) return
     const w = window as Window & { dataLayer?: Record<string, unknown>[] }
     w.dataLayer = w.dataLayer ?? []
     w.dataLayer.push({ event: 'inscripcion_summit' })
-  }, [estado.estado])
+    try {
+      window.sessionStorage.setItem(CLAVE_PENDIENTE, '1')
+    } catch {
+      // Sin almacenamiento: la página de gracias decide por la procedencia.
+    }
+    // Un instante para que Tag Manager procese el evento antes de cambiar de página.
+    const espera = window.setTimeout(() => window.location.assign(RUTA_GRACIAS), 400)
+    return () => window.clearTimeout(espera)
+  }, [nueva])
 
   if (estado.estado === 'ok') {
     return (
