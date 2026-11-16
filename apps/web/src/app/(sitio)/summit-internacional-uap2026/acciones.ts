@@ -76,6 +76,7 @@ export async function inscribirse(
       where: { email: { equals: datos.email } },
     })
     // Ya inscripta con ese correo: se confirma igual y no se duplica (tampoco se revela que el correo ya existía).
+    let nueva = false
     if (totalDocs === 0) {
       const inscripcion = await payload.create({
         collection: 'inscripciones-summit',
@@ -87,8 +88,11 @@ export async function inscribirse(
       })
       // El aviso sale después de responder: la persona no espera al servidor de correo.
       after(() => avisarAlEquipo(payload, inscripcion))
+      nueva = true
     }
-    return { estado: 'ok', nombre: datos.nombre }
+    // `nueva` solo para una inscripción realmente guardada: el formulario redirige a la página de
+    // gracias y cuenta la conversión únicamente en ese caso (no con descartes ni correos repetidos).
+    return nueva ? { estado: 'ok', nombre: datos.nombre, nueva: true } : { estado: 'ok', nombre: datos.nombre }
   } catch (error) {
     // Dos envíos simultáneos con el mismo correo: el segundo choca con el índice único y es un éxito.
     const ya = await getPayload({ config })

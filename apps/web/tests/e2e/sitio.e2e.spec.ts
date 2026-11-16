@@ -23,6 +23,25 @@ async function api(page: Page, ruta: string, init?: { method?: string; body?: un
   )
 }
 
+type Evento = { event?: string }
+/** Los eventos propios de la página de gracias (Tag Manager agrega otros que no interesan). */
+const nuestros = (eventos: Evento[]) =>
+  eventos
+    .map((e) => e.event)
+    .filter((e) => e === 'lead_evento_presencial' || e === 'gracias_visita_directa' || e === 'inscripcion_summit')
+const leerEventos = (page: Page) =>
+  page.evaluate(() => (window as unknown as { dataLayer?: Evento[] }).dataLayer ?? [])
+/** Espera a que la página (ya hidratada) envíe su evento a Tag Manager. */
+const esperarEventoPropio = (page: Page) =>
+  page.waitForFunction(
+    () =>
+      ((window as unknown as { dataLayer?: Evento[] }).dataLayer ?? []).some(
+        (e) => e.event === 'lead_evento_presencial' || e.event === 'gracias_visita_directa',
+      ),
+    undefined,
+    { timeout: 15_000 },
+  )
+
 /** Sesión de Super Admin (lo crea si la base está vacía, por ejemplo si este archivo corre solo). */
 async function sesionSuperAdmin(page: Page) {
   await page.goto('/admin/login')
@@ -162,6 +181,73 @@ test.describe.serial('Sitio público', () => {
     await expect(page.locator('input[name="name"]')).toBeVisible()
     await page.waitForTimeout(16_000)
     await expect(page.locator('.formulario-respaldo')).toHaveCount(0)
+  })
+
+  test('página de gracias de eventos presenciales: noindex, fuera del sitemap y de la portada, y cuenta la conversión una sola vez', async ({ page, request }) => {
+    const RUTA = '/gracias-evento-presencial-sb6j2g/'
+    const res = await request.get(RUTA)
+    expect(res.status()).toBe(200)
+    expect(res.headers()['x-robots-tag']).toContain('noindex')
+    expect(await res.text()).toMatch(/<meta name="robots" content="[^"]*noindex/)
+
+    // No se enlaza ni se anuncia en ninguna parte.
+    for (const otra of ['/sitemap.xml', '/robots.txt', '/', '/contacto/']) {
+      expect(await (await request.get(otra)).text()).not.toContain('gracias-evento-presencial')
+    }
+
+    // Visita directa (sin venir del sitio): no es una conversión.
+    await page.goto(RUTA)
+    await expect(page.getByRole('heading', { name: '¡Gracias por inscribirte!' })).toBeVisible()
+    await esperarEventoPropio(page)
+    expect(nuestros(await leerEventos(page))).toEqual(['gracias_visita_directa'])
+
+    // Llegando desde una página del sitio (el formulario): una conversión.
+    await page.goto(RUTA, { referer: new URL('/contacto/', page.url()).href })
+    await esperarEventoPropio(page)
+    expect(nuestros(await leerEventos(page))).toEqual(['lead_evento_presencial'])
+
+    // Al recargar en la misma sesión no se cuenta otra vez.
+    await page.reload()
+    await page.waitForTimeout(1500)
+    expect(nuestros(await leerEventos(page))).not.toContain('lead_evento_presencial')
+  })
+
+  test('inscripción al Summit: guarda, redirige a la página de gracias y cuenta la conversión una sola vez', async ({ page }) => {
+    const email = `e2e-${Date.now().toString(36)}@ejemplo.com`
+    await page.goto('/summit-internacional-uap2026/')
+    await page.waitForSelector('#summit-nombre')
+    await page.waitForTimeout(3000) // un envío instantáneo se descarta como robot
+    await page.fill('#summit-nombre', 'Ana')
+    await page.fill('#summit-apellido', 'Prueba')
+    await page.fill('#summit-email', email)
+    await page.selectOption('#summit-pais', { index: 0 })
+    await page.click('form:has(#summit-nombre) button[type="submit"]')
+
+    await page.waitForURL(/\/gracias-evento-presencial-/, { timeout: 30_000 })
+    await expect(page.getByRole('heading', { name: '¡Gracias por inscribirte!' })).toBeVisible()
+    await expect(page.getByText('V Summit Internacional UAP 2026')).toBeVisible()
+    await esperarEventoPropio(page)
+    expect(nuestros(await leerEventos(page))).toEqual(['lead_evento_presencial'])
+
+    // Al recargar la página de gracias no se cuenta otra vez.
+    await page.reload()
+    await page.waitForTimeout(1500)
+    expect(nuestros(await leerEventos(page))).not.toContain('lead_evento_presencial')
+  })
+
+  test('un envío descartado (instantáneo) no redirige ni cuenta conversión', async ({ page }) => {
+    await page.goto('/summit-internacional-uap2026/')
+    await page.waitForSelector('#summit-nombre')
+    // Sin esperar: un envío antes de 2,5 s desde que se dibujó el formulario se descarta.
+    await page.fill('#summit-nombre', 'Robot')
+    await page.fill('#summit-apellido', 'Rapido')
+    await page.fill('#summit-email', `bot-${Date.now().toString(36)}@ejemplo.com`)
+    await page.selectOption('#summit-pais', { index: 0 })
+    await page.click('form:has(#summit-nombre) button[type="submit"]')
+    await expect(page.getByText('Recibimos tu inscripción')).toBeVisible()
+    await page.waitForTimeout(1500)
+    expect(page.url()).not.toContain('gracias-evento-presencial')
+    expect(nuestros(await leerEventos(page))).toEqual([])
   })
 
   test('la portada permite pausar el carrusel y la cinta de logos (WCAG 2.2.2)', async ({ page }) => {
