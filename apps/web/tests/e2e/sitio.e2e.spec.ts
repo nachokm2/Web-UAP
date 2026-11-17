@@ -225,7 +225,7 @@ test.describe.serial('Sitio público', () => {
 
     await page.waitForURL(/\/gracias-evento-presencial-/, { timeout: 30_000 })
     await expect(page.getByRole('heading', { name: '¡Gracias por inscribirte!' })).toBeVisible()
-    await expect(page.getByText('V Summit Internacional UAP 2026')).toBeVisible()
+    await expect(page.getByText('Tu inscripción al evento quedó registrada.')).toBeVisible()
     await esperarEventoPropio(page)
     expect(nuestros(await leerEventos(page))).toEqual(['lead_evento_presencial'])
 

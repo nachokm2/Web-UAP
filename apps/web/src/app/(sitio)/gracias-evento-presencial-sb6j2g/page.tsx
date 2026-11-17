@@ -1,13 +1,13 @@
-// Página de agradecimiento de la inscripción al Summit (campañas de eventos presenciales; ver
-// lib/gracias.ts). Sin enlaces desde el sitio, fuera del sitemap y con noindex: solo se llega
-// desde el formulario. Nombre, fecha y lugar salen del evento en el CMS.
+// Página de agradecimiento de las inscripciones a eventos presenciales (ver lib/gracias.ts).
+// Sin enlaces desde el sitio, fuera del sitemap y con noindex: solo se llega desde el formulario.
+// El mensaje es general para que sirva en cualquier evento presencial; el contacto sale de
+// Configuración del sitio en el CMS.
 
 import type { Metadata } from 'next'
 import Link from 'next/link'
 
 import { ConversionGracias } from '@/components/sitio/ConversionGracias'
 import { obtenerConfiguracion } from '@/lib/datos'
-import { cargarEventoSummit } from '@/lib/eventos/cargar'
 import { SITIO } from '@/lib/urls'
 import '@/styles/gracias.css'
 
@@ -17,9 +17,7 @@ export const metadata: Metadata = {
 }
 
 export default async function PaginaGracias() {
-  const [evento, config] = await Promise.all([cargarEventoSummit(), obtenerConfiguracion()])
-  // Si el evento está despublicado se muestra un agradecimiento general, sin fecha ni lugar.
-  const correo = evento?.correo ?? config.email
+  const config = await obtenerConfiguracion()
 
   return (
     <>
@@ -33,7 +31,7 @@ export default async function PaginaGracias() {
               </svg>
             </span>
             <h1>¡Gracias por inscribirte!</h1>
-            <p className="lead">{evento ? `Tu inscripción al ${evento.nombre} quedó registrada.` : 'Recibimos tus datos correctamente.'}</p>
+            <p className="lead">Tu inscripción al evento quedó registrada.</p>
           </div>
         </section>
 
@@ -41,28 +39,24 @@ export default async function PaginaGracias() {
           <div className="container">
             <div className="gracias-tarjeta">
               <p className="gracias-texto">
-                {evento
-                  ? `Te esperamos el ${evento.fecha} en el ${evento.lugar}.`
-                  : 'Un asesor de la Universidad Autónoma del Paraguay se pondrá en contacto contigo para confirmar tu participación.'}
+                Recibimos tus datos correctamente. Gracias por tu interés en participar en los eventos de la Universidad Autónoma del Paraguay.
               </p>
 
-              {correo && (
+              {config.email && (
                 <div className="gracias-contacto">
                   <h2>¿Tienes alguna consulta?</h2>
                   <p>
-                    Escríbenos a <a href={`mailto:${correo}`}>{correo}</a>
+                    Escríbenos a <a href={`mailto:${config.email}`}>{config.email}</a>
                   </p>
                 </div>
               )}
 
               <div className="gracias-acciones">
-                {evento && (
-                  <a href={evento.mapa} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
-                    Cómo llegar
-                  </a>
-                )}
-                <Link href={SITIO.inicio} className="gracias-enlace">
+                <Link href={SITIO.inicio} className="btn btn-primary">
                   Volver al inicio
+                </Link>
+                <Link href={SITIO.carreras} className="gracias-enlace">
+                  Conocer nuestras carreras
                 </Link>
               </div>
             </div>
