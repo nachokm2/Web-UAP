@@ -70,8 +70,9 @@ Summit. Su carga es la señal de conversión para Meta (vía Google Tag Manager)
 - **Eventos para Tag Manager**: `lead_evento_presencial` (conversión, una vez) y `gracias_visita_directa`
   (se abrió sin venir del formulario; no es una conversión). El evento `inscripcion_summit` del formulario
   se mantiene tal cual.
-- El texto toma el nombre, la fecha y el lugar del evento en el CMS (si está despublicado, muestra un
-  agradecimiento general). La dirección está en `RUTA_GRACIAS`; si se cambia, actualizar también la prueba E2E.
+- El mensaje es general (sirve para cualquier evento presencial) y el correo de consulta sale de *Configuración
+  del sitio* en el CMS; no depende de ningún evento. La dirección está en `RUTA_GRACIAS`; si se cambia,
+  actualizar también la prueba E2E y lo que ya la use en Tag Manager o en Bitrix24.
 
 ## Roles y workflow
 
