@@ -285,3 +285,115 @@ describe('Exportación a Excel (GET /api/inscripciones-summit/exportar)', () => 
     expect(csv).toContain('completa@ejemplo.com')
   })
 })
+
+describe('Resumen sin datos personales (GET /api/inscripciones-summit/resumen)', () => {
+  const TOKEN = 't'.repeat(40)
+  const antes = process.env.SUMMIT_RESUMEN_TOKEN
+  afterEach(() => {
+    if (antes === undefined) delete process.env.SUMMIT_RESUMEN_TOKEN
+    else process.env.SUMMIT_RESUMEN_TOKEN = antes
+  })
+
+  const resumen = async (
+    opciones: { usuario?: Usuario | null; token?: string; consulta?: string } = {},
+  ): Promise<Response> => {
+    const endpoints = payload.collections['inscripciones-summit'].config.endpoints || []
+    const endpoint = endpoints.find((e: Endpoint) => e.path === '/resumen')
+    if (!endpoint) throw new Error('falta el endpoint /resumen')
+    const req = await reqDe(payload, opciones.usuario ?? null)
+    Object.assign(req, {
+      url: `http://localhost/api/inscripciones-summit/resumen${opciones.consulta ?? ''}`,
+      headers: new Headers(opciones.token ? { authorization: `Bearer ${opciones.token}` } : {}),
+    })
+    return endpoint.handler(req)
+  }
+  // Inscribe por la acción real (con un visitante distinto cada vez, para no chocar con el límite de envíos).
+  let n = 0
+  const inscribirseUna = async (pais = 'Paraguay') => {
+    const { inscribirse } = await import('@/app/(sitio)/summit-internacional-uap2026/acciones')
+    visitante = `10.8.${(n += 1)}.1`
+    const r = await inscribirse({ estado: 'inicial' }, formulario({ pais }))
+    expect(r).toMatchObject({ estado: 'ok', nueva: true })
+  }
+  const hoy = new Date().toISOString().slice(0, 10)
+  const ayer = new Date(Date.now() - 86_400_000).toISOString().slice(0, 10)
+  const manana = new Date(Date.now() + 86_400_000).toISOString().slice(0, 10)
+
+  it('sin token ni sesión, con token equivocado o con un editor: 401 y ningún dato', async () => {
+    process.env.SUMMIT_RESUMEN_TOKEN = TOKEN
+    for (const r of [
+      await resumen(),
+      await resumen({ token: 'x'.repeat(40) }),
+      await resumen({ usuario: editor }),
+    ]) {
+      expect(r.status).toBe(401)
+      expect(await r.text()).not.toMatch(/total|@ejemplo\.com/)
+    }
+  })
+
+  it('si SUMMIT_RESUMEN_TOKEN no está configurado o es corto, ningún token abre el resumen', async () => {
+    delete process.env.SUMMIT_RESUMEN_TOKEN
+    expect((await resumen({ token: TOKEN })).status).toBe(401)
+    process.env.SUMMIT_RESUMEN_TOKEN = 'corto'
+    expect((await resumen({ token: 'corto' })).status).toBe(401)
+  })
+
+  it('con el token correcto devuelve solo cifras: total, por día y por país', async () => {
+    process.env.SUMMIT_RESUMEN_TOKEN = TOKEN
+    await inscribirseUna()
+    await inscribirseUna('Argentina')
+    const r = await resumen({ token: TOKEN, consulta: `?desde=${ayer}&hasta=${manana}&zona=UTC` })
+    expect(r.status).toBe(200)
+    expect(r.headers.get('cache-control')).toBe('no-store')
+    const texto = await r.text()
+    const datos = JSON.parse(texto)
+    const total = (await payload.count({ collection: 'inscripciones-summit' })).totalDocs
+    expect(total).toBeGreaterThan(0)
+    expect(datos.total).toBe(total)
+    expect(datos.por_dia).toHaveLength(3)
+    expect(datos.por_dia.reduce((s: number, d: { inscripciones: number }) => s + d.inscripciones, 0)).toBe(total)
+    expect(datos.por_dia.find((d: { fecha: string }) => d.fecha === hoy)?.inscripciones).toBeGreaterThan(0)
+    expect(datos.por_pais.reduce((s: number, p: { inscripciones: number }) => s + p.inscripciones, 0)).toBe(total)
+    const paraguay = (await payload.count({ collection: 'inscripciones-summit', where: { pais: { equals: 'Paraguay' } } })).totalDocs
+    expect(datos.por_pais.find((p: { pais: string }) => p.pais === 'Paraguay')?.inscripciones).toBe(paraguay)
+    // Nada que identifique a nadie: ni correos ni nombres ni teléfonos de las inscripciones guardadas.
+    const { docs } = await payload.find({ collection: 'inscripciones-summit', pagination: false, overrideAccess: true })
+    expect(docs.length).toBeGreaterThan(0)
+    for (const d of docs) for (const dato of [d.email, d.nombre, d.apellido, d.telefono]) if (dato) expect(texto).not.toContain(dato)
+    expect(texto).not.toContain('@')
+    expect(Object.keys(datos).sort()).toEqual(
+      ['desde', 'hasta', 'por_dia', 'por_pais', 'primera_inscripcion', 'total', 'ultima_inscripcion', 'zona'].sort(),
+    )
+  })
+
+  it('un aprobador con sesión también puede verlo, sin token', async () => {
+    delete process.env.SUMMIT_RESUMEN_TOKEN
+    const r = await resumen({ usuario: admin })
+    expect(r.status).toBe(200)
+    expect((await r.json()).total).toBe((await payload.count({ collection: 'inscripciones-summit' })).totalDocs)
+  })
+
+  it('un rango en el pasado da ceros por cada día, no un error', async () => {
+    process.env.SUMMIT_RESUMEN_TOKEN = TOKEN
+    const datos = await (await resumen({ token: TOKEN, consulta: '?desde=2020-01-01&hasta=2020-01-10&zona=UTC' })).json()
+    expect(datos.total).toBe(0)
+    expect(datos.por_dia).toHaveLength(10)
+    expect(datos.por_pais).toEqual([])
+  })
+
+  it('parámetros inválidos: 400 con un mensaje claro', async () => {
+    process.env.SUMMIT_RESUMEN_TOKEN = TOKEN
+    for (const consulta of [
+      '?desde=2026-11-01',
+      '?hasta=2026-11-01',
+      '?desde=2026-02-30&hasta=2026-03-05',
+      '?desde=2026-11-10&hasta=2026-11-01',
+      '?desde=2024-01-01&hasta=2026-11-01',
+      `?desde=${hoy}&hasta=${hoy}&zona=Marte/Olympus`,
+    ]) {
+      const r = await resumen({ token: TOKEN, consulta })
+      expect(r.status, consulta).toBe(400)
+      expect((await r.json()).errors[0].message).toBeTruthy()
+    }
+  })
+})

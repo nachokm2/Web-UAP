@@ -10,6 +10,16 @@ import type { CollectionBeforeValidateHook, CollectionConfig, Endpoint } from 'p
 import { eliminacionDefinitiva, nadie, soloAprobadores } from '../access'
 import { esAprobador, type UsuarioConRoles } from '../access/roles'
 import { inscripcionesACsv } from '../lib/inscripcionSummit'
+import {
+  MAX_DIAS_RESUMEN,
+  diasEntre,
+  esFechaISO,
+  resumenDeInscripciones,
+  sumarDias,
+  tokenDeEncabezado,
+  tokenValido,
+  zonaValida,
+} from '../lib/resumenSummit'
 
 const normalizarCorreo: CollectionBeforeValidateHook = ({ data }) => {
   if (data && typeof data.email === 'string') data.email = data.email.trim().toLowerCase()
@@ -45,6 +55,67 @@ const exportarPlanilla: Endpoint = {
   },
 }
 
+/**
+ * GET /api/inscripciones-summit/resumen?desde=AAAA-MM-DD&hasta=AAAA-MM-DD&zona=America/Santiago
+ *
+ * Cuántas inscripciones hay (total, por día y por país) SIN datos personales: ni nombres, ni
+ * correos, ni teléfonos. Lo lee el dashboard "Analytics UAP". Acceso: el token de la variable
+ * SUMMIT_RESUMEN_TOKEN (encabezado "Authorization: Bearer …") o un aprobador con sesión. Si el token no
+ * está configurado, o es corto, solo entran los aprobadores. `desde` y `hasta` van juntos (máx. 400 días).
+ */
+const resumenPublicable: Endpoint = {
+  path: '/resumen',
+  method: 'get',
+  handler: async (req) => {
+    const sinCache = { 'Cache-Control': 'no-store' }
+    const conToken = tokenValido(
+      tokenDeEncabezado(req.headers.get('authorization')),
+      process.env.SUMMIT_RESUMEN_TOKEN,
+    )
+    if (!conToken && !esAprobador(req.user as UsuarioConRoles))
+      return Response.json(
+        { errors: [{ message: 'No tienes permiso para realizar esta acción.' }] },
+        { status: 401, headers: sinCache },
+      )
+
+    const parametros = new URL(req.url ?? '', 'http://localhost').searchParams
+    const desde = parametros.get('desde')
+    const hasta = parametros.get('hasta')
+    const zona = parametros.get('zona') || 'America/Asuncion'
+    const invalido = (mensaje: string) =>
+      Response.json({ errors: [{ message: mensaje }] }, { status: 400, headers: sinCache })
+    if ((desde === null) !== (hasta === null)) return invalido('Indica "desde" y "hasta" juntos.')
+    if (desde !== null && hasta !== null) {
+      if (!esFechaISO(desde) || !esFechaISO(hasta)) return invalido('Las fechas van como AAAA-MM-DD.')
+      if (desde > hasta) return invalido('"desde" no puede ser posterior a "hasta".')
+      if (diasEntre(desde, hasta).length > MAX_DIAS_RESUMEN)
+        return invalido(`El rango no puede superar ${MAX_DIAS_RESUMEN} días.`)
+    }
+    if (!zonaValida(zona)) return invalido('La zona horaria no es válida.')
+
+    // Se leen solo país y fecha (nunca nombre ni correo). El filtro por fecha deja margen de un día
+    // a cada lado: el corte exacto se hace después, en la zona pedida.
+    const { docs } = await req.payload.find({
+      collection: 'inscripciones-summit',
+      pagination: false,
+      depth: 0,
+      select: { pais: true, createdAt: true },
+      overrideAccess: true,
+      ...(desde !== null && hasta !== null
+        ? {
+            where: {
+              createdAt: {
+                greater_than_equal: `${sumarDias(desde, -1)}T00:00:00.000Z`,
+                less_than: `${sumarDias(hasta, 2)}T00:00:00.000Z`,
+              },
+            },
+          }
+        : {}),
+    })
+    return Response.json(resumenDeInscripciones(docs, { desde, hasta, zona }), { headers: sinCache })
+  },
+}
+
 export const InscripcionesSummit: CollectionConfig = {
   slug: 'inscripciones-summit',
   typescript: { interface: 'InscripcionSummit' },
@@ -60,7 +131,7 @@ export const InscripcionesSummit: CollectionConfig = {
   },
   defaultSort: '-createdAt',
   access: { read: soloAprobadores, create: nadie, update: nadie, delete: eliminacionDefinitiva },
-  endpoints: [exportarPlanilla],
+  endpoints: [exportarPlanilla, resumenPublicable],
   hooks: { beforeValidate: [normalizarCorreo] },
   fields: [
     { name: 'nombre', label: 'Nombre', type: 'text', required: true, maxLength: 80 },

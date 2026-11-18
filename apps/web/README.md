@@ -74,6 +74,23 @@ Summit. Su carga es la señal de conversión para Meta (vía Google Tag Manager)
   del sitio* en el CMS; no depende de ningún evento. La dirección está en `RUTA_GRACIAS`; si se cambia,
   actualizar también la prueba E2E y lo que ya la use en Tag Manager o en Bitrix24.
 
+## Resumen de inscripciones para el dashboard (sin datos personales)
+
+`GET /api/inscripciones-summit/resumen?desde=AAAA-MM-DD&hasta=AAAA-MM-DD&zona=America/Santiago` devuelve cuántas
+inscripciones hay al Summit —total, por día y por país— **sin nombres, correos ni teléfonos**. Lo lee el dashboard
+interno "Analytics UAP" para mostrar las inscripciones reales junto a las visitas de Google Analytics.
+
+- **Acceso**: el encabezado `Authorization: Bearer <token>` con el valor de la variable `SUMMIT_RESUMEN_TOKEN`, o un
+  administrador con sesión. Si la variable no está o tiene menos de 32 caracteres, el resumen queda cerrado (solo
+  entran los administradores con sesión). Para generar un token: `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`.
+  El mismo valor se pone en el dashboard (`UAP_CMS_SUMMIT_TOKEN`). Rotarlo = cambiar la variable en los dos lados.
+- **Qué lee**: solo el país y la fecha de cada inscripción (nunca nombre ni correo). El código está en
+  `lib/resumenSummit.ts` y su entrada ni siquiera admite esos campos.
+- **Parámetros**: `desde` y `hasta` van juntos (máximo 400 días) y el día se corta en `zona` (por defecto
+  `America/Asuncion`). Con ellos, `por_dia` trae todos los días del rango, con ceros. Sin ellos cuenta todo.
+  Los países de más allá de los 15 primeros se juntan en "Otros países".
+- No hay migración de base de datos: no cambia ninguna tabla.
+
 ## Roles y workflow
 
 | | Super Admin | Administrador | Editor (Carreras / Postgrados / Noticias) | Solo lectura |
