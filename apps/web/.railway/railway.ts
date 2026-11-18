@@ -70,6 +70,10 @@ export default defineRailway(() => {
       CORREO_REMITENTE: preserve(),
       CORREO_REMITENTE_NOMBRE: preserve(),
       SUMMIT_AVISO_PARA: preserve(),
+      // Token del resumen de inscripciones al Summit (solo cifras) que lee el dashboard Analytics UAP.
+      // Se carga una vez en el panel o con la CLI (mín. 32 caracteres); acá solo se declara para que
+      // el apply no lo borre. Nunca escribir el valor en este archivo.
+      SUMMIT_RESUMEN_TOKEN: preserve(),
     },
   })
 
